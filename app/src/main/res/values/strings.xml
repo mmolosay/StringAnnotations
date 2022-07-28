@@ -2,6 +2,7 @@
     <string name="app_name">StringAnnotations</string>
     
     <string name="test1">Test string 1, has <annotation color="#ff0000">%s</annotation> text</string>
-    <string name="test2">Test string 2, has <annotation key="value">%s and %s</annotation> text</string>
-    <string name="test3">Test string 3, has <annotation key="value">%s and %s</annotation> text</string>
+    <string name="test2">Test string 2, has <annotation type="outer"><annotation type="inner">%s</annotation> and %s</annotation> text</string>
+    <string name="test3"><annotation type="compound">one and <annotation type="plain">two</annotation> and three</annotation></string>
+<!--    <string name="test3">Test string 3, has <annotation key="value">%s and %s</annotation> text</string>-->
 </resources>

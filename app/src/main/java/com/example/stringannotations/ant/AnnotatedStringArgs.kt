@@ -3,17 +3,16 @@ package com.example.stringannotations.ant
 object AnnotatedStringArgs {
 
     val test1StringArgs =
-        arrayOf(
-            arrayOf<Any>(
-                "red"
-            )
+        arrayOf<AnnotationContent>(
+            AnnotationContent.Basic("red")
         )
 
     val test2StringArgs =
-        arrayOf(
-            arrayOf<Any>(
-                "red",
+        arrayOf<AnnotationContent>(
+            AnnotationContent.Compound(
+                AnnotationContent.Basic("red"),
                 "bold"
             )
         )
+
 }

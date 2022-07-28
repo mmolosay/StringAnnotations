@@ -20,21 +20,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun test() {
-        test1()
-        test2()
+//        test1()
+//        test2()
+        test3()
     }
 
-    private fun test1() {
-        val strres = R.string.test1
-        val args = AnnotatedStringArgs.test1StringArgs
-        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres, *args)
-        println() // TODO: remove
-    }
+//    private fun test1() {
+//        val strres = R.string.test1
+//        val args = AnnotatedStringArgs.test1StringArgs
+//        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres, *args)
+//        println() // TODO: remove
+//    }
+//
+//    private fun test2() {
+//        val strres = R.string.test2
+//        val args = AnnotatedStringArgs.test2StringArgs
+//        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres, *args)
+//        println() // TODO: remove
+//    }
 
-    private fun test2() {
-        val strres = R.string.test2
-        val args = AnnotatedStringArgs.test2StringArgs
-        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres, *args)
+        private fun test3() {
+        val strres = R.string.test3
+        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres)
         println() // TODO: remove
     }
 }

@@ -11,41 +11,40 @@ import androidx.core.text.getSpans
 
 object StringAnnotationsUtils {
 
-    // TODO: investigate PlacableSpan parent of Annotation and try build custom annotations with it
-
     fun formatAnnotatedString(
         context: Context,
         @StringRes stringRes: Int,
-        vararg args: Array<Any>
+        vararg contents: AnnotationContent
     ): Spanned =
         formatAnnotatedString(
             resources = context.resources,
             stringRes = stringRes,
-            args = args
+            contents = contents
         )
 
     fun formatAnnotatedString(
         resources: Resources,
         @StringRes stringRes: Int,
-        vararg args: Array<Any>
+        vararg contents: AnnotationContent
     ): Spanned =
         formatAnnotatedString(
             string = resources.getText(stringRes) as SpannedString,
-            args = args
+            contents = contents
         )
 
+    // TODO: парсить аннотации от самой внутренней до самой внешней: решить задачу скобок
     private fun formatAnnotatedString(
         string: SpannedString,
-        vararg args: Array<Any>
+        vararg contents: AnnotationContent
     ): Spanned {
         val annotations = getStringAnnotations(string)
         return SpannableStringBuilder(string).apply {
             annotations.forEachIndexed { i, annotation ->
+                val strargs = contents.getOrNull(i)?.args ?: return@forEachIndexed
                 val start = getSpanStart(annotation)
                 val end = getSpanEnd(annotation)
                 val annotated = substring(start, end)
-                val strargs = getArgsStringValues(args[i])
-                val formatted = String.format(annotated, *strargs)
+                val formatted = String.format(annotated, strargs)
                 replace(start, end, formatted)
             }
         }
@@ -53,9 +52,4 @@ object StringAnnotationsUtils {
 
     private fun getStringAnnotations(string: SpannedString): Array<out Annotation> =
         string.getSpans()
-
-    private fun getArgsStringValues(args: Array<Any>): Array<String> =
-         Array(args.size) { i ->
-            java.lang.String.valueOf(args[i])
-        }
 }
