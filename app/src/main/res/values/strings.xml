@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">StringAnnotations</string>
     
-    <string name="test1">Test string 1, has <annotation color="red">red</annotation> text</string>
+    <string name="test1">Test string 1, has <annotation color="#ff0000">%s</annotation> text</string>
+    <string name="test2">Test string 2, has <annotation key="value">%s and %s</annotation> text</string>
+    <string name="test3">Test string 3, has <annotation key="value">%s and %s</annotation> text</string>
 </resources>
