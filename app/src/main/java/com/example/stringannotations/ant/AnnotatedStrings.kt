@@ -141,12 +141,10 @@ object AnnotatedStrings {
         targetIndex: Int = 0 // first annotation is always outer
     ): CompoundAnnotation {
         val ranged = ranges[targetIndex]
-        val children = getDirectChildrenIndices(ranges, targetIndex)
-        if (children.isNotEmpty()) {
-            CompoundAnnotation(ranged.annotation, children.map { ranges[it] })
-        } else {
-            return CompoundAnnotation(ranged.annotation, emptyList())
+        val children = getDirectChildrenIndices(ranges, targetIndex).map { index ->
+            parseCompoundAnnotationRecursively(ranges, index)
         }
+        return CompoundAnnotation(ranged.annotation, children)
     }
 
     /**
@@ -228,7 +226,7 @@ object AnnotatedStrings {
      */
     data class CompoundAnnotation(
         val self: Annotation,
-        val children: List<Annotation>
+        val children: List<CompoundAnnotation>
     )
 
     /**
