@@ -49,12 +49,7 @@ object AnnotatedStrings {
         string: SpannedString,
         vararg args: String
     ): Spanned {
-        val annotations = getStringAnnotations(string)
-        val outer = filterOuterAnnotations(string, annotations)
-        val builder = SpannableStringBuilder(string).apply {
-            val a = parseCompoundAnnotations(string, annotations)
-            println() // TODO: remove
-        }
+        val tree = StringAnnotationProcessor.buildAnnotationTree(string)
         println() // TODO: remove
 //        val formatted = SpannableStringBuilder(string).apply {
 //            outer.forEach { annotation ->
@@ -72,108 +67,6 @@ object AnnotatedStrings {
 //            replace(start, end, formatted)
 //        }
 //        return builder
-        return builder
+        return string
     }
-
-
-
-    /*
-    private fun filterOuterAnnotations(string: SpannedString): Array<out Annotation> {
-        val annotations = getStringAnnotations(string)
-        return filterOuterAnnotations(string, annotations)
-    }
-    */
-
-    /*
-    /**
-     * Outer annotation is the one that doesn't belong to some another one (lies at string's top level).
-     */
-    private fun filterOuterAnnotations(
-        string: SpannedString,
-        annotations: Array<out Annotation>
-    ): Array<out Annotation> {
-        val list = mutableListOf<Annotation>()
-        val ranges = annotations.map { annotation ->
-            val start = string.getSpanStart(annotation)
-            val end = string.getSpanEnd(annotation)
-            if (start == -1 || end == -1) {
-                throw IllegalArgumentException("annotation doesn\'t belong to this string")
-            }
-            return@map start..end
-        }
-        for (i in ranges.indices) {
-            val range = ranges[i]
-            val hasOuterRange = ranges.any { other ->
-                val a = (range !== other)            // is not the same exact object
-                val b = (other.first <= range.first) // other is not starting later
-                val c = (other.last >= range.last)   // other is not ending before
-                a && b && c
-            }
-            if (!hasOuterRange) list += annotations[i]
-        }
-        return list.toTypedArray()
-    }
-    */
-
-    private fun parseCompoundAnnotations(
-        string: SpannedString,
-        annotations: Array<out Annotation>
-    ): List<AnnotationNode> {
-        val list = mutableListOf<AnnotationNode>()
-        if (annotations.isEmpty()) return list
-        val ranges = parseRangedAnnotations(string, annotations)
-        val outerIndices = filterOuterAnnotationsIndices(ranges)
-        outerIndices.forEach { index ->
-            list += parseCompoundAnnotationRecursively(ranges, index)
-        }
-        return list
-    }
-
-    /**
-     * Recursive function, that
-     */
-    private fun parseCompoundAnnotationRecursively(
-        ranges: List<PlacedAnnotation>,
-        targetIndex: Int = 0 // first annotation is always outer
-    ): AnnotationNode {
-        val ranged = ranges[targetIndex]
-        val children = getDirectChildrenIndices(ranges, targetIndex).map { index ->
-            parseCompoundAnnotationRecursively(ranges, index)
-        }
-        return AnnotationNode(ranged.annotation, children)
-    }
-
-    /**
-     * Filter direct children from [ranges] of annotation from [ranges] at specified [parentIndex].
-     *
-     * This function will work properly only if annotations are in sequential order respectfully of
-     * their declaration order.
-     */
-    private fun getDirectChildrenIndices(
-        ranges: List<PlacedAnnotation>,
-        parentIndex: Int
-    ): List<Int> {
-        if (parentIndex == ranges.lastIndex) return emptyList() // last annotation never has children
-        val ranged = ranges.getOrNull(parentIndex) ?: return emptyList()
-        val indices = mutableListOf<Int>()
-        for (i in parentIndex + 1 until indices.size) {
-            val maybeChild = ranges[i]
-            if (ranged.has(maybeChild)) indices += i
-            else return indices
-        }
-        return indices
-    }
-
-
-    private fun filterDirectChildren(
-        ranges: List<PlacedAnnotation>,
-        parentIndex: Int
-    ): List<PlacedAnnotation> =
-        getDirectChildrenIndices(ranges, parentIndex).map { i -> ranges[i] }
-
-
-    private fun filterOuterAnnotations(
-        ranges: List<PlacedAnnotation>
-    ): List<PlacedAnnotation> =
-        filterOuterAnnotationsIndices(ranges).map { i -> ranges[i] }
 }

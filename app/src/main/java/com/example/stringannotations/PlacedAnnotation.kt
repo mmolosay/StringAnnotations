@@ -10,7 +10,7 @@ internal data class PlacedAnnotation(
     val annotation: Annotation,
     val start: Int,
     val end: Int,
-    val ordinal: Int
+    val index: Int
 )
 
 /**
