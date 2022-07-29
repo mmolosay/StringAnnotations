@@ -2,8 +2,6 @@ package com.example.stringannotations
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.stringannotations.ant.AnnotatedStringArgs
-import com.example.stringannotations.ant.AnnotatedStrings
 import com.example.stringannotations.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
