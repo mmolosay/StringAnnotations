@@ -3,13 +3,14 @@ package com.example.stringannotations.processor
 import android.text.ParcelableSpan
 import android.text.Spannable
 import android.text.style.BackgroundColorSpan
+import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import com.example.stringannotations.AnnotationType
 import com.example.stringannotations.StringAnnotation
 
 /**
- * Processes [ParcelableSpan]s.
+ * Processes spans (as [CharacterStyle]).
  */
 internal object SpanProcessor {
 
@@ -34,7 +35,7 @@ internal object SpanProcessor {
      *
      * @see makeSpan
      */
-    private fun makeSpans(types: List<AnnotationType>): List<ParcelableSpan?> =
+    private fun makeSpans(types: List<AnnotationType>): List<CharacterStyle?> =
         types.map { type -> makeSpan(type) }
 
     /**
@@ -42,7 +43,7 @@ internal object SpanProcessor {
      *
      * @return new span or `null`, if there is no span for the [type].
      */
-    private fun makeSpan(type: AnnotationType): ParcelableSpan? =
+    private fun makeSpan(type: AnnotationType): CharacterStyle? =
         when (type) {
             is AnnotationType.Background -> BackgroundColorSpan(type.color)
             is AnnotationType.Foreground -> ForegroundColorSpan(type.color)
@@ -52,7 +53,7 @@ internal object SpanProcessor {
 
     private fun applySpan(
         spannable: Spannable,
-        span: ParcelableSpan,
+        span: CharacterStyle,
         start: Int,
         end: Int
     ) {
