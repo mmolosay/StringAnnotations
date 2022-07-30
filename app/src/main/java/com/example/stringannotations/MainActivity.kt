@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun tests() {
         test1()
+        test2()
     }
 
     private fun test1() =
@@ -30,6 +31,12 @@ class MainActivity : AppCompatActivity() {
             "bold",
             "redddddddddd",
             "green"
+        )
+
+    private fun test2() =
+        testSpannedString(
+            binding.test2,
+            R.string.test2
         )
 
     private fun testSpannedString(
