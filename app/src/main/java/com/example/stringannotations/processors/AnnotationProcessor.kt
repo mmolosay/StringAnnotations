@@ -3,22 +3,11 @@ package com.example.stringannotations.processors
 import android.text.Annotation
 import android.text.Spanned
 import androidx.core.text.getSpans
-import com.example.stringannotations.AnnotationType
 
 /**
  * Processes [Annotation] spans.
  */
 internal object AnnotationProcessor {
-
-    fun applyAnnotationSpans(string: Spanned) {
-        val spans = getAnnotationSpans(string)
-        val types = AnnotationTypeProcessor.parseAnnotationTypes(string, spans)
-        applyAnnotationSpans(string, types)
-    }
-
-    fun applyAnnotationSpans(string: Spanned, types: List<AnnotationType>) {
-
-    }
 
     /**
      * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).

@@ -6,25 +6,20 @@ package com.example.stringannotations
  */
 sealed interface AnnotationType {
 
-    /**
-     * Annotation, which specifies color of its body.
-     *
-     * ```
-     * <annotation color="#ff0000">red text</annotation>
-     * ```
-     */
-    class ColorHex(val color: Int) : AnnotationType
+    class Background(val color: Int) : AnnotationType
 
     /**
      * Annotation, which specifies color of its body.
      *
      * ```
+     * HEX color:
+     * <annotation color="#ff0000">red text</annotation>
+     *
+     * Color resource name:
      * <annotation color-res="yourColorResName">colored text</annotation>
      * ```
      */
-    class ColorRes(val color: Int) : AnnotationType
-
-    class Background(val color: Int) : AnnotationType
+    class Color(val color: Int) : AnnotationType
 
     class Combined(val types: List<AnnotationType>) : AnnotationType
 
