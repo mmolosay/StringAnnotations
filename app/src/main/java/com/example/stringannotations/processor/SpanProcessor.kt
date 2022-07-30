@@ -31,6 +31,8 @@ internal object SpanProcessor {
 
     /**
      * Instantiates new [ParcelableSpan]s for specified [types].
+     *
+     * @see makeSpan
      */
     private fun makeSpans(types: List<AnnotationType>): List<ParcelableSpan?> =
         types.map { type -> makeSpan(type) }
