@@ -113,6 +113,17 @@ internal object AnnotationTypeProcessor {
             }
         }
 
+    /**
+     * Reduces specified typeface [styles] into single one.
+     * All [Typeface.NORMAL] would be reduced, if there any other ones.
+     *
+     * ```
+     * Samples:
+     * [bold] -> bold
+     * [italic, normal] -> italic
+     * [normal, bold, italic] -> bold_italic
+     * ```
+     */
     private fun reduceTypefaceStyles(styles: List<Int>): Int {
         if (styles.size == 1) return styles.first()
         return if (styles.contains(Typeface.NORMAL)) {
