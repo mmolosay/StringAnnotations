@@ -1,11 +1,8 @@
-package com.example.stringannotations.processors
+package com.example.stringannotations.processor
 
 import android.content.Context
 import android.graphics.Color
 import android.text.Annotation
-import android.text.style.BackgroundColorSpan
-import android.text.style.CharacterStyle
-import android.text.style.ForegroundColorSpan
 import androidx.core.content.ContextCompat
 import com.example.stringannotations.AnnotationType
 

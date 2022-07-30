@@ -1,4 +1,4 @@
-package com.example.stringannotations.processors
+package com.example.stringannotations.processor
 
 import android.text.Spanned
 import com.example.stringannotations.tree.AnnotationNode

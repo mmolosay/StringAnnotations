@@ -5,12 +5,11 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
-import com.example.stringannotations.processors.AnnotatedStringProcessor
-import com.example.stringannotations.processors.AnnotationProcessor
-import com.example.stringannotations.processors.AnnotationTypeProcessor
-import com.example.stringannotations.processors.CharacterStyleProcessor
-import com.example.stringannotations.processors.PlacedCharacterStyleProcessor
-import com.example.stringannotations.processors.StringAnnotationProcessor
+import com.example.stringannotations.processor.AnnotatedStringProcessor
+import com.example.stringannotations.processor.AnnotationProcessor
+import com.example.stringannotations.processor.AnnotationTypeProcessor
+import com.example.stringannotations.processor.SpanProcessor
+import com.example.stringannotations.processor.StringAnnotationProcessor
 import com.example.stringannotations.tree.AnnotationTreeBuilder
 
 object AnnotatedStrings {
@@ -44,11 +43,8 @@ object AnnotatedStrings {
         // 2. parse AnnotationType-s
         val types = AnnotationTypeProcessor.parseAnnotationTypes(context, annotations)
 
-        // 3. make CharacterStyle-s
-        val styles = CharacterStyleProcessor.makeCharacterStyles(types)
-
-        // 4. apply CharacterStyle-s
-        PlacedCharacterStyleProcessor.applyCharacterStyles(builder, strAnnotations, styles)
+        // 3. apply AnnotationType-s
+        SpanProcessor.applyAnnotationTypes(builder, strAnnotations, types)
 
         return builder
     }

@@ -4,7 +4,7 @@ import android.text.Annotation
 import android.text.Spanned
 import com.example.stringannotations.StringAnnotation
 import com.example.stringannotations.has
-import com.example.stringannotations.processors.StringAnnotationProcessor
+import com.example.stringannotations.processor.StringAnnotationProcessor
 
 // TODO: make a class and istantiate as a singleton?
 internal object AnnotationTreeBuilder {
