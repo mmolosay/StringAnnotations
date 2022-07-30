@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         @StringRes id: Int,
         vararg formatArgs: Any
     ) {
-        val spanned = AnnotatedStrings.format(this, id, *formatArgs)
-        targetView.text = spanned
+        targetView.text = getAnnotatedString(id, *formatArgs)
     }
 }

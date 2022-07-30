@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">StringAnnotations</string>
 
-    <string name="test1">first is <annotation background="#dddddd">%1$s, <annotation color-res="vibrantRed">%2$s</annotation> and <annotation color="#00ff00">%3$s</annotation></annotation></string>
+    <string name="test1">first is <annotation background="#dddddd" test="abc">%1$s, <annotation color-res="vibrantRed">%2$s</annotation> and <annotation color="#00ff00">%3$s</annotation></annotation></string>
 
 </resources>

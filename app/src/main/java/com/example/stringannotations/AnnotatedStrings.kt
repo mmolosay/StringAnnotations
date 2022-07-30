@@ -14,17 +14,12 @@ import com.example.stringannotations.tree.AnnotationTreeBuilder
 
 object AnnotatedStrings {
 
-    fun format(
-        context: Context,
-        @StringRes id: Int,
-        vararg formatArgs: Any
-    ): Spanned =
-        format(
-            context = context,
-            string = context.resources.getText(id) as SpannedString,
-            formatArgs = formatArgs
-        )
-
+    /**
+     * 1. Formats specified [string] with [formatArgs] (see [String.format]),
+     * preserving `<annotation>` spans.
+     * 2. Parses `<annotation>`s into actual spans (see [AnnotationType]).
+     * 3. Applies parsed spans to the [string].
+     */
     fun format(
         context: Context,
         string: SpannedString,
@@ -51,6 +46,20 @@ object AnnotatedStrings {
 
         return builder
     }
+
+    /**
+     * Sophisticated version of [AnnotatedStrings.format].
+     */
+    fun format(
+        context: Context,
+        @StringRes id: Int,
+        vararg formatArgs: Any
+    ): Spanned =
+        format(
+            context = context,
+            string = context.resources.getText(id) as SpannedString,
+            formatArgs = formatArgs
+        )
 
     private fun stringifyFormatArgs(
         formatArgs: Array<out Any>
