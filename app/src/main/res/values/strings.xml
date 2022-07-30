@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">StringAnnotations</string>
-    
-    <string name="test1">first: %1$s, <annotation a="b">second: %2$s</annotation>, third: <annotation c="d">%3$s</annotation></string>
-    <string name="test2">Test string 2, has <annotation type="outer"><annotation type="inner">%s</annotation> and %s</annotation> text</string>
-    <string name="test3"><annotation type="compound">one and <annotation type="plain">two</annotation> and three</annotation></string>
-    <string name="test4"><annotation type="compound">first: %s and <annotation type="plain">second: %s</annotation> and third: %s</annotation> and fourth: %s</string>
-    <string name="test5">abc <annotation a="1">defgh <annotation a="2"><annotation a="3">i</annotation> <annotation a="4">jk</annotation></annotation></annotation> lmno <annotation a="5">pqr</annotation> st</string>
-<!--    <string name="test3">Test string 3, has <annotation key="value">%s and %s</annotation> text</string>-->
+
+    <string name="test1">first is <annotation i="0">%1$s, <annotation i="1">%2$s</annotation> and <annotation i="2">%3$s</annotation></annotation></string>
+
 </resources>

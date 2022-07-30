@@ -1,6 +1,8 @@
 package com.example.stringannotations
 
 import android.os.Bundle
+import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stringannotations.databinding.ActivityMainBinding
 
@@ -14,40 +16,24 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        test()
+        tests()
     }
 
-    private fun test() {
-//        test1()
-//        test2()
-//        test3()
-        test5()
+    private fun tests() {
+        test1()
     }
 
-    private fun test1() {
-        val strres = R.string.test1
-        val args = AnnotatedStringArgs.test1StringArgs
-        val spanned = AnnotatedStrings.format(this, strres, *args)
-        println() // TODO: remove
-    }
+    private fun test1() =
+        testSpannedString(
+            FormattedStrings.test1,
+            binding.test1
+        )
 
-    private fun test2() {
-//        val strres = R.string.test2
-//        val args = AnnotatedStringArgs.test2StringArgs
-//        val spanned = AnnotatedStrings.format(this, strres, *args)
-//        println() // TODO: remove
-    }
-
-//        private fun test3() {
-//        val strres = R.string.test3
-//        val spanned = StringAnnotationsUtils.formatAnnotatedString(this, strres)
-//        println() // TODO: remove
-//    }
-
-    private fun test5() {
-        val strres = R.string.test5
-        val args = arrayOf<String>()
-        val spanned = AnnotatedStrings.format(this, strres, *args)
-        println() // TODO: remove
+    private fun testSpannedString(
+        string: FormattedStringRes,
+        targetView: TextView
+    ) {
+        val spanned = AnnotatedStrings.format(this, string.res, *string.args)
+        targetView.text = spanned
     }
 }

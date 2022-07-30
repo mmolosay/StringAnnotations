@@ -1,77 +1,61 @@
-package com.example.stringannotations
+package com.example.stringannotations.tree
 
 import android.text.Annotation
-import android.text.SpannedString
-import androidx.core.text.getSpans
-import com.example.stringannotations.tree.AnnotationNode
-import com.example.stringannotations.tree.AnnotationTree
+import android.text.Spanned
+import com.example.stringannotations.StringAnnotation
+import com.example.stringannotations.has
+import com.example.stringannotations.processors.StringAnnotationProcessor
 
 // TODO: make a class and istantiate as a singleton?
-internal object StringAnnotationProcessor {
+internal object AnnotationTreeBuilder {
 
     /**
-     * Assembles [AnnotationTree] out of [Annotation]s of specified [string].
+     * Assembles annotation tree out of [Annotation]s of specified [string].
      */
     fun buildAnnotationTree(
-        string: SpannedString
-    ): AnnotationTree {
-        val annotations = getStringAnnotations(string)
+        string: Spanned,
+        annotations: Array<out Annotation>
+    ): AnnotationNode {
         val roots = buildAnnotationTreeRoots(string, annotations)
-        return AnnotationTree(roots)
+        return AnnotationNode(annotation = null, children = roots)
     }
 
     /**
-     * Assembles roots of [AnnotationTree] of specified [string] and its [annotations].
+     * Assembles roots of annotation tree of specified [string] and its [annotations].
      */
     private fun buildAnnotationTreeRoots(
-        string: SpannedString,
+        string: Spanned,
         annotations: Array<out Annotation>
     ): List<AnnotationNode> {
-        val placed = parsePlacedAnnotations(string, annotations)
-        val roots = findRootAnnotations(placed)
-        val groups = groupByRoots(roots, placed)
+        val parsed = StringAnnotationProcessor.parseStringAnnotations(string, annotations)
+        val roots = findRootAnnotations(parsed)
+        val groups = groupByRoots(roots, parsed)
         return groups.map { rootGroup ->
             buildAnnotationTreeRoot(rootGroup)
         }
     }
 
     /**
-     * Assembles root of [AnnotationTree] of specified [rootGroup].
+     * Assembles root of annotation tree of specified [rootGroup].
      *
      * @see groupByRoots
      */
     private fun buildAnnotationTreeRoot(
-        rootGroup: List<PlacedAnnotation>
+        rootGroup: List<StringAnnotation>
     ): AnnotationNode {
         val root = rootGroup.first()
         return parseAnnotationNode(root, rootGroup)
     }
 
     private fun parseAnnotationNode(
-        annotation: PlacedAnnotation,
-        group: List<PlacedAnnotation>
+        annotation: StringAnnotation,
+        group: List<StringAnnotation>
     ): AnnotationNode {
         val children = findDirectChildren(annotation, group).map { child ->
             parseAnnotationNode(child, group)
         }
         return AnnotationNode(annotation.annotation, children)
     }
-
-    /**
-     * Parses specified [annotations] of [string] into list of [PlacedAnnotation].
-     */
-    private fun parsePlacedAnnotations(
-        string: SpannedString,
-        annotations: Array<out Annotation>
-    ): List<PlacedAnnotation> =
-        annotations.mapIndexed { index, annotation ->
-            val start = string.getSpanStart(annotation)
-            val end = string.getSpanEnd(annotation)
-            if (start == -1 || end == -1) {
-                throw IllegalArgumentException("annotation doesn\'t belong to this string")
-            }
-            PlacedAnnotation(annotation, start, end, index)
-        }
 
     /**
      * Finds root annotations and returns their indices in [annotations] list.
@@ -83,11 +67,11 @@ internal object StringAnnotationProcessor {
      * Repeat.
      */
     private fun findRootAnnotations(
-        annotations: List<PlacedAnnotation>
-    ): List<PlacedAnnotation> =
-        mutableListOf<PlacedAnnotation>().apply {
+        annotations: List<StringAnnotation>
+    ): List<StringAnnotation> =
+        mutableListOf<StringAnnotation>().apply {
             if (annotations.isEmpty()) return this
-            var lastRoot: PlacedAnnotation? = null // first annotation is always a root
+            var lastRoot: StringAnnotation? = null // first annotation is always a root
             for (annotation in annotations) {
                 if (lastRoot?.has(annotation) != true) {
                     lastRoot = annotation
@@ -97,11 +81,11 @@ internal object StringAnnotationProcessor {
         }
 
     private fun findDirectChildren(
-        parent: PlacedAnnotation,
-        group: List<PlacedAnnotation>
-    ): List<PlacedAnnotation> {
+        parent: StringAnnotation,
+        group: List<StringAnnotation>
+    ): List<StringAnnotation> {
         require(group.contains(parent)) { "this parent is not in annotations list" }
-        val children = mutableListOf<PlacedAnnotation>()
+        val children = mutableListOf<StringAnnotation>()
         if (parent.index == group.lastIndex) return children // last annotation never has children
         for (i in parent.index + 1 until group.size) {
             val maybeChild = group[i]
@@ -113,18 +97,18 @@ internal object StringAnnotationProcessor {
     }
 
     private fun isAnnotationDirectChild(
-        annotation: PlacedAnnotation,
-        maybeParent: PlacedAnnotation,
-        annotations: List<PlacedAnnotation>
+        annotation: StringAnnotation,
+        maybeParent: StringAnnotation,
+        annotations: List<StringAnnotation>
     ): Boolean {
         val parent = findAnnotationDirectParent(annotation, annotations)
         return (maybeParent === parent)
     }
 
     private fun findAnnotationDirectParent(
-        annotation: PlacedAnnotation,
-        annotations: List<PlacedAnnotation>
-    ): PlacedAnnotation? {
+        annotation: StringAnnotation,
+        annotations: List<StringAnnotation>
+    ): StringAnnotation? {
         val index = annotation.index
         if (index == 0) return null // first annotation is always root, thus no parent
         var i = index - 1
@@ -155,11 +139,11 @@ internal object StringAnnotationProcessor {
      * ```
      */
     private fun groupByRoots(
-        roots: List<PlacedAnnotation>,
-        annotations: List<PlacedAnnotation>
-    ): List<List<PlacedAnnotation>> {
+        roots: List<StringAnnotation>,
+        annotations: List<StringAnnotation>
+    ): List<List<StringAnnotation>> {
         if (roots.size == 1) return listOf(annotations)
-        val groups = mutableListOf<List<PlacedAnnotation>>()
+        val groups = mutableListOf<List<StringAnnotation>>()
         for (i in roots.indices) {
             val from = roots[i].index
             val to = roots.getOrNull(i + 1)?.index ?: annotations.size
@@ -168,10 +152,4 @@ internal object StringAnnotationProcessor {
         }
         return groups
     }
-
-    /**
-     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
-     */
-    private fun getStringAnnotations(string: SpannedString): Array<out Annotation> =
-        string.getSpans()
 }
