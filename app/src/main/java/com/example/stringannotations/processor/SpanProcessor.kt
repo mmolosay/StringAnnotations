@@ -6,6 +6,7 @@ import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import com.example.stringannotations.AnnotationType
 import com.example.stringannotations.StringAnnotation
 
@@ -48,6 +49,7 @@ internal object SpanProcessor {
             is AnnotationType.Background -> BackgroundColorSpan(type.color)
             is AnnotationType.Foreground -> ForegroundColorSpan(type.color)
             is AnnotationType.TypefaceStyle -> StyleSpan(type.style)
+            is AnnotationType.UnderlineStyle -> UnderlineSpan()
             AnnotationType.Unknown -> null
         }
 

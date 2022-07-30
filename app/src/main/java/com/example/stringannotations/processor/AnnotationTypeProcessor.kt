@@ -32,7 +32,7 @@ internal object AnnotationTypeProcessor {
         return when (annotation.key) {
             ANNOTATION_KEY_BACKGROUND -> parseBackgrounAnnotation(context, values)
             ANNOTATION_KEY_FOREGROUND -> parseForegroundAnnotation(context, values)
-            ANNOTATION_KEY_TYPEFACE_STYLE -> parseTypefaceStyleAnnotation(values)
+            ANNOTATION_KEY_STYLE -> parseStyleAnnotation(values)
             else -> AnnotationType.Unknown
         }
     }
@@ -50,7 +50,7 @@ internal object AnnotationTypeProcessor {
         context: Context,
         values: List<String>
     ): AnnotationType {
-        val value = AnnotationValuesPickingStrategy.Single(values)
+        val value = values.first()
         val color = parseColorAttributeValue(context, value)
         return AnnotationType.Background(color)
     }
@@ -59,23 +59,25 @@ internal object AnnotationTypeProcessor {
         context: Context,
         values: List<String>
     ): AnnotationType {
-        val value = AnnotationValuesPickingStrategy.Single(values)
+        val value = values.first()
         val color = parseColorAttributeValue(context, value)
         return AnnotationType.Foreground(color)
     }
 
+    private fun parseStyleAnnotation(
+        values: List<String>
+    ): AnnotationType =
+        when {
+            values.contains(ANNOTATION_VALUE_UNDERLINE) -> AnnotationType.UnderlineStyle
+            else -> parseTypefaceStyleAnnotation(values)
+        }
+
     private fun parseTypefaceStyleAnnotation(
         values: List<String>
     ): AnnotationType {
-        val styles = values
-            .map { value ->
-                when (value) {
-                    ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD -> Typeface.BOLD
-                    ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC -> Typeface.ITALIC
-                    else -> Typeface.NORMAL
-                }
-            }
-            .distinct() // drop possibly duplicated normals due to multiple invalid values
+        val styles = values.mapNotNull { value ->
+            inferTypefaceStyle(value)
+        }
         val style = reduceTypefaceStyles(styles)
         return AnnotationType.TypefaceStyle(style)
     }
@@ -114,6 +116,19 @@ internal object AnnotationTypeProcessor {
         }
 
     /**
+     * Infer typeface style from annotation [value].
+     *
+     * @return typeface style or `null`, if there's no matches.
+     */
+    private fun inferTypefaceStyle(value: String): Int? =
+        when (value) {
+            ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD -> Typeface.BOLD
+            ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC -> Typeface.ITALIC
+            ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL -> Typeface.NORMAL
+            else -> null // gibberish
+        }
+
+    /**
      * Reduces specified typeface [styles] into single one.
      * All [Typeface.NORMAL] would be reduced, if there any other ones.
      *
@@ -133,25 +148,15 @@ internal object AnnotationTypeProcessor {
         }
     }
 
-    private object AnnotationValuesPickingStrategy {
-
-        fun Single(values: List<String>): String =
-            values.first()
-
-        fun AllCoexisting(
-            values: List<String>,
-            filter: (initial: List<String>) -> List<String>
-        ): List<String> =
-            filter(values)
-    }
-
     private const val ANNOTATION_KEY_BACKGROUND = "background"
     private const val ANNOTATION_KEY_FOREGROUND = "color"
-    private const val ANNOTATION_KEY_TYPEFACE_STYLE = "style"
+    private const val ANNOTATION_KEY_STYLE = "style"
 
-    private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
     private const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
     private const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
+    private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
+
+    private const val ANNOTATION_VALUE_UNDERLINE = "underline"
 
     private const val ANNOTATION_VALUE_COMBINE_SYMBOL = "|"
 }

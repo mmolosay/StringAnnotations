@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private fun tests() {
         test1()
         test2()
+        test3()
     }
 
     private fun test1() =
@@ -37,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         testSpannedString(
             binding.test2,
             R.string.test2
+        )
+
+    private fun test3() =
+        testSpannedString(
+            binding.test3,
+            R.string.test3
         )
 
     private fun testSpannedString(

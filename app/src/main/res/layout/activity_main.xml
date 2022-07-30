@@ -23,7 +23,15 @@
             android:id="@+id/test2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             tools:text="@string/test2" />
+
+        <TextView
+            android:id="@+id/test3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="@string/test3" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

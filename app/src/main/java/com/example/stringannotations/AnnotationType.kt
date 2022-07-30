@@ -42,5 +42,7 @@ sealed interface AnnotationType {
 
     class TypefaceStyle(val style: Int) : AnnotationType
 
+    object UnderlineStyle : AnnotationType
+
     object Unknown : AnnotationType
 }
