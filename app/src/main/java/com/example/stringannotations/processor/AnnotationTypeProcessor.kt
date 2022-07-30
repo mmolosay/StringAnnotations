@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Annotation
+import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.example.stringannotations.AnnotationType
@@ -65,6 +66,9 @@ internal object AnnotationTypeProcessor {
      * 1. color hex: `#ff0000`
      * 2. color name: `green`
      * 3. color resource name: `myColorRes`
+     *
+     * If valid color can not be parsed, then [Color.BLACK] will be used as a fallback one.
+     * Relevant message would be logged with [Log.WARN] priority.
      */
     @ColorInt
     private fun parseColorAttributeValue(
@@ -79,7 +83,10 @@ internal object AnnotationTypeProcessor {
                 val colorRes = context.resources.getIdentifier(color, "color", packageName)
                 ContextCompat.getColor(context, colorRes)
             } catch (e: Resources.NotFoundException) {
-                // TODO: log warning
+                Log.w(
+                    this::class.simpleName,
+                    "string annotation with attribute value=\"$color\" can not be parsed into valid color"
+                )
                 Color.BLACK // return fallback color, if attribute value is invalid
             }
         }
