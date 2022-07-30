@@ -16,36 +16,46 @@ object AnnotatedStrings {
 
     fun format(
         context: Context,
-        @StringRes stringRes: Int,
-        vararg args: String
+        @StringRes id: Int,
+        vararg formatArgs: Any
     ): Spanned =
         format(
             context = context,
-            string = context.resources.getText(stringRes) as SpannedString,
-            args = args
+            string = context.resources.getText(id) as SpannedString,
+            formatArgs = formatArgs
         )
 
     fun format(
         context: Context,
         string: SpannedString,
-        vararg args: String
+        vararg formatArgs: Any
     ): Spanned {
         val annotations = AnnotationProcessor.getAnnotationSpans(string)
-        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
         val builder = SpannableStringBuilder(string)
+        val stringArgs = stringifyFormatArgs(formatArgs)
 
-        // 1. replace wildcards, preserving annotation spans
-        AnnotatedStringProcessor.format(builder, tree, *args)
+        // 1. build annotation tree
+        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        // 2. parse updated StringAnnotations
+        // 2. replace wildcards, preserving annotation spans
+        AnnotatedStringProcessor.format(builder, tree, *stringArgs)
+
+        // 3. parse updated StringAnnotations
         val strAnnotations = StringAnnotationProcessor.parseStringAnnotations(builder, annotations)
 
-        // 2. parse AnnotationType-s
+        // 4. parse AnnotationType-s
         val types = AnnotationTypeProcessor.parseAnnotationTypes(context, annotations)
 
-        // 3. apply AnnotationType-s
+        // 5. apply AnnotationType-s
         SpanProcessor.applyAnnotationTypes(builder, strAnnotations, types)
 
         return builder
     }
+
+    private fun stringifyFormatArgs(
+        formatArgs: Array<out Any>
+    ): Array<out String> =
+        Array<String>(formatArgs.size) { i ->
+            java.lang.String.valueOf(formatArgs[i])
+        }
 }

@@ -20,7 +20,6 @@ internal object AnnotationTypeProcessor {
     ): List<AnnotationType> =
         annotations.map { span -> parseAnnotationType(context, span) }
 
-
     fun parseAnnotationType(
         context: Context,
         annotation: Annotation

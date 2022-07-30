@@ -25,15 +25,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun test1() =
         testSpannedString(
-            FormattedStrings.test1,
-            binding.test1
+            binding.test1,
+            R.string.test1,
+            "bold",
+            "redddddddddd",
+            "green"
         )
 
     private fun testSpannedString(
-        string: FormattedStringRes,
-        targetView: TextView
+        targetView: TextView,
+        @StringRes id: Int,
+        vararg formatArgs: Any
     ) {
-        val spanned = AnnotatedStrings.format(this, string.res, *string.args)
+        val spanned = AnnotatedStrings.format(this, id, *formatArgs)
         targetView.text = spanned
     }
 }
