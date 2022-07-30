@@ -4,6 +4,7 @@ import android.text.ParcelableSpan
 import android.text.Spannable
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import com.example.stringannotations.AnnotationType
 import com.example.stringannotations.StringAnnotation
 
@@ -42,8 +43,8 @@ internal object SpanProcessor {
     private fun makeSpan(type: AnnotationType): ParcelableSpan? =
         when (type) {
             is AnnotationType.Background -> BackgroundColorSpan(type.color)
-            is AnnotationType.Color -> ForegroundColorSpan(type.color)
-            is AnnotationType.Combined -> TODO()
+            is AnnotationType.Foreground -> ForegroundColorSpan(type.color)
+            is AnnotationType.TypefaceStyle -> StyleSpan(type.style)
             AnnotationType.Unknown -> null
         }
 

@@ -1,27 +1,46 @@
 package com.example.stringannotations
 
 /**
- * Annotation of some specific (or combined) type.
- * See derived classes.
+ * Annotation of some specific single type.
+ *
+ * All `<annotation>`s with more then one attribute will be split into multiple,
+ * so that each has only one.
  */
 sealed interface AnnotationType {
 
+    /**
+     * Annotation, which specified background color of its body.
+     *
+     * ```
+     * HEX color:
+     * <annotation background="#ff0000">text with red background</annotation>
+     *
+     * Generic color name:
+     * <annotation background="green">text with green background</annotation>
+     *
+     * Color resource name:
+     * <annotation background="yourColorResName">text with colored background</annotation>
+     * ```
+     */
     class Background(val color: Int) : AnnotationType
 
     /**
-     * Annotation, which specifies color of its body.
+     * Annotation, which specifies foreground color of its body.
      *
      * ```
      * HEX color:
      * <annotation color="#ff0000">red text</annotation>
      *
+     * Generic color name:
+     * <annotation color="green">green text</annotation>
+     *
      * Color resource name:
-     * <annotation color-res="yourColorResName">colored text</annotation>
+     * <annotation color="yourColorResName">colored text</annotation>
      * ```
      */
-    class Color(val color: Int) : AnnotationType
+    class Foreground(val color: Int) : AnnotationType
 
-    class Combined(val types: List<AnnotationType>) : AnnotationType
+    class TypefaceStyle(val style: Int) : AnnotationType
 
     object Unknown : AnnotationType
 }
