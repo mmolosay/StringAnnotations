@@ -65,6 +65,10 @@ object AnnotatedStrings {
             formatArgs = formatArgs
         )
 
+    /**
+     * Maps [formatArgs] into array of [String]s by resolving their string values
+     * (see [java.lang.String.valueOf]).
+     */
     private fun stringifyFormatArgs(
         formatArgs: Array<out Any>
     ): Array<out String> =
