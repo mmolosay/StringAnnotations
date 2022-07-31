@@ -9,7 +9,7 @@ import com.example.stringannotations.StringAnnotation
 import com.example.stringannotations.processor.AnnotationProcessor
 
 /**
- * Processes [Annotation] instances into other ones.
+ * Maps [Annotation] instances into other ones.
  */
 internal object AnnotationMapper {
 
