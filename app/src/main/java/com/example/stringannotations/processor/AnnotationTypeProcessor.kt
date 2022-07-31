@@ -54,6 +54,7 @@ internal object AnnotationTypeProcessor {
         context: Context,
         values: List<String>
     ): AnnotationType {
+        // TODO: log warning here and in all other parsers, if there was invalid value.
         val value = values.first()
         val color = parseColorAttributeValue(context, value)
         return AnnotationType.Background(color)
