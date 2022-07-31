@@ -4,7 +4,7 @@ import android.text.Annotation
 import android.text.Spanned
 import com.example.stringannotations.StringAnnotation
 import com.example.stringannotations.has
-import com.example.stringannotations.processor.StringAnnotationProcessor
+import com.example.stringannotations.mapper.AnnotationMapper
 
 // TODO: make a class and istantiate as a singleton?
 internal object AnnotationTreeBuilder {
@@ -27,7 +27,7 @@ internal object AnnotationTreeBuilder {
         string: Spanned,
         annotations: Array<out Annotation>
     ): List<AnnotationNode> {
-        val parsed = StringAnnotationProcessor.parseStringAnnotations(string, annotations)
+        val parsed = AnnotationMapper.parseStringAnnotations(string, annotations)
         val roots = findRootAnnotations(parsed)
         val groups = groupByRoots(roots, parsed)
         return groups.map { rootGroup ->

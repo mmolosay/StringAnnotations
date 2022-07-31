@@ -1,32 +1,25 @@
 package com.example.stringannotations.processor
 
+import android.content.Context
 import android.text.Annotation
-import android.text.Spanned
-import androidx.core.text.getSpans
+import android.text.style.ClickableSpan
+import com.example.stringannotations.AnnotationType
 
 /**
- * Processes [Annotation] spans.
+ * Parses [Annotation] of some [android.text.Spanned] string into [AnnotationType].
  */
-internal object AnnotationProcessor {
+sealed interface AnnotationProcessor {
 
     /**
-     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
+     * Parses specified [annotation] into [AnnotationType].
+     *
+     * @param context caller context.
+     * @param annotation annotation to be parsed.
+     * @param clickables list of [ClickableSpan], that will be used for [AnnotationType.Clickable] types.
      */
-    fun getAnnotationSpans(string: Spanned): Array<out Annotation> =
-        string.getSpans()
-
-    /**
-     * Retrieves [annotation]'s start and end positions in terms of specified [string].
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full [string]
-     * range.
-     */
-    fun getAnnotationRange(
-        string: Spanned,
-        annotation: Annotation?
-    ): IntRange {
-        annotation ?: return 0..string.length
-        val start = string.getSpanStart(annotation)
-        val end = string.getSpanEnd(annotation)
-        return start..end
-    }
+    fun parseAnnotation(
+        context: Context,
+        annotation: Annotation,
+        clickables: List<ClickableSpan>
+    ): AnnotationType
 }

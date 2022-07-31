@@ -12,40 +12,57 @@ import androidx.core.content.ContextCompat
 import com.example.stringannotations.AnnotationType
 
 /**
- * Processes [AnnotationType]s.
+ * Default implementation of [AnnotationProcessor].
+ * It is able to process all default types of [AnnotationType].
+ *
+ * One should inherit this class in order to process custom [AnnotationType].
  */
-internal object AnnotationTypeProcessor {
+open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     /**
-     * Parses [AnnotationType]s from [annotations] of some spanned string.
+     * Symbol, that is used in tag value to combine multiple values.
      */
-    fun parseAnnotationTypes(
-        context: Context,
-        annotations: Array<out Annotation>,
-        clickables: List<ClickableSpan>
-    ): List<AnnotationType> =
-        annotations.map { span -> parseAnnotationType(context, span, clickables) }
+    protected val ANNOTATION_VALUE_COMBINE_SYMBOL = "|"
 
-    private fun parseAnnotationType(
+    final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
         clickables: List<ClickableSpan>
     ): AnnotationType {
         val values = parseAnnotationValue(annotation.value)
-        return when (annotation.key) {
+        return parseAnnotation(context, annotation.key, values, clickables)
+    }
+
+    /**
+     * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
+     *
+     * Derived class should override this method and call super's implementation at the beginning
+     * in order to parse custom [AnnotationType].
+     *
+     * @param context caller context.
+     * @param key [Annotation.getKey], which is actually a tag's attribute name.
+     * @param values list of split tag's attribute values (see [parseAnnotationValue]).
+     * @param clickables list of [ClickableSpan], that will be used for [AnnotationType.Clickable] types.
+     */
+    open fun parseAnnotation(
+        context: Context,
+        key: String,
+        values: List<String>,
+        clickables: List<ClickableSpan>
+    ): AnnotationType =
+        when (key) {
             ANNOTATION_KEY_BACKGROUND -> parseBackgrounAnnotation(context, values)
             ANNOTATION_KEY_FOREGROUND -> parseForegroundAnnotation(context, values)
             ANNOTATION_KEY_STYLE -> parseStyleAnnotation(values)
             ANNOTATION_KEY_CLICKABLE -> parseClickableAnnotation(values, clickables)
             else -> AnnotationType.Null
         }
-    }
 
     /**
      * Splits annotation value of type `value1[|value2|value3|...]` into list of
      * separate atomic values and reduces repeated entries.
      */
-    private fun parseAnnotationValue(value: String): List<String> =
+    open fun parseAnnotationValue(value: String): List<String> =
         value
             .split(ANNOTATION_VALUE_COMBINE_SYMBOL)
             .distinct()
@@ -162,16 +179,19 @@ internal object AnnotationTypeProcessor {
         }
     }
 
-    private const val ANNOTATION_KEY_BACKGROUND = "background"
-    private const val ANNOTATION_KEY_FOREGROUND = "color"
-    private const val ANNOTATION_KEY_STYLE = "style"
-    private const val ANNOTATION_KEY_CLICKABLE = "clickable"
+    companion object {
 
-    private const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
-    private const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
-    private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
+        // keys
+        private const val ANNOTATION_KEY_BACKGROUND = "background"
+        private const val ANNOTATION_KEY_FOREGROUND = "color"
+        private const val ANNOTATION_KEY_STYLE = "style"
+        private const val ANNOTATION_KEY_CLICKABLE = "clickable"
 
-    private const val ANNOTATION_VALUE_UNDERLINE = "underline"
+        // values
+        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
+        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
+        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
 
-    private const val ANNOTATION_VALUE_COMBINE_SYMBOL = "|"
+        private const val ANNOTATION_VALUE_UNDERLINE = "underline"
+    }
 }

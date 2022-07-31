@@ -3,12 +3,11 @@ package com.example.stringannotations
 import android.text.style.ClickableSpan
 
 /**
- * Annotation of some specific single type.
+ * Annotation of some single specific type.
  *
- * All `<annotation>`s with more then one attribute will be split into multiple,
- * so that each has only one.
+ * One should inherit this interface in order to define custom type.
  */
-sealed interface AnnotationType {
+interface AnnotationType {
 
     /**
      * Annotation, which specified background color of its body.
@@ -48,5 +47,9 @@ sealed interface AnnotationType {
 
     object UnderlineStyle : AnnotationType
 
+    /**
+     * Annotation, which has unknown attribute, or its value(s) can not be processed properly.
+     * It will not be ignored and converted in any span.
+     */
     object Null : AnnotationType
 }

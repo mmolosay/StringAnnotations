@@ -6,20 +6,27 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
+import com.example.stringannotations.lib.StringAnnotations
+import com.example.stringannotations.mapper.AnnotationMapper
 import com.example.stringannotations.processor.AnnotatedStringProcessor
-import com.example.stringannotations.processor.AnnotationProcessor
-import com.example.stringannotations.processor.AnnotationTypeProcessor
 import com.example.stringannotations.processor.SpanProcessor
-import com.example.stringannotations.processor.StringAnnotationProcessor
+import com.example.stringannotations.processor.SpannedProcessor
 import com.example.stringannotations.tree.AnnotationTreeBuilder
 
-object AnnotatedStrings {
+internal object AnnotatedStrings {
 
     /**
+     * One should prefer using higher level extension functions, like [Context.getAnnotatedString].
+     *
+     * Before calling the method, make sure, that [StringAnnotations] is configured.
+     * Otherwise method will throw [IllegalStateException].
+     *
      * 1. Formats specified [string] with [formatArgs] (see [String.format]),
      * preserving `<annotation>` spans.
-     * 2. Parses `<annotation>`s into actual spans (see [AnnotationType]).
-     * 3. Applies parsed spans to the [string].
+     * 2. Parses `<annotation>`s into [AnnotationType] instances.
+     * 3. Applies spans, corresponding to parsed types to the [string].
+     *
+     * @throws IllegalStateException if [StringAnnotations] has not been configured.
      */
     fun process(
         context: Context,
@@ -27,7 +34,9 @@ object AnnotatedStrings {
         clickables: List<ClickableSpan>,
         vararg formatArgs: Any
     ): Spanned {
-        val annotations = AnnotationProcessor.getAnnotationSpans(string)
+        // 0. prepare objects
+        val processor = StringAnnotations.requireAnnotaitonProcessor()
+        val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
 
@@ -38,19 +47,20 @@ object AnnotatedStrings {
         AnnotatedStringProcessor.format(builder, tree, *stringArgs)
 
         // 3. parse updated StringAnnotations
-        val strAnnotations = StringAnnotationProcessor.parseStringAnnotations(builder, annotations)
+        val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
 
-        // 4. parse AnnotationType-s
-        val types = AnnotationTypeProcessor.parseAnnotationTypes(context, annotations, clickables)
+        // 4. parse Annotation-s into AnnotationType-s
+        val types =
+            AnnotationMapper.parseAnnotationTypes(context, processor, annotations, clickables)
 
-        // 5. apply AnnotationType-s
+        // 5. apply AnnotationType-s as corresponding spans.
         SpanProcessor.applyAnnotationTypes(builder, strAnnotations, types)
 
         return builder
     }
 
     /**
-     * Sophisticated version of [AnnotatedStrings.process].
+     * Version of [process] method, but receives [id] of string resource with annotations.
      */
     fun process(
         context: Context,

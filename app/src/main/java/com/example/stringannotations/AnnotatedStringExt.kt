@@ -6,6 +6,10 @@ import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 
+/*
+ * Extensions for convenience use.
+ */
+
 /**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *

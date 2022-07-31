@@ -51,7 +51,7 @@ internal object SpanProcessor {
             is AnnotationType.TypefaceStyle -> StyleSpan(type.style)
             is AnnotationType.UnderlineStyle -> UnderlineSpan()
             is AnnotationType.Clickable -> type.span
-            AnnotationType.Null -> null
+            else -> null // for AnnotationType.Null and unknown types
         }
 
     private fun applySpan(

@@ -1,6 +1,7 @@
 package com.example.stringannotations.processor
 
 import android.text.Spanned
+import com.example.stringannotations.mapper.AnnotationMapper
 import com.example.stringannotations.tree.AnnotationNode
 import com.example.stringannotations.tree.hasChildren
 
@@ -49,10 +50,10 @@ internal object AnnotationNodeProcessor {
         string: Spanned
     ): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
-        val nodeRange = AnnotationProcessor.getAnnotationRange(string, node.annotation)
+        val nodeRange = AnnotationMapper.parseAnnotationRange(string, node.annotation)
         if (!node.hasChildren()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
         val childrenRanges = node.children.map { child ->
-            AnnotationProcessor.getAnnotationRange(string, child.annotation)
+            AnnotationMapper.parseAnnotationRange(string, child.annotation)
         }
         val childrenCount = node.children.size
         val spaceCount = childrenCount + 1 // __-___--_ 3 spaces for 2 children, 5 total ranges
