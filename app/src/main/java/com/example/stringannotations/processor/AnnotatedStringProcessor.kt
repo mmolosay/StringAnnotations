@@ -17,7 +17,7 @@ internal object AnnotatedStringProcessor {
         ranges.forEach { range ->
             val substring = builder.substring(range.first, range.last)
             val formatted = String.format(substring, *formatArgs)
-            if (substring != formatted) { // do nothing is no formatting happened
+            if (substring != formatted) { // do nothing if no formatting happened
                 builder.replace(range.first, range.last, formatted)
             }
         }

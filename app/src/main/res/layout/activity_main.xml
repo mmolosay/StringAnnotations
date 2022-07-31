@@ -33,6 +33,13 @@
             android:layout_marginTop="8dp"
             tools:text="@string/test3" />
 
+        <TextView
+            android:id="@+id/test4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="@string/test4" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </FrameLayout>

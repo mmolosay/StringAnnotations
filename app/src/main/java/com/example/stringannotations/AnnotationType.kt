@@ -1,5 +1,7 @@
 package com.example.stringannotations
 
+import android.text.style.ClickableSpan
+
 /**
  * Annotation of some specific single type.
  *
@@ -24,6 +26,8 @@ sealed interface AnnotationType {
      */
     class Background(val color: Int) : AnnotationType
 
+    class Clickable(val span: ClickableSpan) : AnnotationType
+
     /**
      * Annotation, which specifies foreground color of its body.
      *
@@ -44,5 +48,5 @@ sealed interface AnnotationType {
 
     object UnderlineStyle : AnnotationType
 
-    object Unknown : AnnotationType
+    object Null : AnnotationType
 }

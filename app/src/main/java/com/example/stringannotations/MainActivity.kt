@@ -1,7 +1,12 @@
 package com.example.stringannotations
 
 import android.os.Bundle
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stringannotations.databinding.ActivityMainBinding
@@ -23,12 +28,15 @@ class MainActivity : AppCompatActivity() {
         test1()
         test2()
         test3()
+        test4()
+        binding.test4.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun test1() =
         testSpannedString(
             binding.test1,
             R.string.test1,
+            emptyList(),
             "bold",
             "redddddddddd",
             "green"
@@ -46,11 +54,40 @@ class MainActivity : AppCompatActivity() {
             R.string.test3
         )
 
+    private fun test4() =
+        testSpannedString(
+            binding.test4,
+            R.string.test4,
+            clickables = listOf(
+                object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        Toast.makeText(this@MainActivity, "Index=0", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun updateDrawState(ds: TextPaint) {
+                        super.updateDrawState(ds)
+                        ds.isUnderlineText = false
+                    }
+                },
+                object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        Toast.makeText(this@MainActivity, "Index=1", Toast.LENGTH_SHORT).show()
+                    }
+                },
+                object : ClickableSpan() {
+                    override fun onClick(widget: View) {
+                        Toast.makeText(this@MainActivity, "Index=2", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+        )
+
     private fun testSpannedString(
         targetView: TextView,
         @StringRes id: Int,
+        clickables: List<ClickableSpan> = emptyList(),
         vararg formatArgs: Any
     ) {
-        targetView.text = getAnnotatedString(id, *formatArgs)
+        targetView.text = getAnnotatedString(id, clickables, *formatArgs)
     }
 }

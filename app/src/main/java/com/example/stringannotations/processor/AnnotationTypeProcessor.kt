@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Annotation
+import android.text.style.ClickableSpan
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
@@ -20,20 +21,23 @@ internal object AnnotationTypeProcessor {
      */
     fun parseAnnotationTypes(
         context: Context,
-        annotations: Array<out Annotation>
+        annotations: Array<out Annotation>,
+        clickables: List<ClickableSpan>
     ): List<AnnotationType> =
-        annotations.map { span -> parseAnnotationType(context, span) }
+        annotations.map { span -> parseAnnotationType(context, span, clickables) }
 
     private fun parseAnnotationType(
         context: Context,
-        annotation: Annotation
+        annotation: Annotation,
+        clickables: List<ClickableSpan>
     ): AnnotationType {
         val values = parseAnnotationValue(annotation.value)
         return when (annotation.key) {
             ANNOTATION_KEY_BACKGROUND -> parseBackgrounAnnotation(context, values)
             ANNOTATION_KEY_FOREGROUND -> parseForegroundAnnotation(context, values)
             ANNOTATION_KEY_STYLE -> parseStyleAnnotation(values)
-            else -> AnnotationType.Unknown
+            ANNOTATION_KEY_CLICKABLE -> parseClickableAnnotation(values, clickables)
+            else -> AnnotationType.Null
         }
     }
 
@@ -80,6 +84,15 @@ internal object AnnotationTypeProcessor {
         }
         val style = reduceTypefaceStyles(styles)
         return AnnotationType.TypefaceStyle(style)
+    }
+
+    private fun parseClickableAnnotation(
+        values: List<String>,
+        clickables: List<ClickableSpan>
+    ): AnnotationType {
+        val index = values.first().toIntOrNull() ?: 0
+        val span = clickables.getOrNull(index) ?: return AnnotationType.Null
+        return AnnotationType.Clickable(span)
     }
 
     /**
@@ -151,6 +164,7 @@ internal object AnnotationTypeProcessor {
     private const val ANNOTATION_KEY_BACKGROUND = "background"
     private const val ANNOTATION_KEY_FOREGROUND = "color"
     private const val ANNOTATION_KEY_STYLE = "style"
+    private const val ANNOTATION_KEY_CLICKABLE = "clickable"
 
     private const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
     private const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
