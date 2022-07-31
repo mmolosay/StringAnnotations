@@ -3,15 +3,20 @@ package com.example.stringannotations.lib
 import com.example.stringannotations.processor.AnnotationProcessor
 
 /**
- * Collection of library settings and required objects.
+ * Collection of library settings and required dependincies.
  *
- * Call [StringAnnotations.dispose], when you're done working with library and never
- * going to need it again in terms of this process.
+ * Call [StringAnnotations.configure] before any other interactions with library methods.
+ *
+ * Call [StringAnnotations.dispose], when you're done working with library and want to
+ * free internal dependencies.
  */
 object StringAnnotations {
 
     internal var annotationProcessor: AnnotationProcessor? = null
 
+    /**
+     * Provides [Builder] instance to configure library dependencies.
+     */
     fun configure(): Builder =
         BuilderImpl
 
