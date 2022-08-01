@@ -8,4 +8,9 @@ internal object BuilderImpl : StringAnnotations.Builder {
         apply {
             StringAnnotations.annotationProcessor = processor
         }
+
+    override fun clickableTextAppearance(appearance: ClickableTextAppearance): StringAnnotations.Builder =
+        apply {
+            StringAnnotations.clickableTextAppearance = appearance
+        }
 }

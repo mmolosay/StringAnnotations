@@ -34,7 +34,7 @@ internal object AnnotatedStrings {
         clickables: List<ClickableSpan>,
         vararg formatArgs: Any
     ): Spanned {
-        // 0. prepare objects
+        // 0. prepare dependencies
         val processor = StringAnnotations.requireAnnotaitonProcessor()
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)

@@ -10,7 +10,7 @@ import android.text.style.ClickableSpan
 interface AnnotationType {
 
     /**
-     * Annotation, which specified background color of its body.
+     * Annotation, which specifies background color of its body.
      *
      * ```
      * HEX color:
@@ -25,6 +25,19 @@ interface AnnotationType {
      */
     class Background(val color: Int) : AnnotationType
 
+    /**
+     * Annotation, which specifies click action for its body.
+     *
+     * Value of attribute is an index, at which corresponding [ClickableSpan]
+     * is located in list you should provide.
+     *
+     * You should also explicitly specify, that your `TextView` contains link
+     * by calling [android.widget.TextView.setMovementMethod].
+     *
+     * ```
+     * <annotation clickable="0">clickable text</annotation>
+     * ```
+     */
     class Clickable(val span: ClickableSpan) : AnnotationType
 
     /**

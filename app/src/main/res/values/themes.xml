@@ -27,5 +27,10 @@
 
     <style name="Widget.TextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColorHighlight">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.Button" parent="Widget.MaterialComponents.Button.TextButton">
+
     </style>
 </resources>

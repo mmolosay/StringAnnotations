@@ -1,15 +1,17 @@
 package com.example.stringannotations
 
+import android.graphics.Color
 import android.os.Bundle
-import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stringannotations.databinding.ActivityMainBinding
+import com.example.stringannotations.lib.ClickableTextAppearance
+import com.example.stringannotations.lib.StringAnnotations
+import com.example.stringannotations.spans.ClickableSpan
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         test3()
         test4()
         binding.test4.movementMethod = LinkMovementMethod.getInstance()
+        binding.test4.highlightColor = Color.TRANSPARENT
     }
 
     private fun test1() =
@@ -59,25 +62,14 @@ class MainActivity : AppCompatActivity() {
             binding.test4,
             R.string.test4,
             clickables = listOf(
-                object : ClickableSpan() {
-                    override fun onClick(widget: View) {
-                        Toast.makeText(this@MainActivity, "Index=0", Toast.LENGTH_SHORT).show()
-                    }
-
-                    override fun updateDrawState(ds: TextPaint) {
-                        super.updateDrawState(ds)
-                        ds.isUnderlineText = false
-                    }
+                ClickableSpan {
+                    Toast.makeText(this, "Index=0", Toast.LENGTH_SHORT).show()
                 },
-                object : ClickableSpan() {
-                    override fun onClick(widget: View) {
-                        Toast.makeText(this@MainActivity, "Index=1", Toast.LENGTH_SHORT).show()
-                    }
+                ClickableSpan {
+                    Toast.makeText(this, "Index=1", Toast.LENGTH_SHORT).show()
                 },
-                object : ClickableSpan() {
-                    override fun onClick(widget: View) {
-                        Toast.makeText(this@MainActivity, "Index=2", Toast.LENGTH_SHORT).show()
-                    }
+                ClickableSpan {
+                    Toast.makeText(this, "Index=2", Toast.LENGTH_SHORT).show()
                 }
             )
         )
