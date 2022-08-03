@@ -5,17 +5,94 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Annotation
+import android.text.style.BackgroundColorSpan
+import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import com.example.stringannotations.AnnotationType
 
 /**
  * Default implementation of [AnnotationProcessor].
- * It is able to process all default types of [AnnotationType].
+ * It is able to process all default annotation types.
  *
- * One should inherit this class in order to process custom [AnnotationType].
+ * One should inherit this class in order to process custom annotation type.
+ *
+ * ## List of default supported annotations:
+ *
+ * ### Background color
+ *
+ * Annotation, that specifies background color of its body.
+ *
+ * ```
+ * HEX color:
+ * <annotation background="#ff0000">text with red background</annotation>
+ *
+ * Generic color name:
+ * <annotation background="green">text with green background</annotation>
+ *
+ * Color resource name:
+ * <annotation background="yourColorResName">text with colored background</annotation>
+ * ```
+ *
+ * ### Foreground color
+ *
+ * Annotation, that specifies color of its body.
+ *
+ * ```
+ * HEX color:
+ * <annotation color="#ff0000">red text</annotation>
+ *
+ * Generic color name:
+ * <annotation color="green">green text</annotation>
+ *
+ * Color resource name:
+ * <annotation color="yourColorResName">colored text</annotation>
+ * ```
+ *
+ * ### Clickable
+ *
+ * Annotation, that specifies click action for its body.
+ *
+ * Value of attribute is an index, at which corresponding [ClickableSpan]
+ * is located in list you should provide.
+ *
+ * You should also explicitly specify, that your `TextView` contains clickable text
+ * by calling [android.widget.TextView.setMovementMethod].
+ *
+ * ```
+ * <annotation clickable="0">clickable text</annotation>
+ * ```
+ *
+ * ### Typeface style
+ *
+ * Annotation, that specifies typeface style for its body.
+ *
+ * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
+ *
+ * ```
+ * <annotation style="bold|italic">bold and italic text</annotaiton>
+ * ```
+ *
+ * ### Strikethrough style
+ *
+ * Annotation, that crosses its body out.
+ *
+ * ```
+ * <annotation style="strikethrough">crossed out text</annotation>
+ * ```
+ *
+ * ### Underline style
+ *
+ * Annotation, that underlines its body.
+ *
+ * ```
+ * <annotation style="underline">underlined text</annotation>
+ * ```
  */
 open class DefaultAnnotationProcessor : AnnotationProcessor {
 
@@ -28,7 +105,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
         context: Context,
         annotation: Annotation,
         clickables: List<ClickableSpan>
-    ): AnnotationType {
+    ): CharacterStyle? {
         val values = parseAnnotationValue(annotation.value)
         return parseAnnotation(context, annotation.key, values, clickables)
     }
@@ -37,25 +114,25 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
      *
      * Derived class should override this method and call super's implementation at the beginning
-     * in order to parse custom [AnnotationType].
+     * in order to parse custom annotation type.
      *
      * @param context caller context.
      * @param key [Annotation.getKey], which is actually a tag's attribute name.
      * @param values list of split tag's attribute values (see [parseAnnotationValue]).
-     * @param clickables list of [ClickableSpan], that will be used for [AnnotationType.Clickable] types.
+     * @param clickables list of [ClickableSpan], that will be used for clickable spans.
      */
     open fun parseAnnotation(
         context: Context,
         key: String,
         values: List<String>,
         clickables: List<ClickableSpan>
-    ): AnnotationType =
+    ): CharacterStyle? =
         when (key) {
             ANNOTATION_KEY_BACKGROUND -> parseBackgrounAnnotation(context, values)
             ANNOTATION_KEY_FOREGROUND -> parseForegroundAnnotation(context, values)
             ANNOTATION_KEY_STYLE -> parseStyleAnnotation(values)
             ANNOTATION_KEY_CLICKABLE -> parseClickableAnnotation(values, clickables)
-            else -> AnnotationType.Null
+            else -> null
         }
 
     /**
@@ -70,50 +147,52 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
     private fun parseBackgrounAnnotation(
         context: Context,
         values: List<String>
-    ): AnnotationType {
-        // TODO: log warning here and in all other parsers, if there was invalid value.
-        val value = values.first()
-        val color = parseColorAttributeValue(context, value)
-        return AnnotationType.Background(color)
+    ): CharacterStyle? {
+        val value = values.first() // use very first one
+        return parseColorAttributeValue(context, value)?.let { color ->
+            BackgroundColorSpan(color)
+        }
     }
 
     private fun parseForegroundAnnotation(
         context: Context,
         values: List<String>
-    ): AnnotationType {
-        val value = values.first()
-        val color = parseColorAttributeValue(context, value)
-        return AnnotationType.Foreground(color)
+    ): CharacterStyle? {
+        val value = values.first() // use very first one
+        return parseColorAttributeValue(context, value)?.let { color ->
+            ForegroundColorSpan(color)
+        }
     }
 
     private fun parseStyleAnnotation(
         values: List<String>
-    ): AnnotationType =
+    ): CharacterStyle? =
         when {
-            values.contains(ANNOTATION_VALUE_UNDERLINE) -> AnnotationType.UnderlineStyle
-            values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> AnnotationType.StrikethroughStyle
+            values.contains(ANNOTATION_VALUE_UNDERLINE) -> UnderlineSpan()
+            values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> StrikethroughSpan()
             else -> parseTypefaceStyleAnnotation(values)
         }
 
     private fun parseTypefaceStyleAnnotation(
         values: List<String>
-    ): AnnotationType {
+    ): CharacterStyle? {
         val styles = values.mapNotNull { value ->
             inferTypefaceStyle(value)
         }
-        val style = reduceTypefaceStyles(styles)
-        return AnnotationType.TypefaceStyle(style)
+        return reduceTypefaceStyles(styles)?.let { style ->
+            StyleSpan(style)
+        }
     }
 
     private fun parseClickableAnnotation(
         values: List<String>,
         clickables: List<ClickableSpan>
-    ): AnnotationType {
-        val index = values.first().toIntOrNull() ?: 0
-        val span = clickables.getOrNull(index) ?: return AnnotationType.Null
-        return AnnotationType.Clickable(span)
+    ): CharacterStyle? {
+        val index = values.first().toIntOrNull() ?: return null
+        return clickables.getOrNull(index)
     }
 
+    // TODO: parse color attribute as well
     /**
      * Parses string [value] of any color attribute (like [ANNOTATION_KEY_FOREGROUND] or
      * [ANNOTATION_KEY_BACKGROUND]) into color integer.
@@ -130,7 +209,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
     private fun parseColorAttributeValue(
         context: Context,
         value: String
-    ): Int =
+    ): Int? =
         try {
             Color.parseColor(value)
         } catch (e: IllegalArgumentException) {
@@ -143,7 +222,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
                     this::class.simpleName,
                     "string annotation with attribute value=\"$value\" can not be parsed into valid color"
                 )
-                Color.BLACK // return fallback color, if attribute value is invalid
+                null // return null, if attribute value is invalid
             }
         }
 
@@ -171,7 +250,8 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
      * [normal, bold, italic] -> bold_italic
      * ```
      */
-    private fun reduceTypefaceStyles(styles: List<Int>): Int {
+    private fun reduceTypefaceStyles(styles: List<Int>): Int? {
+        if (styles.isEmpty()) return null
         if (styles.size == 1) return styles.first()
         return if (styles.contains(Typeface.NORMAL)) {
             reduceTypefaceStyles(styles - Typeface.NORMAL)
@@ -194,6 +274,6 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
         private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
 
         private const val ANNOTATION_VALUE_UNDERLINE = "underline"
-        private const val ANNOTATION_VALUE_STRIKETHROUGH = "strike"
+        private const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
     }
 }

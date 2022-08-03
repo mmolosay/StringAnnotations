@@ -3,8 +3,8 @@ package com.example.stringannotations.mapper
 import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
+import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
-import com.example.stringannotations.AnnotationType
 import com.example.stringannotations.StringAnnotation
 import com.example.stringannotations.processor.AnnotationProcessor
 
@@ -45,14 +45,14 @@ internal object AnnotationMapper {
 
     /**
      * Uses specified [processor] to process [annotations] of
-     * some spanned string into list of [AnnotationType].
+     * some spanned string into spans of [CharacterStyle] type.
      */
-    fun parseAnnotationTypes(
+    fun parseAnnotations(
         context: Context,
         processor: AnnotationProcessor,
         annotations: Array<out Annotation>,
         clickables: List<ClickableSpan>
-    ): List<AnnotationType> =
+    ): List<CharacterStyle?> =
         annotations.map { annotation ->
             processor.parseAnnotation(context, annotation, clickables)
         }

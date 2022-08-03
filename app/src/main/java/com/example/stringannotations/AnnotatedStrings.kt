@@ -23,8 +23,8 @@ internal object AnnotatedStrings {
      *
      * 1. Formats specified [string] with [formatArgs] (see [String.format]),
      * preserving `<annotation>` spans.
-     * 2. Parses `<annotation>`s into [AnnotationType] instances.
-     * 3. Applies spans, corresponding to parsed types to the [string].
+     * 2. Parses `<annotation>`s into spans.
+     * 3. Applies spans to the [string].
      *
      * @throws IllegalStateException if [StringAnnotations] has not been configured.
      */
@@ -46,15 +46,14 @@ internal object AnnotatedStrings {
         // 2. replace wildcards, preserving annotation spans
         AnnotatedStringProcessor.format(builder, tree, *stringArgs)
 
-        // 3. parse updated StringAnnotations
+        // 3. parse updated StringAnnotation-s
         val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
 
-        // 4. parse Annotation-s into AnnotationType-s
-        val types =
-            AnnotationMapper.parseAnnotationTypes(context, processor, annotations, clickables)
+        // 4. parse Annotation-s into spans of CharacterStyle type
+        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, clickables)
 
-        // 5. apply AnnotationType-s as corresponding spans.
-        SpanProcessor.applyAnnotationTypes(builder, strAnnotations, types)
+        // 5. apply spans to string
+        SpanProcessor.applySpans(builder, strAnnotations, types)
 
         return builder
     }

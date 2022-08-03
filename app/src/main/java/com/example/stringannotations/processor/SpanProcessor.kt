@@ -1,14 +1,7 @@
 package com.example.stringannotations.processor
 
-import android.text.ParcelableSpan
 import android.text.Spannable
-import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
-import android.text.style.ForegroundColorSpan
-import android.text.style.StrikethroughSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
-import com.example.stringannotations.AnnotationType
 import com.example.stringannotations.StringAnnotation
 
 /**
@@ -17,14 +10,15 @@ import com.example.stringannotations.StringAnnotation
 internal object SpanProcessor {
 
     /**
-     * Cretes spans for specified [types] and applies them to the [spannable].
+     * Attach specified [spans] to the ranges of corresponding [annotations] of [spannable] object.
+     * All `null` spans will be skipped.
      */
-    fun applyAnnotationTypes(
+    fun applySpans(
         spannable: Spannable,
         annotations: List<StringAnnotation>,
-        types: List<AnnotationType>
+        spans: List<CharacterStyle?>
     ) {
-        makeSpans(types)
+        spans
             .forEachIndexed action@{ i, span ->
                 span ?: return@action // skip nulls
                 val annotation = annotations[i]
@@ -33,29 +27,8 @@ internal object SpanProcessor {
     }
 
     /**
-     * Instantiates new [ParcelableSpan]s for specified [types].
-     *
-     * @see makeSpan
+     * Attaches specified [span] to the range from [start] to [end] of [spannable] object.
      */
-    private fun makeSpans(types: List<AnnotationType>): List<CharacterStyle?> =
-        types.map { type -> makeSpan(type) }
-
-    /**
-     * Instantiates new [ParcelableSpan] for specified [type].
-     *
-     * @return new span or `null`, if there is no span for the [type].
-     */
-    private fun makeSpan(type: AnnotationType): CharacterStyle? =
-        when (type) {
-            is AnnotationType.Background -> BackgroundColorSpan(type.color)
-            is AnnotationType.Foreground -> ForegroundColorSpan(type.color)
-            is AnnotationType.StrikethroughStyle -> StrikethroughSpan()
-            is AnnotationType.TypefaceStyle -> StyleSpan(type.style)
-            is AnnotationType.UnderlineStyle -> UnderlineSpan()
-            is AnnotationType.Clickable -> type.span
-            else -> null // for AnnotationType.Null and unknown types
-        }
-
     private fun applySpan(
         spannable: Spannable,
         span: CharacterStyle,

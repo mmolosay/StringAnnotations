@@ -12,8 +12,6 @@ import androidx.fragment.app.Fragment
 
 /**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
- *
- * See [AnnotationType] for supported `<annotation>` types.
  */
 fun Context.getAnnotatedString(
     @StringRes id: Int,
@@ -26,8 +24,6 @@ fun Context.getAnnotatedString(
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
- *
- * See [AnnotationType] for supported `<annotation>` types.
  */
 fun Fragment.getAnnotatedString(
     @StringRes id: Int,
