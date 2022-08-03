@@ -5,6 +5,9 @@ plugins {
     id("kotlin-android")
 }
 
+group = "com.mmolosay.stringannotations"
+version = "1.0.0"
+
 configure<BaseExtension> {
 
     compileSdkVersion(32)

@@ -4,6 +4,8 @@ plugins {
 
 android {
 
+    namespace = "com.mmolosay.stringannotations"
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -11,6 +13,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
         }
     }
 }
