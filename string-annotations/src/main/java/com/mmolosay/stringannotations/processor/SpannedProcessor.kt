@@ -2,7 +2,6 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
 import android.text.Spanned
-import androidx.core.text.getSpans
 
 /**
  * Processes [Spanned] objects.
@@ -16,5 +15,5 @@ object SpannedProcessor {
      * so that each has only one attribute.
      */
     fun getAnnotationSpans(string: Spanned): Array<out Annotation> =
-        string.getSpans()
+        string.getSpans(0, string.length, Annotation::class.java)
 }
