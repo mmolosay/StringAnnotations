@@ -1,4 +1,10 @@
 pluginManagement {
+    plugins {
+        // empty
+    }
+    resolutionStrategy {
+        // empty
+    }
     repositories {
         gradlePluginPortal()
         google()
@@ -13,4 +19,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "StringAnnotations"
-include ':string-annotations'
+include(
+    ":string-annotations"
+)
