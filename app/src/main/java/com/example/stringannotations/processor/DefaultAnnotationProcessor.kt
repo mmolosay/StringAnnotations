@@ -91,6 +91,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
     ): AnnotationType =
         when {
             values.contains(ANNOTATION_VALUE_UNDERLINE) -> AnnotationType.UnderlineStyle
+            values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> AnnotationType.StrikethroughStyle
             else -> parseTypefaceStyleAnnotation(values)
         }
 
@@ -193,5 +194,6 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
         private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
 
         private const val ANNOTATION_VALUE_UNDERLINE = "underline"
+        private const val ANNOTATION_VALUE_STRIKETHROUGH = "strike"
     }
 }

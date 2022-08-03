@@ -56,6 +56,8 @@ interface AnnotationType {
      */
     class Foreground(val color: Int) : AnnotationType
 
+    object StrikethroughStyle : AnnotationType
+
     class TypefaceStyle(val style: Int) : AnnotationType
 
     object UnderlineStyle : AnnotationType

@@ -5,6 +5,7 @@ import android.text.Spannable
 import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
 import android.text.style.ForegroundColorSpan
+import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.example.stringannotations.AnnotationType
@@ -48,6 +49,7 @@ internal object SpanProcessor {
         when (type) {
             is AnnotationType.Background -> BackgroundColorSpan(type.color)
             is AnnotationType.Foreground -> ForegroundColorSpan(type.color)
+            is AnnotationType.StrikethroughStyle -> StrikethroughSpan()
             is AnnotationType.TypefaceStyle -> StyleSpan(type.style)
             is AnnotationType.UnderlineStyle -> UnderlineSpan()
             is AnnotationType.Clickable -> type.span
