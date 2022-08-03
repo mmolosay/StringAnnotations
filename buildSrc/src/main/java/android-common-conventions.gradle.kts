@@ -1,6 +1,10 @@
 import com.android.build.gradle.BaseExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    id("kotlin-android")
+}
+
 configure<BaseExtension> {
 
     compileSdkVersion(32)
