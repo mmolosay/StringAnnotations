@@ -15,7 +15,6 @@ import com.example.stringannotations.lib.StringAnnotations
  * Builder [appearanceBuilder] will be scoped to [ClickableTextAppearance],
  * set in [StringAnnotations.Builder.clickableTextAppearance].
  */
-// TODO: add index of clickable span as a parameter in onClick?
 fun ClickableSpan(
     appearanceBuilder: ClickableTextAppearance.() -> ClickableTextAppearance,
     onClick: (widget: View) -> Unit
