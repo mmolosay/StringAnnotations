@@ -1,12 +1,12 @@
-package com.example.stringannotations.mapper
+package com.mmolosay.stringannotations.mapper
 
 import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
-import com.example.stringannotations.StringAnnotation
-import com.example.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.StringAnnotation
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /**
  * Maps [Annotation] instances into other ones.

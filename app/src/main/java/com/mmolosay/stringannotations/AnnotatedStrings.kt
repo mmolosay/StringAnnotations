@@ -1,4 +1,4 @@
-package com.example.stringannotations
+package com.mmolosay.stringannotations
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -6,12 +6,12 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
-import com.example.stringannotations.lib.StringAnnotations
-import com.example.stringannotations.mapper.AnnotationMapper
-import com.example.stringannotations.processor.AnnotatedStringProcessor
-import com.example.stringannotations.processor.SpanProcessor
-import com.example.stringannotations.processor.SpannedProcessor
-import com.example.stringannotations.tree.AnnotationTreeBuilder
+import com.mmolosay.stringannotations.lib.StringAnnotations
+import com.mmolosay.stringannotations.mapper.AnnotationMapper
+import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
+import com.mmolosay.stringannotations.processor.SpanProcessor
+import com.mmolosay.stringannotations.processor.SpannedProcessor
+import com.mmolosay.stringannotations.tree.AnnotationTreeBuilder
 
 internal object AnnotatedStrings {
 

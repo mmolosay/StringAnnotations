@@ -1,10 +1,10 @@
-package com.example.stringannotations.tree
+package com.mmolosay.stringannotations.tree
 
 import android.text.Annotation
 import android.text.Spanned
-import com.example.stringannotations.StringAnnotation
-import com.example.stringannotations.has
-import com.example.stringannotations.mapper.AnnotationMapper
+import com.mmolosay.stringannotations.StringAnnotation
+import com.mmolosay.stringannotations.has
+import com.mmolosay.stringannotations.mapper.AnnotationMapper
 
 internal object AnnotationTreeBuilder {
 

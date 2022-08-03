@@ -1,7 +1,7 @@
-package com.example.stringannotations.processor
+package com.mmolosay.stringannotations.processor
 
 import android.text.SpannableStringBuilder
-import com.example.stringannotations.tree.AnnotationNode
+import com.mmolosay.stringannotations.tree.AnnotationNode
 
 /**
  * Processes annotated strings.

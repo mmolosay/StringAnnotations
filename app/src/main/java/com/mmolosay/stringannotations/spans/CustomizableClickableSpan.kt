@@ -1,8 +1,8 @@
-package com.example.stringannotations.spans
+package com.mmolosay.stringannotations.spans
 
 import android.text.TextPaint
 import android.text.style.ClickableSpan
-import com.example.stringannotations.lib.ClickableTextAppearance
+import com.mmolosay.stringannotations.lib.ClickableTextAppearance
 
 /**
  * [ClickableSpan] with flexible customization.

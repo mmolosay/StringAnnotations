@@ -1,9 +1,9 @@
-package com.example.stringannotations.spans
+package com.mmolosay.stringannotations.spans
 
 import android.text.style.ClickableSpan
 import android.view.View
-import com.example.stringannotations.lib.ClickableTextAppearance
-import com.example.stringannotations.lib.StringAnnotations
+import com.mmolosay.stringannotations.lib.ClickableTextAppearance
+import com.mmolosay.stringannotations.lib.StringAnnotations
 
 /*
  * Spans builder functions.

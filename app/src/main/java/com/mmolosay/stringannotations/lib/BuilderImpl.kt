@@ -1,6 +1,6 @@
-package com.example.stringannotations.lib
+package com.mmolosay.stringannotations.lib
 
-import com.example.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 internal object BuilderImpl : StringAnnotations.Builder {
 

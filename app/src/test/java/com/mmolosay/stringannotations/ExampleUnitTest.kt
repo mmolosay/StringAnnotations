@@ -1,4 +1,4 @@
-package com.example.stringannotations
+package com.mmolosay.stringannotations
 
 import org.junit.Test
 

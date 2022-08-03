@@ -1,4 +1,4 @@
-package com.example.stringannotations
+package com.mmolosay.stringannotations
 
 import android.graphics.Color
 import android.os.Bundle
@@ -8,10 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.example.stringannotations.R
 import com.example.stringannotations.databinding.ActivityMainBinding
-import com.example.stringannotations.lib.ClickableTextAppearance
-import com.example.stringannotations.lib.StringAnnotations
-import com.example.stringannotations.spans.ClickableSpan
+import com.mmolosay.stringannotations.spans.ClickableSpan
 
 class MainActivity : AppCompatActivity() {
 

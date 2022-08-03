@@ -1,4 +1,4 @@
-package com.example.stringannotations.lib
+package com.mmolosay.stringannotations.lib
 
 import android.graphics.Color
 import androidx.annotation.ColorInt

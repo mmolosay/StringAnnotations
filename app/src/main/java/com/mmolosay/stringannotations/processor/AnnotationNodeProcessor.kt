@@ -1,9 +1,9 @@
-package com.example.stringannotations.processor
+package com.mmolosay.stringannotations.processor
 
 import android.text.Spanned
-import com.example.stringannotations.mapper.AnnotationMapper
-import com.example.stringannotations.tree.AnnotationNode
-import com.example.stringannotations.tree.hasChildren
+import com.mmolosay.stringannotations.mapper.AnnotationMapper
+import com.mmolosay.stringannotations.tree.AnnotationNode
+import com.mmolosay.stringannotations.tree.hasChildren
 
 /**
  * Processes [AnnotationNode]s.

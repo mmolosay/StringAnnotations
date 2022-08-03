@@ -1,6 +1,6 @@
-package com.example.stringannotations.lib
+package com.mmolosay.stringannotations.lib
 
-import com.example.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /**
  * Collection of library settings and required dependincies.
@@ -32,8 +32,8 @@ object StringAnnotations {
      * Should be called, when [StringAnnotations] is never needed again.
      */
     fun dispose() {
-        this.annotationProcessor = null
-        this.clickableTextAppearance = null
+        annotationProcessor = null
+        clickableTextAppearance = null
     }
 
     private fun throwUnconfiguredException(): Nothing =

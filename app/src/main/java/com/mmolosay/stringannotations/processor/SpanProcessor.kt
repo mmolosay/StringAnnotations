@@ -1,8 +1,8 @@
-package com.example.stringannotations.processor
+package com.mmolosay.stringannotations.processor
 
 import android.text.Spannable
 import android.text.style.CharacterStyle
-import com.example.stringannotations.StringAnnotation
+import com.mmolosay.stringannotations.StringAnnotation
 
 /**
  * Processes spans (as [CharacterStyle]).
