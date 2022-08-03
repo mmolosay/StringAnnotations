@@ -6,7 +6,6 @@ import com.example.stringannotations.StringAnnotation
 import com.example.stringannotations.has
 import com.example.stringannotations.mapper.AnnotationMapper
 
-// TODO: make a class and istantiate as a singleton?
 internal object AnnotationTreeBuilder {
 
     /**
