@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "StringAnnotations"
-include ':app'
+include ':string-annotations'

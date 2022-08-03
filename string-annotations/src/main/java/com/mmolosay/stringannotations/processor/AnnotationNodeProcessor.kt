@@ -25,10 +25,10 @@ internal object AnnotationNodeProcessor {
         string: Spanned
     ): List<IntRange> {
         val ranges = findAllNodeRanges(node, string)
-        val nonAnnotationranges = ranges.filterIndexed { index, range ->
-            index % 2 == 0
+        val nonAnnotationRanges = ranges.filterIndexed { index, _ ->
+            index % 2 == 0 // each second range is an annotation (due to findAllNodeRanges impl)
         }
-        return reduceZeroLengthRanges(nonAnnotationranges)
+        return reduceZeroLengthRanges(nonAnnotationRanges)
     }
 
     /**
