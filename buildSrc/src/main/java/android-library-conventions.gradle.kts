@@ -11,10 +11,10 @@ afterEvaluate {
         publications {
 
             register<MavenPublication>("release") {
-                groupId = project.group.toString()
-                artifactId = project.name // string-annotations
-                version = project.version.toString()
                 from(components["release"])
+                groupId = Project.GROUP_ID
+                artifactId = Project.ARTIFACT_ID
+                version = Project.VERSION
             }
 
         }

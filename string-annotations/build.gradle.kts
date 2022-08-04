@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = project.group.toString()
+    namespace = Project.APPLICATION_ID
 
     buildTypes {
         getByName("release") {
