@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = "com.mmolosay.stringannotations"
+    namespace = project.group.toString()
 
     buildTypes {
         getByName("release") {
