@@ -1,4 +1,4 @@
 # StringAnnotations
 Smart annotations with styles in your strings.xml.
 
-![image](https://user-images.githubusercontent.com/32337243/183136166-cd1362c3-80d1-44cd-a6ba-2b96e94d6619.png)
+![image](https://user-images.githubusercontent.com/32337243/183136511-caf3edcf-f34a-4608-9c06-d054c538d6cd.png)
