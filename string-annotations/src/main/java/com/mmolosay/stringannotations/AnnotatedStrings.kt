@@ -6,7 +6,7 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.lib.StringAnnotations
+import com.mmolosay.stringannotations.core.StringAnnotations
 import com.mmolosay.stringannotations.mapper.AnnotationMapper
 import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
 import com.mmolosay.stringannotations.processor.SpanProcessor

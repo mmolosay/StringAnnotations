@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.lib
+package com.mmolosay.stringannotations.core
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
@@ -9,7 +9,7 @@ import androidx.annotation.ColorInt
 public data class ClickableTextAppearance(
 
     /**
-     * Defines whether text should be underlined or not.
+     * Defines, whether text should be underlined or not.
      */
     val underlineText: Boolean = false,
 

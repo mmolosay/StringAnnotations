@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.lib
+package com.mmolosay.stringannotations.core
 
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
@@ -13,7 +13,6 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 public object StringAnnotations {
 
     internal var annotationProcessor: AnnotationProcessor? = null
-    internal var clickableTextAppearance: ClickableTextAppearance? = null
 
     /**
      * Provides [Builder] instance to configure library dependencies.
@@ -27,14 +26,10 @@ public object StringAnnotations {
      */
     public fun dispose() {
         annotationProcessor = null
-        clickableTextAppearance = null
     }
 
     internal fun requireAnnotaitonProcessor(): AnnotationProcessor =
         annotationProcessor ?: throwUnconfiguredException()
-
-    internal fun requireClickableTextAppearance(): ClickableTextAppearance =
-        clickableTextAppearance ?: throwUnconfiguredException()
 
     private fun throwUnconfiguredException(): Nothing =
         throw IllegalStateException(
@@ -51,10 +46,5 @@ public object StringAnnotations {
          * Defines [AnnotationProcessor] to be used.
          */
         public fun annotationProcessor(processor: AnnotationProcessor): Builder
-
-        /**
-         * Defines [ClickableTextAppearance] to be used.
-         */
-        public fun clickableTextAppearance(appearance: ClickableTextAppearance): Builder
     }
 }
