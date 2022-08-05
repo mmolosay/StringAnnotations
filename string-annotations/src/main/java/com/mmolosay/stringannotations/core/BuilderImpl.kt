@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.lib
+package com.mmolosay.stringannotations.core
 
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
@@ -7,10 +7,5 @@ internal object BuilderImpl : StringAnnotations.Builder {
     override fun annotationProcessor(processor: AnnotationProcessor): StringAnnotations.Builder =
         apply {
             StringAnnotations.annotationProcessor = processor
-        }
-
-    override fun clickableTextAppearance(appearance: ClickableTextAppearance): StringAnnotations.Builder =
-        apply {
-            StringAnnotations.clickableTextAppearance = appearance
         }
 }

@@ -20,6 +20,3 @@ internal data class AnnotationNode(
 
 internal fun AnnotationNode.hasChildren(): Boolean =
     this.children.isNotEmpty()
-
-internal fun AnnotationNode.allChildrenCount(): Int =
-    children.sumOf { child -> child.allChildrenCount() }

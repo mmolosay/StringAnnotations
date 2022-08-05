@@ -94,12 +94,12 @@ import androidx.core.content.ContextCompat
  * <annotation style="underline">underlined text</annotation>
  * ```
  */
-open class DefaultAnnotationProcessor : AnnotationProcessor {
+public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     /**
      * Symbol, that is used in tag value to combine multiple values.
      */
-    protected val ANNOTATION_VALUE_COMBINE_SYMBOL = "|"
+    protected val ANNOTATION_VALUE_COMBINE_SYMBOL: String = "|"
 
     final override fun parseAnnotation(
         context: Context,
@@ -121,7 +121,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
      * @param values list of split tag's attribute values (see [parseAnnotationValue]).
      * @param clickables list of [ClickableSpan], that will be used for clickable spans.
      */
-    open fun parseAnnotation(
+    internal open fun parseAnnotation(
         context: Context,
         key: String,
         values: List<String>,
@@ -139,7 +139,7 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Splits annotation value of type `value1[|value2|value3|...]` into list of
      * separate atomic values and reduces repeated entries.
      */
-    open fun parseAnnotationValue(value: String): List<String> =
+    internal open fun parseAnnotationValue(value: String): List<String> =
         value
             .split(ANNOTATION_VALUE_COMBINE_SYMBOL)
             .distinct()
@@ -260,20 +260,20 @@ open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
     }
 
-    companion object {
+    private companion object {
 
         // keys
-        private const val ANNOTATION_KEY_BACKGROUND = "background"
-        private const val ANNOTATION_KEY_FOREGROUND = "color"
-        private const val ANNOTATION_KEY_STYLE = "style"
-        private const val ANNOTATION_KEY_CLICKABLE = "clickable"
+        const val ANNOTATION_KEY_BACKGROUND = "background"
+        const val ANNOTATION_KEY_FOREGROUND = "color"
+        const val ANNOTATION_KEY_STYLE = "style"
+        const val ANNOTATION_KEY_CLICKABLE = "clickable"
 
         // values
-        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
-        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
-        private const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
+        const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
+        const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
+        const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
 
-        private const val ANNOTATION_VALUE_UNDERLINE = "underline"
-        private const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
+        const val ANNOTATION_VALUE_UNDERLINE = "underline"
+        const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        Library attributes.
+    -->
+
+    <!-- region ClickableTextAppearance -->
+
+    <!-- Specifies default appearance for clickable spans. -->
+    <attr name="clickableTextAppearance" format="reference" />
+
+    <!-- Defines, whether text should be underlined or not. -->
+    <attr name="underlineText" format="boolean" />
+
+    <!-- endregion -->
+
+</resources>

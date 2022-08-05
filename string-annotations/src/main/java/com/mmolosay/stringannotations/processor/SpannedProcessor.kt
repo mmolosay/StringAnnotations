@@ -6,7 +6,7 @@ import android.text.Spanned
 /**
  * Processes [Spanned] objects.
  */
-object SpannedProcessor {
+internal object SpannedProcessor {
 
     /**
      * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
