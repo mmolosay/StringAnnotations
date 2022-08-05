@@ -6,6 +6,12 @@ plugins {
     `maven-publish`
 }
 
+android {
+    kotlinOptions {
+        freeCompilerArgs += "-Xexplicit-api=strict"
+    }
+}
+
 afterEvaluate {
     publishing {
         publications {

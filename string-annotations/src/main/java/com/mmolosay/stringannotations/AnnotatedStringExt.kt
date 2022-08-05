@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
  *
  * @throws IllegalStateException if library was not configured.
  */
-fun Context.getAnnotatedString(
+public fun Context.getAnnotatedString(
     @StringRes id: Int,
     clickables: List<ClickableSpan>,
     vararg formatArgs: Any
@@ -25,7 +25,7 @@ fun Context.getAnnotatedString(
 /**
  * Simplified variant of [Context.getAnnotatedString] for cases, when there is no clickable spans.
  */
-fun Context.getAnnotatedString(
+public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
@@ -39,7 +39,7 @@ fun Context.getAnnotatedString(
  * @throws IllegalStateException if fragment was not attached to context.
  * @throws IllegalStateException if library was not configured.
  */
-fun Fragment.getAnnotatedString(
+public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
     clickables: List<ClickableSpan>,
     vararg formatArgs: Any
@@ -49,7 +49,7 @@ fun Fragment.getAnnotatedString(
 /**
  * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no clickable spans.
  */
-fun Fragment.getAnnotatedString(
+public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =

@@ -8,7 +8,7 @@ import android.text.style.ClickableSpan
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [CharacterStyle] type.
  */
-sealed interface AnnotationProcessor {
+public sealed interface AnnotationProcessor {
 
     /**
      * Parses specified [annotation] into span of [CharacterStyle] type.
@@ -20,7 +20,7 @@ sealed interface AnnotationProcessor {
      * @return parsed span of [CharacterStyle] type, or `null`, if annotation is unsupported or
      * unparseable.
      */
-    fun parseAnnotation(
+    public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
         clickables: List<ClickableSpan>

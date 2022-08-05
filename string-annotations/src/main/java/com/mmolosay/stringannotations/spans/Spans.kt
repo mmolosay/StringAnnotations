@@ -15,7 +15,7 @@ import com.mmolosay.stringannotations.lib.StringAnnotations
  * Builder [appearanceBuilder] will be scoped to [ClickableTextAppearance],
  * set in [StringAnnotations.Builder.clickableTextAppearance].
  */
-fun ClickableSpan(
+public fun ClickableSpan(
     appearanceBuilder: ClickableTextAppearance.() -> ClickableTextAppearance,
     onClick: (widget: View) -> Unit
 ): ClickableSpan =
@@ -27,7 +27,7 @@ fun ClickableSpan(
 /**
  * Creates new instance of [ClickableSpan] with specified [onClick] action and appearance.
  */
-fun ClickableSpan(
+public fun ClickableSpan(
     appearance: ClickableTextAppearance = getDefaultClickableTextAppearance(),
     onClick: (widget: View) -> Unit
 ): ClickableSpan =

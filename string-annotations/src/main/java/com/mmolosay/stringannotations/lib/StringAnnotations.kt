@@ -10,7 +10,7 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  * Call [StringAnnotations.dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-object StringAnnotations {
+public object StringAnnotations {
 
     internal var annotationProcessor: AnnotationProcessor? = null
     internal var clickableTextAppearance: ClickableTextAppearance? = null
@@ -18,23 +18,23 @@ object StringAnnotations {
     /**
      * Provides [Builder] instance to configure library dependencies.
      */
-    fun configure(): Builder =
+    public fun configure(): Builder =
         BuilderImpl
+
+    /**
+     * Disposes all held objects.
+     * Should be called, when [StringAnnotations] is never needed again.
+     */
+    public fun dispose() {
+        annotationProcessor = null
+        clickableTextAppearance = null
+    }
 
     internal fun requireAnnotaitonProcessor(): AnnotationProcessor =
         annotationProcessor ?: throwUnconfiguredException()
 
     internal fun requireClickableTextAppearance(): ClickableTextAppearance =
         clickableTextAppearance ?: throwUnconfiguredException()
-
-    /**
-     * Disposes all held objects.
-     * Should be called, when [StringAnnotations] is never needed again.
-     */
-    fun dispose() {
-        annotationProcessor = null
-        clickableTextAppearance = null
-    }
 
     private fun throwUnconfiguredException(): Nothing =
         throw IllegalStateException(
@@ -46,15 +46,15 @@ object StringAnnotations {
      * Defines dependencies of [StringAnnotations].
      * Make sure you have set all of them before working with library.
      */
-    sealed interface Builder {
+    public sealed interface Builder {
         /**
          * Defines [AnnotationProcessor] to be used.
          */
-        fun annotationProcessor(processor: AnnotationProcessor): Builder
+        public fun annotationProcessor(processor: AnnotationProcessor): Builder
 
         /**
          * Defines [ClickableTextAppearance] to be used.
          */
-        fun clickableTextAppearance(appearance: ClickableTextAppearance): Builder
+        public fun clickableTextAppearance(appearance: ClickableTextAppearance): Builder
     }
 }

@@ -6,7 +6,7 @@ import androidx.annotation.ColorInt
 /**
  * Appearance properties of clickable text.
  */
-data class ClickableTextAppearance(
+public data class ClickableTextAppearance(
 
     /**
      * Defines whether text should be underlined or not.
