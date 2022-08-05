@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.text.style.ClickableSpan
 import android.view.View
-import com.mmolosay.stringannotations.core.ClickableTextAppearance
+import com.mmolosay.stringannotations.ClickableTextAppearance
 import com.mmolosay.stringannotations.utils.ThemeUtils.getClickableTextAppearance
 
 /*

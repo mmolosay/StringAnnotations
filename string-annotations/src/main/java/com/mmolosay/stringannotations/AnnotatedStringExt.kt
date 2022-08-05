@@ -5,6 +5,7 @@ import android.text.Spanned
 import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.mmolosay.stringannotations.core.AnnotatedStrings
 
 /*
  * Extensions for convenience use.

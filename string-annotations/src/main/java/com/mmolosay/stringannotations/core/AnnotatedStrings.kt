@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations
+package com.mmolosay.stringannotations.core
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -6,7 +6,6 @@ import android.text.Spanned
 import android.text.SpannedString
 import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.core.StringAnnotations
 import com.mmolosay.stringannotations.mapper.AnnotationMapper
 import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
 import com.mmolosay.stringannotations.processor.SpanProcessor
