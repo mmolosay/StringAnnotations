@@ -10,7 +10,8 @@ Table of contents
 * [Reasons to use](#reasons-to-use)
 * [Installation](#installation)
 * [Configuration](#configuration)
-    * [AnnotationProcessor](#annotation-processor)
+    * [AnnotationProcessor](#annotationprocessor)
+    * [ClickableTextAppearance](clickabletextappearance)
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
@@ -87,7 +88,24 @@ Otherwise, pass your own implementation.
 
 *Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it insapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
 
+[ClickableTextAppearance](/string-annotations/src/main/java/com/mmolosay/stringannotations/ClickableTextAppearance.kt)
+-----
+You should define default appearance of your [Clickable](#clickable) annotations text.
 
+1. (optional) Define your own style for clickable text appearance. You can use [Base.ClickableTextAppearance](/string-annotations/src/main/res/values/styles.xml#L12) style as a `parent`.
+2. Specify default clickable text appearance style in your application theme via `clickableTextAppearance` attribute.
+
+Example:
+```xml
+<style name="YourApplicationTheme" parent="…">
+   <!-- other theme attributes -->
+   <item name="clickableTextAppearance">@style/TextAppearance.ClickableTextAppearance</item>
+</style>
+
+<style name="TextAppearance.ClickableTextAppearance" parent="Base.ClickableTextAppearance">
+    <item name="android:textColor">#21834B</item> <!-- let clickable text be green by default -->
+</style>
+```
 
 Annotations
 =======
