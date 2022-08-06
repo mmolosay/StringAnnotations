@@ -56,7 +56,7 @@ import androidx.core.content.ContextCompat
  *
  * ### Clickable
  *
- * Annotation, that specifies click action for its body.
+ * Annotation, that specifies ability of its body to intercept click events.
  *
  * Value of attribute is an index, at which corresponding [ClickableSpan]
  * is located in list you should provide.
@@ -70,7 +70,7 @@ import androidx.core.content.ContextCompat
  *
  * ### Typeface style
  *
- * Annotation, that specifies typeface style for its body.
+ * Annotation, that specifies typeface style of its body.
  *
  * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
  *
