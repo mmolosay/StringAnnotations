@@ -9,6 +9,8 @@ Table of contents
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
 * [Installation](#installation)
+* [Configuration](#configuration)
+    * [AnnotationProcessor](#annotation-processor)
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
@@ -70,6 +72,22 @@ dependencies {
 
 Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
+
+Configuration
+=======
+
+Once you've installed the library, you should configure it. Use [StringAnnotations.configure()](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L20) method, which provides [StringAnnotations.Builder](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L44) instance and configure the library in desired way.
+
+[AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L48)
+-----
+You should define [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) instance to be used.
+
+If you're not planning on using custom annotations, then you should pass [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) instance.
+Otherwise, pass your own implementation.
+
+*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it insapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
+
+
 
 Annotations
 =======
