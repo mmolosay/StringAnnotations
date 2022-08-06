@@ -11,7 +11,7 @@ Table of contents
 * [Installation](#installation)
 * [Configuration](#configuration)
     * [AnnotationProcessor](#annotationprocessor)
-    * [ClickableTextAppearance](clickabletextappearance)
+    * [ClickableTextAppearance](#clickabletextappearance)
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
