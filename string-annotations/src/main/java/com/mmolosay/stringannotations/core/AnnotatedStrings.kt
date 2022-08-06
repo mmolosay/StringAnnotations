@@ -12,10 +12,11 @@ import com.mmolosay.stringannotations.processor.SpanProcessor
 import com.mmolosay.stringannotations.processor.SpannedProcessor
 import com.mmolosay.stringannotations.tree.AnnotationTreeBuilder
 
-internal object AnnotatedStrings {
+public object AnnotatedStrings {
 
     /**
-     * One should prefer using higher level extension functions, like [Context.getAnnotatedString].
+     * One should prefer using higher level extension functions,
+     * like [com.mmolosay.stringannotations.getAnnotatedString].
      *
      * Before calling the method, make sure, that [StringAnnotations] is configured.
      * Otherwise method will throw [IllegalStateException].
@@ -27,7 +28,7 @@ internal object AnnotatedStrings {
      *
      * @throws IllegalStateException if [StringAnnotations] has not been configured.
      */
-    fun process(
+    public fun process(
         context: Context,
         string: SpannedString,
         clickables: List<ClickableSpan>,
@@ -60,7 +61,7 @@ internal object AnnotatedStrings {
     /**
      * Version of [process] method, but receives [id] of string resource with annotations.
      */
-    fun process(
+    public fun process(
         context: Context,
         @StringRes id: Int,
         clickables: List<ClickableSpan>,
