@@ -60,7 +60,7 @@ dependencies {
 }
 ```
 
-Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/Resource/releases) page. 
+Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
 
 ## Annotation types
@@ -84,7 +84,7 @@ You can extend it and implement your own ones.
 
 Following **simplified** examples demonstrate ways to use `StringAnnotations`:
 
-Full sample can be found in [sample](/sample.resource-plain/src/main/kotlin/Main.kt) module.
+Full sample can be found in [sample](/sample) module.
 
 ```kotlin
 
