@@ -12,6 +12,7 @@ Table of contents
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
+    * [Clickable](#clickable)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -107,7 +108,22 @@ Examples:
  * Color resource name:
  `<annotation color="yourColorResName">colored text</annotation>`
 
-## Examples of usage
+Clickable
+-----
+> Specifies ability of its body to intercept click events.
+
+![image](https://user-images.githubusercontent.com/32337243/183248366-d05200a7-c291-480e-a710-f3442d056a39.png)
+
+Uses attribute `clickable`.
+Attribute value is an index, at which corresponding `ClickableSpan` is located.
+
+You should provide a list of clickables, if you request annotated string with clickable sections.
+
+Example:
+ *  `<annotation clickable="0">clcik me</annotation> and <annotation clickable="1">me as well</annotation>`
+
+Examples of usage
+======
 
 Following **simplified** examples demonstrate ways to use `StringAnnotations`:
 
