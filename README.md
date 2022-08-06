@@ -141,7 +141,7 @@ Examples:
  * Bold and italic text:
  `<annotation style="bold|italic">bold and italic text</annotation>`
 
-Strikethrough styles
+Strikethrough style
 -----
 > Crosses out its body.
 
