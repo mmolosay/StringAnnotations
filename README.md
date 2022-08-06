@@ -3,18 +3,20 @@
 # String Annotations
 Ultimate annotations in your *strings.xml*.
 
-## Table of contents
+Table of contents
+=======
 
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
 * [Installation](#installation)
-* [Annotation types](#annotation-types)
-* [Example of usage](#example-of-usage)
+* [Annotations](#annotations)
+    * [Background color](#background-color)
+    * [Foreground color](#foreground-color)
+* [Examples of usage](#examples-of-usage)
 * [License](#license)
 
-------
-
-## Problem to solve
+Problem to solve
+=======
 ![image](https://user-images.githubusercontent.com/32337243/183136511-caf3edcf-f34a-4608-9c06-d054c538d6cd.png)
 
 Take a look at a picture above. Think about how you would implement this design in terms of Android.
@@ -35,7 +37,8 @@ Well, no more :)
 
 **String Annotations** is a library that absorbed all best from old good familiar solutions, and enhanced it with great customization, extendability and convenience of use.
 
-## Reasons to use
+Reasons to use
+=======
 
 1. Concept is old and well-known.
 2. Library is pleasant to use: it's extendable, customizable and has a lot out-of-the-box features.
@@ -43,7 +46,8 @@ Well, no more :)
 4. Small source code size.
 5. 100% documented.
 
-## Installation
+Installation
+=======
 
 Use [JitPack](https://www.jitpack.io) to add it as a dependency to your Kotlin project.
 Code snippet below shows way for adding it
@@ -63,24 +67,47 @@ dependencies {
 Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
 
-## Annotation types
+Annotations
+=======
 
-There are all supported by default types of annotations.
+There are types of annotations, supported by default.
 You can extend it and implement your own ones.
 
-* #### Background color
-	Uses attribute `background`.
-	Specifies background color of its body.
+Background color
+-----
+> Specifies background color of its body.
 
-	Examples:
-	 * HEX color:
-	 ` <annotation background="#ff0000">text with red background</annotation>`
-	 *  Generic color name:
-	 `<annotation background="green">text with green background</annotation>`
-	 * Color resource name:
-	 `<annotation background="yourColorResName">text with colored background</annotation>`
+![image](https://user-images.githubusercontent.com/32337243/183247809-3d087191-aa14-4d93-bcff-f69018b68ec7.png)
 
-## Example of usage
+Uses attribute `background`.
+Attribute value can be either HEX color, generic color name or name of your color resource.
+
+Examples:
+ * HEX color:
+ ` <annotation background="#ff0000">text with red background</annotation>`
+ *  Generic color name:
+ `<annotation background="green">text with green background</annotation>`
+ * Color resource name:
+ `<annotation background="yourColorResName">text with colored background</annotation>`
+
+Foreground color
+-----
+> Specifies foreground color of its body.
+
+![image](https://user-images.githubusercontent.com/32337243/183247974-99b8f693-87bf-4758-9f7d-025a84bb762c.png)
+
+Uses attribute `color`.
+Attribute value can be either HEX color, generic color name or name of your color resource.
+
+Examples:
+ * HEX color:
+ ` <annotation color="#ff0000">red text</annotation>`
+ *  Generic color name:
+ `<annotation color="green">green text</annotation>`
+ * Color resource name:
+ `<annotation color="yourColorResName">colored text</annotation>`
+
+## Examples of usage
 
 Following **simplified** examples demonstrate ways to use `StringAnnotations`:
 
