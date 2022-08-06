@@ -15,6 +15,7 @@ Table of contents
     * [Clickable](#clickable)
     * [Typeface style](#typeface-style)
     * [Strikethrough style](#strikethrough-style)
+    * [Underline style](#underline-style)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -151,6 +152,17 @@ Uses attribute `style` and value `strikethrough`.
 
 Example:
  * `<annotation style="strikethrough">crossed out text</annotation>`
+
+Underline style
+-----
+> Underlines its body.
+
+![image](https://user-images.githubusercontent.com/32337243/183249199-4ee9923a-9cfb-4731-a6a6-a91693c6410d.png)
+
+Uses attribute `style` and value `underline`.
+
+Example:
+ * `<annotation style="underline">underlined text</annotation>`
 
 Examples of usage
 ======
