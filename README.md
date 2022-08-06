@@ -14,6 +14,7 @@ Table of contents
     * [Foreground color](#foreground-color)
     * [Clickable](#clickable)
     * [Typeface style](#typeface-style)
+    * [Strikethrough style](#strikethrough-style)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -139,6 +140,17 @@ Examples:
  `<annotation style="italic">italic text</annotation>`
  * Bold and italic text:
  `<annotation style="bold|italic">bold and italic text</annotation>`
+
+Strikethrough styles
+-----
+> Crosses out its body.
+
+![image](https://user-images.githubusercontent.com/32337243/183249071-efe2a8f7-e2a6-4396-a78b-63ea20901b4c.png)
+
+Uses attribute `style` and value `strikethrough`.
+
+Example:
+ * `<annotation style="strikethrough">crossed out text</annotation>`
 
 Examples of usage
 ======
