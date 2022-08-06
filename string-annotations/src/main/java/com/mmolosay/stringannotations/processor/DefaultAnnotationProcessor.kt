@@ -192,7 +192,6 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         return clickables.getOrNull(index)
     }
 
-    // TODO: parse color attribute as well
     /**
      * Parses string [value] of any color attribute (like [ANNOTATION_KEY_FOREGROUND] or
      * [ANNOTATION_KEY_BACKGROUND]) into color integer.
