@@ -34,7 +34,7 @@ Oh, highlighted parts should open different screen on click.
 Aren't frightened yet? Well, make it use wildcards and placeholders (e.g. "group by: &#95;, sort by: &#95;").
 And don't forget about localization.
 
-*Breathe out.*
+*B r e a t h e   o u t.*
 
 If you're not new in modern Android development, then you've certainly done things alike before. Indeed, it's pretty common business' request — to enliven monotonous Android `TextView` with some styles in order to provide a better UX.
 
