@@ -13,6 +13,7 @@ Table of contents
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
     * [Clickable](#clickable)
+    * [Typeface style](#typeface-style)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -121,6 +122,23 @@ You should provide a list of clickables, if you request annotated string with cl
 
 Example:
  *  `<annotation clickable="0">clcik me</annotation> and <annotation clickable="1">me as well</annotation>`
+
+Typeface style
+-----
+> Specifies typeface style of its body.
+
+![image](https://user-images.githubusercontent.com/32337243/183248716-5ca79fb4-a27f-4155-b75a-07ee28cbd203.png)
+
+Uses attribute `style`.
+Attribute value can be either `normal`, `bold`, `italic`, or `bold|italic`.
+
+Examples:
+ * Bold text:
+ `<annotation style="bold">bold text</annotation>`
+ * Italic text:
+ `<annotation style="italic">italic text</annotation>`
+ * Bold and italic text:
+ `<annotation style="bold|italic">bold and italic text</annotation>`
 
 Examples of usage
 ======
