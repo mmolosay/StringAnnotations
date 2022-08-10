@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "StringAnnotations"
-//includeBuild(":buildSrc")
 include(
-    ":string-annotations"
+    ":string-annotations",
+    ":sample"
 )
