@@ -55,11 +55,6 @@ internal object AnnotationNodeProcessor {
      * Node: ____-‾-____--‾‾_
      * Ranges: [{0, 4}, {4, 7}, {7, 11}, {11, 15}, {15, 16}]
      * ```
-     *
-     * Case 1:
-     * "first is %1$s, %2$s and %3$s"
-     *
-     * first is %1$s, red  and %3$s
      */
     private fun findAllNodeRanges(
         node: AnnotationNode,
