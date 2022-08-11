@@ -20,31 +20,29 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
     }
 
     private fun setViews() {
-        setIndiDemos()
-        setComplexDemos()
+        setDemos()
     }
 
     // region Set individual demos
 
-    private fun setIndiDemos() {
-        setIndiDemo1()
-        setIndiDemo2()
-        setIndiDemo3()
-        setIndiDemo4()
-        setIndiDemo5()
-        setTmp()
+    private fun setDemos() {
+        setDemo1()
+        setDemo2()
+        setDemo3()
+        setDemo4()
+        setDemo5()
     }
 
-    private fun setIndiDemo1() {
-        binding.textIndi1.text = getAnnotatedString(R.string.demoIndi1)
+    private fun setDemo1() {
+        binding.textIndi1.text = getAnnotatedString(R.string.demo1)
     }
 
-    private fun setIndiDemo2() {
+    private fun setDemo2() {
         val placeholder1 = getString(R.string.placeholder1)
-        binding.textIndi2.text = getAnnotatedString(R.string.demoIndi2, placeholder1)
+        binding.textIndi2.text = getAnnotatedString(R.string.demo2, placeholder1)
     }
 
-    private fun setIndiDemo3() {
+    private fun setDemo3() {
         val clickables = listOf(
             ClickableSpan(theme) {
                 Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
@@ -63,28 +61,16 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         )
         binding.textIndi3.run {
             movementMethod = LinkMovementMethod.getInstance()
-            text = getAnnotatedString(R.string.demoIndi3, clickables)
+            text = getAnnotatedString(R.string.demo3, clickables)
         }
     }
 
-    private fun setIndiDemo4() {
-        binding.textIndi4.text = getAnnotatedString(R.string.demoIndi4)
+    private fun setDemo4() {
+        binding.textIndi4.text = getAnnotatedString(R.string.demo4)
     }
 
-    private fun setIndiDemo5() {
-        binding.textIndi5.text = getAnnotatedString(R.string.demoIndi5)
-    }
-
-    private fun setTmp() {
-        binding.tmp.text = getAnnotatedString(R.string.tmp)
-    }
-
-    // endregion
-
-    // region Set complex demos
-
-    private fun setComplexDemos() {
-
+    private fun setDemo5() {
+        binding.textIndi5.text = getAnnotatedString(R.string.demo5)
     }
 
     // endregion
