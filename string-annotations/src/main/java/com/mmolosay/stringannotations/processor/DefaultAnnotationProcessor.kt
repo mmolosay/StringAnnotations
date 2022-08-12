@@ -283,7 +283,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         unit: String
     ): Int? =
         when (unit) {
-            ANNOTATION_VALUE_UNIT_PX -> size.toInt() // already pixels, but just float
+            ANNOTATION_VALUE_UNIT_PX, "" -> size.toInt() // already pixels, but just float
             ANNOTATION_VALUE_UNIT_SP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_SP)
             ANNOTATION_VALUE_UNIT_DP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_DIP)
             else -> null // unknown dimension
