@@ -15,6 +15,7 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import com.mmolosay.stringannotations.core.StringAnnotations
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -122,8 +123,12 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         annotation: Annotation,
         clickables: List<ClickableSpan>
     ): CharacterStyle? {
-        val values = parseAnnotationValue(annotation.value)
-        return parseAnnotation(context, annotation.key, values, clickables)
+        val type = annotation.key
+        val value = annotation.value
+        val values = parseAnnotationValue(value)
+        return parseAnnotation(context, type, values, clickables).also { span ->
+            span ?: logAnnotationParsingWarning(type, value)
+        }
     }
 
     /**
@@ -133,21 +138,21 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * in order to parse custom annotation type.
      *
      * @param context caller context.
-     * @param key [Annotation.getKey], which is actually a tag's attribute name.
+     * @param type [Annotation.getKey], which is actually a tag's attribute name.
      * @param values list of split tag's attribute values (see [parseAnnotationValue]).
      * @param clickables list of [ClickableSpan], that will be used for clickable spans.
      */
     internal open fun parseAnnotation(
         context: Context,
-        key: String,
+        type: String,
         values: List<String>,
         clickables: List<ClickableSpan>
     ): CharacterStyle? =
-        when (key) {
-            ANNOTATION_KEY_BACKGROUND -> parseBackgrounAnnotation(context, values)
-            ANNOTATION_KEY_FOREGROUND -> parseForegroundAnnotation(context, values)
-            ANNOTATION_KEY_STYLE -> parseStyleAnnotation(values)
-            ANNOTATION_KEY_CLICKABLE -> parseClickableAnnotation(values, clickables)
+        when (type) {
+            ANNOTATION_TYPE_BACKGROUND -> parseBackgrounAnnotation(context, values)
+            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values)
+            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values)
+            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, clickables)
             else -> null
         }
 
@@ -155,7 +160,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Splits annotation value of type `value1[|value2|value3|...]` into list of
      * separate atomic values and reduces repeated entries.
      */
-    internal open fun parseAnnotationValue(value: String): List<String> =
+    protected open fun parseAnnotationValue(value: String): List<String> =
         value
             .split(ANNOTATION_VALUE_COMBINE_SYMBOL)
             .distinct()
@@ -204,13 +209,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         clickables: List<ClickableSpan>
     ): CharacterStyle? {
-        val index = values.first().toIntOrNull() ?: return null
+        val index = values.firstOrNull()?.toIntOrNull() ?: return null
         return clickables.getOrNull(index)
     }
 
     /**
-     * Parses string [value] of any color attribute (like [ANNOTATION_KEY_FOREGROUND] or
-     * [ANNOTATION_KEY_BACKGROUND]) into color integer.
+     * Parses string [value] of any color attribute (like [ANNOTATION_TYPE_FOREGROUND] or
+     * [ANNOTATION_TYPE_BACKGROUND]) into color integer.
      *
      * Supported types of attribute value:
      * 1. color hex: `#ff0000`
@@ -234,8 +239,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
                 ContextCompat.getColor(context, colorRes)
             } catch (e: Resources.NotFoundException) {
                 Log.w(
-                    this::class.simpleName,
-                    "string annotation with attribute value=\"$value\" can not be parsed into valid color"
+                    StringAnnotations.TAG,
+                    "String annotation with attribute value=\"$value\" can not be parsed into valid color"
                 )
                 null // return null, if attribute value is invalid
             }
@@ -275,13 +280,27 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
     }
 
+    /**
+     * Logs message of inability to parse annotation with specified [type] and [value]
+     * into valid span with [Log.WARN] priority.
+     */
+    protected fun logAnnotationParsingWarning(
+        type: String,
+        value: String
+    ) {
+        Log.w(
+            StringAnnotations.TAG,
+            "String annotation with attribute=\"$type\" and value=\"$value\" cannot be parsed into valid span"
+        )
+    }
+
     private companion object {
 
-        // keys
-        const val ANNOTATION_KEY_BACKGROUND = "background"
-        const val ANNOTATION_KEY_FOREGROUND = "color"
-        const val ANNOTATION_KEY_STYLE = "style"
-        const val ANNOTATION_KEY_CLICKABLE = "clickable"
+        // types
+        const val ANNOTATION_TYPE_BACKGROUND = "background"
+        const val ANNOTATION_TYPE_FOREGROUND = "color"
+        const val ANNOTATION_TYPE_STYLE = "style"
+        const val ANNOTATION_TYPE_CLICKABLE = "clickable"
 
         // values
         const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
