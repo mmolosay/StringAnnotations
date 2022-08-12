@@ -49,6 +49,16 @@ public fun Context.getAnnotatedString(
     AnnotatedStrings.process(this, id, emptyList(), *formatArgs)
 
 /**
+ * Simplified variant of [Context.getAnnotatedString] for cases, when there is only one clickable span.
+ */
+public fun Context.getAnnotatedString(
+    @StringRes id: Int,
+    clickable: ClickableSpan,
+    vararg formatArgs: Any
+): Spanned =
+    AnnotatedStrings.process(this, id, listOf(clickable), *formatArgs)
+
+/**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
@@ -71,3 +81,13 @@ public fun Fragment.getAnnotatedString(
     vararg formatArgs: Any
 ): Spanned =
     requireContext().getAnnotatedString(id, emptyList(), *formatArgs)
+
+/**
+ * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is only one clickable span.
+ */
+public fun Fragment.getAnnotatedString(
+    @StringRes id: Int,
+    clickable: ClickableSpan,
+    vararg formatArgs: Any
+): Spanned =
+    requireContext().getAnnotatedString(id, listOf(clickable), *formatArgs)
