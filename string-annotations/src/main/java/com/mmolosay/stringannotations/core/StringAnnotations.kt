@@ -28,6 +28,11 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  */
 public object StringAnnotations {
 
+    /**
+     * Library tag. Used for logging events.
+     */
+    public const val TAG: String = "StringAnnotations"
+
     internal var annotationProcessor: AnnotationProcessor? = null
 
     /**
@@ -41,7 +46,7 @@ public object StringAnnotations {
      * Should be called, when [StringAnnotations] is never needed again.
      */
     public fun dispose() {
-        annotationProcessor = null
+        this.annotationProcessor = null
     }
 
     internal fun requireAnnotaitonProcessor(): AnnotationProcessor =
