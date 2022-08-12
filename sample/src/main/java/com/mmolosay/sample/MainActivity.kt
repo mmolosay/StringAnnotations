@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemo3()
         setDemo4()
         setDemo5()
+        setDemo6()
     }
 
     /**
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates foreground color annotation.
      */
     private fun setDemo1() {
-        binding.textIndi1.text = getAnnotatedString(R.string.demo1)
+        binding.demo1.text = getAnnotatedString(R.string.demo1)
     }
 
     /**
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      */
     private fun setDemo2() {
         val placeholder1 = getString(R.string.placeholder1)
-        binding.textIndi2.text = getAnnotatedString(R.string.demo2, placeholder1)
+        binding.demo2.text = getAnnotatedString(R.string.demo2, placeholder1)
     }
 
     /**
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
                 Toast.makeText(this, "Clicked text with index=1", Toast.LENGTH_SHORT).show()
             }
         )
-        binding.textIndi3.run {
+        binding.demo3.run {
             movementMethod = LinkMovementMethod.getInstance()
             text = getAnnotatedString(R.string.demo3, clickables)
         }
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates typeface style annotations: normal, bold, italic and bold&italic.
      */
     private fun setDemo4() {
-        binding.textIndi4.text = getAnnotatedString(R.string.demo4)
+        binding.demo4.text = getAnnotatedString(R.string.demo4)
     }
 
     /**
@@ -92,7 +93,15 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates crossed out and underlined style annotations.
      */
     private fun setDemo5() {
-        binding.textIndi5.text = getAnnotatedString(R.string.demo5)
+        binding.demo5.text = getAnnotatedString(R.string.demo5)
+    }
+
+    /**
+     * Demo for [R.string.demo5].
+     * Demonstrates crossed out and underlined style annotations.
+     */
+    private fun setDemo6() {
+        binding.demo6.text = getAnnotatedString(R.string.demo6)
     }
 
     // endregion
