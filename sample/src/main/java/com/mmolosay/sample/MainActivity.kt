@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemos()
     }
 
-    // region Set individual demos
+    // region Set demos
 
     private fun setDemos() {
         setDemo1()
@@ -33,15 +33,29 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemo5()
     }
 
+    /**
+     * Demo for [R.string.demo1].
+     * Demonstrates foreground color annotation.
+     */
     private fun setDemo1() {
         binding.textIndi1.text = getAnnotatedString(R.string.demo1)
     }
 
+    /**
+     * Demo for [R.string.demo2].
+     * Demonstrates background color annotation.
+     */
     private fun setDemo2() {
         val placeholder1 = getString(R.string.placeholder1)
         binding.textIndi2.text = getAnnotatedString(R.string.demo2, placeholder1)
     }
 
+    /**
+     * Demo for [R.string.demo3].
+     * Demonstrates clickable annotations.
+     *
+     * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
+     */
     private fun setDemo3() {
         val clickables = listOf(
             ClickableSpan(theme) {
@@ -65,10 +79,18 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         }
     }
 
+    /**
+     * Demo for [R.string.demo4].
+     * Demonstrates typeface style annotations: normal, bold, italic and bold&italic.
+     */
     private fun setDemo4() {
         binding.textIndi4.text = getAnnotatedString(R.string.demo4)
     }
 
+    /**
+     * Demo for [R.string.demo5].
+     * Demonstrates crossed out and underlined style annotations.
+     */
     private fun setDemo5() {
         binding.textIndi5.text = getAnnotatedString(R.string.demo5)
     }
