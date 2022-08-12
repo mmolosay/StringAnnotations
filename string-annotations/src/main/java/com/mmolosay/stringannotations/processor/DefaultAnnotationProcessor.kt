@@ -113,6 +113,21 @@ import com.mmolosay.stringannotations.core.StringAnnotations
  * ```
  * <annotation style="underline">underlined text</annotation>
  * ```
+ *
+ * ### Absolute size
+ *
+ * Annotation, that specifies absolute size of its body.
+ *
+ * ```
+ * Pixels (just size will be treated the same):
+ * <annotation size-absolute="20.3px">text of 20.3 px size</annotation>
+ *
+ * DPs:
+ * <annotation size-absolute="20.3dp">text of 20.3 DP size</annotation>
+ *
+ * SPs:
+ * <annotation size-absolute="20.3sp">text of 20.3 SP size</annotation>
+ * ```
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
