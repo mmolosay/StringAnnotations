@@ -16,7 +16,7 @@
 
     <string name="demo5">Demo #5: <annotation style="strikethrough">crossed out</annotation> and <annotation style="underline">underlined</annotation> text</string>
 
-    <string name="demo6">Demo #6: text with absolute size of 20 in <annotation size-absolute="20">pixels</annotation>, <annotation size-absolute="20dp">DIPs</annotation> and <annotation size-absolute="20sp">SPs</annotation></string>
+    <string name="demo6">Demo #6: text with absolute size of 20.5 in <annotation size-absolute="20.5">pixels</annotation>, <annotation size-absolute="20.5dp">DIPs</annotation> and <annotation size-absolute="20.5sp">SPs</annotation></string>
 
     <!-- endregion -->
 
