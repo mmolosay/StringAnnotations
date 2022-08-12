@@ -20,6 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# Will keep R classes in release build, thus its contents are accessable
+# for obtaining as fields by resource name.
 -keep class **.R
 -keep class *.R$ {
     <fields>;
