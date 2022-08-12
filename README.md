@@ -10,6 +10,7 @@ Table of contents
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
 * [Installation](#installation)
+    * [Proguard rules](#important)
 * [Configuration](#configuration)
     * [AnnotationProcessor](#annotationprocessor)
     * [ClickableTextAppearance](#clickabletextappearance)
@@ -74,6 +75,19 @@ dependencies {
 
 Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
+
+### **Important!**
+If you're using Proguard, then you should add theese rules in order to be able to find color resources by their names in release build.
+You can take a look at how it could be done at [sample application Proguard rules](/sample/proguard-rules.pro#L23).
+The rules themselves:
+```
+# Will keep R classes in release build, thus its contents are accessable
+# for obtaining as fields by resource name.
+-keep class **.R
+-keep class *.R$ {
+    <fields>;
+}
+```
 
 Configuration
 =======
