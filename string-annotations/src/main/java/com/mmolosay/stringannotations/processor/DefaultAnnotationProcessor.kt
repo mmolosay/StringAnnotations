@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Annotation
+import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
@@ -13,7 +14,9 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.util.Log
+import android.util.TypedValue
 import androidx.annotation.ColorInt
+import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import com.mmolosay.stringannotations.core.StringAnnotations
 
@@ -153,6 +156,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values)
             ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values)
             ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, clickables)
+            ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values)
             else -> null
         }
 
@@ -169,7 +173,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         context: Context,
         values: List<String>
     ): CharacterStyle? {
-        val value = values.first() // use very first one
+        val value = values.firstOrNull() ?: return null // use very first one
         return parseColorAttributeValue(context, value)?.let { color ->
             BackgroundColorSpan(color)
         }
@@ -179,7 +183,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         context: Context,
         values: List<String>
     ): CharacterStyle? {
-        val value = values.first() // use very first one
+        val value = values.firstOrNull() ?: return null // use very first one
         return parseColorAttributeValue(context, value)?.let { color ->
             ForegroundColorSpan(color)
         }
@@ -211,6 +215,15 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     ): CharacterStyle? {
         val index = values.firstOrNull()?.toIntOrNull() ?: return null
         return clickables.getOrNull(index)
+    }
+
+    private fun parseSizeAbsoluteAnnotation(
+        context: Context,
+        values: List<String>
+    ): CharacterStyle? {
+        val value = values.firstOrNull() ?: return null
+        val size = parseSize(context, value) ?: return null
+        return AbsoluteSizeSpan(size)
     }
 
     /**
@@ -245,6 +258,65 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
                 null // return null, if attribute value is invalid
             }
         }
+
+    /**
+     * Parses [value] of format `"{NUMBER}{UNIT}"` into pixel size.
+     *
+     * @see splitSize
+     */
+    @Px
+    private fun parseSize(
+        context: Context,
+        value: String
+    ): Int? {
+        val pair = splitSize(value) ?: return null
+        return parseSize(context, pair.first, pair.second)
+    }
+
+    /**
+     * Parses [size], specified in [unit] into pixel equivalent size.
+     */
+    @Px
+    protected open fun parseSize(
+        context: Context,
+        size: Float,
+        unit: String
+    ): Int? =
+        when (unit) {
+            ANNOTATION_VALUE_UNIT_PX -> size.toInt() // already pixels, but just float
+            ANNOTATION_VALUE_UNIT_SP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_SP)
+            ANNOTATION_VALUE_UNIT_DP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_DIP)
+            else -> null // unknown dimension
+        }
+
+    /**
+     * Splites complex size [value], specified in units into pair of float size and unit label, i.e.
+     * `"18.56sp"` -> `{18.56f, "sp"}`.
+     */
+    protected open fun splitSize(value: String): Pair<Float, String>? {
+        val unit = value.takeLastWhile { it.isLetter() }
+        val size = value
+            .substring(0, value.length - unit.length)
+            .toFloatOrNull()
+            ?: return null
+        return Pair(size, unit)
+    }
+
+    /**
+     * Converts [size], specified in [unit] into pixel equivalent size.
+     */
+    @Px
+    protected fun parseSizeUnit(
+        context: Context,
+        size: Float,
+        unit: Int
+    ): Int {
+        return TypedValue.applyDimension(
+            /*unit*/ unit,
+            /*value*/ size,
+            /*metrics*/ context.resources.displayMetrics
+        ).toInt()
+    }
 
     /**
      * Infer typeface style from annotation [value].
@@ -301,6 +373,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         const val ANNOTATION_TYPE_FOREGROUND = "color"
         const val ANNOTATION_TYPE_STYLE = "style"
         const val ANNOTATION_TYPE_CLICKABLE = "clickable"
+        const val ANNOTATION_TYPE_SIZE_ABSOLUTE = "size-absolute"
 
         // values
         const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
@@ -309,5 +382,10 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
         const val ANNOTATION_VALUE_UNDERLINE = "underline"
         const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
+
+        // misc
+        const val ANNOTATION_VALUE_UNIT_PX = "px"
+        const val ANNOTATION_VALUE_UNIT_SP = "sp"
+        const val ANNOTATION_VALUE_UNIT_DP = "dp"
     }
 }
