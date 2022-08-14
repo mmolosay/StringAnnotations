@@ -47,8 +47,9 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         string: SpannedString,
-        clickables: List<ClickableSpan>,
-        vararg formatArgs: Any
+        clickables: List<ClickableSpan> = emptyList(), // TODO: change to array
+        formatArgs: Array<out Any> = emptyArray(),
+        valueArgs: Array<out Any> = emptyArray()
     ): Spanned {
         // 0. prepare dependencies
         val processor = StringAnnotations.requireAnnotaitonProcessor()
@@ -66,7 +67,8 @@ public object AnnotatedStrings {
         val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, clickables)
+        val types = AnnotationMapper
+            .parseAnnotations(context, processor, annotations, clickables, valueArgs)
 
         // 5. apply spans to string
         SpanProcessor.applySpans(builder, strAnnotations, types)
@@ -80,14 +82,16 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         @StringRes id: Int,
-        clickables: List<ClickableSpan>,
-        vararg formatArgs: Any
+        clickables: List<ClickableSpan> = emptyList(), // TODO: change to array
+        formatArgs: Array<out Any> = emptyArray(),
+        valueArgs: Array<out Any> = emptyArray()
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
             clickables = clickables,
-            formatArgs = formatArgs
+            formatArgs = formatArgs,
+            valueArgs = valueArgs
         )
 
     /**

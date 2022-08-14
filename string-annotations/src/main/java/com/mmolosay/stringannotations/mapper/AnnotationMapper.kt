@@ -67,9 +67,10 @@ internal object AnnotationMapper {
         context: Context,
         processor: AnnotationProcessor,
         annotations: Array<out Annotation>,
-        clickables: List<ClickableSpan>
+        clickables: List<ClickableSpan>,
+        valueArgs: Array<out Any>
     ): List<CharacterStyle?> =
         annotations.map { annotation ->
-            processor.parseAnnotation(context, annotation, clickables)
+            processor.parseAnnotation(context, annotation, clickables, valueArgs)
         }
 }

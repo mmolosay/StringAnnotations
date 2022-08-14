@@ -39,6 +39,7 @@ public sealed interface AnnotationProcessor {
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        clickables: List<ClickableSpan>
+        clickables: List<ClickableSpan>,
+        valueArgs: Array<out Any>
     ): CharacterStyle?
 }

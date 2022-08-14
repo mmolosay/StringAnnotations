@@ -18,6 +18,8 @@
 
     <string name="demo6">Demo #6: text with absolute size of 20.5 in <annotation size-absolute="20.5">pixels</annotation>, <annotation size-absolute="20.5dp">DIPs</annotation> and <annotation size-absolute="20.5sp">SPs</annotation></string>
 
+    <string name="demo7">Demo #7: color value is being set in <annotation color="arg$1">runtime</annotation></string>
+
     <!-- endregion -->
 
     <!-- region Common placeholders -->

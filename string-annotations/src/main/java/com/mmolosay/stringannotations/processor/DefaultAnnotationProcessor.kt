@@ -131,20 +131,16 @@ import com.mmolosay.stringannotations.core.StringAnnotations
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    /**
-     * Symbol, that is used in tag value to combine multiple values.
-     */
-    protected val ANNOTATION_VALUE_COMBINE_SYMBOL: String = "|"
-
     final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        clickables: List<ClickableSpan>
+        clickables: List<ClickableSpan>,
+        valueArgs: Array<out Any>
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
         val values = parseAnnotationValue(value)
-        return parseAnnotation(context, type, values, clickables).also { span ->
+        return parseAnnotation(context, type, values, clickables, valueArgs).also { span ->
             span ?: logAnnotationParsingWarning(type, value)
         }
     }
@@ -164,10 +160,11 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         context: Context,
         type: String,
         values: List<String>,
-        clickables: List<ClickableSpan>
+        clickables: List<ClickableSpan>,
+        valueArgs: Array<out Any>
     ): CharacterStyle? =
         when (type) {
-            ANNOTATION_TYPE_BACKGROUND -> parseBackgrounAnnotation(context, values)
+            ANNOTATION_TYPE_BACKGROUND -> parseBackgrounAnnotation(context, values, valueArgs)
             ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values)
             ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values)
             ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, clickables)
@@ -176,19 +173,34 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
 
     /**
-     * Splits annotation value of type `value1[|value2|value3|...]` into list of
+     * Splits annotation value of type `value1[|value2][|value3]...` into list of
      * separate atomic values and reduces repeated entries.
      */
     protected open fun parseAnnotationValue(value: String): List<String> =
         value
-            .split(ANNOTATION_VALUE_COMBINE_SYMBOL)
+            .split("|")
             .distinct()
+
+    /**
+     * Tries to parse annotation value as value argument.
+     * If done successfully, returns index of this value argument, `null` otherwise.
+     */
+    protected open fun parseAnnotationValueArg(value: String): Int? {
+        val parts = value.split("$", limit = 2)
+        if (parts.size == 2 && parts.first() == "arg") {
+            parts[1].toIntOrNull()?.let { return it }
+        }
+        Log.w(StringAnnotations.TAG, "Invalid annotation value argument format")
+        return null
+    }
 
     private fun parseBackgrounAnnotation(
         context: Context,
-        values: List<String>
+        values: List<String>,
+        valueArgs: Array<out Any>
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use very first one
+        val color = parseAnnotationValueArg(value)
         return parseColorAttributeValue(context, value)?.let { color ->
             BackgroundColorSpan(color)
         }
@@ -366,6 +378,20 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             Typeface.BOLD_ITALIC
         }
     }
+
+    /**
+     * Retrieves value argument at [index] in [valueArgs] array.
+     *
+     * If there is no such index in array, or retrieved element is `null`,
+     * then appropriate message will be logged with [Log.WARN] priority.
+     */
+    private fun getValueArgumentOrLog(
+        valueArgs: Array<out Any>,
+        index: Int
+    ): Any? =
+        valueArgs.getOrNull(index).also { arg ->
+            arg ?: Log.w(StringAnnotations.TAG, "There is no value argument at index=$index")
+        }
 
     /**
      * Logs message of inability to parse annotation with specified [type] and [value]

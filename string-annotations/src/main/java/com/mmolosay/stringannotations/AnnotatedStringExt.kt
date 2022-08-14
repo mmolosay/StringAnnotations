@@ -35,18 +35,48 @@ import com.mmolosay.stringannotations.core.AnnotatedStrings
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
     clickables: List<ClickableSpan>,
-    vararg formatArgs: Any
+    formatArgs: Array<out Any>,
+    valueArgs: Array<out Any>
 ): Spanned =
-    AnnotatedStrings.process(this, id, clickables, *formatArgs)
+    AnnotatedStrings.process(
+        context = this,
+        id = id,
+        clickables = clickables,
+        formatArgs = formatArgs,
+        valueArgs = valueArgs
+    )
 
 /**
  * Simplified variant of [Context.getAnnotatedString] for cases, when there is no clickable spans.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
+    formatArgs: Array<out Any> = emptyArray(),
+    valueArgs: Array<out Any> = emptyArray()
+): Spanned =
+    AnnotatedStrings.process(
+        context = this,
+        id = id,
+        clickables = emptyList(),
+        formatArgs = formatArgs,
+        valueArgs = valueArgs
+    )
+
+/**
+ * Simplified variant of [Context.getAnnotatedString] for cases, when there is
+ * neither clickable spans nor value arguments.
+ */
+public fun Context.getAnnotatedString(
+    @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    AnnotatedStrings.process(this, id, emptyList(), *formatArgs)
+    AnnotatedStrings.process(
+        context = this,
+        id = id,
+        clickables = emptyList(),
+        formatArgs = formatArgs,
+        valueArgs = emptyArray()
+    )
 
 /**
  * Simplified variant of [Context.getAnnotatedString] for cases, when there is only one clickable span.
