@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.parser
 
 import android.graphics.Typeface
-import com.mmolosay.stringannotations.processor.ArgPlaceholderProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,22 +23,12 @@ import com.mmolosay.stringannotations.processor.ArgPlaceholderProcessor
  */
 public object TypefaceStyleParser {
 
-    public fun parse(
-        values: List<String>,
-        processor: ArgPlaceholderProcessor<Int>
-    ): Int? {
-        val styles = values.mapNotNull { value ->
-            processor(value) ?: inferTypefaceStyle(value)
-        }
-        return reduceTypefaceStyles(styles)
-    }
-
     /**
-     * Matches typeface style type from annotation [value] to typeface style int.
+     * Parses string [value] of some typeface style into typeface style integer.
      *
-     * @return typeface style or `null`, if there's no matches.
+     * @return parsed typeface style integer or `null`, if there's no matches.
      */
-    private fun inferTypefaceStyle(value: String): Int? =
+    public fun parse(value: String): Int? =
         when (value) {
             TYPEFACE_STYLE_BOLD -> Typeface.BOLD
             TYPEFACE_STYLE_ITALIC -> Typeface.ITALIC
@@ -58,7 +47,7 @@ public object TypefaceStyleParser {
      * [normal, bold, italic] -> bold_italic
      * ```
      */
-    private fun reduceTypefaceStyles(styles: List<Int>): Int? {
+    public fun reduceTypefaceStyles(styles: List<Int>): Int? {
         if (styles.isEmpty()) return null
         if (styles.size == 1) return styles.first()
         return if (styles.contains(Typeface.NORMAL)) {

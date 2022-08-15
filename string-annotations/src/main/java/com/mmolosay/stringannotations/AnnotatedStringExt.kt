@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotatedStrings
 
 /*
@@ -29,12 +30,16 @@ import com.mmolosay.stringannotations.core.AnnotatedStrings
 /**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
+ * @param id resource id of annotated string.
+ * @param valueArgs value placeholder arguments.
+ * @param formatArgs formatting arguments to be substituted.
+ *
  * @throws IllegalStateException if library was not configured.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
-    formatArgs: Array<out Any> = emptyArray(),
-    valueArgs: Array<out Any> = emptyArray()
+    valueArgs: ValueArgs,
+    vararg formatArgs: Any,
 ): Spanned =
     AnnotatedStrings.process(
         context = this,
@@ -61,13 +66,17 @@ public fun Context.getAnnotatedString(
  *
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
  *
+ * @param id resource id of annotated string.
+ * @param valueArgs value placeholder arguments.
+ * @param formatArgs formatting arguments to be substituted.
+ *
  * @throws IllegalStateException if fragment was not attached to context.
  * @throws IllegalStateException if library was not configured.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
-    formatArgs: Array<out Any> = emptyArray(),
-    valueArgs: Array<out Any> = emptyArray()
+    valueArgs: ValueArgs,
+    vararg formatArgs: Any
 ): Spanned =
     requireContext().getAnnotatedString(
         id = id,

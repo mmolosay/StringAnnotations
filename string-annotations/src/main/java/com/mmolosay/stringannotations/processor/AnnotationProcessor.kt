@@ -3,6 +3,7 @@ package com.mmolosay.stringannotations.processor
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
+import com.mmolosay.stringannotations.args.ValueArgs
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -38,6 +39,6 @@ public sealed interface AnnotationProcessor {
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle?
 }

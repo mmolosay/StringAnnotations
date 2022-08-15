@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.databinding.MainScreenBinding
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.getAnnotatedString
 import com.mmolosay.stringannotations.spans.ClickableSpan
 
@@ -55,27 +56,31 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     /**
      * Demo for [R.string.demo3].
-     * Demonstrates clickable annotations.
+     * Demonstrates clickable annotations via runtime value arguments.
      *
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
     private fun setDemo3() {
-        val args = arrayOf(
-            ClickableSpan(theme) {
-                Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
-            },
-            ClickableSpan(
-                theme = theme,
-                builder = {
-                    copy(
-                        underlineText = true,
-                        textColor = Color.MAGENTA
-                    )
-                }
-            ) {
-                Toast.makeText(this, "Clicked text with index=1", Toast.LENGTH_SHORT).show()
+        val span1 = ClickableSpan(theme) {
+            Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
+        }
+        val span2 = ClickableSpan(
+            theme = theme,
+            builder = {
+                copy(
+                    underlineText = true,
+                    textColor = Color.MAGENTA
+                )
             }
-        )
+        ) {
+            Toast.makeText(this, "Clicked text with index=1", Toast.LENGTH_SHORT).show()
+        }
+        val args = ValueArgs {
+            clickables {
+                add(span1)
+                add(span2)
+            }
+        }
         binding.demo3.run {
             movementMethod = LinkMovementMethod.getInstance()
             text = getAnnotatedString(
@@ -111,15 +116,16 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     /**
      * Demo for [R.string.demo7].
-     * Demonstrates using runtime arguments.
+     * Demonstrates using runtime value arguments.
      */
     private fun setDemo7() {
-        val arg0 = ContextCompat.getColor(this, R.color.purple_500)
-        val args = arrayOf(arg0)
-        binding.demo7.text = getAnnotatedString(
-            id = R.string.demo7,
-            valueArgs = args
-        )
+        val colorPurple = ContextCompat.getColor(this, R.color.purple_500)
+        val args = ValueArgs {
+            colors {
+                add(colorPurple)
+            }
+        }
+        binding.demo7.text = getAnnotatedString(R.string.demo7, args)
     }
 
     // endregion

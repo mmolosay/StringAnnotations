@@ -5,14 +5,12 @@ import android.text.Annotation
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.CharacterStyle
-import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.Logger
-import com.mmolosay.stringannotations.parser.ColorValueParser
-import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleParser
 
 /*
@@ -49,9 +47,6 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleParser
  *
  * Generic color name:
  * <annotation background="green">text with green background</annotation>
- *
- * Color resource name:
- * <annotation background="yourColorResName">text with colored background</annotation>
  * ```
  *
  * ### Foreground color
@@ -64,23 +59,19 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleParser
  *
  * Generic color name:
  * <annotation color="green">green text</annotation>
- *
- * Color resource name:
- * <annotation color="yourColorResName">colored text</annotation>
  * ```
  *
  * ### Clickable
  *
  * Annotation, that specifies ability of its body to intercept click events.
  *
- * Value of attribute is an index, at which corresponding [ClickableSpan]
- * is located in list you should provide.
+ * Use runtime value arguments to specify span for the annotation.
  *
  * You should also explicitly specify, that your `TextView` contains clickable text
  * by calling [android.widget.TextView.setMovementMethod].
  *
  * ```
- * <annotation clickable="0">clickable text</annotation>
+ * <annotation clickable="arg$0">clickable text</annotation>
  * ```
  *
  * ### Typeface style
@@ -126,12 +117,16 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleParser
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    protected open val valueProcessor: AnnotationValueProcessor = DefaultAnnotationValueProcessor
+    /**
+     * Annotation value processor to be used in order to parse values of different annotation types.
+     */
+    protected open val valueProcessor: DefaultAnnotationValueProcessor =
+        DefaultAnnotationValueProcessorImpl()
 
     final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
@@ -152,14 +147,14 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * @param context caller context.
      * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].ns.
+     * @param values list of atomic annotation tag values, obtained from [DefaultAnnotationValueProcessor.split].ns.
      * @param args list of runtime value arguments.
      */
-    internal open fun parseAnnotation(
+    protected open fun parseAnnotation(
         context: Context,
         type: String,
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
         return when (type) {
             ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(values, args)
@@ -173,31 +168,30 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     // region Annotation type parsing
 
+    // TODO: all parse annotation methods have same signature: try introduce parser type
     private fun parseBackgroundAnnotation(
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use only first one
-        val color = valueProcessor.parsePlaceholderAs<Int>(value, args)
-            ?: ColorValueParser.parse(value)
-            ?: return null
-        return BackgroundColorSpan(color)
+        return valueProcessor.parseColor(value, args.colors)?.let { color ->
+            BackgroundColorSpan(color)
+        }
     }
 
     private fun parseForegroundAnnotation(
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use only first one
-        val color = valueProcessor.parsePlaceholderAs<Int>(value, args)
-            ?: ColorValueParser.parse(value)
-            ?: return null
-        return ForegroundColorSpan(color)
+        return valueProcessor.parseColor(value, args.colors)?.let { color ->
+            ForegroundColorSpan(color)
+        }
     }
 
     private fun parseStyleAnnotation(
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? =
         when {
             values.contains(ANNOTATION_VALUE_UNDERLINE) -> UnderlineSpan()
@@ -207,32 +201,33 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     private fun parseTypefaceStyleAnnotation(
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
-        val style = TypefaceStyleParser.parse(values) { placeholder ->
-            valueProcessor.parsePlaceholderAs(placeholder, args)
-        } ?: return null
+        val styles = values.mapNotNull { value ->
+            valueProcessor.parseTypefaceStyle(value, args.typefaceStyles)
+        }
+        val style = TypefaceStyleParser.reduceTypefaceStyles(styles) ?: return null
         return StyleSpan(style)
     }
 
     private fun parseClickableAnnotation(
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parsePlaceholderAs<ClickableSpan>(value, args)
+        val placeholder = values.firstOrNull() ?: return null // use only first one
+        return valueProcessor.parseClickable(placeholder, args.clickables)
     }
 
     private fun parseSizeAbsoluteAnnotation(
         context: Context,
         values: List<String>,
-        args: Array<out Any>
+        args: ValueArgs
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use only first one
-        val size = valueProcessor.parsePlaceholderAs<Int>(value, args)
-            ?: SizeUnitValueParser.parse(value, context.resources.displayMetrics)
-            ?: return null
-        return AbsoluteSizeSpan(size)
+        val metrics = context.resources.displayMetrics
+        return valueProcessor.parseAbsoluteSize(value, args.absSizes, metrics)?.let { size ->
+            AbsoluteSizeSpan(size)
+        }
     }
 
     // endregion
