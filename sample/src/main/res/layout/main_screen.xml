@@ -54,6 +54,13 @@
             android:layout_marginTop="8dp"
             tools:text="@string/demo6" />
 
+        <TextView
+            android:id="@+id/demo7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            tools:text="@string/demo7" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

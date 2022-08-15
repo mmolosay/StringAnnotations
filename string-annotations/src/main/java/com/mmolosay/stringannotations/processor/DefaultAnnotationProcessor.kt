@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
 import android.content.Context
-import android.graphics.Typeface
 import android.text.Annotation
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
@@ -14,6 +13,7 @@ import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.core.Logger
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
+import com.mmolosay.stringannotations.parser.TypefaceStyleParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -131,14 +131,16 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        clickables: List<ClickableSpan>,
-        valueArgs: List<Any>
+        args: Array<out Any>
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
         val values = valueProcessor.split(value)
-        return parseAnnotation(context, type, values, clickables, valueArgs).also { span ->
-            span ?: Logger.warnInvalidAnnotation(type, value)
+        return parseAnnotation(context, type, values, args).also { span ->
+            span ?: Logger.w(
+                "Annotation with attribute=\"$type\" and value=\"$value\" " +
+                    "cannot be parsed into valid span"
+            )
         }
     }
 
@@ -150,23 +152,21 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * @param context caller context.
      * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].
-     * @param clickables list of [ClickableSpan], that will be used for clickable spans.
+     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].ns.
      * @param args list of runtime value arguments.
      */
     internal open fun parseAnnotation(
         context: Context,
         type: String,
         values: List<String>,
-        clickables: List<ClickableSpan>,
-        args: List<Any>
+        args: Array<out Any>
     ): CharacterStyle? {
         return when (type) {
             ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(values, args)
             ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(values, args)
-            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values)
-            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, clickables)
-            ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values)
+            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values, args)
+            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, args)
+            ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values, args)
             else -> null
         }
     }
@@ -175,10 +175,10 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     private fun parseBackgroundAnnotation(
         values: List<String>,
-        args: List<Any>
+        args: Array<out Any>
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use very first one
-        val color = valueProcessor.parseArgAs<Int>(value, args)
+        val value = values.firstOrNull() ?: return null // use only first one
+        val color = valueProcessor.parsePlaceholderAs<Int>(value, args)
             ?: ColorValueParser.parse(value)
             ?: return null
         return BackgroundColorSpan(color)
@@ -186,92 +186,53 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     private fun parseForegroundAnnotation(
         values: List<String>,
-        args: List<Any>
+        args: Array<out Any>
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use very first one
-        val color = valueProcessor.parseArgAs<Int>(value, args)
+        val value = values.firstOrNull() ?: return null // use only first one
+        val color = valueProcessor.parsePlaceholderAs<Int>(value, args)
             ?: ColorValueParser.parse(value)
             ?: return null
         return ForegroundColorSpan(color)
     }
 
     private fun parseStyleAnnotation(
-        values: List<String>
+        values: List<String>,
+        args: Array<out Any>
     ): CharacterStyle? =
         when {
             values.contains(ANNOTATION_VALUE_UNDERLINE) -> UnderlineSpan()
             values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> StrikethroughSpan()
-            else -> parseTypefaceStyleAnnotation(values)
+            else -> parseTypefaceStyleAnnotation(values, args)
         }
 
     private fun parseTypefaceStyleAnnotation(
         values: List<String>,
-        args: List<Any>
+        args: Array<out Any>
     ): CharacterStyle? {
-        val flattened = values.map { value ->
-            valueProcessor.parseArgAs<String>(value, args) ?: value
-        }
-        val styles = flattened.mapNotNull { value ->
-            inferTypefaceStyle(value)
-        }
-        return reduceTypefaceStyles(styles)?.let { style ->
-            StyleSpan(style)
-        }
+        val style = TypefaceStyleParser.parse(values) { placeholder ->
+            valueProcessor.parsePlaceholderAs(placeholder, args)
+        } ?: return null
+        return StyleSpan(style)
     }
 
     private fun parseClickableAnnotation(
         values: List<String>,
-        clickables: List<ClickableSpan>
+        args: Array<out Any>
     ): CharacterStyle? {
-        val index = values.firstOrNull()?.toIntOrNull() ?: return null
-        return clickables.getOrNull(index)
+        val value = values.firstOrNull() ?: return null // use only first one
+        return valueProcessor.parsePlaceholderAs<ClickableSpan>(value, args)
     }
 
     private fun parseSizeAbsoluteAnnotation(
         context: Context,
-        values: List<String>
+        values: List<String>,
+        args: Array<out Any>
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null
-        val size = SizeUnitValueParser.parse(context, value) ?: return null
+        val value = values.firstOrNull() ?: return null // use only first one
+        val size = valueProcessor.parsePlaceholderAs<Int>(value, args)
+            ?: SizeUnitValueParser.parse(value, context.resources.displayMetrics)
+            ?: return null
         return AbsoluteSizeSpan(size)
-    }
-
-    // endregion
-
-    // region Miscellaneous
-
-    /**
-     * Infer typeface style from annotation [value].
-     *
-     * @return typeface style or `null`, if there's no matches.
-     */
-    private fun inferTypefaceStyle(value: String): Int? =
-        when (value) {
-            ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD -> Typeface.BOLD
-            ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC -> Typeface.ITALIC
-            ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL -> Typeface.NORMAL
-            else -> null // gibberish
-        }
-
-    /**
-     * Reduces specified typeface [styles] into single one.
-     * All [Typeface.NORMAL] would be reduced, if there any other ones.
-     *
-     * ```
-     * Samples:
-     * [bold] -> bold
-     * [italic, normal] -> italic
-     * [normal, bold, italic] -> bold_italic
-     * ```
-     */
-    private fun reduceTypefaceStyles(styles: List<Int>): Int? {
-        if (styles.isEmpty()) return null
-        if (styles.size == 1) return styles.first()
-        return if (styles.contains(Typeface.NORMAL)) {
-            reduceTypefaceStyles(styles - Typeface.NORMAL)
-        } else {
-            Typeface.BOLD_ITALIC
-        }
     }
 
     // endregion
@@ -286,10 +247,6 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         const val ANNOTATION_TYPE_SIZE_ABSOLUTE = "size-absolute"
 
         // values
-        const val ANNOTATION_VALUE_TYPEFACE_STYLE_BOLD = "bold"
-        const val ANNOTATION_VALUE_TYPEFACE_STYLE_ITALIC = "italic"
-        const val ANNOTATION_VALUE_TYPEFACE_STYLE_NORMAL = "normal"
-
         const val ANNOTATION_VALUE_UNDERLINE = "underline"
         const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
     }

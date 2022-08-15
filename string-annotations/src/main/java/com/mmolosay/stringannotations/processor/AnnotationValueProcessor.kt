@@ -19,6 +19,12 @@ import com.mmolosay.stringannotations.core.Logger
  */
 
 /**
+ * `typealias` for functions, that can process argument placeholder value of string annotation
+ * into its corresponding argument.
+ */
+internal typealias ArgPlaceholderProcessor<T> = (placeholder: String) -> T?
+
+/**
  * Processes values of string annotation tags.
  */
 public interface AnnotationValueProcessor {
@@ -30,12 +36,12 @@ public interface AnnotationValueProcessor {
     public fun split(value: String): List<String>
 
     /**
-     * Tries to parse annotation value as value argument of type [T].
+     * Tries to parse annotation value as placeholder for argument of type [T].
      *
      * If done successfully, returns argument at parsed index in [args], casted to [T],
      * or `null` otherwise.
      */
-    public fun <T> parseArgAs(value: String, args: List<Any>): T?
+    public fun <T> parsePlaceholderAs(placeholder: String, args: Array<out Any>): T?
 }
 
 public object DefaultAnnotationValueProcessor : AnnotationValueProcessor {
@@ -50,16 +56,16 @@ public object DefaultAnnotationValueProcessor : AnnotationValueProcessor {
 
 
     /**
-     * Uses pattern `"arg${INDEX}"`.
+     * Uses pattern `"arg${INDEX}"` for placeholders.
      *
      * Will log appropriate message, if there is no argument at parsed index.
      *
-     * @see AnnotationValueProcessor.parseArgAs
+     * @see AnnotationValueProcessor.parsePlaceholderAs
      */
-    public override fun <T> parseArgAs(value: String, args: List<Any>): T? {
-        val parts = value.split("$", limit = 3)
+    public override fun <T> parsePlaceholderAs(placeholder: String, args: Array<out Any>): T? {
+        val parts = placeholder.split("$", limit = 3)
         return if (parts.size == 2 && parts.first() == "arg") {
-            val index = parseArgIndex(parts[1]) ?: return null
+            val index = parsePlaceholderIndex(parts[1]) ?: return null
             val arg = getArg(args, index) ?: return null
             castArg(arg)
         } else {
@@ -68,12 +74,12 @@ public object DefaultAnnotationValueProcessor : AnnotationValueProcessor {
         }
     }
 
-    private fun parseArgIndex(value: String): Int? =
+    private fun parsePlaceholderIndex(value: String): Int? =
         value.toIntOrNull().also {
             it ?: Logger.w("Cannot parse \"$value\" as argument index")
         }
 
-    private fun getArg(args: List<Any>, index: Int): Any? =
+    private fun getArg(args: Array<out Any>, index: Int): Any? =
         args.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.getAnnotatedString
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemo4()
         setDemo5()
         setDemo6()
+        setDemo7()
     }
 
     /**
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
     private fun setDemo3() {
-        val clickables = listOf(
+        val args = arrayOf(
             ClickableSpan(theme) {
                 Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
             },
@@ -76,7 +78,10 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         )
         binding.demo3.run {
             movementMethod = LinkMovementMethod.getInstance()
-            text = getAnnotatedString(R.string.demo3, clickables)
+            text = getAnnotatedString(
+                id = R.string.demo3,
+                valueArgs = args
+            )
         }
     }
 
@@ -97,11 +102,24 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
     }
 
     /**
-     * Demo for [R.string.demo5].
+     * Demo for [R.string.demo6].
      * Demonstrates crossed out and underlined style annotations.
      */
     private fun setDemo6() {
         binding.demo6.text = getAnnotatedString(R.string.demo6)
+    }
+
+    /**
+     * Demo for [R.string.demo7].
+     * Demonstrates using runtime arguments.
+     */
+    private fun setDemo7() {
+        val arg0 = ContextCompat.getColor(this, R.color.purple_500)
+        val args = arrayOf(arg0)
+        binding.demo7.text = getAnnotatedString(
+            id = R.string.demo7,
+            valueArgs = args
+        )
     }
 
     // endregion

@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.parser
 
-import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
@@ -29,19 +28,6 @@ public object SizeUnitValueParser {
 
     /**
      * Parses [value] of format `"{NUMBER_AMOUNT}{UNIT}"` into pixel size.
-     */
-    @Px
-    public fun parse(
-        context: Context,
-        value: String
-    ): Int? =
-        parse(
-            value = value,
-            metrics = context.resources.displayMetrics
-        )
-
-    /**
-     * Parses [value] of format `"{NUMBER}{UNIT}"` into pixel size.
      */
     @Px
     public fun parse(

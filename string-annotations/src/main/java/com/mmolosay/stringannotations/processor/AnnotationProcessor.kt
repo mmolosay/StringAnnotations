@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.processor
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
-import android.text.style.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -31,7 +30,7 @@ public sealed interface AnnotationProcessor {
      *
      * @param context caller context.
      * @param annotation annotation to be parsed.
-     * @param clickables list of [ClickableSpan], that will be used for clickable spans.
+     * @param args annotation runtime arguments to be substituted instead of placeholders.
      *
      * @return parsed span of [CharacterStyle] type, or `null`, if annotation is unsupported or
      * unparseable.
@@ -39,7 +38,6 @@ public sealed interface AnnotationProcessor {
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        clickables: List<ClickableSpan>,
-        valueArgs: List<Any>
+        args: Array<out Any>
     ): CharacterStyle?
 }

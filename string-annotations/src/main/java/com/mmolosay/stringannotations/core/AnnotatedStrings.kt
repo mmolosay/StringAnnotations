@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
-import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.mapper.AnnotationMapper
 import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
@@ -47,7 +46,6 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         string: SpannedString,
-        clickables: List<ClickableSpan> = emptyList(), // TODO: change to array
         formatArgs: Array<out Any> = emptyArray(),
         valueArgs: Array<out Any> = emptyArray()
     ): Spanned {
@@ -67,8 +65,7 @@ public object AnnotatedStrings {
         val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationMapper
-            .parseAnnotations(context, processor, annotations, clickables, valueArgs)
+        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, valueArgs)
 
         // 5. apply spans to string
         SpanProcessor.applySpans(builder, strAnnotations, types)
@@ -82,14 +79,12 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         @StringRes id: Int,
-        clickables: List<ClickableSpan> = emptyList(), // TODO: change to array
         formatArgs: Array<out Any> = emptyArray(),
         valueArgs: Array<out Any> = emptyArray()
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
-            clickables = clickables,
             formatArgs = formatArgs,
             valueArgs = valueArgs
         )

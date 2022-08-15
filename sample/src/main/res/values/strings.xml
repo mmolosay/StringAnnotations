@@ -10,7 +10,7 @@
 
     <string name="demo2">Demo #2: this text is <annotation background="#ededed">on background and with %1$s</annotation></string>
 
-    <string name="demo3">Demo #3: <annotation clickable="0">click me</annotation> and <annotation clickable="1">me as well</annotation></string>
+    <string name="demo3">Demo #3: <annotation clickable="arg$0">click me</annotation> and <annotation clickable="arg$1">me as well</annotation></string>
 
     <string name="demo4">Demo #4: regular, <annotation style="bold">bold</annotation>, <annotation style="italic">italic</annotation> and <annotation style="bold|italic">combined</annotation> text</string>
 
@@ -18,7 +18,7 @@
 
     <string name="demo6">Demo #6: text with absolute size of 20.5 in <annotation size-absolute="20.5">pixels</annotation>, <annotation size-absolute="20.5dp">DIPs</annotation> and <annotation size-absolute="20.5sp">SPs</annotation></string>
 
-    <string name="demo7">Demo #7: color value is being set in <annotation color="arg$1">runtime</annotation></string>
+    <string name="demo7">Demo #7: color value is being set in <annotation color="arg$0">runtime</annotation></string>
 
     <!-- endregion -->
 
