@@ -29,11 +29,6 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 // TODO: make method for all logging calls
 public object StringAnnotations {
 
-    /**
-     * Library tag. Used for logging events.
-     */
-    public const val TAG: String = "StringAnnotations"
-
     internal var annotationProcessor: AnnotationProcessor? = null
 
     /**

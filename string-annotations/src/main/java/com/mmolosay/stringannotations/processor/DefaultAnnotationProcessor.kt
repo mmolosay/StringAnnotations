@@ -1,8 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.Typeface
 import android.text.Annotation
 import android.text.style.AbsoluteSizeSpan
@@ -13,12 +11,9 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
-import android.util.Log
-import android.util.TypedValue
-import androidx.annotation.ColorInt
-import androidx.annotation.Px
-import androidx.core.content.ContextCompat
-import com.mmolosay.stringannotations.core.StringAnnotations
+import com.mmolosay.stringannotations.core.Logger
+import com.mmolosay.stringannotations.parser.ColorValueParser
+import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -131,17 +126,19 @@ import com.mmolosay.stringannotations.core.StringAnnotations
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
+    protected open val valueProcessor: AnnotationValueProcessor = DefaultAnnotationValueProcessor
+
     final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
         clickables: List<ClickableSpan>,
-        valueArgs: Array<out Any>
+        valueArgs: List<Any>
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
-        val values = parseAnnotationValue(value)
+        val values = valueProcessor.split(value)
         return parseAnnotation(context, type, values, clickables, valueArgs).also { span ->
-            span ?: logAnnotationParsingWarning(type, value)
+            span ?: Logger.warnInvalidAnnotation(type, value)
         }
     }
 
@@ -153,67 +150,49 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * @param context caller context.
      * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of split tag's attribute values (see [parseAnnotationValue]).
+     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].
      * @param clickables list of [ClickableSpan], that will be used for clickable spans.
+     * @param args list of runtime value arguments.
      */
     internal open fun parseAnnotation(
         context: Context,
         type: String,
         values: List<String>,
         clickables: List<ClickableSpan>,
-        valueArgs: Array<out Any>
-    ): CharacterStyle? =
-        when (type) {
-            ANNOTATION_TYPE_BACKGROUND -> parseBackgrounAnnotation(context, values, valueArgs)
-            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values)
+        args: List<Any>
+    ): CharacterStyle? {
+        return when (type) {
+            ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(values, args)
+            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(values, args)
             ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values)
             ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, clickables)
             ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values)
             else -> null
         }
-
-    /**
-     * Splits annotation value of type `value1[|value2][|value3]...` into list of
-     * separate atomic values and reduces repeated entries.
-     */
-    protected open fun parseAnnotationValue(value: String): List<String> =
-        value
-            .split("|")
-            .distinct()
-
-    /**
-     * Tries to parse annotation value as value argument.
-     * If done successfully, returns index of this value argument, `null` otherwise.
-     */
-    protected open fun parseAnnotationValueArg(value: String): Int? {
-        val parts = value.split("$", limit = 2)
-        if (parts.size == 2 && parts.first() == "arg") {
-            parts[1].toIntOrNull()?.let { return it }
-        }
-        Log.w(StringAnnotations.TAG, "Invalid annotation value argument format")
-        return null
     }
 
-    private fun parseBackgrounAnnotation(
-        context: Context,
+    // region Annotation type parsing
+
+    private fun parseBackgroundAnnotation(
         values: List<String>,
-        valueArgs: Array<out Any>
+        args: List<Any>
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use very first one
-        val color = parseAnnotationValueArg(value)
-        return parseColorAttributeValue(context, value)?.let { color ->
-            BackgroundColorSpan(color)
-        }
+        val color = valueProcessor.parseArgAs<Int>(value, args)
+            ?: ColorValueParser.parse(value)
+            ?: return null
+        return BackgroundColorSpan(color)
     }
 
     private fun parseForegroundAnnotation(
-        context: Context,
-        values: List<String>
+        values: List<String>,
+        args: List<Any>
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null // use very first one
-        return parseColorAttributeValue(context, value)?.let { color ->
-            ForegroundColorSpan(color)
-        }
+        val color = valueProcessor.parseArgAs<Int>(value, args)
+            ?: ColorValueParser.parse(value)
+            ?: return null
+        return ForegroundColorSpan(color)
     }
 
     private fun parseStyleAnnotation(
@@ -226,9 +205,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
 
     private fun parseTypefaceStyleAnnotation(
-        values: List<String>
+        values: List<String>,
+        args: List<Any>
     ): CharacterStyle? {
-        val styles = values.mapNotNull { value ->
+        val flattened = values.map { value ->
+            valueProcessor.parseArgAs<String>(value, args) ?: value
+        }
+        val styles = flattened.mapNotNull { value ->
             inferTypefaceStyle(value)
         }
         return reduceTypefaceStyles(styles)?.let { style ->
@@ -249,101 +232,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>
     ): CharacterStyle? {
         val value = values.firstOrNull() ?: return null
-        val size = parseSize(context, value) ?: return null
+        val size = SizeUnitValueParser.parse(context, value) ?: return null
         return AbsoluteSizeSpan(size)
     }
 
-    /**
-     * Parses string [value] of any color attribute (like [ANNOTATION_TYPE_FOREGROUND] or
-     * [ANNOTATION_TYPE_BACKGROUND]) into color integer.
-     *
-     * Supported types of attribute value:
-     * 1. color hex: `#ff0000`
-     * 2. color name: `green`
-     * 3. color resource name: `myColorRes`
-     *
-     * If valid color can not be parsed, then [Color.BLACK] will be used as a fallback one.
-     * Relevant message would be logged with [Log.WARN] priority.
-     */
-    @ColorInt
-    private fun parseColorAttributeValue(
-        context: Context,
-        value: String
-    ): Int? =
-        try {
-            Color.parseColor(value)
-        } catch (e: IllegalArgumentException) {
-            try {
-                val packageName = context.packageName
-                val colorRes = context.resources.getIdentifier(value, "color", packageName)
-                ContextCompat.getColor(context, colorRes)
-            } catch (e: Resources.NotFoundException) {
-                Log.w(
-                    StringAnnotations.TAG,
-                    "String annotation with attribute value=\"$value\" can not be parsed into valid color"
-                )
-                null // return null, if attribute value is invalid
-            }
-        }
+    // endregion
 
-    /**
-     * Parses [value] of format `"{NUMBER}{UNIT}"` into pixel size.
-     *
-     * @see splitSize
-     */
-    @Px
-    private fun parseSize(
-        context: Context,
-        value: String
-    ): Int? {
-        val pair = splitSize(value) ?: return null
-        return parseSize(context, pair.first, pair.second)
-    }
-
-    /**
-     * Parses [size], specified in [unit] into pixel equivalent size.
-     */
-    @Px
-    protected open fun parseSize(
-        context: Context,
-        size: Float,
-        unit: String
-    ): Int? =
-        when (unit) {
-            ANNOTATION_VALUE_UNIT_PX, "" -> size.toInt() // already pixels, but just float
-            ANNOTATION_VALUE_UNIT_SP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_SP)
-            ANNOTATION_VALUE_UNIT_DP -> parseSizeUnit(context, size, TypedValue.COMPLEX_UNIT_DIP)
-            else -> null // unknown dimension
-        }
-
-    /**
-     * Splites complex size [value], specified in units into pair of float size and unit label, i.e.
-     * `"18.56sp"` -> `{18.56f, "sp"}`.
-     */
-    protected open fun splitSize(value: String): Pair<Float, String>? {
-        val unit = value.takeLastWhile { it.isLetter() }
-        val size = value
-            .substring(0, value.length - unit.length)
-            .toFloatOrNull()
-            ?: return null
-        return Pair(size, unit)
-    }
-
-    /**
-     * Converts [size], specified in [unit] into pixel equivalent size.
-     */
-    @Px
-    protected fun parseSizeUnit(
-        context: Context,
-        size: Float,
-        unit: Int
-    ): Int {
-        return TypedValue.applyDimension(
-            /*unit*/ unit,
-            /*value*/ size,
-            /*metrics*/ context.resources.displayMetrics
-        ).toInt()
-    }
+    // region Miscellaneous
 
     /**
      * Infer typeface style from annotation [value].
@@ -379,33 +274,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
     }
 
-    /**
-     * Retrieves value argument at [index] in [valueArgs] array.
-     *
-     * If there is no such index in array, or retrieved element is `null`,
-     * then appropriate message will be logged with [Log.WARN] priority.
-     */
-    private fun getValueArgumentOrLog(
-        valueArgs: Array<out Any>,
-        index: Int
-    ): Any? =
-        valueArgs.getOrNull(index).also { arg ->
-            arg ?: Log.w(StringAnnotations.TAG, "There is no value argument at index=$index")
-        }
-
-    /**
-     * Logs message of inability to parse annotation with specified [type] and [value]
-     * into valid span with [Log.WARN] priority.
-     */
-    protected fun logAnnotationParsingWarning(
-        type: String,
-        value: String
-    ) {
-        Log.w(
-            StringAnnotations.TAG,
-            "String annotation with attribute=\"$type\" and value=\"$value\" cannot be parsed into valid span"
-        )
-    }
+    // endregion
 
     private companion object {
 
@@ -423,10 +292,5 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
         const val ANNOTATION_VALUE_UNDERLINE = "underline"
         const val ANNOTATION_VALUE_STRIKETHROUGH = "strikethrough"
-
-        // misc
-        const val ANNOTATION_VALUE_UNIT_PX = "px"
-        const val ANNOTATION_VALUE_UNIT_SP = "sp"
-        const val ANNOTATION_VALUE_UNIT_DP = "dp"
     }
 }

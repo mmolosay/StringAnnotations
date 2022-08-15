@@ -40,6 +40,6 @@ public sealed interface AnnotationProcessor {
         context: Context,
         annotation: Annotation,
         clickables: List<ClickableSpan>,
-        valueArgs: Array<out Any>
+        valueArgs: List<Any>
     ): CharacterStyle?
 }
