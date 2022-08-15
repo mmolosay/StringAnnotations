@@ -71,7 +71,7 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleParser
  * by calling [android.widget.TextView.setMovementMethod].
  *
  * ```
- * <annotation clickable="arg$0">clickable text</annotation>
+ * <annotation clickable="arg$clickable$0">clickable text</annotation>
  * ```
  *
  * ### Typeface style

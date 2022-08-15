@@ -22,8 +22,9 @@ import android.util.DisplayMetrics
 /**
  * Processes values of string annotation tags.
  * Contains methods for parsing all annotaiton types, supported by [DefaultAnnotationProcessor].
+ *
  */
-public interface DefaultAnnotationValueProcessor {
+public sealed interface DefaultAnnotationValueProcessor {
 
     /**
      * Splits annotation value of type `"value1[value2][value3][...]"` into list of

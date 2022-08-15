@@ -7,6 +7,11 @@ import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleParser
 
+/**
+ * Implementation of [DefaultAnnotationProcessor].
+ *
+ * One should inherit this class in order to process custom annotation type values.
+ */
 public open class DefaultAnnotationValueProcessorImpl : DefaultAnnotationValueProcessor {
 
     /**
@@ -36,13 +41,20 @@ public open class DefaultAnnotationValueProcessorImpl : DefaultAnnotationValuePr
      * Tries to infer argument from [args] list for specified [placeholder].
      * Placeholder must have [expected] type.
      *
+     * Steps:
+     * 1. break placeholder into meaningful parts according to its format.
+     * 2. get placeholder type via [parsePlaceholderType].
+     * 3. get placeholder index via [parsePlaceholderIndex].
+     * 4. check, that actual parsed type is equal to [expected] one.
+     * 5. return argument at parsed index in [args] list.
+     *
      * @param placeholder annotation tag value placeholder of `"arg${TYPE}${INDEX}"` format.
      * @param expected expected type of [placeholder].
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    private fun <T> getArgFor(placeholder: String, expected: String, args: List<T>): T? {
+    protected open fun <T> getArgFor(placeholder: String, expected: String, args: List<T>): T? {
         try {
             val parts = placeholder.split("$", limit = 4)
             if (parts.size == 3 && parts[0] == "arg") {
@@ -59,23 +71,23 @@ public open class DefaultAnnotationValueProcessorImpl : DefaultAnnotationValuePr
         return null
     }
 
-    private fun parsePlaceholderType(type: String): String? =
+    protected fun parsePlaceholderType(type: String): String? =
         type.ifEmpty {
             Logger.w("Invalid placeholder type=\"$type\"")
             null
         }
 
-    private fun parsePlaceholderIndex(value: String): Int? =
+    protected fun parsePlaceholderIndex(value: String): Int? =
         value.toIntOrNull().also {
             it ?: Logger.w("Cannot parse \"$value\" as argument index")
         }
 
-    private fun checkPlaceholderType(actual: String, expected: String): Boolean =
+    protected fun checkPlaceholderType(actual: String, expected: String): Boolean =
         (actual == expected).also { equals ->
             if (!equals) Logger.w("Requested \"${expected}\" type from \"$actual\" placeholder")
         }
 
-    private fun <T> getArg(source: List<T>, index: Int): T? =
+    protected fun <T> getArg(source: List<T>, index: Int): T? =
         source.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }
