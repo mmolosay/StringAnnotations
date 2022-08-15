@@ -26,7 +26,6 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  * Call [StringAnnotations.dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-// TODO: make method for all logging calls
 public object StringAnnotations {
 
     internal var annotationProcessor: AnnotationProcessor? = null
