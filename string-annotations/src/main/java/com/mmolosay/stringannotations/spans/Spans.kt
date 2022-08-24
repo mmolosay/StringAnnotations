@@ -5,7 +5,7 @@ import android.content.res.Resources
 import android.text.style.ClickableSpan
 import android.view.View
 import com.mmolosay.stringannotations.ClickableTextAppearance
-import com.mmolosay.stringannotations.utils.ThemeUtils.getClickableTextAppearance
+import com.mmolosay.stringannotations.from
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -37,7 +37,7 @@ public fun ClickableSpan(
     builder: ClickableTextAppearance.() -> ClickableTextAppearance,
     onClick: (widget: View) -> Unit
 ): ClickableSpan {
-    val themeAppearance = getThemeClickableTextAppearance(theme)
+    val themeAppearance = ClickableTextAppearance.from(theme)
     val appearance = builder(themeAppearance)
     return ClickableSpan(
         appearance = appearance,
@@ -55,7 +55,7 @@ public fun ClickableSpan(
     builder: ClickableTextAppearance.() -> ClickableTextAppearance,
     onClick: (widget: View) -> Unit
 ): ClickableSpan {
-    val themeAppearance = getThemeClickableTextAppearance(context.theme)
+    val themeAppearance = ClickableTextAppearance.from(context.theme)
     val appearance = builder(themeAppearance)
     return ClickableSpan(
         appearance = appearance,
@@ -69,7 +69,7 @@ public fun ClickableSpan(
  */
 public fun ClickableSpan(
     theme: Resources.Theme,
-    appearance: ClickableTextAppearance = getThemeClickableTextAppearance(theme),
+    appearance: ClickableTextAppearance = ClickableTextAppearance.from(theme),
     onClick: (widget: View) -> Unit
 ): ClickableSpan =
     ClickableSpan(
@@ -88,6 +88,3 @@ public fun ClickableSpan(
         override fun onClick(widget: View) =
             onClick(widget)
     }
-
-private fun getThemeClickableTextAppearance(theme: Resources.Theme): ClickableTextAppearance =
-    theme.getClickableTextAppearance()

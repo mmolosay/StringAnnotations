@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations
 
-import android.graphics.Color
-import androidx.annotation.ColorInt
+import android.content.res.Resources
+import com.mmolosay.stringannotations.utils.ThemeUtils.getClickableTextAppearance
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,20 +19,16 @@ import androidx.annotation.ColorInt
  * limitations under the License.
  */
 
-/**
- * Appearance properties of clickable text.
+/*
+ * Extensions for convenience use.
  */
-public data class ClickableTextAppearance(
 
-    /**
-     * Defines, whether text should be underlined or not.
-     */
-    val underlineText: Boolean = false,
-
-    /**
-     * Color of text.
-     */
-    @ColorInt val textColor: Int = Color.BLUE
-) {
-    public companion object
-}
+/**
+ * Retrieves [ClickableTextAppearance] from specified [theme].
+ *
+ * Firstly it will try to resolve style, set as attribute [R.attr.clickableTextAppearance] value
+ * in the specified [theme].
+ * If it is `null`, then will use default [R.style.Base_ClickableTextAppearance] style.
+ */
+public fun ClickableTextAppearance.Companion.from(theme: Resources.Theme): ClickableTextAppearance =
+    theme.getClickableTextAppearance()
