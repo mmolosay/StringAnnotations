@@ -23,9 +23,7 @@ import android.text.style.ClickableSpan
  * They are used in places of annotation tag value placeholders, like `<annotation color="arg$0">text</annotation>`.
  *
  * Runtime value arguments are a great way to use values, which are tough (or completely impossible)
- * to parse from strings, like click actions or dynamically computing text sizes.
- *
- * @see [com.mmolosay.stringannotations.processor.AnnotationValueProcessor.parsePlaceholderAs]
+ * to parse from string, like click actions or dynamically computing text sizes.
  */
 public interface ValueArgs {
 
