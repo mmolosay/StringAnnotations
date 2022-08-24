@@ -110,6 +110,8 @@ Example:
 </style>
 ```
 
+*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/ClickableTextAppearanceExt.kt#L33) extension function.*
+
 Annotations
 =======
 
