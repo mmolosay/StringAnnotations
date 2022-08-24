@@ -233,11 +233,13 @@ Value Arguments is a concept of runtime values, that can be substituted at requi
 Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
 types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) annotations.
 
+Since [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) uses [DefaultAnnotationValueProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationValueProcessor.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
+
 Below you can see **simplified** example, how Value Arguments can be used.
 For more examples, check [sample application](/sample).
 
 In your *strings.xml*:
-```
+```xml
 <string name="demo">Text with <annotation color="$arg$color$0">different</annotation> <annotation color="$arg$color$1">runtime</annotation> colors</string>
 ```
 
