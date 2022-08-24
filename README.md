@@ -22,7 +22,7 @@ Table of contents
     * [Strikethrough style](#strikethrough-style)
     * [Underline style](#underline-style)
     * [Absolute size](#absolute-size)
-* [Value Arguments](value-arguments)
+* [Value Arguments](#value-arguments)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
