@@ -6,6 +6,7 @@ import com.mmolosay.stringannotations.core.Logger
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
+import java.lang.Exception
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -65,7 +66,7 @@ public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
      * 4. check, that actual parsed type is equal to [expected] one.
      * 5. return argument at parsed index in [args] list.
      *
-     * @param placeholder annotation tag value placeholder of `"arg${TYPE}${INDEX}"` format.
+     * @param placeholder annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
      * @param expected expected type of [placeholder].
      * @param args list to get argument from.
      *
@@ -73,7 +74,8 @@ public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
      */
     protected open fun <T> getArgFor(placeholder: String, expected: String, args: List<T>): T? {
         try {
-            val parts = placeholder.split("$", limit = 4)
+            require(placeholder.startsWith('$')) // starts with $ sign
+            val parts = placeholder.substring(1).split("$", limit = 4)
             if (parts.size == 3 && parts[0] == "arg") {
                 val type = parsePlaceholderType(parts[1]) ?: return null
                 val index = parsePlaceholderIndex(parts[2]) ?: return null
@@ -81,7 +83,7 @@ public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
                     return getArg(args, index)
                 }
             }
-        } catch (e: IndexOutOfBoundsException) {
+        } catch (e: Exception) {
             // empty, will log below
         }
         Logger.w("Invalid annotation value placeholder format: \"$placeholder\"")
