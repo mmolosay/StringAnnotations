@@ -10,7 +10,6 @@ Table of contents
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
 * [Installation](#installation)
-    * [Proguard rules](#important)
 * [Configuration](#configuration)
     * [AnnotationProcessor](#annotationprocessor)
     * [ClickableTextAppearance](#clickabletextappearance)
@@ -21,6 +20,8 @@ Table of contents
     * [Typeface style](#typeface-style)
     * [Strikethrough style](#strikethrough-style)
     * [Underline style](#underline-style)
+    * [Absolute size](#absolute-size)
+* [Value Arguments](#value-arguments)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -76,19 +77,6 @@ dependencies {
 Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
 
-### **Important!**
-If you're using Proguard, then you should add theese rules in order to be able to find color resources by their names in release build.
-You can take a look at how it could be done at [sample application Proguard rules](/sample/proguard-rules.pro#L23).
-The rules themselves:
-```
-# Will keep R classes in release build, thus its contents are accessable
-# for obtaining as fields by resource name.
--keep class **.R
--keep class *.R$ {
-    <fields>;
-}
-```
-
 Configuration
 =======
 
@@ -135,15 +123,16 @@ Background color
 ![image](https://user-images.githubusercontent.com/32337243/183247809-3d087191-aa14-4d93-bcff-f69018b68ec7.png)
 
 Uses attribute `background`.
-Attribute value can be either HEX color, generic color name or name of your color resource.
+
+Attribute value can be either HEX color, generic color name or value argument of type `color`.
 
 Examples:
  * HEX color:
  ` <annotation background="#ff0000">text with red background</annotation>`
  *  Generic color name:
  `<annotation background="green">text with green background</annotation>`
- * Color resource name:
- `<annotation background="yourColorResName">text with colored background</annotation>`
+ * Value argument:
+ `<annotation color="$arg$color$0">colored text</annotation>`
 
 Foreground color
 -----
@@ -152,15 +141,16 @@ Foreground color
 ![image](https://user-images.githubusercontent.com/32337243/183247974-99b8f693-87bf-4758-9f7d-025a84bb762c.png)
 
 Uses attribute `color`.
-Attribute value can be either HEX color, generic color name or name of your color resource.
+
+Attribute value can be either HEX color, generic color name or value argument of type `color`.
 
 Examples:
  * HEX color:
  ` <annotation color="#ff0000">red text</annotation>`
  *  Generic color name:
  `<annotation color="green">green text</annotation>`
- * Color resource name:
- `<annotation color="yourColorResName">colored text</annotation>`
+ * Value argument:
+ `<annotation color="$arg$color$0">colored text</annotation>`
 
 Clickable
 -----
@@ -169,12 +159,11 @@ Clickable
 ![image](https://user-images.githubusercontent.com/32337243/183248366-d05200a7-c291-480e-a710-f3442d056a39.png)
 
 Uses attribute `clickable`.
-Attribute value is an index, at which corresponding `ClickableSpan` is located.
 
-You should provide a list of clickables, if you request annotated string with clickable sections.
+Attribute value is a value argument of type `clickable`.
 
 Example:
- *  `<annotation clickable="0">clcik me</annotation> and <annotation clickable="1">me as well</annotation>`
+ *  `<annotation clickable="$arg$clickable$0">clcik me</annotation> and <annotation clickable="$arg$clickable$1">me as well</annotation>`
 
 Typeface style
 -----
@@ -183,7 +172,8 @@ Typeface style
 ![image](https://user-images.githubusercontent.com/32337243/183248716-5ca79fb4-a27f-4155-b75a-07ee28cbd203.png)
 
 Uses attribute `style`.
-Attribute value can be either `normal`, `bold`, `italic`, or `bold|italic`.
+
+Attribute value can be either `normal`, `bold`, `italic`, `bold|italic` or value argument of type `style`.
 
 Examples:
  * Bold text:
@@ -192,6 +182,8 @@ Examples:
  `<annotation style="italic">italic text</annotation>`
  * Bold and italic text:
  `<annotation style="bold|italic">bold and italic text</annotation>`
+ * Value argument:
+ `<annotation style="$arg$style$0">styled text</annotation>`
 
 Strikethrough style
 -----
@@ -214,6 +206,53 @@ Uses attribute `style` and value `underline`.
 
 Example:
  * `<annotation style="underline">underlined text</annotation>`
+ 
+Absolute size
+-----
+> Specifies absolute size of its body.
+
+![image](https://user-images.githubusercontent.com/32337243/186401072-af503ada-80dd-4dc1-a5b9-c0b05ebbf89c.png)
+
+Uses attribute `size-absolute`.
+
+Attribute value is a decimal/integer value, followed by either one of `px`(optional), `dp` or `sp` unit label or value attribute of type `size-absolute` in pixels.
+
+Examples:
+ * Pixels, a.k.a `px` (can be omitted):
+ `<annotation size-absolute="20.5px">text of 20.5 PXs size</annotation>`
+ * Density-independent Pixels, a.k.a. `dp`:
+ `<annotation size-absolute="20.5dp">text of 20.5 DPs size</annotation>`
+ * Scalable Pixels, a.k.a. `sp`:
+ `<annotation size-absolute="20.5sp">text of 20.5 SPs size</annotation>`
+ * Value argument:
+ `<annotation size-absolute="$arg$size-absolute$0">text of some size</annotation>`
+
+Value Arguments
+======
+Value Arguments is a concept of runtime values, that can be substituted at required places of string annotations.
+Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
+types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) annotations.
+
+Below you can see **simplified** example, how Value Arguments can be used.
+For more examples, check [sample application](/sample).
+
+In your *strings.xml*:
+```
+<string name="demo">Text with <annotation color="$arg$color$0">different</annotation> <annotation color="$arg$color$1">runtime</annotation> colors</string>
+```
+
+In your code:
+```kotlin
+val color1 = ContextCompat.getColor(this, R.color.red)
+val color2 = ContextCompat.getColor(this, R.color.green)
+val args = ValueArgs {
+   colors {
+      add(color1)
+      add(color2)
+   }
+}
+yourTextView.text = getAnnotatedString(R.string.demo, args)
+```
 
 Examples of usage
 ======
