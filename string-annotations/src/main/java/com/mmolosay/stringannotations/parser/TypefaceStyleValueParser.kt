@@ -21,7 +21,7 @@ import android.graphics.Typeface
 /**
  * Parses string annotation value of typeface style type into typeface style int.
  */
-public object TypefaceStyleParser {
+public object TypefaceStyleValueParser {
 
     /**
      * Parses string [value] of some typeface style into typeface style integer.

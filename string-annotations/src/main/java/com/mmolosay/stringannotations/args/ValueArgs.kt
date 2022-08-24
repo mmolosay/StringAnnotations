@@ -25,7 +25,7 @@ import android.text.style.ClickableSpan
  * Runtime value arguments are a great way to use values, which are tough (or completely impossible)
  * to parse from strings, like click actions or dynamically computing text sizes.
  *
- * @see [com.mmolosay.stringannotations.processor.DefaultAnnotationValueProcessor.parsePlaceholderAs]
+ * @see [com.mmolosay.stringannotations.processor.AnnotationValueProcessor.parsePlaceholderAs]
  */
 public interface ValueArgs {
 

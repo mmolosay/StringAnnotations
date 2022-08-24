@@ -11,7 +11,7 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.Logger
-import com.mmolosay.stringannotations.parser.TypefaceStyleParser
+import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -120,8 +120,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     /**
      * Annotation value processor to be used in order to parse values of different annotation types.
      */
-    protected open val valueProcessor: DefaultAnnotationValueProcessor =
-        DefaultAnnotationValueProcessorImpl()
+    protected open val valueProcessor: AnnotationValueProcessor =
+        DefaultAnnotationValueProcessor()
 
     final override fun parseAnnotation(
         context: Context,
@@ -147,7 +147,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * @param context caller context.
      * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of atomic annotation tag values, obtained from [DefaultAnnotationValueProcessor.split].ns.
+     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].ns.
      * @param args list of runtime value arguments.
      */
     protected open fun parseAnnotation(
@@ -168,7 +168,6 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     // region Annotation type parsing
 
-    // TODO: all parse annotation methods have same signature: try introduce parser type
     private fun parseBackgroundAnnotation(
         values: List<String>,
         args: ValueArgs
@@ -206,7 +205,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         val styles = values.mapNotNull { value ->
             valueProcessor.parseTypefaceStyle(value, args.typefaceStyles)
         }
-        val style = TypefaceStyleParser.reduceTypefaceStyles(styles) ?: return null
+        val style = TypefaceStyleValueParser.reduceTypefaceStyles(styles) ?: return null
         return StyleSpan(style)
     }
 
