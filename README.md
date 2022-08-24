@@ -247,7 +247,7 @@ Value Arguments is a concept of runtime values, that can be substituted at requi
 Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
 types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) annotations.
 
-Below you can see simplified example, how Value Arguments can be used.
+Below you can see **simplified** example, how Value Arguments can be used.
 For more examples, check [sample application](/sample).
 
 In your *strings.xml*:
