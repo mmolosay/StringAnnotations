@@ -4,8 +4,8 @@ import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
 import android.text.style.CharacterStyle
-import android.text.style.ClickableSpan
 import com.mmolosay.stringannotations.StringAnnotation
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*
@@ -67,9 +67,9 @@ internal object AnnotationMapper {
         context: Context,
         processor: AnnotationProcessor,
         annotations: Array<out Annotation>,
-        clickables: List<ClickableSpan>
+        args: ValueArgs
     ): List<CharacterStyle?> =
         annotations.map { annotation ->
-            processor.parseAnnotation(context, annotation, clickables)
+            processor.parseAnnotation(context, annotation, args)
         }
 }

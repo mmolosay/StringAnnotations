@@ -2,9 +2,9 @@ package com.mmolosay.stringannotations
 
 import android.content.Context
 import android.text.Spanned
-import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotatedStrings
 
 /*
@@ -30,64 +30,68 @@ import com.mmolosay.stringannotations.core.AnnotatedStrings
 /**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
+ * @param id resource id of annotated string.
+ * @param valueArgs value placeholder arguments.
+ * @param formatArgs formatting arguments to be substituted.
+ *
  * @throws IllegalStateException if library was not configured.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
-    clickables: List<ClickableSpan>,
-    vararg formatArgs: Any
+    valueArgs: ValueArgs,
+    vararg formatArgs: Any,
 ): Spanned =
-    AnnotatedStrings.process(this, id, clickables, *formatArgs)
+    AnnotatedStrings.process(
+        context = this,
+        id = id,
+        formatArgs = formatArgs,
+        valueArgs = valueArgs
+    )
 
 /**
- * Simplified variant of [Context.getAnnotatedString] for cases, when there is no clickable spans.
+ * Simplified variant of [Context.getAnnotatedString] for cases, when there is no value arguments.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    AnnotatedStrings.process(this, id, emptyList(), *formatArgs)
-
-/**
- * Simplified variant of [Context.getAnnotatedString] for cases, when there is only one clickable span.
- */
-public fun Context.getAnnotatedString(
-    @StringRes id: Int,
-    clickable: ClickableSpan,
-    vararg formatArgs: Any
-): Spanned =
-    AnnotatedStrings.process(this, id, listOf(clickable), *formatArgs)
+    AnnotatedStrings.process(
+        context = this,
+        id = id,
+        formatArgs = formatArgs
+    )
 
 /**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
  *
+ * @param id resource id of annotated string.
+ * @param valueArgs value placeholder arguments.
+ * @param formatArgs formatting arguments to be substituted.
+ *
  * @throws IllegalStateException if fragment was not attached to context.
  * @throws IllegalStateException if library was not configured.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
-    clickables: List<ClickableSpan>,
+    valueArgs: ValueArgs,
     vararg formatArgs: Any
 ): Spanned =
-    requireContext().getAnnotatedString(id, clickables, *formatArgs)
+    requireContext().getAnnotatedString(
+        id = id,
+        formatArgs = formatArgs,
+        valueArgs = valueArgs
+    )
 
 /**
- * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no clickable spans.
+ * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no value arguments.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    requireContext().getAnnotatedString(id, emptyList(), *formatArgs)
-
-/**
- * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is only one clickable span.
- */
-public fun Fragment.getAnnotatedString(
-    @StringRes id: Int,
-    clickable: ClickableSpan,
-    vararg formatArgs: Any
-): Spanned =
-    requireContext().getAnnotatedString(id, listOf(clickable), *formatArgs)
+    requireContext().getAnnotatedString(
+        id = id,
+        formatArgs = formatArgs
+    )

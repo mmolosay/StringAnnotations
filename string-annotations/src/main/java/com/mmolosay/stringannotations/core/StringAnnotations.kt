@@ -28,11 +28,6 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  */
 public object StringAnnotations {
 
-    /**
-     * Library tag. Used for logging events.
-     */
-    public const val TAG: String = "StringAnnotations"
-
     internal var annotationProcessor: AnnotationProcessor? = null
 
     /**

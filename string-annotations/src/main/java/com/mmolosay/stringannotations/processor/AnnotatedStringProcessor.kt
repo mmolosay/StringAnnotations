@@ -54,10 +54,10 @@ internal object AnnotatedStringProcessor {
     fun format(
         builder: SpannableStringBuilder,
         node: AnnotationNode,
-        vararg formatArgs: String
+        formatArgs: Array<out String>
     ) {
         node.children.forEach { child ->
-            format(builder, child, *formatArgs)
+            format(builder, child, formatArgs)
         }
         val ranges = AnnotationNodeProcessor.findNodeNonAnnotationRanges(node, builder)
         ranges.forEach { range ->

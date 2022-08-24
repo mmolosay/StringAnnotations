@@ -4,8 +4,9 @@ import android.content.Context
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
-import android.text.style.ClickableSpan
 import androidx.annotation.StringRes
+import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.emptyValueArgs
 import com.mmolosay.stringannotations.mapper.AnnotationMapper
 import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
 import com.mmolosay.stringannotations.processor.SpanProcessor
@@ -47,7 +48,7 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         string: SpannedString,
-        clickables: List<ClickableSpan>,
+        valueArgs: ValueArgs = emptyValueArgs(),
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
@@ -60,13 +61,13 @@ public object AnnotatedStrings {
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
         // 2. replace wildcards, preserving annotation spans
-        AnnotatedStringProcessor.format(builder, tree, *stringArgs)
+        AnnotatedStringProcessor.format(builder, tree, stringArgs)
 
         // 3. parse updated StringAnnotation-s
         val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, clickables)
+        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, valueArgs)
 
         // 5. apply spans to string
         SpanProcessor.applySpans(builder, strAnnotations, types)
@@ -80,13 +81,13 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         @StringRes id: Int,
-        clickables: List<ClickableSpan>,
+        valueArgs: ValueArgs = emptyValueArgs(),
         vararg formatArgs: Any
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
-            clickables = clickables,
+            valueArgs = valueArgs,
             formatArgs = formatArgs
         )
 
