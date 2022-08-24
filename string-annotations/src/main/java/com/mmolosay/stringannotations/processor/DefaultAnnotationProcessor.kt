@@ -134,7 +134,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         return parseAnnotation(context, type, values, args).also { span ->
             span ?: Logger.w(
                 "Annotation with attribute=\"$type\" and value=\"$value\" " +
-                    "cannot be parsed into valid span"
+                    "cannot be parsed into valid span. " +
+                    "Make sure attribute and its value are correct and supported."
             )
         }
     }
