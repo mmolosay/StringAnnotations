@@ -231,7 +231,9 @@ Examples:
 
 Value Arguments
 ======
-Value Arguments is a concept of runtime values, that can be substituted at required places of string annotations.
+Value Arguments is a concept of runtime values, which are used as values of actual spans, parsed from string annotations.
+They make it possible to define `onClick` action for `ClickalbeSpan` or use color obtained from resources in runtime.
+
 Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
 types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) annotations.
 
