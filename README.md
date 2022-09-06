@@ -39,7 +39,7 @@ And don't forget about localization.
 
 *B r e a t h e   o u t.*
 
-If you're not new in modern Android development, then you've certainly done things alike before. Indeed, it's pretty common business' request — to enliven monotonous Android `TextView` with some styles in order to provide a better UX.
+If you're not new in modern Android development, then you've certainly done things alike before. Indeed, it's pretty common business' request — to reinvigorate monotonous Android `TextView` with some styles in order to provide a better UX.
 
 For my personal surprise, I've never found industry-standard solution, like ones we have for almost everything else in Android. From my experience, every time, when developer needs to do something like this, they either assemble their own solution from related answers, or use copy-pasted piece of code, which they have been using for last few years with minor adjustments each time.
 
