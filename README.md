@@ -82,6 +82,24 @@ Configuration
 
 Once you've installed the library, you should configure it. Use [StringAnnotations.configure()](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L36) method, which provides [StringAnnotations.Builder](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L60) instance and configure the library in desired way.
 
+There's an example of configuring the library in your `Application` class:
+
+```kotlin
+class YourApplication : Application() {
+
+   override fun onCreate() {
+      // irrelevant code is omitted
+      configureStringAnnotations()
+   }
+   
+   private fun configureStringAnnotations() {
+      val processor = DefaultAnnotationProcessor()
+      StringAnnotations.configure()
+         .annotationProcessor(processor)
+   }
+}
+```
+
 [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L64)
 -----
 You should define [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) instance to be used.
