@@ -80,9 +80,12 @@ Latest release version is stated at the top of this document in JitPack badge.
 Configuration
 =======
 
-Once you've installed the library, you should configure it. Use [StringAnnotations.configure()](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L36) method, which provides [StringAnnotations.Builder](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L60) instance and configure the library in desired way.
+Library will be configured with default dependencies at the moment you interact with it in the very first time.
 
-There's an example of configuring the library in your `Application` class:
+In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L59) method and provide custom dependencies. 
+There's **no need** to call the method, if you want to use library in its default configuration (which more than enough in majority of cases).
+
+There's an example of customizing library's configuration in your `Application` class:
 
 ```kotlin
 class YourApplication : Application() {
@@ -93,23 +96,21 @@ class YourApplication : Application() {
    }
    
    private fun configureStringAnnotations() {
-      val processor = DefaultAnnotationProcessor()
-      StringAnnotations.configure()
-         .annotationProcessor(processor)
+      val processor = YourCustomAnnotationProcessor()
+      StringAnnotations.configure(
+         annotationProcessor = processor
+      )
    }
 }
 ```
 
-[AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L64)
+AnnotationProcessor
 -----
-You should define [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) instance to be used.
+If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is defined, [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) will be used by default.
 
-If you're not planning on using custom annotations, then you should pass [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) instance.
-Otherwise, pass your own implementation.
+*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it incapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
 
-*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it insapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
-
-[ClickableTextAppearance](/string-annotations/src/main/java/com/mmolosay/stringannotations/ClickableTextAppearance.kt)
+ClickableTextAppearance
 -----
 You should define default appearance of your [Clickable](#clickable) annotations text.
 
