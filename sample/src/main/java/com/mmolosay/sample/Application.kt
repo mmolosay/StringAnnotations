@@ -14,11 +14,15 @@ class Application : Application() {
 
     /**
      * Configures `StringAnnotations` library.
+     *
+     * Call to [StringAnnotations.configure] method in not necessary, since the library
+     * will be configured with default dependencies, if there was no custom ones specified.
      */
     private fun setStringAnnotations() {
         val processor = makeAnnotationProcessor()
-        StringAnnotations.configure()
-            .annotationProcessor(processor)
+        StringAnnotations.configure(
+            annotationProcessor = processor
+        )
     }
 
     /**

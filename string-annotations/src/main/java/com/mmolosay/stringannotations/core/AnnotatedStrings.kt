@@ -52,7 +52,7 @@ public object AnnotatedStrings {
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        val processor = StringAnnotations.requireAnnotaitonProcessor()
+        val processor = StringAnnotations.dependencies.annotationProcessor
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
