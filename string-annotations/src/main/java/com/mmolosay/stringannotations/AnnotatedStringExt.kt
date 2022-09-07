@@ -33,8 +33,6 @@ import com.mmolosay.stringannotations.core.AnnotatedStrings
  * @param id resource id of annotated string.
  * @param valueArgs value placeholder arguments.
  * @param formatArgs formatting arguments to be substituted.
- *
- * @throws IllegalStateException if library was not configured.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
@@ -71,7 +69,6 @@ public fun Context.getAnnotatedString(
  * @param formatArgs formatting arguments to be substituted.
  *
  * @throws IllegalStateException if fragment was not attached to context.
- * @throws IllegalStateException if library was not configured.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
