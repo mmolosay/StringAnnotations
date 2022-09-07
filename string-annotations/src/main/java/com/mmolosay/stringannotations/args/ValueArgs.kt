@@ -20,7 +20,8 @@ import android.text.style.ClickableSpan
 
 /**
  * Immutable collection of runtime value arguments of some annotated string.
- * They are used in places of annotation tag value placeholders, like `<annotation color="arg$0">text</annotation>`.
+ * They are used in places of annotation tag value placeholders,
+ * like `<annotation color="$arg$color$0">text</annotation>`.
  *
  * Runtime value arguments are a great way to use values, which are tough (or completely impossible)
  * to parse from string, like click actions or dynamically computing text sizes.

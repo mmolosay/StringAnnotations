@@ -39,6 +39,9 @@ internal class ValueArgsBuilderImpl : ValueArgsBuilder {
     override fun color(producer: () -> Int): ValueArgs =
         add(producer, args.colors)
 
+    override fun colors(vararg items: Int): ValueArgs =
+        add(items.toTypedArray(), args.colors)
+
     override fun colors(block: ValueArgsBuilder.Adder<Int>.() -> Unit): ValueArgs =
         add(block, colorsAdder)
 
@@ -51,6 +54,9 @@ internal class ValueArgsBuilderImpl : ValueArgsBuilder {
 
     override fun clickable(producer: () -> ClickableSpan): ValueArgs =
         add(producer, args.clickables)
+
+    override fun clickables(vararg items: ClickableSpan): ValueArgs =
+        add(items, args.clickables)
 
     override fun clickables(block: ValueArgsBuilder.Adder<ClickableSpan>.() -> Unit): ValueArgs =
         add(block, clickablesAdder)
@@ -65,6 +71,9 @@ internal class ValueArgsBuilderImpl : ValueArgsBuilder {
     override fun typefaceStyle(producer: () -> Int): ValueArgs =
         add(producer, args.typefaceStyles)
 
+    override fun typefaceStyles(vararg items: Int): ValueArgs =
+        add(items.toTypedArray(), args.typefaceStyles)
+
     override fun typefaceStyles(block: ValueArgsBuilder.Adder<Int>.() -> Unit): ValueArgs =
         add(block, typefaceStylesAdder)
 
@@ -78,6 +87,9 @@ internal class ValueArgsBuilderImpl : ValueArgsBuilder {
     override fun absoluteSize(producer: () -> Int): ValueArgs =
         add(producer, args.absSizes)
 
+    override fun absoluteSizes(vararg items: Int): ValueArgs =
+        add(items.toTypedArray(), args.absSizes)
+
     override fun absoluteSizes(block: ValueArgsBuilder.Adder<Int>.() -> Unit): ValueArgs =
         add(block, absSizesAdder)
 
@@ -89,6 +101,14 @@ internal class ValueArgsBuilderImpl : ValueArgsBuilder {
     ): ValueArgs =
         args.apply {
             dest.add(item)
+        }
+
+    private fun <T> add(
+        items: Array<out T>,
+        dest: MutableList<T>
+    ): ValueArgs =
+        args.apply {
+            dest.addAll(items)
         }
 
     private fun <T> add(
