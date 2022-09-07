@@ -35,15 +35,10 @@ public object AnnotatedStrings {
      * One should prefer using higher level extension functions,
      * like [com.mmolosay.stringannotations.getAnnotatedString].
      *
-     * Before calling the method, make sure, that [StringAnnotations] is configured.
-     * Otherwise method will throw [IllegalStateException].
-     *
      * 1. Formats specified [string] with [formatArgs] (see [String.format]),
      * preserving `<annotation>` spans.
      * 2. Parses `<annotation>`s into spans.
      * 3. Applies spans to the [string].
-     *
-     * @throws IllegalStateException if [StringAnnotations] has not been configured.
      */
     public fun process(
         context: Context,
