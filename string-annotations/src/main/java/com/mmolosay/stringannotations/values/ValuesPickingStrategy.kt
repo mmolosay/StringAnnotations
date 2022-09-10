@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor.values
+package com.mmolosay.stringannotations.values
 
 /*
  * Copyright 2022 Mikhail Malasai

@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor.values
+package com.mmolosay.stringannotations.values
 
 import com.mmolosay.stringannotations.internal.Logger
 

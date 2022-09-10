@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations
 
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
-import com.mmolosay.stringannotations.processor.DefaultAnnotationProcessor
+import com.mmolosay.stringannotations.core.AnnotationProcessor
+import com.mmolosay.stringannotations.core.DefaultAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai

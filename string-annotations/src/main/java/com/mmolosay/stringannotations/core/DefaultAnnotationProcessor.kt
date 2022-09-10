@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.core
 
 import android.content.Context
 import android.text.Annotation
@@ -15,8 +15,9 @@ import com.mmolosay.stringannotations.parser.AnnotationValueParser
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
-import com.mmolosay.stringannotations.processor.values.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.values.ValueArgParser
+import com.mmolosay.stringannotations.values.ValuesProcessor
+import com.mmolosay.stringannotations.values.DefaultValueArgParser
+import com.mmolosay.stringannotations.values.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai

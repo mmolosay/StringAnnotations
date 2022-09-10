@@ -1,7 +1,4 @@
-package com.mmolosay.stringannotations.processor
-
-import com.mmolosay.stringannotations.processor.values.ValuesPickingStrategy
-import com.mmolosay.stringannotations.processor.values.ValuesReducingStrategy
+package com.mmolosay.stringannotations.values
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,9 +19,17 @@ import com.mmolosay.stringannotations.processor.values.ValuesReducingStrategy
 /**
  * Transforms annotation values of type [V] into final value of the same type.
  */
-public interface ValuesProcessor<V> {
+public class ValuesProcessor<V>(
+    private val picking: ValuesPickingStrategy<V>,
+    private val reducing: ValuesReducingStrategy<V>
+) {
 
-    public fun process(values: Sequence<V>): V?
+    /**
+     * Picks desired values, using specified [picking] and then reduces them
+     * to one final result, using specified [reducing].
+     */
+    public fun process(values: Sequence<V>): V? =
+        picking.pick(values).let { reducing.reduce(it) }
 
     public companion object {
 
@@ -32,7 +37,7 @@ public interface ValuesProcessor<V> {
          * Picks and uses very first value.
          */
         public fun <V> Single(): ValuesProcessor<V> =
-            ValuesProcessorImpl(
+            ValuesProcessor(
                 picking = ValuesPickingStrategy.First(),
                 reducing = ValuesReducingStrategy.Single()
             )
@@ -41,27 +46,9 @@ public interface ValuesProcessor<V> {
          * Picks all values and reduces them with specified [reducer].
          */
         public fun <V> All(reducer: (values: List<V>) -> V?): ValuesProcessor<V> =
-            ValuesProcessorImpl(
+            ValuesProcessor(
                 picking = ValuesPickingStrategy.All(),
                 reducing = ValuesReducingStrategy.Multiple(reducer)
             )
     }
 }
-
-/**
- * Internal implementation of [ValuesProcessor].
- * Should not be used as explicit type.
- */
-private class ValuesProcessorImpl<V>(
-    private val picking: ValuesPickingStrategy<V>,
-    private val reducing: ValuesReducingStrategy<V>
-) : ValuesProcessor<V> {
-
-    /**
-     * Picks desired values, using specified [picking] and then reduces them
-     * to one final result, using specified [reducing].
-     */
-    override fun process(values: Sequence<V>): V? =
-        picking.pick(values).let { reducing.reduce(it) }
-}
-
