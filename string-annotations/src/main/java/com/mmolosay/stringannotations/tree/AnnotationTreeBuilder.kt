@@ -2,8 +2,8 @@ package com.mmolosay.stringannotations.tree
 
 import android.text.Annotation
 import android.text.Spanned
-import com.mmolosay.stringannotations.core.StringAnnotation
-import com.mmolosay.stringannotations.core.has
+import com.mmolosay.stringannotations.internal.StringAnnotation
+import com.mmolosay.stringannotations.internal.has
 import com.mmolosay.stringannotations.mapper.AnnotationMapper
 
 /*
