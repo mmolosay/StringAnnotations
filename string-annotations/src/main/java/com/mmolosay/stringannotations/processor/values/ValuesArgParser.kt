@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.processor.values
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,7 +19,7 @@ package com.mmolosay.stringannotations.processor
 /**
  * Specifies way of parsing value placeholder into value of some appropriate argument type.
  */
-public interface ValueArgParser {
+public interface ValuesArgParser {
 
     /**
      * Tries to infer argument from [args] list for specified [placeholder].

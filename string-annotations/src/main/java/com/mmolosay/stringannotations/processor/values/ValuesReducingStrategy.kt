@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.processor.values
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,9 +17,9 @@ package com.mmolosay.stringannotations.processor
  */
 
 /**
- * Conflates values of type [V] into new value of same type or `null`, if conflation isn't possible.
+ * Specifies a way of conflating values of type [V] into result of the same type.
  */
-public fun interface ValuesReducer<V> {
+public fun interface ValuesReducingStrategy<V> {
 
     public fun reduce(values: List<V>): V?
 
@@ -28,15 +28,15 @@ public fun interface ValuesReducer<V> {
         /**
          * Picks first value and returns it.
          */
-        public fun <V> Single(): ValuesReducer<V> =
-            ValuesReducer { values ->
+        public fun <V> Single(): ValuesReducingStrategy<V> =
+            ValuesReducingStrategy { values ->
                 values.firstOrNull()
             }
 
         /**
          * Picks all values and reduces them to one.
          */
-        public fun <V> Multiple(combiner: (values: List<V>) -> V?): ValuesReducer<V> =
-            ValuesReducer(combiner)
+        public fun <V> Multiple(reducer: (values: List<V>) -> V?): ValuesReducingStrategy<V> =
+            ValuesReducingStrategy(reducer)
     }
 }

@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.processor.values
 
 import com.mmolosay.stringannotations.internal.Logger
 
@@ -19,9 +19,9 @@ import com.mmolosay.stringannotations.internal.Logger
  */
 
 /**
- * Default implementation of [ValueArgParser].
+ * Default implementation of [ValuesArgParser].
  */
-public class DefaultValueArgParser : ValueArgParser {
+public class DefaultValuesArgParser : ValuesArgParser {
 
     /**
      * Tries to infer argument from [args] list for specified [placeholder].

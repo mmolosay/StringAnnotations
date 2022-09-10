@@ -15,6 +15,8 @@ import com.mmolosay.stringannotations.parser.AnnotationValueParser
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
+import com.mmolosay.stringannotations.processor.values.DefaultValuesArgParser
+import com.mmolosay.stringannotations.processor.values.ValuesArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -120,8 +122,8 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    protected open val valueArgParser: ValueArgParser =
-        DefaultValueArgParser()
+    protected open val valuesArgParser: ValuesArgParser =
+        DefaultValuesArgParser()
 
     final override fun parseAnnotation(
         context: Context,
@@ -176,29 +178,41 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
     }
 
-    private fun <V> parseValues(
+    /**
+     * Parses and processes specified [values] into result value of type [V].
+     *
+     * 1. Try and map [values] into new list of [V] using [parser],
+     * skipping unparseable values.
+     * 2. Process parsed values from step 1 into final result using [processor].
+     *
+     * @param context caller context.
+     * @param type annotation's tag attribute name.
+     * @param values list of atomic annotation tag values.
+     * @param args list of runtime value arguments.
+     * @param parser parser, that will be used to parse string into value of type [V].
+     * @param processor processor, that will be used to obtain result value.
+     */
+    protected fun <V> processValues(
         context: Context,
         type: String,
         values: List<String>,
-        parser: AnnotationValueParser<V>?,
         args: List<V>,
-        strategy: ValuesPickingStrategy,
-        reducer: ValuesReducer<V>
+        parser: AnnotationValueParser<V>?,
+        processor: ValuesProcessor<V>
     ): V? =
         values.asSequence()
-            .mapNotNull { parseValue(context, type, it, parser, args) }
-            .let { strategy.pick(it) }
-            .let { reducer.reduce(it) }
+            .mapNotNull { parseValue(context, type, it, args, parser) }
+            .let { processor.process(it) }
 
     private fun <V> parseValue(
         context: Context,
         type: String,
         value: String,
-        parser: AnnotationValueParser<V>?,
-        args: List<V>
+        args: List<V>,
+        parser: AnnotationValueParser<V>?
     ): V? =
         parser?.parse(context, value)
-            ?: valueArgParser.parse(value, type, args)
+            ?: valuesArgParser.parse(value, type, args)
 
     // region Annotation type parsing
 
@@ -207,14 +221,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val color = parseValues(
+        val color = processValues(
             context = context,
             type = ANNOTATION_TYPE_BACKGROUND,
             values = values,
-            parser = ColorValueParser,
             args = args.colors,
-            strategy = ValuesPickingStrategy.First,
-            reducer = ValuesReducer.Single()
+            parser = ColorValueParser,
+            processor = ValuesProcessor.Single()
         ) ?: return null
         return BackgroundColorSpan(color)
     }
@@ -224,14 +237,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val color = parseValues(
+        val color = processValues(
             context = context,
             type = ANNOTATION_TYPE_FOREGROUND,
             values = values,
-            parser = ColorValueParser,
             args = args.colors,
-            strategy = ValuesPickingStrategy.First,
-            reducer = ValuesReducer.Single()
+            parser = ColorValueParser,
+            processor = ValuesProcessor.Single()
         ) ?: return null
         return ForegroundColorSpan(color)
     }
@@ -252,14 +264,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val style = parseValues(
+        val style = processValues(
             context = context,
             type = ANNOTATION_TYPE_STYLE,
             values = values,
-            parser = TypefaceStyleValueParser,
             args = args.typefaceStyles,
-            strategy = ValuesPickingStrategy.All,
-            reducer = ValuesReducer.Multiple(TypefaceStyleValueParser::reduceTypefaceStyles)
+            parser = TypefaceStyleValueParser,
+            processor = ValuesProcessor.All(TypefaceStyleValueParser::reduceTypefaceStyles)
         ) ?: return null
         return StyleSpan(style)
     }
@@ -269,14 +280,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? =
-        parseValues(
+        processValues(
             context = context,
             type = ANNOTATION_TYPE_CLICKABLE,
             values = values,
-            parser = null,
             args = args.clickables,
-            strategy = ValuesPickingStrategy.First,
-            reducer = ValuesReducer.Single()
+            parser = null,
+            processor = ValuesProcessor.Single()
         )
 
     private fun parseSizeAbsoluteAnnotation(
@@ -284,14 +294,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val size = parseValues(
+        val size = processValues(
             context = context,
             type = ANNOTATION_TYPE_SIZE_ABSOLUTE,
             values = values,
             parser = SizeUnitValueParser,
             args = args.absSizes,
-            strategy = ValuesPickingStrategy.First,
-            reducer = ValuesReducer.Single()
+            processor = ValuesProcessor.Single()
         ) ?: return null
         return AbsoluteSizeSpan(size)
     }
