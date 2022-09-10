@@ -108,7 +108,8 @@ AnnotationProcessor
 -----
 If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) will be used by default.
 
-*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it incapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
+*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author
+suggests to use [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) as a base class for custom implementations, since it incapsulates a lot of annotation parsing functionality.
 
 ClickableTextAppearance
 -----
