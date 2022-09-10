@@ -1,7 +1,7 @@
-package com.mmolosay.stringannotations
+package com.mmolosay.stringannotations.internal
 
-import android.graphics.Color
-import androidx.annotation.ColorInt
+import android.text.Annotation
+import android.text.Spanned
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,19 +20,16 @@ import androidx.annotation.ColorInt
  */
 
 /**
- * Appearance properties of clickable text.
+ * Processes [Spanned] objects.
  */
-public data class ClickableTextAppearance(
+internal object SpannedProcessor {
 
     /**
-     * Defines, whether text should be underlined or not.
+     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
+     *
+     * All `<annotation>` tags with more then one attribute will be split into multiple,
+     * so that each has only one attribute.
      */
-    val underlineText: Boolean = false,
-
-    /**
-     * Color of text.
-     */
-    @ColorInt val textColor: Int = Color.BLUE
-) {
-    public companion object
+    fun getAnnotationSpans(string: Spanned): Array<out Annotation> =
+        string.getSpans(0, string.length, Annotation::class.java)
 }

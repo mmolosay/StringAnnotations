@@ -1,6 +1,6 @@
-package com.mmolosay.stringannotations.tree
+package com.mmolosay.stringannotations.parser
 
-import android.text.Annotation
+import android.content.Context
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,20 +19,8 @@ import android.text.Annotation
  */
 
 /**
- * [Annotation] that may contain other ones.
- * Represents a node in tree-like structure.
+ * Specifies way of parsing string annotation value into value of some appropriate [V] type.
  */
-internal data class AnnotationNode(
-    /**
-     * The [Annotation] object instance itself.
-     */
-    val annotation: Annotation?,
-
-    /**
-     * Direct children of [annotation].
-     */
-    val children: List<AnnotationNode>
-)
-
-internal fun AnnotationNode.hasChildren(): Boolean =
-    this.children.isNotEmpty()
+public interface AnnotationValueParser<V> {
+    public fun parse(context: Context, value: String): V?
+}

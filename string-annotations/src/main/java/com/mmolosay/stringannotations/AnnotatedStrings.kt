@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -7,11 +7,11 @@ import android.text.SpannedString
 import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.args.emptyValueArgs
-import com.mmolosay.stringannotations.mapper.AnnotationMapper
-import com.mmolosay.stringannotations.processor.AnnotatedStringProcessor
-import com.mmolosay.stringannotations.processor.SpanProcessor
-import com.mmolosay.stringannotations.processor.SpannedProcessor
-import com.mmolosay.stringannotations.tree.AnnotationTreeBuilder
+import com.mmolosay.stringannotations.internal.AnnotationMapper
+import com.mmolosay.stringannotations.internal.AnnotatedStringProcessor
+import com.mmolosay.stringannotations.internal.SpanProcessor
+import com.mmolosay.stringannotations.internal.SpannedProcessor
+import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai

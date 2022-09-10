@@ -1,12 +1,6 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.values
 
-import android.text.style.ClickableSpan
-import android.util.DisplayMetrics
-import com.mmolosay.stringannotations.core.Logger
-import com.mmolosay.stringannotations.parser.ColorValueParser
-import com.mmolosay.stringannotations.parser.SizeUnitValueParser
-import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
-import java.lang.Exception
+import com.mmolosay.stringannotations.internal.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,35 +19,9 @@ import java.lang.Exception
  */
 
 /**
- * Implementation of [AnnotationValueProcessor].
- * Contains methods of parsing annotations of [DefaultAnnotationProcessor].
- *
- * One should inherit this class in order to process custom annotation type values.
+ * Default implementation of [ValueArgParser].
  */
-public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
-
-    /**
-     * This implementation also reduces repeated values.
-     *
-     * @see AnnotationValueProcessor.split
-     */
-    public override fun split(values: String): List<String> =
-        values.split("|").distinct()
-
-    public override fun parseColor(value: String, args: List<Int>): Int? =
-        ColorValueParser.parse(value)
-            ?: getArgFor(value, PLACEHOLDER_TYPE_COLOR, args)
-
-    override fun parseTypefaceStyle(value: String, args: List<Int>): Int? =
-        TypefaceStyleValueParser.parse(value)
-            ?: getArgFor(value, PLACEHOLDER_TYPE_TYPEFACE_STYLE, args)
-
-    override fun parseClickable(placeholder: String, args: List<ClickableSpan>): ClickableSpan? =
-        getArgFor(placeholder, PLACEHOLDER_TYPE_CLICKABLE, args)
-
-    override fun parseAbsoluteSize(value: String, args: List<Int>, metrics: DisplayMetrics): Int? =
-        SizeUnitValueParser.parse(value, metrics)
-            ?: getArgFor(value, PLACEHOLDER_TYPE_ABSOLUTE_SIZE, args)
+public class DefaultValueArgParser : ValueArgParser {
 
     /**
      * Tries to infer argument from [args] list for specified [placeholder].
@@ -72,7 +40,7 @@ public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    protected open fun <T> getArgFor(placeholder: String, expected: String, args: List<T>): T? {
+    override fun <T> parse(placeholder: String, expected: String, args: List<T>): T? {
         try {
             require(placeholder.startsWith('$')) // starts with $ sign
             val parts = placeholder.substring(1).split("$", limit = 4)
@@ -84,37 +52,30 @@ public open class DefaultAnnotationValueProcessor : AnnotationValueProcessor {
                 }
             }
         } catch (e: Exception) {
-            // empty, will log below
+            // catch all exceptions, log below
         }
         Logger.w("Invalid annotation value placeholder format: \"$placeholder\"")
         return null
     }
 
-    protected fun parsePlaceholderType(type: String): String? =
+    private fun parsePlaceholderType(type: String): String? =
         type.ifEmpty {
             Logger.w("Invalid placeholder type=\"$type\"")
             null
         }
 
-    protected fun parsePlaceholderIndex(value: String): Int? =
+    private fun parsePlaceholderIndex(value: String): Int? =
         value.toIntOrNull().also {
             it ?: Logger.w("Cannot parse \"$value\" as argument index")
         }
 
-    protected fun checkPlaceholderType(actual: String, expected: String): Boolean =
+    private fun checkPlaceholderType(actual: String, expected: String): Boolean =
         (actual == expected).also { equals ->
             if (!equals) Logger.w("Requested \"${expected}\" type from \"$actual\" placeholder")
         }
 
-    protected fun <T> getArg(source: List<T>, index: Int): T? =
+    private fun <T> getArg(source: List<T>, index: Int): T? =
         source.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }
-
-    private companion object {
-        const val PLACEHOLDER_TYPE_COLOR = "color"
-        const val PLACEHOLDER_TYPE_CLICKABLE = "clickable"
-        const val PLACEHOLDER_TYPE_TYPEFACE_STYLE = "style"
-        const val PLACEHOLDER_TYPE_ABSOLUTE_SIZE = "size-absolute"
-    }
 }

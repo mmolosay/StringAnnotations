@@ -1,6 +1,4 @@
-package com.mmolosay.stringannotations.core
-
-import android.util.Log
+package com.mmolosay.stringannotations.values
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,21 +17,17 @@ import android.util.Log
  */
 
 /**
- * Logs library events, that require client's attention.
+ * Specifies way of parsing value placeholder into value of some appropriate argument type.
  */
-internal object Logger {
+public interface ValueArgParser {
 
     /**
-     * Library tag. Used for logging events.
+     * Tries to infer argument from [args] list for specified [placeholder].
+     * Placeholder must have [expected] type.
      */
-    private const val TAG = "StringAnnotations"
-
-    /**
-     * Logs specified [message] with library tag and [Log.WARN] priority.
-     *
-     * All library internal logging should go through this method.
-     */
-    fun w(message: String) {
-        Log.w(TAG, message)
-    }
+    public fun <V> parse(
+        placeholder: String,
+        expected: String,
+        args: List<V>
+    ): V?
 }

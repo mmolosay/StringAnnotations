@@ -5,7 +5,7 @@ import android.content.res.TypedArray
 import android.graphics.Color
 import android.util.TypedValue
 import com.mmolosay.stringannotations.R
-import com.mmolosay.stringannotations.ClickableTextAppearance
+import com.mmolosay.stringannotations.core.ClickableTextAppearance
 
 /*
  * Copyright 2022 Mikhail Malasai

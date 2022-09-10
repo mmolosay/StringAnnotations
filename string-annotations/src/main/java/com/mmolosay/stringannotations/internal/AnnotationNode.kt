@@ -1,7 +1,6 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.internal
 
 import android.text.Annotation
-import android.text.Spanned
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,16 +19,20 @@ import android.text.Spanned
  */
 
 /**
- * Processes [Spanned] objects.
+ * [Annotation] that may contain other ones.
+ * Represents a node in tree-like structure.
  */
-internal object SpannedProcessor {
+internal data class AnnotationNode(
+    /**
+     * The [Annotation] object instance itself.
+     */
+    val annotation: Annotation?,
 
     /**
-     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
-     *
-     * All `<annotation>` tags with more then one attribute will be split into multiple,
-     * so that each has only one attribute.
+     * Direct children of [annotation].
      */
-    fun getAnnotationSpans(string: Spanned): Array<out Annotation> =
-        string.getSpans(0, string.length, Annotation::class.java)
-}
+    val children: List<AnnotationNode>
+)
+
+internal fun AnnotationNode.hasChildren(): Boolean =
+    this.children.isNotEmpty()

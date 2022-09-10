@@ -1,12 +1,11 @@
-package com.mmolosay.stringannotations.mapper
+package com.mmolosay.stringannotations.internal
 
 import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.StringAnnotation
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.core.AnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai

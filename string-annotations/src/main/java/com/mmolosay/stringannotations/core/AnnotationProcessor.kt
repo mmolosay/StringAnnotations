@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.core
 
 import android.content.Context
 import android.text.Annotation
@@ -24,7 +24,7 @@ import com.mmolosay.stringannotations.args.ValueArgs
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [CharacterStyle] type.
  */
-public sealed interface AnnotationProcessor {
+public interface AnnotationProcessor {
 
     /**
      * Parses specified [annotation] into span of [CharacterStyle] type.

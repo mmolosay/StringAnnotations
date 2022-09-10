@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.core
 
 import android.content.Context
 import android.text.Annotation
@@ -10,8 +10,14 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.Logger
+import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.parser.AnnotationValueParser
+import com.mmolosay.stringannotations.parser.ColorValueParser
+import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
+import com.mmolosay.stringannotations.values.ValuesProcessor
+import com.mmolosay.stringannotations.values.DefaultValueArgParser
+import com.mmolosay.stringannotations.values.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -117,11 +123,8 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    /**
-     * Annotation value processor to be used in order to parse values of different annotation types.
-     */
-    protected open val valueProcessor: AnnotationValueProcessor =
-        DefaultAnnotationValueProcessor()
+    protected open val valueArgParser: ValueArgParser =
+        DefaultValueArgParser()
 
     final override fun parseAnnotation(
         context: Context,
@@ -130,7 +133,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
-        val values = valueProcessor.split(value)
+        val values = split(value)
         return parseAnnotation(context, type, values, args).also { span ->
             span ?: Logger.w(
                 "Annotation with attribute=\"$type\" and value=\"$value\" " +
@@ -141,14 +144,23 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     }
 
     /**
+     * Splits annotation value of format `"value1[value2][value3][...]"` into list of
+     * separate atomic values.
+     *
+     * This implementation also reduces repeated values.
+     */
+    protected open fun split(value: String): List<String> =
+        value.split("|").distinct()
+
+    /**
      * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
      *
      * Derived class should override this method and call super's implementation at the beginning
      * in order to parse custom annotation type.
      *
      * @param context caller context.
-     * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].ns.
+     * @param type annotation's tag attribute name.
+     * @param values list of atomic annotation tag values.
      * @param args list of runtime value arguments.
      */
     protected open fun parseAnnotation(
@@ -158,76 +170,147 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         args: ValueArgs
     ): CharacterStyle? {
         return when (type) {
-            ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(values, args)
-            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(values, args)
-            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values, args)
-            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, args)
+            ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(context, values, args)
+            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values, args)
+            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(context, values, args)
+            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(context, values, args)
             ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values, args)
             else -> null
         }
     }
 
+    /**
+     * Parses and processes specified [values] into result value of type [V].
+     *
+     * 1. Try and map [values] into new list of [V] using [parser],
+     * skipping unparseable values (see [parseValue]).
+     * 2. Process parsed values from step 1 into final result using [processor].
+     *
+     * @param context caller context.
+     * @param type annotation's tag attribute name.
+     * @param values list of atomic annotation tag values.
+     * @param args list of runtime value arguments.
+     * @param parser parser, that will be used to parse string into value of type [V].
+     * @param processor processor, that will be used to obtain result value.
+     */
+    protected fun <V> processValues(
+        context: Context,
+        type: String,
+        values: List<String>,
+        args: List<V>,
+        parser: AnnotationValueParser<V>?,
+        processor: ValuesProcessor<V>
+    ): V? =
+        values.asSequence()
+            .mapNotNull { parseValue(context, type, it, args, parser) }
+            .let { processor.process(it) }
+
+    /**
+     * Tries to parse specified [value] into new one of type [V].
+     *
+     * First, it will try and parse [value] using appropriate [parser].
+     * Then, if it wasn't successful, will try and parse [value] as a placeholder
+     * for a value argument using [valueArgParser].
+     */
+    private fun <V> parseValue(
+        context: Context,
+        type: String,
+        value: String,
+        args: List<V>,
+        parser: AnnotationValueParser<V>?
+    ): V? =
+        parser?.parse(context, value)
+            ?: valueArgParser.parse(value, type, args)
+
     // region Annotation type parsing
 
     private fun parseBackgroundAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseColor(value, args.colors)?.let { color ->
-            BackgroundColorSpan(color)
-        }
+        val color = processValues(
+            context = context,
+            type = ANNOTATION_TYPE_BACKGROUND,
+            values = values,
+            args = args.colors,
+            parser = ColorValueParser,
+            processor = ValuesProcessor.Single()
+        ) ?: return null
+        return BackgroundColorSpan(color)
     }
 
     private fun parseForegroundAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseColor(value, args.colors)?.let { color ->
-            ForegroundColorSpan(color)
-        }
+        val color = processValues(
+            context = context,
+            type = ANNOTATION_TYPE_FOREGROUND,
+            values = values,
+            args = args.colors,
+            parser = ColorValueParser,
+            processor = ValuesProcessor.Single()
+        ) ?: return null
+        return ForegroundColorSpan(color)
     }
 
     private fun parseStyleAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? =
         when {
             values.contains(ANNOTATION_VALUE_UNDERLINE) -> UnderlineSpan()
             values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> StrikethroughSpan()
-            else -> parseTypefaceStyleAnnotation(values, args)
+            else -> parseTypefaceStyleAnnotation(context, values, args)
         }
 
     private fun parseTypefaceStyleAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val styles = values.mapNotNull { value ->
-            valueProcessor.parseTypefaceStyle(value, args.typefaceStyles)
-        }
-        val style = TypefaceStyleValueParser.reduceTypefaceStyles(styles) ?: return null
+        val style = processValues(
+            context = context,
+            type = ANNOTATION_TYPE_STYLE,
+            values = values,
+            args = args.typefaceStyles,
+            parser = TypefaceStyleValueParser,
+            processor = ValuesProcessor.All(TypefaceStyleValueParser::reduceTypefaceStyles)
+        ) ?: return null
         return StyleSpan(style)
     }
 
     private fun parseClickableAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
-    ): CharacterStyle? {
-        val placeholder = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseClickable(placeholder, args.clickables)
-    }
+    ): CharacterStyle? =
+        processValues(
+            context = context,
+            type = ANNOTATION_TYPE_CLICKABLE,
+            values = values,
+            args = args.clickables,
+            parser = null,
+            processor = ValuesProcessor.Single()
+        )
 
     private fun parseSizeAbsoluteAnnotation(
         context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        val metrics = context.resources.displayMetrics
-        return valueProcessor.parseAbsoluteSize(value, args.absSizes, metrics)?.let { size ->
-            AbsoluteSizeSpan(size)
-        }
+        val size = processValues(
+            context = context,
+            type = ANNOTATION_TYPE_SIZE_ABSOLUTE,
+            values = values,
+            parser = SizeUnitValueParser,
+            args = args.absSizes,
+            processor = ValuesProcessor.Single()
+        ) ?: return null
+        return AbsoluteSizeSpan(size)
     }
 
     // endregion

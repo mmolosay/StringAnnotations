@@ -1,7 +1,6 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.internal
 
 import android.text.SpannableStringBuilder
-import com.mmolosay.stringannotations.tree.AnnotationNode
 
 /*
  * Copyright 2022 Mikhail Malasai

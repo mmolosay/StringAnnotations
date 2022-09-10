@@ -1,8 +1,7 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.internal
 
 import android.text.Spannable
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.StringAnnotation
 
 /*
  * Copyright 2022 Mikhail Malasai
