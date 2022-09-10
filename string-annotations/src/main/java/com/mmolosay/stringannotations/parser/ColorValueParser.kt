@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.parser
 
+import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.mmolosay.stringannotations.internal.Logger
@@ -23,7 +24,11 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation value of color type into color int.
  */
-public object ColorValueParser {
+public object ColorValueParser : AnnotationValueParser<Int> {
+
+    @ColorInt
+    override fun parse(context: Context, value: String): Int? =
+        parse(value)
 
     /**
      * Parses string [value] of any color attribute into color integer.

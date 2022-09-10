@@ -11,6 +11,9 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.parser.AnnotationValueParser
+import com.mmolosay.stringannotations.parser.ColorValueParser
+import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
 
 /*
@@ -117,11 +120,8 @@ import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    /**
-     * Annotation value processor to be used in order to parse values of different annotation types.
-     */
-    protected open val valueProcessor: AnnotationValueProcessor =
-        DefaultAnnotationValueProcessor()
+    protected open val valueArgParser: ValueArgParser =
+        DefaultValueArgParser()
 
     final override fun parseAnnotation(
         context: Context,
@@ -130,7 +130,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     ): CharacterStyle? {
         val type = annotation.key
         val value = annotation.value
-        val values = valueProcessor.split(value)
+        val values = split(value)
         return parseAnnotation(context, type, values, args).also { span ->
             span ?: Logger.w(
                 "Annotation with attribute=\"$type\" and value=\"$value\" " +
@@ -141,14 +141,23 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     }
 
     /**
+     * Splits annotation value of format `"value1[value2][value3][...]"` into list of
+     * separate atomic values.
+     *
+     * This implementation also reduces repeated values.
+     */
+    protected open fun split(value: String): List<String> =
+        value.split("|").distinct()
+
+    /**
      * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
      *
      * Derived class should override this method and call super's implementation at the beginning
      * in order to parse custom annotation type.
      *
      * @param context caller context.
-     * @param type [Annotation.getKey], which is actually a tag's attribute name.
-     * @param values list of atomic annotation tag values, obtained from [AnnotationValueProcessor.split].ns.
+     * @param type annotation's tag attribute name.
+     * @param values list of atomic annotation tag values.
      * @param args list of runtime value arguments.
      */
     protected open fun parseAnnotation(
@@ -158,76 +167,133 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         args: ValueArgs
     ): CharacterStyle? {
         return when (type) {
-            ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(values, args)
-            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(values, args)
-            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(values, args)
-            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(values, args)
+            ANNOTATION_TYPE_BACKGROUND -> parseBackgroundAnnotation(context, values, args)
+            ANNOTATION_TYPE_FOREGROUND -> parseForegroundAnnotation(context, values, args)
+            ANNOTATION_TYPE_STYLE -> parseStyleAnnotation(context, values, args)
+            ANNOTATION_TYPE_CLICKABLE -> parseClickableAnnotation(context, values, args)
             ANNOTATION_TYPE_SIZE_ABSOLUTE -> parseSizeAbsoluteAnnotation(context, values, args)
             else -> null
         }
     }
 
+    private fun <V> parseValues(
+        context: Context,
+        type: String,
+        values: List<String>,
+        parser: AnnotationValueParser<V>?,
+        args: List<V>,
+        strategy: ValuesPickingStrategy,
+        reducer: ValuesReducer<V>
+    ): V? =
+        values.asSequence()
+            .mapNotNull { parseValue(context, type, it, parser, args) }
+            .let { strategy.pick(it) }
+            .let { reducer.reduce(it) }
+
+    private fun <V> parseValue(
+        context: Context,
+        type: String,
+        value: String,
+        parser: AnnotationValueParser<V>?,
+        args: List<V>
+    ): V? =
+        parser?.parse(context, value)
+            ?: valueArgParser.parse(value, type, args)
+
     // region Annotation type parsing
 
     private fun parseBackgroundAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseColor(value, args.colors)?.let { color ->
-            BackgroundColorSpan(color)
-        }
+        val color = parseValues(
+            context = context,
+            type = ANNOTATION_TYPE_BACKGROUND,
+            values = values,
+            parser = ColorValueParser,
+            args = args.colors,
+            strategy = ValuesPickingStrategy.First,
+            reducer = ValuesReducer.Single()
+        ) ?: return null
+        return BackgroundColorSpan(color)
     }
 
     private fun parseForegroundAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseColor(value, args.colors)?.let { color ->
-            ForegroundColorSpan(color)
-        }
+        val color = parseValues(
+            context = context,
+            type = ANNOTATION_TYPE_FOREGROUND,
+            values = values,
+            parser = ColorValueParser,
+            args = args.colors,
+            strategy = ValuesPickingStrategy.First,
+            reducer = ValuesReducer.Single()
+        ) ?: return null
+        return ForegroundColorSpan(color)
     }
 
     private fun parseStyleAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? =
         when {
             values.contains(ANNOTATION_VALUE_UNDERLINE) -> UnderlineSpan()
             values.contains(ANNOTATION_VALUE_STRIKETHROUGH) -> StrikethroughSpan()
-            else -> parseTypefaceStyleAnnotation(values, args)
+            else -> parseTypefaceStyleAnnotation(context, values, args)
         }
 
     private fun parseTypefaceStyleAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val styles = values.mapNotNull { value ->
-            valueProcessor.parseTypefaceStyle(value, args.typefaceStyles)
-        }
-        val style = TypefaceStyleValueParser.reduceTypefaceStyles(styles) ?: return null
+        val style = parseValues(
+            context = context,
+            type = ANNOTATION_TYPE_STYLE,
+            values = values,
+            parser = TypefaceStyleValueParser,
+            args = args.typefaceStyles,
+            strategy = ValuesPickingStrategy.All,
+            reducer = ValuesReducer.Multiple(TypefaceStyleValueParser::reduceTypefaceStyles)
+        ) ?: return null
         return StyleSpan(style)
     }
 
     private fun parseClickableAnnotation(
+        context: Context,
         values: List<String>,
         args: ValueArgs
-    ): CharacterStyle? {
-        val placeholder = values.firstOrNull() ?: return null // use only first one
-        return valueProcessor.parseClickable(placeholder, args.clickables)
-    }
+    ): CharacterStyle? =
+        parseValues(
+            context = context,
+            type = ANNOTATION_TYPE_CLICKABLE,
+            values = values,
+            parser = null,
+            args = args.clickables,
+            strategy = ValuesPickingStrategy.First,
+            reducer = ValuesReducer.Single()
+        )
 
     private fun parseSizeAbsoluteAnnotation(
         context: Context,
         values: List<String>,
         args: ValueArgs
     ): CharacterStyle? {
-        val value = values.firstOrNull() ?: return null // use only first one
-        val metrics = context.resources.displayMetrics
-        return valueProcessor.parseAbsoluteSize(value, args.absSizes, metrics)?.let { size ->
-            AbsoluteSizeSpan(size)
-        }
+        val size = parseValues(
+            context = context,
+            type = ANNOTATION_TYPE_SIZE_ABSOLUTE,
+            values = values,
+            parser = SizeUnitValueParser,
+            args = args.absSizes,
+            strategy = ValuesPickingStrategy.First,
+            reducer = ValuesReducer.Single()
+        ) ?: return null
+        return AbsoluteSizeSpan(size)
     }
 
     // endregion

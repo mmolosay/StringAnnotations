@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.parser
 
+import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
@@ -24,7 +25,10 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation value of size type into pixel size.
  */
-public object SizeUnitValueParser {
+public object SizeUnitValueParser : AnnotationValueParser<Int> {
+
+    override fun parse(context: Context, value: String): Int? =
+        parse(value, context.resources.displayMetrics)
 
     /**
      * Parses [value] of format `"{NUMBER_AMOUNT}{UNIT}"` into pixel size.
