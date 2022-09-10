@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations
 
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.DefaultAnnotationProcessor
@@ -71,13 +71,13 @@ public object StringAnnotations {
      * Should be called, when the library is never going to be needed again.
      */
     public fun dispose() {
-        this._dependencies = null
+        _dependencies = null
     }
 
     // endregion
 
     private fun configureInternal(dependencies: Dependencies) {
-        this._dependencies = dependencies
+        _dependencies = dependencies
     }
 
     /**

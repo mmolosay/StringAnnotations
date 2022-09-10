@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.ClickableSpan
 import android.util.DisplayMetrics
-import com.mmolosay.stringannotations.core.Logger
+import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser

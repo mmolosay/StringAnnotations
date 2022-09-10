@@ -10,7 +10,7 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.Logger
+import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
 
 /*

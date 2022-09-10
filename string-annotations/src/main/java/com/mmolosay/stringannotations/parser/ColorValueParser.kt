@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.parser
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import com.mmolosay.stringannotations.core.Logger
+import com.mmolosay.stringannotations.internal.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai

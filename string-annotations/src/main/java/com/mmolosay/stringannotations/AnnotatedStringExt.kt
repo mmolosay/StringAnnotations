@@ -5,7 +5,6 @@ import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.AnnotatedStrings
 
 /*
  * Copyright 2022 Mikhail Malasai

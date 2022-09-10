@@ -1,7 +1,9 @@
-package com.mmolosay.stringannotations
+package com.mmolosay.stringannotations.core
 
+import android.content.res.Resources
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.mmolosay.stringannotations.utils.ThemeUtils.getClickableTextAppearance
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -36,3 +38,13 @@ public data class ClickableTextAppearance(
 ) {
     public companion object
 }
+
+/**
+ * Retrieves [ClickableTextAppearance] from specified [theme].
+ *
+ * Firstly it will try to resolve style, set as attribute [R.attr.clickableTextAppearance] value
+ * in the specified [theme].
+ * If it is `null`, then will use default [R.style.Base_ClickableTextAppearance] style.
+ */
+public fun ClickableTextAppearance.Companion.from(theme: Resources.Theme): ClickableTextAppearance =
+    theme.getClickableTextAppearance()

@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.spans
 
 import android.text.TextPaint
 import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.ClickableTextAppearance
+import com.mmolosay.stringannotations.core.ClickableTextAppearance
 
 /*
  * Copyright 2022 Mikhail Malasai

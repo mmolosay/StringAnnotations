@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations
+package com.mmolosay.stringannotations.core
 
 import android.text.Annotation
 

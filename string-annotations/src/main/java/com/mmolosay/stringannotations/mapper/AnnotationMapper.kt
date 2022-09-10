@@ -4,8 +4,8 @@ import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.StringAnnotation
 import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.core.StringAnnotation
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*
