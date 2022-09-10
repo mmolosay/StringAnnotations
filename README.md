@@ -90,25 +90,25 @@ There's an example of customizing library's configuration in your `Application` 
 ```kotlin
 class YourApplication : Application() {
 
-   override fun onCreate() {
-      // irrelevant code is omitted
-      configureStringAnnotations()
-   }
-   
-   private fun configureStringAnnotations() {
-      val processor = YourCustomAnnotationProcessor()
-      StringAnnotations.configure(
-         annotationProcessor = processor
-      )
-   }
+    override fun onCreate() {
+        // irrelevant code is omitted
+        configureStringAnnotations()
+    }
+
+    private fun configureStringAnnotations() {
+        val processor = YourCustomAnnotationProcessor()
+        StringAnnotations.configure(
+            annotationProcessor = processor
+        )
+    }
 }
 ```
 
 AnnotationProcessor
 -----
-If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is defined, [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) will be used by default.
+If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) will be used by default.
 
-*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it incapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
+*Note: [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is declared as `sealed` in order to make [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) a single base class for custom implementations, since it incapsulates a lot of annotation parsing functionality. You should use it as a base class for your implementation of `AnnotationProcessor`.*
 
 ClickableTextAppearance
 -----
@@ -129,7 +129,7 @@ Example:
 </style>
 ```
 
-*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/ClickableTextAppearanceExt.kt#L33) extension function.*
+*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/ClickableTextAppearanceExt.kt#L49) extension function.*
 
 Annotations
 =======
@@ -254,9 +254,9 @@ Value Arguments is a concept of runtime values, which are used as values of actu
 They make it possible to define `onClick` action for `ClickalbeSpan` or use color obtained from resources in runtime.
 
 Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
-types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) annotations.
+types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) annotations.
 
-Since [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationProcessor.kt) uses [DefaultAnnotationValueProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/DefaultAnnotationValueProcessor.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
+Since [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) uses [DefaultValueArgParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/values/DefaultValueArgParser.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
 
 Below you can see **simplified** example, how Value Arguments can be used.
 For more examples, check [sample application](/sample).
@@ -271,10 +271,10 @@ In your code:
 val color1 = ContextCompat.getColor(this, R.color.red)
 val color2 = ContextCompat.getColor(this, R.color.green)
 val args = ValueArgs {
-   colors {
-      add(color1)
-      add(color2)
-   }
+    colors {
+        add(color1)
+        add(color2)
+    }
 }
 yourTextView.text = getAnnotatedString(R.string.demo, args)
 ```
@@ -282,13 +282,7 @@ yourTextView.text = getAnnotatedString(R.string.demo, args)
 Examples of usage
 ======
 
-Following **simplified** examples demonstrate ways to use `StringAnnotations`:
-
-Full sample can be found in [sample](/sample) module.
-
-```kotlin
-
-```
+Demonstration sample can be found in [sample](/sample) module.
 
 License
 =======
