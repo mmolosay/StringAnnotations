@@ -53,8 +53,8 @@ public interface ValuesProcessor<V> {
  * Should not be used as explicit type.
  */
 private class ValuesProcessorImpl<V>(
-    val picking: ValuesPickingStrategy<V>,
-    val reducing: ValuesReducingStrategy<V>
+    private val picking: ValuesPickingStrategy<V>,
+    private val reducing: ValuesReducingStrategy<V>
 ) : ValuesProcessor<V> {
 
     /**
