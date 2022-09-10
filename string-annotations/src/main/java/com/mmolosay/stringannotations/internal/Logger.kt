@@ -20,6 +20,8 @@ import android.util.Log
 
 /**
  * Logs library events, that require client's attention.
+ *
+ * All library's internal logging should go through this component.
  */
 internal object Logger {
 
@@ -29,9 +31,7 @@ internal object Logger {
     private const val TAG = "StringAnnotations"
 
     /**
-     * Logs specified [message] with library tag and [Log.WARN] priority.
-     *
-     * All library internal logging should go through this method.
+     * Logs specified [message] with library's tag and [Log.WARN] priority.
      */
     fun w(message: String) {
         Log.w(TAG, message)
