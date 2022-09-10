@@ -15,8 +15,8 @@ import com.mmolosay.stringannotations.parser.AnnotationValueParser
 import com.mmolosay.stringannotations.parser.ColorValueParser
 import com.mmolosay.stringannotations.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
-import com.mmolosay.stringannotations.processor.values.DefaultValuesArgParser
-import com.mmolosay.stringannotations.processor.values.ValuesArgParser
+import com.mmolosay.stringannotations.processor.values.DefaultValueArgParser
+import com.mmolosay.stringannotations.processor.values.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -122,8 +122,8 @@ import com.mmolosay.stringannotations.processor.values.ValuesArgParser
  */
 public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
-    protected open val valuesArgParser: ValuesArgParser =
-        DefaultValuesArgParser()
+    protected open val valueArgParser: ValueArgParser =
+        DefaultValueArgParser()
 
     final override fun parseAnnotation(
         context: Context,
@@ -209,7 +209,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * First, it will try and parse [value] using appropriate [parser].
      * Then, if it wasn't successful, will try and parse [value] as a placeholder
-     * for a value argument using [valuesArgParser].
+     * for a value argument using [valueArgParser].
      */
     private fun <V> parseValue(
         context: Context,
@@ -219,7 +219,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         parser: AnnotationValueParser<V>?
     ): V? =
         parser?.parse(context, value)
-            ?: valuesArgParser.parse(value, type, args)
+            ?: valueArgParser.parse(value, type, args)
 
     // region Annotation type parsing
 

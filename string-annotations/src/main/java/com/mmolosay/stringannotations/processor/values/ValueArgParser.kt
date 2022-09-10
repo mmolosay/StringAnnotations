@@ -19,7 +19,7 @@ package com.mmolosay.stringannotations.processor.values
 /**
  * Specifies way of parsing value placeholder into value of some appropriate argument type.
  */
-public interface ValuesArgParser {
+public interface ValueArgParser {
 
     /**
      * Tries to infer argument from [args] list for specified [placeholder].
