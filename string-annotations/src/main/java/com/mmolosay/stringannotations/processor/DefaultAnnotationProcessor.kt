@@ -182,7 +182,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Parses and processes specified [values] into result value of type [V].
      *
      * 1. Try and map [values] into new list of [V] using [parser],
-     * skipping unparseable values.
+     * skipping unparseable values (see [parseValue]).
      * 2. Process parsed values from step 1 into final result using [processor].
      *
      * @param context caller context.
@@ -204,6 +204,13 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             .mapNotNull { parseValue(context, type, it, args, parser) }
             .let { processor.process(it) }
 
+    /**
+     * Tries to parse specified [value] into new one of type [V].
+     *
+     * First, it will try and parse [value] using appropriate [parser].
+     * Then, if it wasn't successful, will try and parse [value] as a placeholder
+     * for a value argument using [valuesArgParser].
+     */
     private fun <V> parseValue(
         context: Context,
         type: String,
