@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.internal
 
 import android.text.Annotation
 import android.text.Spanned

@@ -6,6 +6,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import com.mmolosay.stringannotations.core.ClickableTextAppearance
 import com.mmolosay.stringannotations.core.from
+import com.mmolosay.stringannotations.internal.CustomizableClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai

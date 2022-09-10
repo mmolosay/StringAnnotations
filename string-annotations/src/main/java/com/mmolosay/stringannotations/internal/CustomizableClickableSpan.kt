@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.spans
+package com.mmolosay.stringannotations.internal
 
 import android.text.TextPaint
 import android.text.style.ClickableSpan
