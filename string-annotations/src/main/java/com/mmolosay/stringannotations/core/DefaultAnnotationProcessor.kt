@@ -171,7 +171,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     /**
      * Implementation of [parseAnnotationTag] with annotation [tag].
-     * Uses [processValues] method to infer final result value.
+     * Uses [resolveAnnotationValue] method to infer final result value.
      * Assembles appropriate span using value, obtained earlier.
      *
      * Derived class should override this method and call super's implementation at the beginning
@@ -200,7 +200,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Parses and processes specified [values] into result value of type [V].
      *
      * 1. Try and map [values] into new list of [V] using [parser],
-     * skipping unparseable values (see [parseValue]).
+     * skipping unparseable values (see [parseAnnotationValue]).
      * 2. Process parsed values from step #1 into final result using [processor].
      *
      * @param context caller context.
@@ -209,7 +209,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * @param parser parser, that will be used to parse string into value of type [V].
      * @param processor processor, that will be used to obtain result value.
      */
-    protected fun <V> processValues(
+    protected fun <V> resolveAnnotationValue(
         context: Context,
         tag: AnnotationTag,
         args: List<V>,
@@ -217,7 +217,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         processor: ValuesProcessor<V>
     ): V? =
         tag.values.asSequence()
-            .mapNotNull { parseValue(context, tag.type, it, args, parser) }
+            .mapNotNull { parseAnnotationValue(context, tag.type, it, args, parser) }
             .let { processor.process(it) }
 
     /**
@@ -227,7 +227,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Then, if it wasn't successful, will try and parse [value] as a placeholder
      * for a value argument using [valueArgParser].
      */
-    private fun <V> parseValue(
+    private fun <V> parseAnnotationValue(
         context: Context,
         type: AnnotationTag.Type,
         value: AnnotationTag.Value,
@@ -244,7 +244,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         tag: AnnotationTag,
         args: ValueArgs
     ): CharacterStyle? {
-        val color = processValues(
+        val color = resolveAnnotationValue(
             context = context,
             tag = tag,
             args = args.colors,
@@ -259,7 +259,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         tag: AnnotationTag,
         args: ValueArgs
     ): CharacterStyle? {
-        val color = processValues(
+        val color = resolveAnnotationValue(
             context = context,
             tag = tag,
             args = args.colors,
@@ -285,7 +285,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         tag: AnnotationTag,
         args: ValueArgs
     ): CharacterStyle? {
-        val style = processValues(
+        val style = resolveAnnotationValue(
             context = context,
             tag = tag,
             args = args.typefaceStyles,
@@ -300,7 +300,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         tag: AnnotationTag,
         args: ValueArgs
     ): CharacterStyle? =
-        processValues(
+        resolveAnnotationValue(
             context = context,
             tag = tag,
             args = args.clickables,
@@ -313,7 +313,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         tag: AnnotationTag,
         args: ValueArgs
     ): CharacterStyle? {
-        val size = processValues(
+        val size = resolveAnnotationValue(
             context = context,
             tag = tag,
             parser = SizeUnitValueParser,
