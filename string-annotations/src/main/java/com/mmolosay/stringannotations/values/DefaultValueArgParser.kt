@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.values
 
-import com.mmolosay.stringannotations.core.AnnotationValue
+import com.mmolosay.stringannotations.core.AnnotationTag
 import com.mmolosay.stringannotations.internal.Logger
 
 /*
@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.internal.Logger
 public class DefaultValueArgParser : ValueArgParser {
 
     /**
-     * Tries to infer argument from [args] list for specified [placeholder].
+     * Tries to infer argument from [args] list for specified [value].
      * Placeholder must have [expected] type.
      *
      * Steps:
@@ -35,19 +35,19 @@ public class DefaultValueArgParser : ValueArgParser {
      * 4. check, that actual parsed type is equal to [expected] one.
      * 5. return argument at parsed index in [args] list.
      *
-     * @param placeholder annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
-     * @param expected expected type of [placeholder].
+     * @param value annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
+     * @param expected expected type of [value].
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <T> parse(placeholder: AnnotationValue, expected: String, args: List<T>): T? =
-        parse(placeholder.string, expected, args)
+    override fun <T> parse(value: AnnotationTag.Value, expected: String, args: List<T>): T? =
+        parse(value.string, expected, args)
 
-    private fun <T> parse(placeholder: String, expected: String, args: List<T>): T? {
+    private fun <T> parse(value: String, expected: String, args: List<T>): T? {
         try {
-            require(placeholder.startsWith('$')) // starts with $ sign
-            val parts = placeholder.substring(1).split("$", limit = 4)
+            require(value.startsWith('$')) // starts with $ sign
+            val parts = value.substring(1).split("$", limit = 4)
             if (parts.size == 3 && parts[0] == "arg") {
                 val type = parsePlaceholderType(parts[1]) ?: return null
                 val index = parsePlaceholderIndex(parts[2]) ?: return null
@@ -58,7 +58,7 @@ public class DefaultValueArgParser : ValueArgParser {
         } catch (e: Exception) {
             // catch all exceptions, log below
         }
-        Logger.w("Invalid annotation value placeholder format: \"$placeholder\"")
+        Logger.w("Invalid annotation value placeholder format: \"$value\"")
         return null
     }
 

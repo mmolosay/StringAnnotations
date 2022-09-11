@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.values
 
-import com.mmolosay.stringannotations.core.AnnotationValue
+import com.mmolosay.stringannotations.core.AnnotationTag
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,16 +19,16 @@ import com.mmolosay.stringannotations.core.AnnotationValue
  */
 
 /**
- * Specifies way of parsing value placeholder into value of some appropriate argument type.
+ * Specifies way of parsing value placeholder into some corresponding argument.
  */
 public interface ValueArgParser {
 
     /**
-     * Tries to infer argument from [args] list for specified [placeholder].
-     * Placeholder must have [expected] type.
+     * Tries to parse [value] as argument placeholder and obtaind corresponding argument from [args].
+     * [value] must have [expected] type.
      */
     public fun <V> parse(
-        placeholder: AnnotationValue,
+        value: AnnotationTag.Value,
         expected: String,
         args: List<V>
     ): V?

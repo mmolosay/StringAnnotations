@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.parser
 
 import android.content.Context
 import android.graphics.Typeface
-import com.mmolosay.stringannotations.core.AnnotationValue
+import com.mmolosay.stringannotations.core.AnnotationTag
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.core.AnnotationValue
  */
 public object TypefaceStyleValueParser : AnnotationValueParser<Int> {
 
-    override fun parse(context: Context, value: AnnotationValue): Int? =
+    override fun parse(context: Context, value: AnnotationTag.Value): Int? =
         parse(value.string)
 
     /**

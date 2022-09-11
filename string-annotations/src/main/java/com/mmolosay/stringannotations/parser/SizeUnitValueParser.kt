@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
-import com.mmolosay.stringannotations.core.AnnotationValue
+import com.mmolosay.stringannotations.core.AnnotationTag
 import com.mmolosay.stringannotations.internal.Logger
 
 /*
@@ -28,7 +28,7 @@ import com.mmolosay.stringannotations.internal.Logger
  */
 public object SizeUnitValueParser : AnnotationValueParser<Int> {
 
-    override fun parse(context: Context, value: AnnotationValue): Int? =
+    override fun parse(context: Context, value: AnnotationTag.Value): Int? =
         parse(value.string, context.resources.displayMetrics)
 
     /**
