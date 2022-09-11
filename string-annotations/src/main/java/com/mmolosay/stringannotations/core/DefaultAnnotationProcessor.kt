@@ -171,6 +171,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
 
     /**
      * Implementation of [parseAnnotationTag] with annotation [tag].
+     * Uses [processValues] method to infer final result value.
+     * Assembles appropriate span using value, obtained earlier.
      *
      * Derived class should override this method and call super's implementation at the beginning
      * in order to support default annotation types.
