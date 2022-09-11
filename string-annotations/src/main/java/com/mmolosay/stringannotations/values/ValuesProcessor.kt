@@ -18,6 +18,8 @@ package com.mmolosay.stringannotations.values
 
 /**
  * Transforms annotation values of type [V] into final value of the same type.
+ * It uses [picking] strategy to pick desired values and [reducing] one to conflate them into
+ * final result.
  */
 public class ValuesProcessor<V>(
     private val picking: ValuesPickingStrategy<V>,
