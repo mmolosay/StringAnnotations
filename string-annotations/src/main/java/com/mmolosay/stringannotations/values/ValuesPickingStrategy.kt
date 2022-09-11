@@ -17,11 +17,14 @@ package com.mmolosay.stringannotations.values
  */
 
 /**
- * Specifies a way of selecting certain values.
+ * Specifies a way of selecting specific values.
  */
 public fun interface ValuesPickingStrategy<V> {
 
-    public fun pick(values: Sequence<V>): List<V>
+    /**
+     * Applies this strategy on [values], returning list selected elements.
+     */
+    public fun on(values: Sequence<V>): List<V>
 
     public companion object {
 

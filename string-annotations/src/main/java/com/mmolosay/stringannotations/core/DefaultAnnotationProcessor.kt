@@ -199,8 +199,9 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     /**
      * Parses and processes specified [values] into result value of type [V].
      *
-     * 1. Try and map [values] into new list of [V] using [parser],
-     * skipping unparseable values (see [parseAnnotationValue]).
+     * 1. Try and parse each value, using [parser].
+     *    If unsuccessful, try and parse it as placeholder for value argument.
+     *    If unsuccessful, skip.
      * 2. Process parsed values from step #1 into final result using [processor].
      *
      * @param context caller context.
@@ -217,25 +218,12 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         processor: ValuesProcessor<V>
     ): V? =
         tag.values.asSequence()
-            .mapNotNull { parseAnnotationValue(context, tag.type, it, args, parser) }
+            .mapNotNull { value ->
+                // try to parse as regular value, try as args placeholder if unsuccessful
+                parser?.parse(context, value)
+                    ?: valueArgParser.parse(value, tag.type, args)
+            }
             .let { processor.process(it) }
-
-    /**
-     * Tries to parse specified [value] into new one of type [V].
-     *
-     * First, it will try and parse [value] using appropriate [parser].
-     * Then, if it wasn't successful, will try and parse [value] as a placeholder
-     * for a value argument using [valueArgParser].
-     */
-    private fun <V> parseAnnotationValue(
-        context: Context,
-        type: AnnotationTag.Type,
-        value: AnnotationTag.Value,
-        args: List<V>,
-        parser: AnnotationValueParser<V>?
-    ): V? =
-        parser?.parse(context, value)
-            ?: valueArgParser.parse(value, type, args)
 
     // region Annotation type parsing
 

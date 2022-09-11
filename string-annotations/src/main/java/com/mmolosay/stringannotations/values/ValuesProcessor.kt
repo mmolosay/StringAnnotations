@@ -18,20 +18,22 @@ package com.mmolosay.stringannotations.values
 
 /**
  * Transforms annotation values of type [V] into final value of the same type.
- * It uses [picking] strategy to pick desired values and [reducing] one to conflate them into
+ * It uses [pickingStrategy] strategy to pick desired values and [reducingStrategy] one to conflate them into
  * final result.
  */
 public class ValuesProcessor<V>(
-    private val picking: ValuesPickingStrategy<V>,
-    private val reducing: ValuesReducingStrategy<V>
+    private val pickingStrategy: ValuesPickingStrategy<V>,
+    private val reducingStrategy: ValuesReducingStrategy<V>
 ) {
 
     /**
-     * Picks desired values, using specified [picking] and then reduces them
-     * to one final result, using specified [reducing].
+     * Picks desired values, using specified [pickingStrategy] and then reduces them
+     * to one final result, using specified [reducingStrategy].
      */
     public fun process(values: Sequence<V>): V? =
-        picking.pick(values).let { reducing.reduce(it) }
+        values
+            .let { pickingStrategy.on(it) }
+            .let { reducingStrategy.on(it) }
 
     public companion object {
 
@@ -40,8 +42,8 @@ public class ValuesProcessor<V>(
          */
         public fun <V> Single(): ValuesProcessor<V> =
             ValuesProcessor(
-                picking = ValuesPickingStrategy.First(),
-                reducing = ValuesReducingStrategy.Single()
+                pickingStrategy = ValuesPickingStrategy.First(),
+                reducingStrategy = ValuesReducingStrategy.Single()
             )
 
         /**
@@ -49,8 +51,8 @@ public class ValuesProcessor<V>(
          */
         public fun <V> All(reducer: (values: List<V>) -> V?): ValuesProcessor<V> =
             ValuesProcessor(
-                picking = ValuesPickingStrategy.All(),
-                reducing = ValuesReducingStrategy.Multiple(reducer)
+                pickingStrategy = ValuesPickingStrategy.All(),
+                reducingStrategy = ValuesReducingStrategy.Multiple(reducer)
             )
     }
 }

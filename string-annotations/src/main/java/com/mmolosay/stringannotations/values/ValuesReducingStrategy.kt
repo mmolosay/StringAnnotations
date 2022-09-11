@@ -21,7 +21,10 @@ package com.mmolosay.stringannotations.values
  */
 public fun interface ValuesReducingStrategy<V> {
 
-    public fun reduce(values: List<V>): V?
+    /**
+     * Applies this strategy on [values], returning result of reducing.
+     */
+    public fun on(values: List<V>): V?
 
     public companion object {
 
