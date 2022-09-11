@@ -142,18 +142,25 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         }
     }
 
+
     /**
-     * Splits annotation value of format `"value1[|value2][|value3]..."` into list of
+     * Retrieves annotation values from specified [annotation], using [splitAnnotationValues] method.
+     */
+    // TODO: should be performed individually for every annotation, according to its type
+    private fun getAnnotationValues(annotation: Annotation): List<AnnotationValue> =
+        splitAnnotationValues(annotation)
+            .map { AnnotationValue(it) }
+
+    /**
+     * Splits [annotation] value of format `"value1[|value2][|value3]..."` into list of
      * separate atomic values.
      *
      * This implementation also reduces repeated values.
      */
-    // TODO: should be performed individually for every annotation, according to its type
-    private fun getAnnotationValues(annotation: Annotation): List<AnnotationValue> =
+    protected open fun splitAnnotationValues(annotation: Annotation): List<String> =
         annotation.value
             .split("|")
             .distinct()
-            .map { AnnotationValue(it) }
 
     /**
      * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
