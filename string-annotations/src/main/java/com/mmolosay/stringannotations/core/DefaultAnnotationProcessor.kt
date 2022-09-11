@@ -238,7 +238,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         parser: AnnotationValueParser<V>?
     ): V? =
         parser?.parse(context, value)
-            ?: valueArgParser.parse(value, type.string, args)
+            ?: valueArgParser.parse(value, type, args)
 
     // region Annotation type parsing
 

@@ -36,13 +36,17 @@ public class DefaultValueArgParser : ValueArgParser {
      * 5. return argument at parsed index in [args] list.
      *
      * @param value annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
-     * @param expected expected type of [value].
+     * @param expected expected type of placeholder.
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <T> parse(value: AnnotationTag.Value, expected: String, args: List<T>): T? =
-        parse(value.string, expected, args)
+    override fun <T> parse(
+        value: AnnotationTag.Value,
+        expected: AnnotationTag.Type,
+        args: List<T>
+    ): T? =
+        parse(value.string, expected.string, args)
 
     private fun <T> parse(value: String, expected: String, args: List<T>): T? {
         try {

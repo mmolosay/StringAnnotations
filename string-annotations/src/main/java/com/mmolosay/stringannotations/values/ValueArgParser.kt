@@ -29,7 +29,7 @@ public interface ValueArgParser {
      */
     public fun <V> parse(
         value: AnnotationTag.Value,
-        expected: String,
+        expected: AnnotationTag.Type,
         args: List<V>
     ): V?
 }
