@@ -131,7 +131,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         annotation: Annotation,
         args: ValueArgs
     ): CharacterStyle? {
-        val tag = getAnnotationTag(annotation)
+        val tag = deconstructAnnotation(annotation)
         return parseAnnotation(context, tag, args).also { span ->
             span ?: Logger.w(
                 "Annotation with attribute=\"${annotation.key}\" and value=\"${annotation.value}\" " +
@@ -146,7 +146,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     /**
      * Converts specified [annotation] into deconstructed instance of [AnnotationTag].
      */
-    private fun getAnnotationTag(annotation: Annotation): AnnotationTag {
+    private fun deconstructAnnotation(annotation: Annotation): AnnotationTag {
         val type = AnnotationTag.Type(annotation.key)
         val values = getAnnotationValues(annotation.value)
         return AnnotationTag(type, values)
@@ -174,15 +174,14 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     // endregion
 
     /**
-     * Implementation of [parseAnnotation] with provided [Annotation]'s key and values.
+     * Implementation of [parseAnnotation] with annotation [tag].
      *
      * Derived class should override this method and call super's implementation at the beginning
      * in order to parse custom annotation type.
      *
      * @param context caller context.
-     * @param type annotation's tag attribute name.
-     * @param values list of atomic annotation tag values.
-     * @param args list of runtime value arguments.
+     * @param tag deconstructed string annotation.
+     * @param args list of value arguments.
      */
     protected open fun parseAnnotation(
         context: Context,
