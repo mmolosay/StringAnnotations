@@ -132,12 +132,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         args: ValueArgs
     ): CharacterStyle? {
         val tag = deconstructAnnotation(annotation)
-        return parseAnnotation(context, tag, args).also { span ->
-            span ?: Logger.w(
-                "Annotation with attribute=\"${annotation.key}\" and value=\"${annotation.value}\" " +
-                    "cannot be parsed into valid span. " +
-                    "Make sure attribute and its value are correct and supported."
-            )
+        return parseAnnotationTag(context, tag, args).also {
+            it ?: Logger.logUnableToParse(annotation)
         }
     }
 
@@ -174,16 +170,16 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
     // endregion
 
     /**
-     * Implementation of [parseAnnotation] with annotation [tag].
+     * Implementation of [parseAnnotationTag] with annotation [tag].
      *
      * Derived class should override this method and call super's implementation at the beginning
-     * in order to parse custom annotation type.
+     * in order to support default annotation types.
      *
      * @param context caller context.
      * @param tag deconstructed string annotation.
      * @param args list of value arguments.
      */
-    protected open fun parseAnnotation(
+    protected open fun parseAnnotationTag(
         context: Context,
         tag: AnnotationTag,
         args: ValueArgs
@@ -203,11 +199,10 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      *
      * 1. Try and map [values] into new list of [V] using [parser],
      * skipping unparseable values (see [parseValue]).
-     * 2. Process parsed values from step 1 into final result using [processor].
+     * 2. Process parsed values from step #1 into final result using [processor].
      *
      * @param context caller context.
-     * @param type annotation's tag attribute name.
-     * @param values list of atomic annotation tag values.
+     * @param tag deconstructed string annotation.
      * @param args list of runtime value arguments.
      * @param parser parser, that will be used to parse string into value of type [V].
      * @param processor processor, that will be used to obtain result value.
