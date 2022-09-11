@@ -4,7 +4,7 @@ package com.mmolosay.stringannotations.core
  * Represents deconstructed string annotation tag, where [type] is its attribute
  * and [values] is its value, split into individual atomic tokens.
  */
-public data class AnnotationTag(
+public data class AnnotationTag internal constructor(
     val type: Type,
     val values: List<Value>
 ) {
