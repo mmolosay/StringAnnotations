@@ -41,14 +41,14 @@ public class DefaultValueArgParser : ValueArgParser {
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <T> parse(
+    override fun <V> parse(
         value: AnnotationTag.Value,
         expected: AnnotationTag.Type,
-        args: List<T>
-    ): T? =
+        args: List<V>
+    ): V? =
         parse(value.string, expected.string, args)
 
-    private fun <T> parse(value: String, expected: String, args: List<T>): T? {
+    private fun <V> parse(value: String, expected: String, args: List<V>): V? {
         try {
             require(value.startsWith('$')) // starts with $ sign
             val parts = value.substring(1).split("$", limit = 4)
