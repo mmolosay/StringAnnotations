@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.values
 
+import com.mmolosay.stringannotations.core.AnnotationValue
+
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -26,7 +28,7 @@ public interface ValueArgParser {
      * Placeholder must have [expected] type.
      */
     public fun <V> parse(
-        placeholder: String,
+        placeholder: AnnotationValue,
         expected: String,
         args: List<V>
     ): V?

@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.values
 
+import com.mmolosay.stringannotations.core.AnnotationValue
 import com.mmolosay.stringannotations.internal.Logger
 
 /*
@@ -40,7 +41,10 @@ public class DefaultValueArgParser : ValueArgParser {
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <T> parse(placeholder: String, expected: String, args: List<T>): T? {
+    override fun <T> parse(placeholder: AnnotationValue, expected: String, args: List<T>): T? =
+        parse(placeholder.string, expected, args)
+
+    private fun <T> parse(placeholder: String, expected: String, args: List<T>): T? {
         try {
             require(placeholder.startsWith('$')) // starts with $ sign
             val parts = placeholder.substring(1).split("$", limit = 4)
