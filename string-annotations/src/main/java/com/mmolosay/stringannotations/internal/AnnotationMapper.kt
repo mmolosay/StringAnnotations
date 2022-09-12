@@ -29,14 +29,14 @@ import com.mmolosay.stringannotations.core.AnnotationProcessor
 internal object AnnotationMapper {
 
     /**
-     * Parses specified [annotations] of [string] into list of [StringAnnotation].
+     * Parses specified [annotations] of [spanned] into list of [StringAnnotation].
      */
     fun parseStringAnnotations(
-        string: Spanned,
+        spanned: Spanned,
         annotations: Array<out Annotation>
     ): List<StringAnnotation> =
         annotations.mapIndexed { index, annotation ->
-            val range = parseAnnotationRange(string, annotation)
+            val range = parseAnnotationRange(spanned, annotation)
             if (range.first == -1 || range.last == -1) {
                 throw IllegalArgumentException("annotation doesn\'t belong to this string")
             }
@@ -44,17 +44,17 @@ internal object AnnotationMapper {
         }
 
     /**
-     * Retrieves [annotation]'s start and end positions in terms of specified [string].
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full [string]
+     * Retrieves [annotation]'s start and end positions in terms of specified [spanned].
+     * If [annotation] is `null`, then we assume that is a top-most root, and return full [spanned]
      * range.
      */
     fun parseAnnotationRange(
-        string: Spanned,
+        spanned: Spanned,
         annotation: Annotation?
     ): IntRange {
-        annotation ?: return 0..string.length
-        val start = string.getSpanStart(annotation)
-        val end = string.getSpanEnd(annotation)
+        annotation ?: return 0..spanned.length
+        val start = spanned.getSpanStart(annotation)
+        val end = spanned.getSpanEnd(annotation)
         return start..end
     }
 
