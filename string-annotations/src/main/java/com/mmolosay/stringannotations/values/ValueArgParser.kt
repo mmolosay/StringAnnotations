@@ -24,11 +24,11 @@ import com.mmolosay.stringannotations.core.AnnotationTag
 public interface ValueArgParser {
 
     /**
-     * Tries to parse [value] as argument placeholder and obtaind corresponding argument from [args].
-     * [value] must have [expected] type.
+     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
+     * [token] must have [expected] type.
      */
     public fun <V> parse(
-        value: AnnotationTag.Value,
+        token: AnnotationTag.Token,
         expected: AnnotationTag.Type,
         args: List<V>
     ): V?

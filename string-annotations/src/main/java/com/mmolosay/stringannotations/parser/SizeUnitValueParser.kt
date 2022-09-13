@@ -28,8 +28,8 @@ import com.mmolosay.stringannotations.internal.Logger
  */
 public object SizeUnitValueParser : AnnotationValueParser<Int> {
 
-    override fun parse(context: Context, value: AnnotationTag.Value): Int? =
-        parse(value.string, context.resources.displayMetrics)
+    override fun parse(context: Context, token: AnnotationTag.Token): Int? =
+        parse(token.string, context.resources.displayMetrics)
 
     /**
      * Parses [value] of format `"{NUMBER_AMOUNT}{UNIT}"` into pixel size.

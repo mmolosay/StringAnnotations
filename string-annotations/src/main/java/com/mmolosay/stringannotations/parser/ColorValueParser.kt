@@ -28,8 +28,8 @@ import com.mmolosay.stringannotations.internal.Logger
 public object ColorValueParser : AnnotationValueParser<Int> {
 
     @ColorInt
-    override fun parse(context: Context, value: AnnotationTag.Value): Int? =
-        parse(value.string)
+    override fun parse(context: Context, token: AnnotationTag.Token): Int? =
+        parse(token.string)
 
     /**
      * Parses string [value] of any color attribute into color integer.

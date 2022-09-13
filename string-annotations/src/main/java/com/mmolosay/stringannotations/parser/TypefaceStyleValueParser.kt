@@ -25,8 +25,8 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  */
 public object TypefaceStyleValueParser : AnnotationValueParser<Int> {
 
-    override fun parse(context: Context, value: AnnotationTag.Value): Int? =
-        parse(value.string)
+    override fun parse(context: Context, token: AnnotationTag.Token): Int? =
+        parse(token.string)
 
     /**
      * Parses string [value] of some typeface style into typeface style integer.

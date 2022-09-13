@@ -2,11 +2,11 @@ package com.mmolosay.stringannotations.core
 
 /**
  * Represents deconstructed string annotation tag, where [type] is its attribute
- * and [values] is its value, split into individual atomic tokens.
+ * and [tokens] is its value, split into individual atomic tokens.
  */
 public data class AnnotationTag internal constructor(
     val type: Type,
-    val values: List<Value>
+    val tokens: List<Token>
 ) {
 
     /**
@@ -20,10 +20,10 @@ public data class AnnotationTag internal constructor(
     }
 
     /**
-     * Represents some string annotation tag's value.
+     * Represents some atomic value, that was parsed from string annotation's tag.
      */
     @JvmInline
-    public value class Value(public val string: String) {
+    public value class Token(public val string: String) {
 
         override fun toString(): String =
             string

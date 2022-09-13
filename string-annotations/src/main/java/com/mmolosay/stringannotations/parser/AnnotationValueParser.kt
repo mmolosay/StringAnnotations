@@ -23,5 +23,5 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  * Specifies way of parsing string annotation value into value of some appropriate [V] type.
  */
 public interface AnnotationValueParser<V> {
-    public fun parse(context: Context, value: AnnotationTag.Value): V?
+    public fun parse(context: Context, token: AnnotationTag.Token): V?
 }

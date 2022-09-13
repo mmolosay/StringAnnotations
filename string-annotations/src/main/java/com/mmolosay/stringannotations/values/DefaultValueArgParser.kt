@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.internal.Logger
 public class DefaultValueArgParser : ValueArgParser {
 
     /**
-     * Tries to infer argument from [args] list for specified [value].
+     * Tries to infer argument from [args] list for specified [token].
      * Placeholder must have [expected] type.
      *
      * Steps:
@@ -35,18 +35,18 @@ public class DefaultValueArgParser : ValueArgParser {
      * 4. check, that actual parsed type is equal to [expected] one.
      * 5. return argument at parsed index in [args] list.
      *
-     * @param value annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
+     * @param token annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
      * @param expected expected type of placeholder.
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
     override fun <V> parse(
-        value: AnnotationTag.Value,
+        token: AnnotationTag.Token,
         expected: AnnotationTag.Type,
         args: List<V>
     ): V? =
-        parse(value.string, expected.string, args)
+        parse(token.string, expected.string, args)
 
     private fun <V> parse(value: String, expected: String, args: List<V>): V? {
         try {

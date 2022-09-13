@@ -152,9 +152,9 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
      * Retrieves annotation values, using [splitAnnotationValue] method.
      */
     // TODO: should be performed individually for every annotation, according to its type
-    private fun getAnnotationValues(value: String): List<AnnotationTag.Value> =
+    private fun getAnnotationValues(value: String): List<AnnotationTag.Token> =
         splitAnnotationValue(value)
-            .map { AnnotationTag.Value(it) }
+            .map { AnnotationTag.Token(it) }
 
     /**
      * Splits annotation value of format `"value1[|value2][|value3]..."` into list of
@@ -217,7 +217,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         parser: AnnotationValueParser<V>?,
         processor: ValuesProcessor<V>
     ): V? =
-        tag.values.asSequence()
+        tag.tokens.asSequence()
             .mapNotNull { value ->
                 // try to parse as regular value, try as args placeholder if unsuccessful
                 parser?.parse(context, value)
@@ -263,8 +263,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         args: ValueArgs
     ): CharacterStyle? =
         when {
-            tag.values.contains(valueUnderline) -> UnderlineSpan()
-            tag.values.contains(valueStrikethrough) -> StrikethroughSpan()
+            tag.tokens.contains(tokenUnderline) -> UnderlineSpan()
+            tag.tokens.contains(tokenStrikethrough) -> StrikethroughSpan()
             else -> parseTypefaceStyleAnnotation(context, tag, args)
         }
 
@@ -323,7 +323,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         val typeSizeAbsolute = AnnotationTag.Type("size-absolute")
 
         // value tokens
-        val valueUnderline = AnnotationTag.Value("underline")
-        val valueStrikethrough = AnnotationTag.Value("strikethrough")
+        val tokenUnderline = AnnotationTag.Token("underline")
+        val tokenStrikethrough = AnnotationTag.Token("strikethrough")
     }
 }
