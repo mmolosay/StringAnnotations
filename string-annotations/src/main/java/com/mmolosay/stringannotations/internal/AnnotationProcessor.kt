@@ -24,9 +24,9 @@ import com.mmolosay.stringannotations.core.AnnotationProcessor
  */
 
 /**
- * Maps [Annotation] instances into other ones.
+ * Processes [Annotation]s.
  */
-internal object AnnotationMapper {
+internal object AnnotationProcessor {
 
     /**
      * Parses specified [annotations] of [spanned] into list of [StringAnnotation].

@@ -58,10 +58,10 @@ internal object AnnotationNodeProcessor {
         string: Spanned
     ): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
-        val nodeRange = AnnotationMapper.parseAnnotationRange(string, node.annotation)
+        val nodeRange = AnnotationProcessor.parseAnnotationRange(string, node.annotation)
         if (!node.hasChildren()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
         val childrenRanges = node.children.map { child ->
-            AnnotationMapper.parseAnnotationRange(string, child.annotation)
+            AnnotationProcessor.parseAnnotationRange(string, child.annotation)
         }
         val childrenCount = node.children.size
         val spaceCount = childrenCount + 1 // __-___--_ 3 spaces for 2 children, 5 total ranges

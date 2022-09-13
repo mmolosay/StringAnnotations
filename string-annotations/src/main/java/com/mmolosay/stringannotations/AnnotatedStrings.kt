@@ -7,7 +7,7 @@ import android.text.SpannedString
 import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.args.emptyValueArgs
-import com.mmolosay.stringannotations.internal.AnnotationMapper
+import com.mmolosay.stringannotations.internal.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringProcessor
 import com.mmolosay.stringannotations.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
@@ -59,10 +59,10 @@ public object AnnotatedStrings {
         AnnotatedStringProcessor.format(builder, tree, stringArgs)
 
         // 3. parse updated StringAnnotation-s
-        val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
+        val strAnnotations = AnnotationProcessor.parseStringAnnotations(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, valueArgs)
+        val types = AnnotationProcessor.parseAnnotations(context, processor, annotations, valueArgs)
 
         // 5. apply spans to string
         SpanProcessor.applySpans(builder, strAnnotations, types)
