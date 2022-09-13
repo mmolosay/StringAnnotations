@@ -12,7 +12,7 @@ import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.ClickableTextAppearance
 import com.mmolosay.stringannotations.core.from
 import com.mmolosay.stringannotations.getAnnotatedString
-import com.mmolosay.stringannotations.spans.ClickableSpan
+import com.mmolosay.stringannotations.ClickableSpan
 
 // TODO: add example of usage with Compose
 class MainActivity : AppCompatActivity(R.layout.main_screen) {

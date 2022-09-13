@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.spans
+package com.mmolosay.stringannotations
 
 import android.content.Context
 import android.content.res.Resources
