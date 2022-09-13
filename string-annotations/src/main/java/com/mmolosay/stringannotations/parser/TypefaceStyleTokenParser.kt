@@ -23,7 +23,7 @@ import com.mmolosay.stringannotations.core.AnnotationTag
 /**
  * Parses string annotation value of typeface style type into typeface style int.
  */
-public object TypefaceStyleValueParser : AnnotationValueParser<Int> {
+public object TypefaceStyleTokenParser : TokenParser<Int> {
 
     override fun parse(context: Context, token: AnnotationTag.Token): Int? =
         parse(token.string)

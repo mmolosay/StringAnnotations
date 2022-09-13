@@ -26,7 +26,7 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation value of size type into pixel size.
  */
-public object SizeUnitValueParser : AnnotationValueParser<Int> {
+public object SizeUnitTokenParser : TokenParser<Int> {
 
     override fun parse(context: Context, token: AnnotationTag.Token): Int? =
         parse(token.string, context.resources.displayMetrics)

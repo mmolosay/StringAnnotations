@@ -20,8 +20,8 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  */
 
 /**
- * Specifies way of parsing string annotation value into value of some appropriate [V] type.
+ * Specifies way of parsing string annotation token into value of some appropriate [V] type.
  */
-public interface AnnotationValueParser<V> {
+public interface TokenParser<V> {
     public fun parse(context: Context, token: AnnotationTag.Token): V?
 }

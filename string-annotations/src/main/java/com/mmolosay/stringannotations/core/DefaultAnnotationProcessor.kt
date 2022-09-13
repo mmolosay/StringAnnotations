@@ -11,10 +11,10 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.internal.Logger
-import com.mmolosay.stringannotations.parser.AnnotationValueParser
-import com.mmolosay.stringannotations.parser.ColorValueParser
-import com.mmolosay.stringannotations.parser.SizeUnitValueParser
-import com.mmolosay.stringannotations.parser.TypefaceStyleValueParser
+import com.mmolosay.stringannotations.parser.TokenParser
+import com.mmolosay.stringannotations.parser.ColorTokenParser
+import com.mmolosay.stringannotations.parser.SizeUnitTokenParser
+import com.mmolosay.stringannotations.parser.TypefaceStyleTokenParser
 import com.mmolosay.stringannotations.values.DefaultValueArgParser
 import com.mmolosay.stringannotations.values.ValueArgParser
 import com.mmolosay.stringannotations.values.ValuesProcessor
@@ -214,7 +214,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         context: Context,
         tag: AnnotationTag,
         args: List<V>,
-        parser: AnnotationValueParser<V>?,
+        parser: TokenParser<V>?,
         processor: ValuesProcessor<V>
     ): V? =
         tag.tokens.asSequence()
@@ -236,7 +236,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             context = context,
             tag = tag,
             args = args.colors,
-            parser = ColorValueParser,
+            parser = ColorTokenParser,
             processor = ValuesProcessor.Single()
         ) ?: return null
         return BackgroundColorSpan(color)
@@ -251,7 +251,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             context = context,
             tag = tag,
             args = args.colors,
-            parser = ColorValueParser,
+            parser = ColorTokenParser,
             processor = ValuesProcessor.Single()
         ) ?: return null
         return ForegroundColorSpan(color)
@@ -277,8 +277,8 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
             context = context,
             tag = tag,
             args = args.typefaceStyles,
-            parser = TypefaceStyleValueParser,
-            processor = ValuesProcessor.All(TypefaceStyleValueParser::reduceTypefaceStyles)
+            parser = TypefaceStyleTokenParser,
+            processor = ValuesProcessor.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
         ) ?: return null
         return StyleSpan(style)
     }
@@ -304,7 +304,7 @@ public open class DefaultAnnotationProcessor : AnnotationProcessor {
         val size = resolveAnnotationValue(
             context = context,
             tag = tag,
-            parser = SizeUnitValueParser,
+            parser = SizeUnitTokenParser,
             args = args.absSizes,
             processor = ValuesProcessor.Single()
         ) ?: return null
