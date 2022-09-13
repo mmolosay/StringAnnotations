@@ -19,7 +19,7 @@ package com.mmolosay.stringannotations.values
 /**
  * Specifies a way of conflating values of type [V] into result of the same type.
  */
-public fun interface ValuesReducingStrategy<V> {
+public fun interface ReducingStrategy<V> {
 
     /**
      * Applies this strategy on [values], returning result of reducing.
@@ -31,15 +31,15 @@ public fun interface ValuesReducingStrategy<V> {
         /**
          * Picks first value and returns it.
          */
-        public fun <V> Single(): ValuesReducingStrategy<V> =
-            ValuesReducingStrategy { values ->
+        public fun <V> Single(): ReducingStrategy<V> =
+            ReducingStrategy { values ->
                 values.firstOrNull()
             }
 
         /**
-         * Picks all values and reduces them to one.
+         * Picks all values and reduces them with specified [reducer].
          */
-        public fun <V> Multiple(reducer: (values: List<V>) -> V?): ValuesReducingStrategy<V> =
-            ValuesReducingStrategy(reducer)
+        public fun <V> Multiple(reducer: (values: List<V>) -> V?): ReducingStrategy<V> =
+            ReducingStrategy(reducer)
     }
 }

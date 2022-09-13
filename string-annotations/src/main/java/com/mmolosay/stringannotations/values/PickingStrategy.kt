@@ -19,10 +19,10 @@ package com.mmolosay.stringannotations.values
 /**
  * Specifies a way of selecting specific values.
  */
-public fun interface ValuesPickingStrategy<V> {
+public fun interface PickingStrategy<V> {
 
     /**
-     * Applies this strategy on [values], returning list selected elements.
+     * Applies this strategy on [values], returning list of selected ones.
      */
     public fun on(values: Sequence<V>): List<V>
 
@@ -31,24 +31,24 @@ public fun interface ValuesPickingStrategy<V> {
         /**
          * Picks only first value.
          */
-        public fun <V> First(): ValuesPickingStrategy<V> =
-            ValuesPickingStrategy { values ->
+        public fun <V> First(): PickingStrategy<V> =
+            PickingStrategy { values ->
                 values.firstOrNull()?.let { listOf(it) } ?: emptyList()
             }
 
         /**
          * Picks all values.
          */
-        public fun <V> All(): ValuesPickingStrategy<V> =
-            ValuesPickingStrategy { values ->
+        public fun <V> All(): PickingStrategy<V> =
+            PickingStrategy { values ->
                 values.toList()
             }
 
         /**
-         * Pick values, matching specified [predicate].
+         * Picks values, matching specified [predicate].
          */
-        public fun <V> Selectively(predicate: (value: V) -> Boolean): ValuesPickingStrategy<V> =
-            ValuesPickingStrategy { values ->
+        public fun <V> Selectively(predicate: (value: V) -> Boolean): PickingStrategy<V> =
+            PickingStrategy { values ->
                 values.filter(predicate).toList()
             }
     }

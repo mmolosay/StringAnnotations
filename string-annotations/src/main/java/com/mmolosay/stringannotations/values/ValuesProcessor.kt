@@ -17,13 +17,13 @@ package com.mmolosay.stringannotations.values
  */
 
 /**
- * Transforms annotation values of type [V] into final value of the same type.
- * It uses [pickingStrategy] strategy to pick desired values and [reducingStrategy] one to conflate them into
- * final result.
+ * Transforms values of type [V] into final value of the same type.
+ * It uses [pickingStrategy] strategy to pick desired values and
+ * [reducingStrategy] to conflate them into final result.
  */
 public class ValuesProcessor<V>(
-    private val pickingStrategy: ValuesPickingStrategy<V>,
-    private val reducingStrategy: ValuesReducingStrategy<V>
+    private val pickingStrategy: PickingStrategy<V>,
+    private val reducingStrategy: ReducingStrategy<V>
 ) {
 
     /**
@@ -42,8 +42,8 @@ public class ValuesProcessor<V>(
          */
         public fun <V> Single(): ValuesProcessor<V> =
             ValuesProcessor(
-                pickingStrategy = ValuesPickingStrategy.First(),
-                reducingStrategy = ValuesReducingStrategy.Single()
+                pickingStrategy = PickingStrategy.First(),
+                reducingStrategy = ReducingStrategy.Single()
             )
 
         /**
@@ -51,8 +51,8 @@ public class ValuesProcessor<V>(
          */
         public fun <V> All(reducer: (values: List<V>) -> V?): ValuesProcessor<V> =
             ValuesProcessor(
-                pickingStrategy = ValuesPickingStrategy.All(),
-                reducingStrategy = ValuesReducingStrategy.Multiple(reducer)
+                pickingStrategy = PickingStrategy.All(),
+                reducingStrategy = ReducingStrategy.Multiple(reducer)
             )
     }
 }
