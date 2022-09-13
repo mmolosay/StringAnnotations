@@ -5,7 +5,7 @@ import android.text.Annotation
 import android.text.Spanned
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.AnnotationProcessor
+import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -59,16 +59,29 @@ internal object AnnotationProcessor {
     }
 
     /**
-     * Uses specified [processor] to process [annotations] of
-     * some spanned string into spans of [CharacterStyle] type.
+     * Variant of [parseAnnotationRange] that works with [annotations] array.
      */
+    fun parseAnnotationRanges(
+        spanned: Spanned,
+        annotations: Array<out Annotation>
+    ): List<IntRange> =
+        annotations.map { parseAnnotationRange(spanned, it) }
+
     fun parseAnnotations(
         context: Context,
-        processor: AnnotationProcessor,
         annotations: Array<out Annotation>,
+        resolver: AnnotationProcessorResolver,
         args: ValueArgs
     ): List<CharacterStyle?> =
         annotations.map { annotation ->
-            processor.parseAnnotation(context, annotation, args)
+            parseAnnotation(context, annotation, resolver, args)
         }
+
+    fun parseAnnotation(
+        context: Context,
+        annotation: Annotation,
+        resolver: AnnotationProcessorResolver,
+        args: ValueArgs
+    ): CharacterStyle? =
+        resolver.resolve(annotation.key)?.parseAnnotation(context, annotation, args)
 }

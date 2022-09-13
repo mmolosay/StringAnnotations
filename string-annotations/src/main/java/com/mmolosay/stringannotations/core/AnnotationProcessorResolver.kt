@@ -1,6 +1,4 @@
-package com.mmolosay.stringannotations.values
-
-import com.mmolosay.stringannotations.core.AnnotationTag
+package com.mmolosay.stringannotations.core
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +17,16 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  */
 
 /**
- * Specifies way of parsing value placeholder into some corresponding argument.
+ * Resolves appropriate instance of [AnnotationProcessor].
  */
-public interface ValueArgParser {
+public interface AnnotationProcessorResolver {
 
     /**
-     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
+     * Infers appropriate instance of [AnnotationProcessor], according to [type] of annotation.
+     *
+     * @param type attribute of string annotation tag.
+     *
+     * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    public fun <V> parse(token: AnnotationTag.Token, args: List<V>): V?
+    public fun resolve(type: String): AnnotationProcessor?
 }

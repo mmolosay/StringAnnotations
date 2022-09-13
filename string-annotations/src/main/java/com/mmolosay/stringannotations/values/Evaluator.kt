@@ -21,7 +21,7 @@ package com.mmolosay.stringannotations.values
  * It uses [pickingStrategy] strategy to pick desired values and
  * [reducingStrategy] to conflate them into final result.
  */
-public class ValuesProcessor<V>(
+public class Evaluator<V>(
     private val pickingStrategy: PickingStrategy<V>,
     private val reducingStrategy: ReducingStrategy<V>
 ) {
@@ -30,7 +30,7 @@ public class ValuesProcessor<V>(
      * Picks desired values, using specified [pickingStrategy] and then reduces them
      * to one final result, using specified [reducingStrategy].
      */
-    public fun process(values: Sequence<V>): V? =
+    public fun evaluate(values: Sequence<V>): V? =
         values
             .let { pickingStrategy.on(it) }
             .let { reducingStrategy.on(it) }
@@ -40,8 +40,8 @@ public class ValuesProcessor<V>(
         /**
          * Picks and uses very first value.
          */
-        public fun <V> Single(): ValuesProcessor<V> =
-            ValuesProcessor(
+        public fun <V> Single(): Evaluator<V> =
+            Evaluator(
                 pickingStrategy = PickingStrategy.First(),
                 reducingStrategy = ReducingStrategy.Single()
             )
@@ -49,8 +49,8 @@ public class ValuesProcessor<V>(
         /**
          * Picks all values and reduces them with specified [reducer].
          */
-        public fun <V> All(reducer: (values: List<V>) -> V?): ValuesProcessor<V> =
-            ValuesProcessor(
+        public fun <V> All(reducer: (values: List<V>) -> V?): Evaluator<V> =
+            Evaluator(
                 pickingStrategy = PickingStrategy.All(),
                 reducingStrategy = ReducingStrategy.Multiple(reducer)
             )

@@ -25,31 +25,29 @@ import android.text.style.CharacterStyle
 internal object SpanProcessor {
 
     /**
-     * Attach specified [spans] to the ranges of corresponding [annotations] of [spannable] object.
+     * Attaches specified [spans] to the [ranges] of [spannable] object accordingly.
      * All `null` spans will be skipped.
      */
     fun applySpans(
         spannable: Spannable,
-        annotations: List<StringAnnotation>,
+        ranges: List<IntRange>,
         spans: List<CharacterStyle?>
     ) {
-        spans
-            .forEachIndexed action@{ i, span ->
-                span ?: return@action // skip nulls
-                val annotation = annotations[i]
-                applySpan(spannable, span, annotation.start, annotation.end)
-            }
+        for (i in spans.indices) {
+            val span = spans.getOrNull(i) ?: return
+            val range = ranges.getOrNull(i) ?: return
+            applySpan(spannable, span, range)
+        }
     }
 
     /**
-     * Attaches specified [span] to the range from [start] to [end] of [spannable] object.
+     * Attaches specified [span] to the [range] of [spannable] object.
      */
     private fun applySpan(
         spannable: Spannable,
         span: CharacterStyle,
-        start: Int,
-        end: Int
+        range: IntRange
     ) {
-        spannable.setSpan(span, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(span, range.first, range.last, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }
 }

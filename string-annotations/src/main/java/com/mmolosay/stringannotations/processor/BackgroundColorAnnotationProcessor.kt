@@ -1,6 +1,7 @@
-package com.mmolosay.stringannotations.values
+package com.mmolosay.stringannotations.processor
 
-import com.mmolosay.stringannotations.core.AnnotationTag
+import android.text.style.BackgroundColorSpan
+import android.text.style.CharacterStyle
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +20,10 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  */
 
 /**
- * Specifies way of parsing value placeholder into some corresponding argument.
+ * `AnnotationProcessor` for background color annotation type.
  */
-public interface ValueArgParser {
+internal class BackgroundColorAnnotationProcessor : BaseColorAnnotationProcessor() {
 
-    /**
-     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
-     */
-    public fun <V> parse(token: AnnotationTag.Token, args: List<V>): V?
+    override fun makeSpan(value: Int): CharacterStyle =
+        BackgroundColorSpan(value)
 }

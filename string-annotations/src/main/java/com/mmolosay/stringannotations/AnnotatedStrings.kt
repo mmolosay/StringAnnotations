@@ -7,11 +7,11 @@ import android.text.SpannedString
 import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.args.emptyValueArgs
-import com.mmolosay.stringannotations.internal.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringProcessor
+import com.mmolosay.stringannotations.internal.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 import com.mmolosay.stringannotations.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
-import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -47,7 +47,7 @@ public object AnnotatedStrings {
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        val processor = StringAnnotations.dependencies.annotationProcessor
+        val resolver = StringAnnotations.dependencies.resolver
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
@@ -58,14 +58,14 @@ public object AnnotatedStrings {
         // 2. replace wildcards, preserving annotation spans
         AnnotatedStringProcessor.format(builder, tree, stringArgs)
 
-        // 3. parse updated StringAnnotation-s
-        val strAnnotations = AnnotationProcessor.parseStringAnnotations(builder, annotations)
+        // 3. parse updated ranges
+        val ranges = AnnotationProcessor.parseAnnotationRanges(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationProcessor.parseAnnotations(context, processor, annotations, valueArgs)
+        val spans = AnnotationProcessor.parseAnnotations(context, annotations, resolver, valueArgs)
 
         // 5. apply spans to string
-        SpanProcessor.applySpans(builder, strAnnotations, types)
+        SpanProcessor.applySpans(builder, ranges, spans)
 
         return builder
     }

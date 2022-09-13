@@ -22,42 +22,31 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Default implementation of [ValueArgParser].
  */
-public class DefaultValueArgParser : ValueArgParser {
+public object DefaultValueArgParser : ValueArgParser {
 
     /**
      * Tries to infer argument from [args] list for specified [token].
-     * Placeholder must have [expected] type.
      *
      * Steps:
      * 1. break placeholder into meaningful parts according to its format.
-     * 2. get placeholder type via [parsePlaceholderType].
-     * 3. get placeholder index via [parsePlaceholderIndex].
-     * 4. check, that actual parsed type is equal to [expected] one.
-     * 5. return argument at parsed index in [args] list.
+     * 2. get placeholder index via [parsePlaceholderIndex].
+     * 3. return argument at parsed index in [args] list.
      *
      * @param token annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
-     * @param expected expected type of placeholder.
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <V> parse(
-        token: AnnotationTag.Token,
-        expected: AnnotationTag.Type,
-        args: List<V>
-    ): V? =
-        parse(token.string, expected.string, args)
+    override fun <V> parse(token: AnnotationTag.Token, args: List<V>): V? =
+        parse(token.string, args)
 
-    private fun <V> parse(value: String, expected: String, args: List<V>): V? {
+    private fun <V> parse(value: String, args: List<V>): V? {
         try {
             require(value.startsWith('$')) // starts with $ sign
             val parts = value.substring(1).split("$", limit = 4)
             if (parts.size == 3 && parts[0] == "arg") {
-                val type = parsePlaceholderType(parts[1]) ?: return null
                 val index = parsePlaceholderIndex(parts[2]) ?: return null
-                if (checkPlaceholderType(type, expected)) {
-                    return getArg(args, index)
-                }
+                return getArg(args, index)
             }
         } catch (e: Exception) {
             // catch all exceptions, log below
@@ -66,20 +55,9 @@ public class DefaultValueArgParser : ValueArgParser {
         return null
     }
 
-    private fun parsePlaceholderType(type: String): String? =
-        type.ifEmpty {
-            Logger.w("Invalid placeholder type=\"$type\"")
-            null
-        }
-
     private fun parsePlaceholderIndex(value: String): Int? =
         value.toIntOrNull().also {
             it ?: Logger.w("Cannot parse \"$value\" as argument index")
-        }
-
-    private fun checkPlaceholderType(actual: String, expected: String): Boolean =
-        (actual == expected).also { equals ->
-            if (!equals) Logger.w("Requested \"${expected}\" type from \"$actual\" placeholder")
         }
 
     private fun <T> getArg(source: List<T>, index: Int): T? =

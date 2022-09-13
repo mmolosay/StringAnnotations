@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations
 
-import com.mmolosay.stringannotations.core.AnnotationProcessor
-import com.mmolosay.stringannotations.core.DefaultAnnotationProcessor
+import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
+import com.mmolosay.stringannotations.core.DefaultAnnotationProcessorResolver
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -56,13 +56,8 @@ public object StringAnnotations {
      * You should use this method, if you want to change default behaviour and provide custom
      * dependencies.
      */
-    public fun configure(
-        annotationProcessor: AnnotationProcessor
-    ) {
-        val dependencies = makeDependencies(
-            annotationProcessor
-        )
-        configureInternal(dependencies)
+    public fun configure(dependencies: Dependencies) {
+        this._dependencies = dependencies
     }
 
     /**
@@ -71,49 +66,53 @@ public object StringAnnotations {
      * Should be called, when the library is never going to be needed again.
      */
     public fun dispose() {
-        _dependencies = null
+        this._dependencies = null
     }
 
     // endregion
 
-    private fun configureInternal(dependencies: Dependencies) {
-        _dependencies = dependencies
-    }
-
     /**
      * Retrieves current [dependencies].
-     * If it's `null`, them it's going to be initialized with default ones.
+     * If it's `null`, then it's going to be initialized with default ones.
      */
     private fun getDependenciesInternal(): Dependencies {
         if (!isConfigured) {
-            configureInternal(makeDefaultDependencies())
+            val dependencies = Dependencies.Builder().build()
+            configure(dependencies)
         }
         return requireNotNull(_dependencies)
     }
 
     /**
-     * Assembles default [Dependencies].
+     * Dependencies of the library.
      */
-    private fun makeDefaultDependencies(): Dependencies =
-        DependenciesImpl(
-            annotationProcessor = DefaultAnnotationProcessor()
-        )
+    public interface Dependencies {
 
-    /**
-     * Assembles [Dependencies] from specified parameters.
-     */
-    private fun makeDependencies(
-        annotationProcessor: AnnotationProcessor
-    ): Dependencies =
-        DependenciesImpl(
-            annotationProcessor
-        )
+        public val resolver: AnnotationProcessorResolver
 
-    /**
-     * Internal dependencies of the library.
-     */
-    internal interface Dependencies {
-        val annotationProcessor: AnnotationProcessor
+        /**
+         * Provides convenient interface for assembling library's [Dependencies].
+         */
+        public class Builder {
+
+            private var resolver: AnnotationProcessorResolver? = null
+
+            /**
+             * Specifies [AnnotationProcessorResolver] instance to be used.
+             */
+            public fun annotationProcessorResolver(instance: AnnotationProcessorResolver): Builder =
+                apply {
+                    this.resolver = instance
+                }
+
+            /**
+             * Assembles [Dependencies].
+             */
+            public fun build(): Dependencies =
+                DependenciesImpl(
+                    resolver = resolver ?: DefaultAnnotationProcessorResolver()
+                )
+        }
     }
 
     /**
@@ -121,6 +120,6 @@ public object StringAnnotations {
      * Should not be used as explicit type.
      */
     internal data class DependenciesImpl(
-        override val annotationProcessor: AnnotationProcessor
+        override val resolver: AnnotationProcessorResolver
     ) : Dependencies
 }

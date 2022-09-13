@@ -23,6 +23,8 @@ import com.mmolosay.stringannotations.args.ValueArgs
 
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [CharacterStyle] type.
+ *
+ * One should implement it in order to parse custom annotation type.
  */
 public interface AnnotationProcessor {
 
@@ -39,6 +41,6 @@ public interface AnnotationProcessor {
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: ValueArgs
+        args: ValueArgs?
     ): CharacterStyle?
 }
