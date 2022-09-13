@@ -12,6 +12,7 @@ public data class AnnotationTag internal constructor(
     /**
      * Represents some string annotation tag's attribute.
      */
+    // TODO: abolish
     @JvmInline
     public value class Type(public val string: String) {
 
