@@ -21,7 +21,7 @@ import android.text.SpannableStringBuilder
 /**
  * Processes annotated strings.
  */
-internal object AnnotatedStringProcessor {
+internal object AnnotatedStringFormatter {
 
     /**
      * Formats specified [builder] string with [formatArgs] (see [String.format]),

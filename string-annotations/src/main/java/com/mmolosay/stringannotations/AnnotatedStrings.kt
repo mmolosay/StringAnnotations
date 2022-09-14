@@ -7,7 +7,7 @@ import android.text.SpannedString
 import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.args.emptyValueArgs
-import com.mmolosay.stringannotations.internal.AnnotatedStringProcessor
+import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 import com.mmolosay.stringannotations.internal.SpanProcessor
@@ -56,7 +56,7 @@ public object AnnotatedStrings {
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
         // 2. replace wildcards, preserving annotation spans
-        AnnotatedStringProcessor.format(builder, tree, stringArgs)
+        AnnotatedStringFormatter.format(builder, tree, stringArgs)
 
         // 3. parse updated ranges
         val ranges = AnnotationProcessor.parseAnnotationRanges(builder, annotations)
