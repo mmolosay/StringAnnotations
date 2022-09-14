@@ -116,6 +116,21 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  */
 public open class MasterAnnotationProcessor : AnnotationProcessor<ValueArgs> {
 
+    private val backgroundColorAnnotationProcessor: AnnotationProcessor<ValueArgs> =
+        BackgroundColorAnnotationProcessor()
+
+    private val foregroundColorAnnotationProcessor: AnnotationProcessor<ValueArgs> =
+        ForegroundColorAnnotationProcessor()
+
+    private val styleAnnotationProcessor: AnnotationProcessor<ValueArgs> =
+        StyleAnnotationProcessor()
+
+    private val clickableAnnotationProcessor: AnnotationProcessor<ValueArgs> =
+        ClickableAnnotationProcessor()
+
+    private val absoluteSizeAnnotationProcessor: AnnotationProcessor<ValueArgs> =
+        AbsoluteSizeAnnotationProcessor()
+
     final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
@@ -135,11 +150,11 @@ public open class MasterAnnotationProcessor : AnnotationProcessor<ValueArgs> {
      */
     protected open fun inferAnnotationProcessor(type: String): AnnotationProcessor<ValueArgs>? =
         when (type) {
-            "background" -> BackgroundColorAnnotationProcessor()
-            "color" -> ForegroundColorAnnotationProcessor()
-            "style" -> StyleAnnotationProcessor()
-            "clickable" -> ClickableAnnotationProcessor()
-            "size-absolute" -> AbsoluteSizeAnnotationProcessor()
+            "background" -> backgroundColorAnnotationProcessor
+            "color" -> foregroundColorAnnotationProcessor
+            "style" -> styleAnnotationProcessor
+            "clickable" -> clickableAnnotationProcessor
+            "size-absolute" -> absoluteSizeAnnotationProcessor
             else -> null
         }
 }
