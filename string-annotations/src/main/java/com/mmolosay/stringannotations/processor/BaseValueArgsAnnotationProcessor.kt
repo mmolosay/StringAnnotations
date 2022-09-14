@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor
+
+import com.mmolosay.stringannotations.args.ValueArgs
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,17 +19,6 @@ package com.mmolosay.stringannotations.core
  */
 
 /**
- * Resolves appropriate instance of [AnnotationProcessor].
- * Works with value arguments of [A] type.
+ * Base class for [BaseAnnotationProcessor] implementations, that works with [ValueArgs].
  */
-public interface AnnotationProcessorResolver<A> {
-
-    /**
-     * Infers appropriate instance of [AnnotationProcessor], according to [type] of annotation.
-     *
-     * @param type attribute of string annotation tag.
-     *
-     * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
-     */
-    public fun resolve(type: String): AnnotationProcessor<A>?
-}
+public abstract class BaseValueArgsAnnotationProcessor<V> : BaseAnnotationProcessor<V, ValueArgs>()

@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * Base class for [AnnotationProcessor] implementations.
  * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
  */
-public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor<ValueArgs> {
+public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
 
     protected abstract val tokenizer: Tokenizer
     protected abstract val tokenParser: TokenParser<V>?
@@ -40,7 +40,7 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor<ValueArgs
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: ValueArgs?
+        args: A?
     ): CharacterStyle? {
         val tokens = tokenizer.tokenize(annotation.value)
         val values = tokens
@@ -55,7 +55,7 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor<ValueArgs
     /**
      * Obtains list of appropiate for type of this annotation processor values from [args].
      */
-    protected abstract fun inferValues(args: ValueArgs?): List<V>?
+    protected abstract fun inferValues(args: A?): List<V>?
 
     /**
      * Creates new instance of span, corresponding to type of this annotation processor.

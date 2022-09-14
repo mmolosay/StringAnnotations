@@ -28,7 +28,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public abstract class BaseColorAnnotationProcessor : BaseAnnotationProcessor<Int>() {
+public abstract class BaseColorAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = ColorTokenParser

@@ -24,7 +24,7 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  */
 
 /**
- * Default implementation of [AnnotationProcessorResolver].
+ * Default implementation of [AnnotationProcessorResolver], that works with [ValueArgs].
  * It is able to resolve [AnnotationProcessor]s for all default annotation types.
  *
  * One should inherit this class in order to add support for custom annotation type.

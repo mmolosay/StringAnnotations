@@ -29,7 +29,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "clickable" annotation type.
  */
-internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableSpan>() {
+internal class ClickableAnnotationProcessor : BaseValueArgsAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val tokenParser: TokenParser<ClickableSpan>? = null

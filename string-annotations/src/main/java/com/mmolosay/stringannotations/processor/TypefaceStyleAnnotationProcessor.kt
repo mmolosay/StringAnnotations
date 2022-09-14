@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for typeface style annotation type.
  */
-internal class TypefaceStyleAnnotationProcessor : BaseAnnotationProcessor<Int>() {
+internal class TypefaceStyleAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = TypefaceStyleTokenParser

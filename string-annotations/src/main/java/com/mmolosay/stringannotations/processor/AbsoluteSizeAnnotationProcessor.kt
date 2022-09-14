@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
-internal class AbsoluteSizeAnnotationProcessor : BaseAnnotationProcessor<Int>() {
+internal class AbsoluteSizeAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = SizeUnitTokenParser
