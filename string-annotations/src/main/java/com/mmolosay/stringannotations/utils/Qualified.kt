@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.utils
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +17,8 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [AnnotationArguments] in declarative style.
+ * Specifies [qualifier].
  */
-public fun AnnotationArguments(builder: AnnotationArgumentsBuilder.() -> AnnotationArguments): AnnotationArguments =
-    builder(AnnotationArgumentsBuilderImpl())
+public interface Qualified {
+    public val qualifier: String
+}

@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
-import com.mmolosay.stringannotations.args.AnnotationArguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,7 +19,7 @@ import com.mmolosay.stringannotations.args.AnnotationArguments
  */
 
 /**
- * Base class for [BaseAnnotationProcessor] implementations, that works with [AnnotationArguments].
+ * Base class for [BaseAnnotationProcessor] implementations, that works with [ArgumentsSet].
  */
 public abstract class BaseArgsAnnotationProcessor<V> :
-    BaseAnnotationProcessor<V, AnnotationArguments>()
+    BaseAnnotationProcessor<V, ArgumentsSet>()

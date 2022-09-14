@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import android.text.style.ClickableSpan
+import com.mmolosay.stringannotations.utils.Qualified
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +19,12 @@ import android.text.style.ClickableSpan
  */
 
 /**
- * Internal mutable implementation of [AnnotationArguments].
- * Should not be used as explicit type.
+ * Collection of runtime values of some string annotation, that go by specified [qualifier].
  */
-internal class MutableAnnotationArguments(
-    override val colors: MutableList<Int> = mutableListOf(),
-    override val clickables: MutableList<ClickableSpan> = mutableListOf(),
-    override val typefaceStyles: MutableList<Int> = mutableListOf(),
-    override val absSizes: MutableList<Int> = mutableListOf()
-) : AnnotationArguments
+public open class Arguments<E>(
+    override val qualifier: String,
+    private val list: List<E>
+) : List<E> by list, Qualified {
+
+    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+}

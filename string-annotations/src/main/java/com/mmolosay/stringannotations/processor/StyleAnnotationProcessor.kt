@@ -5,7 +5,8 @@ import android.text.Annotation
 import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
-import com.mmolosay.stringannotations.args.AnnotationArguments
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
@@ -47,12 +48,12 @@ internal class StyleAnnotationProcessor : BaseArgsAnnotationProcessor<Token>() {
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: AnnotationArguments?
+        argumentsSet: ArgumentsSet?
     ): CharacterStyle? =
-        super.parseAnnotation(context, annotation, args)
-            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, args)
+        super.parseAnnotation(context, annotation, argumentsSet)
+            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, argumentsSet)
 
-    override fun inferValues(args: AnnotationArguments?): List<Nothing>? =
+    override fun inferArguments(set: ArgumentsSet?): Arguments<Token>? =
         null
 
     override fun makeSpan(value: Token): CharacterStyle? =

@@ -2,7 +2,8 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.args.AnnotationArguments
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
@@ -36,8 +37,8 @@ internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<Clicka
     override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    override fun inferValues(args: AnnotationArguments?): List<ClickableSpan>? =
-        args?.clickables
+    override fun inferArguments(set: ArgumentsSet?): Arguments<ClickableSpan>? =
+        set?.clickables
 
     override fun makeSpan(value: ClickableSpan): CharacterStyle =
         value

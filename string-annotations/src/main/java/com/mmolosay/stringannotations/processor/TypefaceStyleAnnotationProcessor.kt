@@ -2,7 +2,8 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
-import com.mmolosay.stringannotations.args.AnnotationArguments
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
@@ -38,8 +39,8 @@ internal class TypefaceStyleAnnotationProcessor : BaseArgsAnnotationProcessor<In
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 
-    override fun inferValues(args: AnnotationArguments?): List<Int>? =
-        args?.typefaceStyles
+    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+        set?.typefaceStyles
 
     override fun makeSpan(value: Int): CharacterStyle =
         StyleSpan(value)

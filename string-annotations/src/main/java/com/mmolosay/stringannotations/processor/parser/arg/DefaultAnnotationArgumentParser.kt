@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.processor.parser.arg
 
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.token.Token
 
@@ -28,26 +29,27 @@ public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
      * Tries to infer argument from [args] list for specified [token].
      *
      * Steps:
-     * 1. break placeholder into meaningful parts according to its format.
-     * 2. get placeholder index via [parsePlaceholderIndex].
-     * 3. return argument at parsed index in [args] list.
+     * 1. break placeholder into list of tokens, according to its format.
+     * 2. check that placeholder's type matches qualifier of [args].
+     * 3. get argument index via [parsePlaceholderIndex].
+     * 4. return argument at parsed index in [args] list.
      *
      * @param token annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
      * @param args list to get argument from.
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <V> parse(token: Token, args: List<V>): V? =
+    override fun <V> parse(token: Token, args: Arguments<V>): V? =
         parse(token.string, args)
 
-    private fun <V> parse(placeholder: String, args: List<V>): V? =
+    private fun <V> parse(placeholder: String, args: Arguments<V>): V? =
         try {
             require(placeholder.startsWith('$'))
             val tokens = placeholder.substring(1).split("$", limit = 4)
             val (prefix, qualifier, ordinal) = tokens
             require(tokens.size == 3)
             require(prefix == "arg")
-            require(true) // TODO: qualifier
+            require(qualifier == args.qualifier)
             val index = requireNotNull(parsePlaceholderIndex(ordinal))
             getArg(index, args)
         } catch (e: Exception) {
@@ -60,7 +62,7 @@ public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
             it ?: Logger.w("Cannot parse \"$ordinal\" as argument index")
         }
 
-    private fun <V> getArg(index: Int, args: List<V>): V? =
+    private fun <V> getArg(index: Int, args: Arguments<V>): V? =
         args.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }

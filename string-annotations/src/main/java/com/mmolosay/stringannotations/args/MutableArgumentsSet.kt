@@ -1,7 +1,6 @@
-package com.mmolosay.stringannotations.processor.parser.arg
+package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.processor.token.Token
+import android.text.style.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,12 +19,12 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Specifies way of parsing value placeholder into some corresponding argument.
+ * Internal mutable implementation of [ArgumentsSet].
+ * Should not be used as explicit type.
  */
-public interface AnnotationArgumentParser {
-
-    /**
-     * Tries to parse [token] as argument placeholder and obtain its argument from [args].
-     */
-    public fun <V> parse(token: Token, args: Arguments<V>): V?
-}
+internal class MutableArgumentsSet(
+    override val colors: MutableArguments<Int> = MutableArguments("color"),
+    override val clickables: MutableArguments<ClickableSpan> = MutableArguments("clickable"),
+    override val typefaceStyles: MutableArguments<Int> = MutableArguments("style"),
+    override val absSizes: MutableArguments<Int> = MutableArguments("size-absolute")
+) : ArgumentsSet
