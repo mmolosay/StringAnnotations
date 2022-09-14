@@ -40,27 +40,27 @@ public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
     override fun <V> parse(token: Token, args: List<V>): V? =
         parse(token.string, args)
 
-    private fun <V> parse(value: String, args: List<V>): V? {
+    private fun <V> parse(placeholder: String, args: List<V>): V? =
         try {
-            require(value.startsWith('$')) // starts with $ sign
-            val parts = value.substring(1).split("$", limit = 4)
-            if (parts.size == 3 && parts[0] == "arg") {
-                val index = parsePlaceholderIndex(parts[2]) ?: return null
-                return getArg(index, args)
-            }
+            require(placeholder.startsWith('$'))
+            val tokens = placeholder.substring(1).split("$", limit = 4)
+            val (prefix, qualifier, ordinal) = tokens
+            require(tokens.size == 3)
+            require(prefix == "arg")
+            require(true) // TODO: qualifier
+            val index = requireNotNull(parsePlaceholderIndex(ordinal))
+            getArg(index, args)
         } catch (e: Exception) {
-            // catch all exceptions, log below
-        }
-        Logger.w("Invalid annotation value placeholder format: \"$value\"")
-        return null
-    }
-
-    private fun parsePlaceholderIndex(value: String): Int? =
-        value.toIntOrNull().also {
-            it ?: Logger.w("Cannot parse \"$value\" as argument index")
+            Logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
+            null
         }
 
-    private fun <T> getArg(index: Int, args: List<T>): T? =
+    private fun parsePlaceholderIndex(ordinal: String): Int? =
+        ordinal.toIntOrNull().also {
+            it ?: Logger.w("Cannot parse \"$ordinal\" as argument index")
+        }
+
+    private fun <V> getArg(index: Int, args: List<V>): V? =
         args.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }
