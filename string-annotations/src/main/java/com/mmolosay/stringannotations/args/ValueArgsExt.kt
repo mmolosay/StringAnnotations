@@ -17,12 +17,6 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Returns empty instance of [ValueArgs].
- */
-public fun emptyValueArgs(): ValueArgs =
-    EmptyValueArgs
-
-/**
  * Assembles [ValueArgs] in declarative style.
  */
 public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =

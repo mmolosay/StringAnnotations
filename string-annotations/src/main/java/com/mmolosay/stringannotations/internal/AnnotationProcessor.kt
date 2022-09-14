@@ -1,11 +1,7 @@
 package com.mmolosay.stringannotations.internal
 
-import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
-import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -66,22 +62,4 @@ internal object AnnotationProcessor {
         annotations: Array<out Annotation>
     ): List<IntRange> =
         annotations.map { parseAnnotationRange(spanned, it) }
-
-    fun parseAnnotations(
-        context: Context,
-        annotations: Array<out Annotation>,
-        resolver: AnnotationProcessorResolver,
-        args: ValueArgs
-    ): List<CharacterStyle?> =
-        annotations.map { annotation ->
-            parseAnnotation(context, annotation, resolver, args)
-        }
-
-    fun parseAnnotation(
-        context: Context,
-        annotation: Annotation,
-        resolver: AnnotationProcessorResolver,
-        args: ValueArgs
-    ): CharacterStyle? =
-        resolver.resolve(annotation.key)?.parseAnnotation(context, annotation, args)
 }
