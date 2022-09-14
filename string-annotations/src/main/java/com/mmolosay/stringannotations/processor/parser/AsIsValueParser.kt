@@ -20,8 +20,10 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Specifies a way of parsing string annotation token into value of some appropriate [V] type.
+ * Returns string annotation token as it is.
  */
-public interface TokenParser<V> {
-    public fun parse(context: Context, token: Token): V?
+public object AsIsValueParser : ValueParser<Token> {
+
+    override fun parse(context: Context, token: Token): Token =
+        token
 }

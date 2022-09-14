@@ -5,8 +5,8 @@ import android.text.style.StyleSpan
 import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.TypefaceStyleTokenParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
 import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
 import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
@@ -33,10 +33,10 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 internal class TypefaceStyleAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val tokenParser: TokenParser<Int> = TypefaceStyleTokenParser
+    override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> =
-        StrategyConflator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
+        StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 
     override fun inferValues(args: AnnotationArguments?): List<Int>? =
         args?.typefaceStyles

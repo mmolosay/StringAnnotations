@@ -6,7 +6,7 @@ import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
@@ -32,7 +32,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val tokenParser: TokenParser<ClickableSpan>? = null
+    val valueParser: ValueParser<ClickableSpan>? = null
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 

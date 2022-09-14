@@ -5,7 +5,7 @@ import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -32,7 +32,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val tokenParser: TokenParser<V>?
+    protected abstract val valueParser: ValueParser<V>?
     protected abstract val valueArgParser: ValueArgParser
     protected abstract val conflator: ValuesConfaltor<V>
 
@@ -44,7 +44,7 @@ public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
         val tokens = tokenizer.tokenize(annotation.value)
         val values = tokens
             .mapNotNull { token ->
-                tokenParser?.parse(context, token)
+                valueParser?.parse(context, token)
                     ?: inferValues(args)?.let { valueArgParser.parse(token, it) }
             }
         val value = conflator.conflate(values) ?: return null

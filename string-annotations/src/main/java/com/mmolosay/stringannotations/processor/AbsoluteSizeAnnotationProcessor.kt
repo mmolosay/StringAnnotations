@@ -4,8 +4,8 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.SizeUnitTokenParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.SizeUnitValueParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
@@ -33,7 +33,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 internal class AbsoluteSizeAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val tokenParser: TokenParser<Int> = SizeUnitTokenParser
+    override val valueParser: ValueParser<Int> = SizeUnitValueParser
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
