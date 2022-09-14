@@ -6,9 +6,9 @@ import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.processor.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
@@ -34,7 +34,7 @@ internal class AbsoluteSizeAnnotationProcessor : BaseArgsAnnotationProcessor<Int
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val valueParser: ValueParser<Int> = SizeUnitValueParser
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
     override fun inferValues(args: AnnotationArguments?): List<Int>? =

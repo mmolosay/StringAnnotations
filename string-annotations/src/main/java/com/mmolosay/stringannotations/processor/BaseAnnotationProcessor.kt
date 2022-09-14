@@ -6,7 +6,7 @@ import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -33,7 +33,7 @@ public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
 
     protected abstract val tokenizer: Tokenizer
     protected abstract val valueParser: ValueParser<V>?
-    protected abstract val valueArgParser: ValueArgParser
+    protected abstract val argParser: AnnotationArgumentParser
     protected abstract val conflator: ValuesConfaltor<V>
 
     override fun parseAnnotation(
@@ -45,7 +45,7 @@ public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
         val values = tokens
             .mapNotNull { token ->
                 valueParser?.parse(context, token)
-                    ?: inferValues(args)?.let { valueArgParser.parse(token, it) }
+                    ?: inferValues(args)?.let { argParser.parse(token, it) }
             }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)

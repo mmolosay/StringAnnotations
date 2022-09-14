@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.processor.parser.arg
 
-import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,9 +20,9 @@ import com.mmolosay.stringannotations.internal.Logger
  */
 
 /**
- * Default implementation of [ValueArgParser].
+ * Default implementation of [AnnotationArgumentParser].
  */
-public object DefaultValueArgParser : ValueArgParser {
+public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
 
     /**
      * Tries to infer argument from [args] list for specified [token].
@@ -46,7 +46,7 @@ public object DefaultValueArgParser : ValueArgParser {
             val parts = value.substring(1).split("$", limit = 4)
             if (parts.size == 3 && parts[0] == "arg") {
                 val index = parsePlaceholderIndex(parts[2]) ?: return null
-                return getArg(args, index)
+                return getArg(index, args)
             }
         } catch (e: Exception) {
             // catch all exceptions, log below
@@ -60,8 +60,8 @@ public object DefaultValueArgParser : ValueArgParser {
             it ?: Logger.w("Cannot parse \"$value\" as argument index")
         }
 
-    private fun <T> getArg(source: List<T>, index: Int): T? =
-        source.getOrNull(index).also {
+    private fun <T> getArg(index: Int, args: List<T>): T? =
+        args.getOrNull(index).also {
             it ?: Logger.w("There is no value argument at index=$index")
         }
 }

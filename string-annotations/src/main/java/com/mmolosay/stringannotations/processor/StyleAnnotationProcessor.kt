@@ -10,8 +10,8 @@ import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -38,7 +38,7 @@ internal class StyleAnnotationProcessor : BaseArgsAnnotationProcessor<Token>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val valueParser: ValueParser<Token> = AsIsValueParser
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
 
     private val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor =

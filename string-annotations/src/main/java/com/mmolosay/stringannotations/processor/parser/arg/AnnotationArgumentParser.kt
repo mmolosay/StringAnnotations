@@ -21,10 +21,10 @@ import com.mmolosay.stringannotations.processor.token.Token
 /**
  * Specifies way of parsing value placeholder into some corresponding argument.
  */
-public interface ValueArgParser {
+public interface AnnotationArgumentParser {
 
     /**
-     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
+     * Tries to parse [token] as argument placeholder and obtain its argument from [args].
      */
     public fun <V> parse(token: Token, args: List<V>): V?
 }

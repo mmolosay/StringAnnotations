@@ -3,12 +3,12 @@ package com.mmolosay.stringannotations.processor
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import com.mmolosay.stringannotations.args.AnnotationArguments
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
-import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -32,8 +32,8 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
-    val valueParser: ValueParser<ClickableSpan>? = null
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val valueParser: ValueParser<ClickableSpan>? = null
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
     override fun inferValues(args: AnnotationArguments?): List<ClickableSpan>? =
