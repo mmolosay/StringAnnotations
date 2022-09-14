@@ -5,11 +5,10 @@ import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotationProcessor
-import com.mmolosay.stringannotations.core.Token
 import com.mmolosay.stringannotations.core.Tokenizer
 import com.mmolosay.stringannotations.core.ValueArgParser
-import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.parser.TokenParser
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -44,20 +43,11 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
         args: ValueArgs?
     ): CharacterStyle? {
         val tokens = tokenizer.tokenize(annotation.value)
-        return parseAnnotation(context, tokens, args)
-    }
-
-    public open fun parseAnnotation(
-        context: Context,
-        tokens: Sequence<Token>,
-        args: ValueArgs?
-    ): CharacterStyle? {
-        val values =
-            tokens
-                .mapNotNull { token ->
-                    tokenParser?.parse(context, token)
-                        ?: inferArgs(args)?.let { valueArgParser.parse(token, it) }
-                }
+        val values = tokens
+            .mapNotNull { token ->
+                tokenParser?.parse(context, token)
+                    ?: inferArgs(args)?.let { valueArgParser.parse(token, it) }
+            }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
