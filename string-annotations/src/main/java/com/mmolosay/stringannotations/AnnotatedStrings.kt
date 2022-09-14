@@ -56,7 +56,7 @@ public object AnnotatedStrings {
         @Suppress("UNCHECKED_CAST")
         val resolver = StringAnnotations.dependencies.resolver as? AnnotationProcessorResolver<A>
             ?: throw IllegalArgumentException(
-                "StringAnnotations was configured to work with different instance of valueArgs"
+                "StringAnnotations was configured to work with different type of valueArgs"
             )
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
