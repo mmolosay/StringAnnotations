@@ -35,8 +35,7 @@ public interface AnnotationProcessor {
      * @param annotation annotation to be parsed.
      * @param args annotation runtime arguments to be substituted instead of placeholders.
      *
-     * @return parsed span of [CharacterStyle] type, or `null`, if annotation is unsupported or
-     * unparseable.
+     * @return parsed span of [CharacterStyle] type, or `null`, if annotation can not be parsed.
      */
     public fun parseAnnotation(
         context: Context,

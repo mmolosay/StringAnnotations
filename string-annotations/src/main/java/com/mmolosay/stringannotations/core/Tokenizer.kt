@@ -6,7 +6,7 @@ package com.mmolosay.stringannotations.core
  */
 public fun interface Tokenizer {
 
-    public fun tokenize(value: String): Sequence<AnnotationTag.Token>
+    public fun tokenize(value: String): Sequence<Token>
 
     public companion object {
 
@@ -15,7 +15,7 @@ public fun interface Tokenizer {
          */
         public fun Solid(): TokenizerBuilder =
             TokenizerBuilder { value ->
-                sequenceOf(AnnotationTag.Token(value))
+                sequenceOf(Token(value))
             }
 
         /**
@@ -25,7 +25,7 @@ public fun interface Tokenizer {
             TokenizerBuilder { value ->
                 value
                     .split(delimiter)
-                    .map { AnnotationTag.Token(it) }
+                    .map { Token(it) }
                     .asSequence()
             }
     }

@@ -5,13 +5,12 @@ import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.AnnotationTag
-import com.mmolosay.stringannotations.core.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.core.Token
 import com.mmolosay.stringannotations.core.Tokenizer
 import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.values.DefaultValueArgParser
-import com.mmolosay.stringannotations.values.Evaluator
-import com.mmolosay.stringannotations.values.ValueArgParser
+import com.mmolosay.stringannotations.core.DefaultValueArgParser
+import com.mmolosay.stringannotations.core.Evaluator
+import com.mmolosay.stringannotations.core.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -44,7 +43,7 @@ internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Nothing>() {
 
     override fun parseAnnotation(
         context: Context,
-        tokens: Sequence<AnnotationTag.Token>,
+        tokens: Sequence<Token>,
         args: ValueArgs?
     ): CharacterStyle? =
         when {
@@ -60,7 +59,7 @@ internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Nothing>() {
         null
 
     private companion object {
-        val tokenUnderline = AnnotationTag.Token("underline")
-        val tokenStrikethrough = AnnotationTag.Token("strikethrough")
+        val tokenUnderline = Token("underline")
+        val tokenStrikethrough = Token("strikethrough")
     }
 }

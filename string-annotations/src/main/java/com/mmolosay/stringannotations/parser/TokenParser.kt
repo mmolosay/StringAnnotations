@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.parser
 
 import android.content.Context
-import com.mmolosay.stringannotations.core.AnnotationTag
+import com.mmolosay.stringannotations.core.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,8 +20,8 @@ import com.mmolosay.stringannotations.core.AnnotationTag
  */
 
 /**
- * Specifies way of parsing string annotation token into value of some appropriate [V] type.
+ * Specifies a way of parsing string annotation token into value of some appropriate [V] type.
  */
 public interface TokenParser<V> {
-    public fun parse(context: Context, token: AnnotationTag.Token): V?
+    public fun parse(context: Context, token: Token): V?
 }

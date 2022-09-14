@@ -1,6 +1,5 @@
-package com.mmolosay.stringannotations.values
+package com.mmolosay.stringannotations.core
 
-import com.mmolosay.stringannotations.core.AnnotationTag
 import com.mmolosay.stringannotations.internal.Logger
 
 /*
@@ -37,7 +36,7 @@ public object DefaultValueArgParser : ValueArgParser {
      *
      * @return argument from [args] at placeholder's parsed index.
      */
-    override fun <V> parse(token: AnnotationTag.Token, args: List<V>): V? =
+    override fun <V> parse(token: Token, args: List<V>): V? =
         parse(token.string, args)
 
     private fun <V> parse(value: String, args: List<V>): V? {

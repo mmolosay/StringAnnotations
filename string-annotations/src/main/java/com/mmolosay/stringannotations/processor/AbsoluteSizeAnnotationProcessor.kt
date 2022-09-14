@@ -3,13 +3,12 @@ package com.mmolosay.stringannotations.processor
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.core.Tokenizer
 import com.mmolosay.stringannotations.parser.SizeUnitTokenParser
 import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.values.DefaultValueArgParser
-import com.mmolosay.stringannotations.values.Evaluator
-import com.mmolosay.stringannotations.values.ValueArgParser
+import com.mmolosay.stringannotations.core.DefaultValueArgParser
+import com.mmolosay.stringannotations.core.Evaluator
+import com.mmolosay.stringannotations.core.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai

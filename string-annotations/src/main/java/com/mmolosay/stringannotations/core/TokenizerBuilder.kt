@@ -10,7 +10,7 @@ public open class TokenizerBuilder(private val tokenizer: Tokenizer) : Tokenizer
      */
     protected var arbiters: MutableList<TokeinzingArbiter> = mutableListOf()
 
-    override fun tokenize(value: String): Sequence<AnnotationTag.Token> {
+    override fun tokenize(value: String): Sequence<Token> {
         val initial = tokenizer.tokenize(value)
         return arbiters.fold(initial) { tokens, arbiter ->
             arbiter.modify(tokens)
@@ -31,6 +31,6 @@ public open class TokenizerBuilder(private val tokenizer: Tokenizer) : Tokenizer
      * Modifies result of [Tokenizer.tokenize].
      */
     protected fun interface TokeinzingArbiter {
-        public fun modify(tokens: Sequence<AnnotationTag.Token>): Sequence<AnnotationTag.Token>
+        public fun modify(tokens: Sequence<Token>): Sequence<Token>
     }
 }

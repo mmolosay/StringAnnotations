@@ -1,12 +1,15 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor
 
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.core.AnnotationProcessor
+import com.mmolosay.stringannotations.core.Token
+import com.mmolosay.stringannotations.core.Tokenizer
 import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.values.Evaluator
-import com.mmolosay.stringannotations.values.ValueArgParser
+import com.mmolosay.stringannotations.core.Evaluator
+import com.mmolosay.stringannotations.core.ValueArgParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -46,7 +49,7 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
 
     public open fun parseAnnotation(
         context: Context,
-        tokens: Sequence<AnnotationTag.Token>,
+        tokens: Sequence<Token>,
         args: ValueArgs?
     ): CharacterStyle? {
         val values =
@@ -58,7 +61,13 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
         return makeSpan(value)
     }
 
+    /**
+     * Obtains list of appropiate for type of this annotation processor arguments.
+     */
     protected abstract fun inferArgs(args: ValueArgs?): List<V>?
 
+    /**
+     * Creates new instance of span, corresponding to type of this annotation processor.
+     */
     protected abstract fun makeSpan(value: V): CharacterStyle?
 }

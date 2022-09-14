@@ -1,6 +1,4 @@
-package com.mmolosay.stringannotations.values
-
-import com.mmolosay.stringannotations.core.AnnotationTag
+package com.mmolosay.stringannotations.core
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -26,5 +24,5 @@ public interface ValueArgParser {
     /**
      * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
      */
-    public fun <V> parse(token: AnnotationTag.Token, args: List<V>): V?
+    public fun <V> parse(token: Token, args: List<V>): V?
 }
