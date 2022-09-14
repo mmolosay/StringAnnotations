@@ -20,7 +20,7 @@ import android.text.style.ForegroundColorSpan
  */
 
 /**
- * `AnnotationProcessor` for foreground color annotation type.
+ * `AnnotationProcessor` for "color" annotation type.
  */
 internal class ForegroundColorAnnotationProcessor : BaseColorAnnotationProcessor() {
 

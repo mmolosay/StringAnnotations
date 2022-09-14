@@ -3,13 +3,13 @@ package com.mmolosay.stringannotations.processor
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.TypefaceStyleTokenParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.TypefaceStyleTokenParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai

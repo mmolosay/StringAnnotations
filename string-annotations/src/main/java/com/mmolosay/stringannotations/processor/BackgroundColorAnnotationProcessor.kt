@@ -20,7 +20,7 @@ import android.text.style.CharacterStyle
  */
 
 /**
- * `AnnotationProcessor` for background color annotation type.
+ * `AnnotationProcessor` for "background" annotation type.
  */
 internal class BackgroundColorAnnotationProcessor : BaseColorAnnotationProcessor() {
 

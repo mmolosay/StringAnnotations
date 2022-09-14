@@ -32,7 +32,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
  */
 
 /**
- * `AnnotationProcessor` for style annotation type.
+ * `AnnotationProcessor` for "style" annotation type.
  */
 internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Token>() {
 

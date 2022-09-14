@@ -27,7 +27,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
  */
 
 /**
- * `AnnotationProcessor` for clickable annotation type.
+ * `AnnotationProcessor` for "clickable" annotation type.
  */
 internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableSpan>() {
 

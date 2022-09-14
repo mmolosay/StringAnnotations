@@ -28,7 +28,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
  */
 
 /**
- * `AnnotationProcessor` for absolute size annotation type.
+ * `AnnotationProcessor` for "size-absolute" annotation type.
  */
 internal class AbsoluteSizeAnnotationProcessor : BaseAnnotationProcessor<Int>() {
 
