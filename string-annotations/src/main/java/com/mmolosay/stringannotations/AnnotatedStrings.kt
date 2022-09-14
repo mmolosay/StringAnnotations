@@ -49,18 +49,7 @@ public object AnnotatedStrings {
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        /*
-         * bottle neck — you either pass AnnotationProcessor as parameter of this function,
-         * or save it in dependencies, erasing its generic's type.
-         * in first case, you lose convenience, being forced to provide AnnotationProcessor
-         * instance each time using this function.
-         * if second case, you're forced to do unsafe cast as done below.
-         */
-        @Suppress("UNCHECKED_CAST")
-        val processor = StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
-            ?: throw IllegalArgumentException(
-                "StringAnnotations was configured to work with different type of valueArgs"
-            )
+        val processor = requireAnnotationProcessor<A>()
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
@@ -100,6 +89,24 @@ public object AnnotatedStrings {
             arguments = arguments,
             formatArgs = formatArgs
         )
+
+    /*
+     * Bottle neck — you either pass AnnotationProcessor with known generic type
+     * as function parameter yourself, or save it in dependencies, erasing its generic's type.
+     *
+     * In first case, you lose convenience, being forced to provide AnnotationProcessor
+     * instance each time using 'process()' function.
+     *
+     * In second case, you're forced to do unsafe cast as done below.
+     *
+     * I was not able to find elegant solution for this problem.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun <A> requireAnnotationProcessor(): AnnotationProcessor<A> =
+        StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
+            ?: throw IllegalArgumentException(
+                "StringAnnotations was configured to work with different type of valueArgs"
+            )
 
     /**
      * Maps [formatArgs] into array of [String]s by resolving their string values
