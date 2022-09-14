@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.processor
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.TokenParser
