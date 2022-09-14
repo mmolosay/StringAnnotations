@@ -45,7 +45,7 @@ public object AnnotatedStrings {
     public fun <A> process(
         context: Context,
         string: SpannedString,
-        annotationArgs: A? = null,
+        arguments: A? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
@@ -76,7 +76,7 @@ public object AnnotatedStrings {
 
         // 4. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
-            processor.parseAnnotation(context, annotation, annotationArgs)
+            processor.parseAnnotation(context, annotation, arguments)
         }
 
         // 5. apply spans to string
@@ -91,13 +91,13 @@ public object AnnotatedStrings {
     public fun <A> process(
         context: Context,
         @StringRes id: Int,
-        annotationArgs: A? = null,
+        arguments: A? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
-            annotationArgs = annotationArgs,
+            arguments = arguments,
             formatArgs = formatArgs
         )
 

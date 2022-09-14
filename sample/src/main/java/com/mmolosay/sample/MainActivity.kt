@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
             movementMethod = LinkMovementMethod.getInstance()
             text = getAnnotatedString(
                 id = R.string.demo3,
-                annotationArgs = args
+                arguments = args
             )
         }
     }
