@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.TokenParser
@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for typeface style annotation type.
  */
-internal class TypefaceStyleAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+internal class TypefaceStyleAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = TypefaceStyleTokenParser
@@ -38,7 +38,7 @@ internal class TypefaceStyleAnnotationProcessor : BaseValueArgsAnnotationProcess
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
 
-    override fun inferValues(args: ValueArgs?): List<Int>? =
+    override fun inferValues(args: AnnotationArguments?): List<Int>? =
         args?.typefaceStyles
 
     override fun makeSpan(value: Int): CharacterStyle =

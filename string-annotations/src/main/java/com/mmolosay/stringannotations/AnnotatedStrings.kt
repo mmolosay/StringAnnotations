@@ -38,11 +38,14 @@ public object AnnotatedStrings {
      * preserving `<annotation>` spans.
      * 2. Parses `<annotation>`s into spans.
      * 3. Applies spans to the [string].
+     *
+     * @throws IllegalArgumentException if [StringAnnotations.Dependencies.processor], obtained
+     * from [StringAnnotations.dependencies] cannot be casted to [AnnotationProcessor]<[A]>.
      */
     public fun <A> process(
         context: Context,
         string: SpannedString,
-        valueArgs: A? = null,
+        annotationArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
@@ -73,7 +76,7 @@ public object AnnotatedStrings {
 
         // 4. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
-            processor.parseAnnotation(context, annotation, valueArgs)
+            processor.parseAnnotation(context, annotation, annotationArgs)
         }
 
         // 5. apply spans to string
@@ -88,13 +91,13 @@ public object AnnotatedStrings {
     public fun <A> process(
         context: Context,
         @StringRes id: Int,
-        valueArgs: A? = null,
+        annotationArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
-            valueArgs = valueArgs,
+            annotationArgs = annotationArgs,
             formatArgs = formatArgs
         )
 

@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.processor.parser.SizeUnitTokenParser
 import com.mmolosay.stringannotations.processor.parser.TokenParser
@@ -30,14 +30,14 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
-internal class AbsoluteSizeAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+internal class AbsoluteSizeAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = SizeUnitTokenParser
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    override fun inferValues(args: ValueArgs?): List<Int>? =
+    override fun inferValues(args: AnnotationArguments?): List<Int>? =
         args?.absSizes
 
     override fun makeSpan(value: Int): CharacterStyle =

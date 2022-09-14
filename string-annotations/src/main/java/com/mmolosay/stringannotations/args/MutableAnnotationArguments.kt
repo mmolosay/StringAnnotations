@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.args
 
+import android.text.style.ClickableSpan
+
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -17,7 +19,12 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Internal mutable implementation of [AnnotationArguments].
+ * Should not be used as explicit type.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+internal class MutableAnnotationArguments(
+    override val colors: MutableList<Int> = mutableListOf(),
+    override val clickables: MutableList<ClickableSpan> = mutableListOf(),
+    override val typefaceStyles: MutableList<Int> = mutableListOf(),
+    override val absSizes: MutableList<Int> = mutableListOf()
+) : AnnotationArguments

@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
@@ -29,14 +29,14 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "clickable" annotation type.
  */
-internal class ClickableAnnotationProcessor : BaseValueArgsAnnotationProcessor<ClickableSpan>() {
+internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val tokenParser: TokenParser<ClickableSpan>? = null
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    override fun inferValues(args: ValueArgs?): List<ClickableSpan>? =
+    override fun inferValues(args: AnnotationArguments?): List<ClickableSpan>? =
         args?.clickables
 
     override fun makeSpan(value: ClickableSpan): CharacterStyle =

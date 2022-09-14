@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.AnnotationArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -30,19 +30,19 @@ import com.mmolosay.stringannotations.args.ValueArgs
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * @param id resource id of annotated string.
- * @param valueArgs value placeholder arguments.
+ * @param annotationArgs annotation arguments, to be used instead of value placeholders.
  * @param formatArgs formatting arguments to be substituted.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
-    valueArgs: ValueArgs,
+    annotationArgs: AnnotationArguments,
     vararg formatArgs: Any,
 ): Spanned =
     AnnotatedStrings.process(
         context = this,
         id = id,
         formatArgs = formatArgs,
-        valueArgs = valueArgs
+        annotationArgs = annotationArgs
     )
 
 /**
@@ -52,7 +52,7 @@ public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    AnnotatedStrings.process<ValueArgs>(
+    AnnotatedStrings.process<AnnotationArguments>(
         context = this,
         id = id,
         formatArgs = formatArgs
@@ -64,20 +64,20 @@ public fun Context.getAnnotatedString(
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
  *
  * @param id resource id of annotated string.
- * @param valueArgs value placeholder arguments.
+ * @param annotationArgs annotation arguments, to be used instead of value placeholders.
  * @param formatArgs formatting arguments to be substituted.
  *
  * @throws IllegalStateException if fragment was not attached to context.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
-    valueArgs: ValueArgs,
+    annotationArgs: AnnotationArguments,
     vararg formatArgs: Any
 ): Spanned =
     requireContext().getAnnotatedString(
         id = id,
         formatArgs = formatArgs,
-        valueArgs = valueArgs
+        annotationArgs = annotationArgs
     )
 
 /**

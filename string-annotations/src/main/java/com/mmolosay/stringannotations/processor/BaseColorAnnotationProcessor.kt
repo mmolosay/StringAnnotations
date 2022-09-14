@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.AnnotationArguments
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ColorTokenParser
@@ -28,13 +28,13 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public abstract class BaseColorAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+public abstract class BaseColorAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = ColorTokenParser
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    final override fun inferValues(args: ValueArgs?): List<Int>? =
+    final override fun inferValues(args: AnnotationArguments?): List<Int>? =
         args?.colors
 }
