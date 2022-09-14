@@ -19,32 +19,28 @@ import android.text.style.ClickableSpan
  */
 
 /**
- * Immutable collection of runtime value arguments of some annotated string.
- * They are used in places of annotation tag value placeholders,
- * like `<annotation color="$arg$color$0">text</annotation>`.
- *
- * Runtime value arguments are a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing text sizes.
+ * Set of default [Arguments] of some annotated string.
  */
-public interface ValueArgs {
+public interface ArgumentsSet {
 
     /**
      * Color integers.
      */
-    public val colors: List<Int>
+    public val colors: Arguments<Int>
 
     /**
      * Clickable spans.
      */
-    public val clickables: List<ClickableSpan>
+    public val clickables: Arguments<ClickableSpan>
 
     /**
      * Typeface style integers.
      */
-    public val typefaceStyles: List<Int>
+    public val typefaceStyles: Arguments<Int>
 
     /**
      * Absolute sizes in pixels.
      */
-    public val absSizes: List<Int>
+    public val absSizes: Arguments<Int>
+
 }

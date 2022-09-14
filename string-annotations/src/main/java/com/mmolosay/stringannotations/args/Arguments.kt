@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.args
 
+import com.mmolosay.stringannotations.utils.Qualified
+
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -17,7 +19,15 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Collection of runtime values of some annotated string.
+ *
+ * `Arguments` is a great way to use values, which are tough (or completely impossible)
+ * to parse from string, like click actions or dynamically computing values.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+public open class Arguments<E>(
+    override val qualifier: String,
+    private val list: List<E>
+) : List<E> by list, Qualified {
+
+    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+}

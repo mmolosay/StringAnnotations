@@ -38,26 +38,18 @@ public object AnnotatedStrings {
      * preserving `<annotation>` spans.
      * 2. Parses `<annotation>`s into spans.
      * 3. Applies spans to the [string].
+     *
+     * @throws IllegalArgumentException if [StringAnnotations.Dependencies.processor], obtained
+     * from [StringAnnotations.dependencies] cannot be casted to [AnnotationProcessor]<[A]>.
      */
     public fun <A> process(
         context: Context,
         string: SpannedString,
-        valueArgs: A? = null,
+        arguments: A? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        /*
-         * bottle neck — you either pass AnnotationProcessor as parameter of this function,
-         * or save it in dependencies, erasing its generic's type.
-         * in first case, you lose convenience, being forced to provide AnnotationProcessor
-         * instance each time using this function.
-         * if second case, you're forced to do unsafe cast as done below.
-         */
-        @Suppress("UNCHECKED_CAST")
-        val processor = StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
-            ?: throw IllegalArgumentException(
-                "StringAnnotations was configured to work with different type of valueArgs"
-            )
+        val processor = requireAnnotationProcessor<A>()
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
@@ -73,7 +65,7 @@ public object AnnotatedStrings {
 
         // 4. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
-            processor.parseAnnotation(context, annotation, valueArgs)
+            processor.parseAnnotation(context, annotation, arguments)
         }
 
         // 5. apply spans to string
@@ -88,15 +80,33 @@ public object AnnotatedStrings {
     public fun <A> process(
         context: Context,
         @StringRes id: Int,
-        valueArgs: A? = null,
+        arguments: A? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(
             context = context,
             string = context.resources.getText(id) as SpannedString,
-            valueArgs = valueArgs,
+            arguments = arguments,
             formatArgs = formatArgs
         )
+
+    /*
+     * Bottle neck — you either pass AnnotationProcessor with known generic type
+     * as function parameter yourself, or save it in dependencies, erasing its generic's type.
+     *
+     * In first case, you lose convenience, being forced to provide AnnotationProcessor
+     * instance each time using 'process()' function.
+     *
+     * In second case, you're forced to do unsafe cast as done below.
+     *
+     * I was not able to find elegant solution for this problem.
+     */
+    @Suppress("UNCHECKED_CAST")
+    private fun <A> requireAnnotationProcessor(): AnnotationProcessor<A> =
+        StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
+            ?: throw IllegalArgumentException(
+                "StringAnnotations was configured to work with different type of valueArgs"
+            )
 
     /**
      * Maps [formatArgs] into array of [String]s by resolving their string values

@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation token of color type into color integer.
  */
-public object ColorTokenParser : TokenParser<Int> {
+public object ColorValueParser : ValueParser<Int> {
 
     @ColorInt
     override fun parse(context: Context, token: Token): Int? =

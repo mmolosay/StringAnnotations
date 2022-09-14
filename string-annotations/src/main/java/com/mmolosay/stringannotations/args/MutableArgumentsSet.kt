@@ -1,6 +1,6 @@
-package com.mmolosay.stringannotations.processor
+package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.ValueArgs
+import android.text.style.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,6 +19,12 @@ import com.mmolosay.stringannotations.args.ValueArgs
  */
 
 /**
- * Base class for [BaseAnnotationProcessor] implementations, that works with [ValueArgs].
+ * Internal mutable implementation of [ArgumentsSet].
+ * Should not be used as explicit type.
  */
-public abstract class BaseValueArgsAnnotationProcessor<V> : BaseAnnotationProcessor<V, ValueArgs>()
+internal class MutableArgumentsSet(
+    override val colors: MutableArguments<Int> = MutableArguments("color"),
+    override val clickables: MutableArguments<ClickableSpan> = MutableArguments("clickable"),
+    override val typefaceStyles: MutableArguments<Int> = MutableArguments("style"),
+    override val absSizes: MutableArguments<Int> = MutableArguments("size-absolute")
+) : ArgumentsSet

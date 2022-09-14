@@ -2,13 +2,14 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.SizeUnitTokenParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
+import com.mmolosay.stringannotations.processor.parser.SizeUnitValueParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
@@ -30,15 +31,15 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
-internal class AbsoluteSizeAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+internal class AbsoluteSizeAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val tokenParser: TokenParser<Int> = SizeUnitTokenParser
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val valueParser: ValueParser<Int> = SizeUnitValueParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    override fun inferValues(args: ValueArgs?): List<Int>? =
-        args?.absSizes
+    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+        set?.absSizes
 
     override fun makeSpan(value: Int): CharacterStyle =
         AbsoluteSizeSpan(value)

@@ -21,7 +21,7 @@ Table of contents
     * [Strikethrough style](#strikethrough-style)
     * [Underline style](#underline-style)
     * [Absolute size](#absolute-size)
-* [Value Arguments](#value-arguments)
+* [Annotation Arguments](#annotation-arguments)
 * [Examples of usage](#examples-of-usage)
 * [License](#license)
 
@@ -109,7 +109,7 @@ AnnotationProcessor
 -----
 If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) will be used by default.
 
-*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author recommends to use [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) along with [BaseAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/BaseAnnotationProcessor.kt), since it incapsulates a lot of annotation parsing functionality.
+*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author recommends to use [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) along with [BaseAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/BaseAnnotationProcessor.kt), since it incapsulates a lot of annotation parsing functionality.*
 
 ClickableTextAppearance
 -----
@@ -249,15 +249,18 @@ Examples:
  * Value argument:
  `<annotation size-absolute="$arg$size-absolute$0">text of some size</annotation>`
 
-Value Arguments
+Annotation Arguments
 ======
-Value Arguments is a concept of runtime values, which are used as values of actual spans, parsed from string annotations.
+**Annotation Arguments** is a concept of runtime values, which are used insead of placeholders in
+annotation values.
 They make it possible to define `onClick` action for `ClickalbeSpan` or use color obtained from resources in runtime.
 
-Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
+Default implementation [ArgumentsSet](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ArgumentsSet.kt) supports [Arguments](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/Arguments.kt) for all
 types of [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) annotations.
 
-Since default implementations of `AnnotationProcessor` use [DefaultValueArgParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/parser/arg/DefaultValueArgParser.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
+Since default implementations of `AnnotationProcessor` use [DefaultAnnotationArgumentParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/parser/arg/DefaultAnnotationArgumentParser.kt) to parse arguments, default placeholders' format is `$arg${QUALIFIER}${INDEX}`, where `QUALIFIER` 
+should match to `qualifier` of appropriate `Arguments` object and `INDEX` specifies index of desired
+argument.
 
 Below you can see **simplified** example, how Value Arguments can be used.
 For more examples, check [sample application](/sample).
@@ -271,7 +274,7 @@ In your code:
 ```kotlin
 val color1 = ContextCompat.getColor(this, R.color.red)
 val color2 = ContextCompat.getColor(this, R.color.green)
-val args = ValueArgs {
+val args = ArgumentsSet {
     colors {
         add(color1)
         add(color2)

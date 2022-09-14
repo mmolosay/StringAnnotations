@@ -2,13 +2,14 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.TypefaceStyleTokenParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -30,16 +31,16 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for typeface style annotation type.
  */
-internal class TypefaceStyleAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+internal class TypefaceStyleAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val tokenParser: TokenParser<Int> = TypefaceStyleTokenParser
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Int> =
-        StrategyConflator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
+        StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 
-    override fun inferValues(args: ValueArgs?): List<Int>? =
-        args?.typefaceStyles
+    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+        set?.typefaceStyles
 
     override fun makeSpan(value: Int): CharacterStyle =
         StyleSpan(value)

@@ -1,6 +1,4 @@
-package com.mmolosay.stringannotations.processor.parser.arg
-
-import com.mmolosay.stringannotations.processor.token.Token
+package com.mmolosay.stringannotations.utils
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +17,8 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Specifies way of parsing value placeholder into some corresponding argument.
+ * Specifies [qualifier].
  */
-public interface ValueArgParser {
-
-    /**
-     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
-     */
-    public fun <V> parse(token: Token, args: List<V>): V?
+public interface Qualified {
+    public val qualifier: String
 }

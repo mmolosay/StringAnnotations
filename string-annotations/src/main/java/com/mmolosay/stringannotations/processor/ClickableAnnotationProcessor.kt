@@ -2,13 +2,14 @@ package com.mmolosay.stringannotations.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -29,15 +30,15 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 /**
  * `AnnotationProcessor` for "clickable" annotation type.
  */
-internal class ClickableAnnotationProcessor : BaseValueArgsAnnotationProcessor<ClickableSpan>() {
+internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val tokenParser: TokenParser<ClickableSpan>? = null
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val valueParser: ValueParser<ClickableSpan>? = null
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    override fun inferValues(args: ValueArgs?): List<ClickableSpan>? =
-        args?.clickables
+    override fun inferArguments(set: ArgumentsSet?): Arguments<ClickableSpan>? =
+        set?.clickables
 
     override fun makeSpan(value: ClickableSpan): CharacterStyle =
         value

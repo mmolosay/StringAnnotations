@@ -1,12 +1,13 @@
 package com.mmolosay.stringannotations.processor
 
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.ColorTokenParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.ColorValueParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -28,13 +29,13 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public abstract class BaseColorAnnotationProcessor : BaseValueArgsAnnotationProcessor<Int>() {
+public abstract class BaseColorAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val tokenParser: TokenParser<Int> = ColorTokenParser
-    override val valueArgParser: ValueArgParser = DefaultValueArgParser
+    override val valueParser: ValueParser<Int> = ColorValueParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    final override fun inferValues(args: ValueArgs?): List<Int>? =
-        args?.colors
+    final override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+        set?.colors
 }

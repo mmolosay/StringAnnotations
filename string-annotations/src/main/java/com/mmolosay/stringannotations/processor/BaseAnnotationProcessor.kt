@@ -3,10 +3,11 @@ package com.mmolosay.stringannotations.processor
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.TokenParser
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -32,29 +33,29 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val tokenParser: TokenParser<V>?
-    protected abstract val valueArgParser: ValueArgParser
+    protected abstract val valueParser: ValueParser<V>?
+    protected abstract val argParser: AnnotationArgumentParser
     protected abstract val conflator: ValuesConfaltor<V>
 
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: A?
+        arguments: A?
     ): CharacterStyle? {
         val tokens = tokenizer.tokenize(annotation.value)
         val values = tokens
             .mapNotNull { token ->
-                tokenParser?.parse(context, token)
-                    ?: inferValues(args)?.let { valueArgParser.parse(token, it) }
+                valueParser?.parse(context, token)
+                    ?: inferArguments(arguments)?.let { argParser.parse(token, it) }
             }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
 
     /**
-     * Obtains list of appropiate for type of this annotation processor values from [args].
+     * Obtains list of appropiate for type of this annotation processor values from [set].
      */
-    protected abstract fun inferValues(args: A?): List<V>?
+    protected abstract fun inferArguments(set: A?): Arguments<V>?
 
     /**
      * Creates new instance of span, corresponding to type of this annotation processor.
