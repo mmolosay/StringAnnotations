@@ -5,9 +5,9 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
+import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
-import com.mmolosay.stringannotations.internal.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 import com.mmolosay.stringannotations.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
@@ -47,14 +47,14 @@ public object AnnotatedStrings {
     ): Spanned {
         // 0. prepare dependencies
         /*
-         * bottle neck — you either pass AnnotationProcessorResolver as parameter of this function,
+         * bottle neck — you either pass AnnotationProcessor as parameter of this function,
          * or save it in dependencies, erasing its generic's type.
-         * in first case, you lose convenience, being forced to provide AnnotationProcessorResolver
+         * in first case, you lose convenience, being forced to provide AnnotationProcessor
          * instance each time using this function.
          * if second case, you're forced to do unsafe cast as done below.
          */
         @Suppress("UNCHECKED_CAST")
-        val resolver = StringAnnotations.dependencies.resolver as? AnnotationProcessorResolver<A>
+        val processor = StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
             ?: throw IllegalArgumentException(
                 "StringAnnotations was configured to work with different type of valueArgs"
             )
@@ -69,11 +69,11 @@ public object AnnotatedStrings {
         AnnotatedStringFormatter.format(builder, tree, stringArgs)
 
         // 3. parse updated ranges
-        val ranges = AnnotationProcessor.parseAnnotationRanges(builder, annotations)
+        val ranges = AnnotationSpanProcessor.parseAnnotationRanges(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
-            resolver.resolve(annotation.key)?.parseAnnotation(context, annotation, valueArgs)
+            processor.parseAnnotation(context, annotation, valueArgs)
         }
 
         // 5. apply spans to string

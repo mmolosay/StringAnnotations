@@ -22,7 +22,7 @@ import android.text.Spanned
 /**
  * Processes [Annotation]s.
  */
-internal object AnnotationProcessor {
+internal object AnnotationSpanProcessor {
 
     /**
      * Parses specified [annotations] of [spanned] into list of [StringAnnotation].

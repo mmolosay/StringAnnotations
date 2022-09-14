@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations
 
-import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
-import com.mmolosay.stringannotations.core.DefaultAnnotationProcessorResolver
+import com.mmolosay.stringannotations.core.AnnotationProcessor
+import com.mmolosay.stringannotations.core.MasterAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -88,21 +88,21 @@ public object StringAnnotations {
      */
     public interface Dependencies {
 
-        public val resolver: AnnotationProcessorResolver<*>
+        public val processor: AnnotationProcessor<*>
 
         /**
          * Provides convenient interface for assembling library's [Dependencies].
          */
         public class Builder {
 
-            private var resolver: AnnotationProcessorResolver<*>? = null
+            private var processor: AnnotationProcessor<*>? = null
 
             /**
-             * Specifies [AnnotationProcessorResolver] instance to be used.
+             * Specifies [AnnotationProcessor] instance to be used.
              */
-            public fun annotationProcessorResolver(instance: AnnotationProcessorResolver<*>): Builder =
+            public fun annotationProcessorResolver(instance: AnnotationProcessor<*>): Builder =
                 apply {
-                    this.resolver = instance
+                    this.processor = instance
                 }
 
             /**
@@ -110,7 +110,7 @@ public object StringAnnotations {
              */
             public fun build(): Dependencies =
                 DependenciesImpl(
-                    resolver = resolver ?: DefaultAnnotationProcessorResolver()
+                    processor = processor ?: MasterAnnotationProcessor()
                 )
         }
     }
@@ -120,6 +120,6 @@ public object StringAnnotations {
      * Should not be used as explicit type.
      */
     internal data class DependenciesImpl(
-        override val resolver: AnnotationProcessorResolver<*>
+        override val processor: AnnotationProcessor<*>
     ) : Dependencies
 }

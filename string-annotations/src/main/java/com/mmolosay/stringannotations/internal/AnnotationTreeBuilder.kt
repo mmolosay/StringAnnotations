@@ -39,7 +39,7 @@ internal object AnnotationTreeBuilder {
         string: Spanned,
         annotations: Array<out Annotation>
     ): List<AnnotationNode> {
-        val parsed = AnnotationProcessor.parseStringAnnotations(string, annotations)
+        val parsed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
         val roots = findRootAnnotations(parsed)
         val groups = groupByRoots(roots, parsed)
         return groups.map { rootGroup ->

@@ -2,7 +2,7 @@ package com.mmolosay.sample
 
 import android.app.Application
 import com.mmolosay.stringannotations.StringAnnotations
-import com.mmolosay.stringannotations.core.DefaultAnnotationProcessorResolver
+import com.mmolosay.stringannotations.core.MasterAnnotationProcessor
 
 class Application : Application() {
 
@@ -18,7 +18,7 @@ class Application : Application() {
      * will be configured with default dependencies, if there was no custom ones specified.
      */
     private fun configureStringAnnotations() {
-        val resolver = DefaultAnnotationProcessorResolver()
+        val resolver = MasterAnnotationProcessor()
         val dependencies = StringAnnotations.Dependencies.Builder()
             .annotationProcessorResolver(resolver)
             .build()

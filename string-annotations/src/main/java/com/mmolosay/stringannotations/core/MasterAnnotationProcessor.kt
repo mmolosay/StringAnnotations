@@ -1,5 +1,8 @@
 package com.mmolosay.stringannotations.core
 
+import android.content.Context
+import android.text.Annotation
+import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.processor.AbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.processor.BackgroundColorAnnotationProcessor
@@ -24,8 +27,10 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  */
 
 /**
- * Default implementation of [AnnotationProcessorResolver], that works with [ValueArgs].
- * It is able to resolve [AnnotationProcessor]s for all default annotation types.
+ * Default implementation of [AnnotationProcessor], that works with [ValueArgs].
+ * Resolves actual [AnnotationProcessor] to be used with passed annotation, based on
+ * its type (attribute).
+ * It is able to process all default annotation types.
  *
  * One should inherit this class in order to add support for custom annotation type.
  *
@@ -109,9 +114,26 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  * <annotation size-absolute="20.3sp">text of 20.3 SP size</annotation>
  * ```
  */
-public class DefaultAnnotationProcessorResolver : AnnotationProcessorResolver<ValueArgs> {
+public open class MasterAnnotationProcessor : AnnotationProcessor<ValueArgs> {
 
-    override fun resolve(type: String): AnnotationProcessor<ValueArgs>? =
+    final override fun parseAnnotation(
+        context: Context,
+        annotation: Annotation,
+        args: ValueArgs?
+    ): CharacterStyle? {
+        val type = annotation.key
+        val processor = inferAnnotationProcessor(type) ?: return null
+        return processor.parseAnnotation(context, annotation, args)
+    }
+
+    /**
+     * Derives appropriate instance of [AnnotationProcessor], according to [type] of annotation.
+     *
+     * @param type attribute of string annotation tag.
+     *
+     * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
+     */
+    protected open fun inferAnnotationProcessor(type: String): AnnotationProcessor<ValueArgs>? =
         when (type) {
             "background" -> BackgroundColorAnnotationProcessor()
             "color" -> ForegroundColorAnnotationProcessor()
