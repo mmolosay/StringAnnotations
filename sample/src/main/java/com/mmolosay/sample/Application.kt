@@ -18,9 +18,9 @@ class Application : Application() {
      * will be configured with default dependencies, if there was no custom ones specified.
      */
     private fun configureStringAnnotations() {
-        val resolver = MasterAnnotationProcessor()
+        val processor = MasterAnnotationProcessor()
         val dependencies = StringAnnotations.Dependencies.Builder()
-            .annotationProcessorResolver(resolver)
+            .annotationProcessor(processor)
             .build()
         StringAnnotations.configure(dependencies)
     }

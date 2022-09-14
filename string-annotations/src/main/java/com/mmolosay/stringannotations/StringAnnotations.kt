@@ -100,7 +100,7 @@ public object StringAnnotations {
             /**
              * Specifies [AnnotationProcessor] instance to be used.
              */
-            public fun annotationProcessorResolver(instance: AnnotationProcessor<*>): Builder =
+            public fun annotationProcessor(instance: AnnotationProcessor<*>): Builder =
                 apply {
                     this.processor = instance
                 }
