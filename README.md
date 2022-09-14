@@ -82,7 +82,7 @@ Configuration
 
 Library will be configured with default dependencies at the moment you interact with it in the very first time.
 
-In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L59) method and provide custom dependencies. 
+In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/StringAnnotations.kt#L59) method and provide custom dependencies. 
 There's **no need** to call the method, if you want to use library in its default configuration (which more than enough in majority of cases).
 
 There's an example of customizing library's configuration in your `Application` class:
@@ -97,19 +97,19 @@ class YourApplication : Application() {
 
     private fun configureStringAnnotations() {
         val processor = YourCustomAnnotationProcessor()
-        StringAnnotations.configure(
-            annotationProcessor = processor
-        )
+        val dependencies = StringAnnotations.Dependencies.Builder()
+            .annotationProcessor(processor)
+            .build()
+        StringAnnotations.configure(dependencies)
     }
 }
 ```
 
 AnnotationProcessor
 -----
-If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) will be used by default.
+If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) will be used by default.
 
-*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author
-suggests to use [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) as a base class for custom implementations, since it incapsulates a lot of annotation parsing functionality.
+*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author recommends to use [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) along with [BaseAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/BaseAnnotationProcessor.kt), since it incapsulates a lot of annotation parsing functionality.
 
 ClickableTextAppearance
 -----
@@ -130,7 +130,7 @@ Example:
 </style>
 ```
 
-*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/ClickableTextAppearanceExt.kt#L49) extension function.*
+*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/ClickableTextAppearance.kt#L49) extension function.*
 
 Annotations
 =======
@@ -255,9 +255,9 @@ Value Arguments is a concept of runtime values, which are used as values of actu
 They make it possible to define `onClick` action for `ClickalbeSpan` or use color obtained from resources in runtime.
 
 Default implementation [ValueArgs](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ValueArgs.kt) supports values for all
-types of [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) annotations.
+types of [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) annotations.
 
-Since [DefaultAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/DefaultAnnotationProcessor.kt) uses [DefaultValueArgParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/values/DefaultValueArgParser.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
+Since default implementations of `AnnotationProcessor` use [DefaultValueArgParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/parser/arg/DefaultValueArgParser.kt) to parse value arguments, default placeholders' format is `$arg${TYPE}${INDEX}`.
 
 Below you can see **simplified** example, how Value Arguments can be used.
 For more examples, check [sample application](/sample).
