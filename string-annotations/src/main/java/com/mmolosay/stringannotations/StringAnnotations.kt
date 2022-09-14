@@ -88,19 +88,19 @@ public object StringAnnotations {
      */
     public interface Dependencies {
 
-        public val resolver: AnnotationProcessorResolver
+        public val resolver: AnnotationProcessorResolver<*>
 
         /**
          * Provides convenient interface for assembling library's [Dependencies].
          */
         public class Builder {
 
-            private var resolver: AnnotationProcessorResolver? = null
+            private var resolver: AnnotationProcessorResolver<*>? = null
 
             /**
              * Specifies [AnnotationProcessorResolver] instance to be used.
              */
-            public fun annotationProcessorResolver(instance: AnnotationProcessorResolver): Builder =
+            public fun annotationProcessorResolver(instance: AnnotationProcessorResolver<*>): Builder =
                 apply {
                     this.resolver = instance
                 }
@@ -120,6 +120,6 @@ public object StringAnnotations {
      * Should not be used as explicit type.
      */
     internal data class DependenciesImpl(
-        override val resolver: AnnotationProcessorResolver
+        override val resolver: AnnotationProcessorResolver<*>
     ) : Dependencies
 }

@@ -26,7 +26,7 @@ import com.mmolosay.stringannotations.args.ValueArgs
  *
  * One should implement it in order to parse custom annotation type.
  */
-public interface AnnotationProcessor {
+public interface AnnotationProcessor<A> {
 
     /**
      * Parses specified [annotation] into span of [CharacterStyle] type.
@@ -40,6 +40,6 @@ public interface AnnotationProcessor {
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: ValueArgs?
+        args: A?
     ): CharacterStyle?
 }

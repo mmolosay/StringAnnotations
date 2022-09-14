@@ -5,7 +5,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.core.AnnotationProcessorResolver
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
@@ -39,14 +39,25 @@ public object AnnotatedStrings {
      * 2. Parses `<annotation>`s into spans.
      * 3. Applies spans to the [string].
      */
-    public fun process(
+    public fun <A> process(
         context: Context,
         string: SpannedString,
-        valueArgs: ValueArgs? = null,
+        valueArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        val resolver = StringAnnotations.dependencies.resolver
+        /*
+         * bottle neck — you either pass AnnotationProcessorResolver as parameter of this function,
+         * or save it in dependencies, erasing its generic's type.
+         * in first case, you lose convenience, being forced to provide AnnotationProcessorResolver
+         * instance each time using this function.
+         * if second case, you're forced to do unsafe cast as done below.
+         */
+        @Suppress("UNCHECKED_CAST")
+        val resolver = StringAnnotations.dependencies.resolver as? AnnotationProcessorResolver<A>
+            ?: throw IllegalArgumentException(
+                "StringAnnotations was configured to work with different instance of valueArgs"
+            )
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
@@ -74,10 +85,10 @@ public object AnnotatedStrings {
     /**
      * Version of [process] method, but receives [id] of string resource with annotations.
      */
-    public fun process(
+    public fun <A> process(
         context: Context,
         @StringRes id: Int,
-        valueArgs: ValueArgs? = null,
+        valueArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(

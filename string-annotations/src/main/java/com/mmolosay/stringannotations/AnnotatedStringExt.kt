@@ -52,7 +52,7 @@ public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    AnnotatedStrings.process(
+    AnnotatedStrings.process<ValueArgs>(
         context = this,
         id = id,
         formatArgs = formatArgs

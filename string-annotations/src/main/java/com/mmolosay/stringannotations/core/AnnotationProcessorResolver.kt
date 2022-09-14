@@ -19,7 +19,7 @@ package com.mmolosay.stringannotations.core
 /**
  * Resolves appropriate instance of [AnnotationProcessor].
  */
-public interface AnnotationProcessorResolver {
+public interface AnnotationProcessorResolver<A> {
 
     /**
      * Infers appropriate instance of [AnnotationProcessor], according to [type] of annotation.
@@ -28,5 +28,5 @@ public interface AnnotationProcessorResolver {
      *
      * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    public fun resolve(type: String): AnnotationProcessor?
+    public fun resolve(type: String): AnnotationProcessor<A>?
 }

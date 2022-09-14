@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.core
 
+import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.processor.AbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.processor.BackgroundColorAnnotationProcessor
 import com.mmolosay.stringannotations.processor.ClickableAnnotationProcessor
@@ -108,9 +109,9 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  * <annotation size-absolute="20.3sp">text of 20.3 SP size</annotation>
  * ```
  */
-public class DefaultAnnotationProcessorResolver : AnnotationProcessorResolver {
+public class DefaultAnnotationProcessorResolver : AnnotationProcessorResolver<ValueArgs> {
 
-    override fun resolve(type: String): AnnotationProcessor? =
+    override fun resolve(type: String): AnnotationProcessor<ValueArgs>? =
         when (type) {
             "background" -> BackgroundColorAnnotationProcessor()
             "color" -> ForegroundColorAnnotationProcessor()

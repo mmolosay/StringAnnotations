@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * Base class for [AnnotationProcessor] implementations.
  * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
  */
-public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
+public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor<ValueArgs> {
 
     protected abstract val tokenizer: Tokenizer
     protected abstract val tokenParser: TokenParser<V>?
