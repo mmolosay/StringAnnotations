@@ -36,7 +36,7 @@ internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableS
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    override fun inferArgs(args: ValueArgs?): List<ClickableSpan>? =
+    override fun inferValues(args: ValueArgs?): List<ClickableSpan>? =
         args?.clickables
 
     override fun makeSpan(value: ClickableSpan): CharacterStyle =

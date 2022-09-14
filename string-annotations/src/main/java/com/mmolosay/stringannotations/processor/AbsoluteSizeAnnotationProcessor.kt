@@ -37,7 +37,7 @@ internal class AbsoluteSizeAnnotationProcessor : BaseAnnotationProcessor<Int>() 
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    override fun inferArgs(args: ValueArgs?): List<Int>? =
+    override fun inferValues(args: ValueArgs?): List<Int>? =
         args?.absSizes
 
     override fun makeSpan(value: Int): CharacterStyle =

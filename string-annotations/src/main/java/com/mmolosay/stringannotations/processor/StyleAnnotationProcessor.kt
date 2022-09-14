@@ -52,7 +52,7 @@ internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Token>() {
         super.parseAnnotation(context, annotation, args)
             ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, args)
 
-    override fun inferArgs(args: ValueArgs?): List<Nothing>? =
+    override fun inferValues(args: ValueArgs?): List<Nothing>? =
         null
 
     override fun makeSpan(value: Token): CharacterStyle? =

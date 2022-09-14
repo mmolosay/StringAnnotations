@@ -5,10 +5,10 @@ import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotationProcessor
-import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
-import com.mmolosay.stringannotations.processor.parser.TokenParser
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -46,16 +46,16 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
         val values = tokens
             .mapNotNull { token ->
                 tokenParser?.parse(context, token)
-                    ?: inferArgs(args)?.let { valueArgParser.parse(token, it) }
+                    ?: inferValues(args)?.let { valueArgParser.parse(token, it) }
             }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
 
     /**
-     * Obtains list of appropiate for type of this annotation processor arguments.
+     * Obtains list of appropiate for type of this annotation processor values from [args].
      */
-    protected abstract fun inferArgs(args: ValueArgs?): List<V>?
+    protected abstract fun inferValues(args: ValueArgs?): List<V>?
 
     /**
      * Creates new instance of span, corresponding to type of this annotation processor.

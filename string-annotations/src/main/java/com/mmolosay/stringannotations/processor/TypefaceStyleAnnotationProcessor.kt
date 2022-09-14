@@ -38,7 +38,7 @@ internal class TypefaceStyleAnnotationProcessor : BaseAnnotationProcessor<Int>()
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
 
-    override fun inferArgs(args: ValueArgs?): List<Int>? =
+    override fun inferValues(args: ValueArgs?): List<Int>? =
         args?.typefaceStyles
 
     override fun makeSpan(value: Int): CharacterStyle =

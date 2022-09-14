@@ -35,6 +35,6 @@ public abstract class BaseColorAnnotationProcessor : BaseAnnotationProcessor<Int
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    final override fun inferArgs(args: ValueArgs?): List<Int>? =
+    final override fun inferValues(args: ValueArgs?): List<Int>? =
         args?.colors
 }
