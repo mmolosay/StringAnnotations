@@ -116,20 +116,7 @@ import com.mmolosay.stringannotations.processor.StyleAnnotationProcessor
  */
 public open class MasterAnnotationProcessor : AnnotationProcessor<ValueArgs> {
 
-    private val backgroundColorAnnotationProcessor: AnnotationProcessor<ValueArgs> =
-        BackgroundColorAnnotationProcessor()
-
-    private val foregroundColorAnnotationProcessor: AnnotationProcessor<ValueArgs> =
-        ForegroundColorAnnotationProcessor()
-
-    private val styleAnnotationProcessor: AnnotationProcessor<ValueArgs> =
-        StyleAnnotationProcessor()
-
-    private val clickableAnnotationProcessor: AnnotationProcessor<ValueArgs> =
-        ClickableAnnotationProcessor()
-
-    private val absoluteSizeAnnotationProcessor: AnnotationProcessor<ValueArgs> =
-        AbsoluteSizeAnnotationProcessor()
+    private val processors: MutableMap<String, AnnotationProcessor<ValueArgs>> = mutableMapOf()
 
     final override fun parseAnnotation(
         context: Context,
@@ -137,24 +124,27 @@ public open class MasterAnnotationProcessor : AnnotationProcessor<ValueArgs> {
         args: ValueArgs?
     ): CharacterStyle? {
         val type = annotation.key
-        val processor = inferAnnotationProcessor(type) ?: return null
+        val processor = getOrCreateAnnotationProcessor(type) ?: return null
         return processor.parseAnnotation(context, annotation, args)
     }
 
+    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<ValueArgs>? =
+        processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
+
     /**
-     * Derives appropriate instance of [AnnotationProcessor], according to [type] of annotation.
+     * Create instance of [AnnotationProcessor], according to [type] of annotation.
      *
      * @param type attribute of string annotation tag.
      *
      * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    protected open fun inferAnnotationProcessor(type: String): AnnotationProcessor<ValueArgs>? =
+    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<ValueArgs>? =
         when (type) {
-            "background" -> backgroundColorAnnotationProcessor
-            "color" -> foregroundColorAnnotationProcessor
-            "style" -> styleAnnotationProcessor
-            "clickable" -> clickableAnnotationProcessor
-            "size-absolute" -> absoluteSizeAnnotationProcessor
+            "background" -> BackgroundColorAnnotationProcessor()
+            "color" -> ForegroundColorAnnotationProcessor()
+            "style" -> StyleAnnotationProcessor()
+            "clickable" -> ClickableAnnotationProcessor()
+            "size-absolute" -> AbsoluteSizeAnnotationProcessor()
             else -> null
         }
 }
