@@ -1,5 +1,6 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.parser.arg
 
+import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.internal.Logger
 
 /*

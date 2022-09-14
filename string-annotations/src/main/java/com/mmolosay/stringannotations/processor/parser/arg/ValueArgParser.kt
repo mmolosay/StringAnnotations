@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.parser.arg
+
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai

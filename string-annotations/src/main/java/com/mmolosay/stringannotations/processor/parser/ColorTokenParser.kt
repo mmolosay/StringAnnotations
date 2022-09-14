@@ -1,9 +1,9 @@
-package com.mmolosay.stringannotations.parser
+package com.mmolosay.stringannotations.processor.parser
 
 import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import com.mmolosay.stringannotations.core.Token
+import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.internal.Logger
 
 /*

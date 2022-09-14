@@ -1,10 +1,10 @@
-package com.mmolosay.stringannotations.parser
+package com.mmolosay.stringannotations.processor.parser
 
 import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
-import com.mmolosay.stringannotations.core.Token
+import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.internal.Logger
 
 /*

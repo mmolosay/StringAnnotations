@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.token
 
 /**
  * Providis convenient functionality for assembling complex [Tokenizer].

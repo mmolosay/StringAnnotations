@@ -1,12 +1,12 @@
 package com.mmolosay.stringannotations.processor
 
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.Tokenizer
-import com.mmolosay.stringannotations.parser.ColorTokenParser
-import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.core.DefaultValueArgParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.processor.parser.ColorTokenParser
+import com.mmolosay.stringannotations.processor.parser.TokenParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultValueArgParser
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.core.ValueArgParser
+import com.mmolosay.stringannotations.processor.parser.arg.ValueArgParser
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*

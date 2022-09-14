@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.token
 
 /**
  * Specifies a way of parsing string annotation's tag value into some individual, atomic tokens,

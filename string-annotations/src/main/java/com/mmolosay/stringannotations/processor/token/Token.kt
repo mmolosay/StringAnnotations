@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.token
 
 /**
  * Represents some atomic value, that was parsed from string annotation's tag.
