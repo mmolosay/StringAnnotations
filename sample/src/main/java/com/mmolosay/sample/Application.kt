@@ -2,14 +2,13 @@ package com.mmolosay.sample
 
 import android.app.Application
 import com.mmolosay.stringannotations.StringAnnotations
-import com.mmolosay.stringannotations.core.AnnotationProcessor
-import com.mmolosay.stringannotations.core.DefaultAnnotationProcessor
+import com.mmolosay.stringannotations.core.MasterAnnotationProcessor
 
 class Application : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        setStringAnnotations()
+        configureStringAnnotations()
     }
 
     /**
@@ -18,16 +17,11 @@ class Application : Application() {
      * Call to [StringAnnotations.configure] method in not necessary, since the library
      * will be configured with default dependencies, if there was no custom ones specified.
      */
-    private fun setStringAnnotations() {
-        val processor = makeAnnotationProcessor()
-        StringAnnotations.configure(
-            annotationProcessor = processor
-        )
+    private fun configureStringAnnotations() {
+        val processor = MasterAnnotationProcessor()
+        val dependencies = StringAnnotations.Dependencies.Builder()
+            .annotationProcessor(processor)
+            .build()
+        StringAnnotations.configure(dependencies)
     }
-
-    /**
-     * Creates new instance of [AnnotationProcessor].
-     */
-    private fun makeAnnotationProcessor(): AnnotationProcessor =
-        DefaultAnnotationProcessor()
 }

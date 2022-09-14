@@ -1,7 +1,8 @@
-package com.mmolosay.stringannotations.parser
+package com.mmolosay.stringannotations.processor.parser
 
 import android.content.Context
 import android.graphics.Typeface
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,12 +21,12 @@ import android.graphics.Typeface
  */
 
 /**
- * Parses string annotation value of typeface style type into typeface style int.
+ * Parses string annotation token of typeface style type into typeface style int.
  */
-public object TypefaceStyleValueParser : AnnotationValueParser<Int> {
+public object TypefaceStyleTokenParser : TokenParser<Int> {
 
-    override fun parse(context: Context, value: String): Int? =
-        parse(value)
+    override fun parse(context: Context, token: Token): Int? =
+        parse(token.string)
 
     /**
      * Parses string [value] of some typeface style into typeface style integer.
@@ -51,7 +52,7 @@ public object TypefaceStyleValueParser : AnnotationValueParser<Int> {
      * [normal, bold, italic] -> bold_italic
      * ```
      */
-    public fun reduceTypefaceStyles(styles: List<Int>): Int? {
+    public fun reduceTypefaceStyles(styles: Collection<Int>): Int? {
         if (styles.isEmpty()) return null
         if (styles.size == 1) return styles.first()
         return if (styles.contains(Typeface.NORMAL)) {

@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor.parser.arg
+
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +19,12 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Specifies way of parsing value placeholder into some corresponding argument.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+public interface ValueArgParser {
+
+    /**
+     * Tries to parse [token] as argument placeholder and obtaind corresponding argument from [args].
+     */
+    public fun <V> parse(token: Token, args: List<V>): V?
+}

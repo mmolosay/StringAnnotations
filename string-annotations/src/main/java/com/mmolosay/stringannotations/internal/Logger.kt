@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.internal
 
+import android.text.Annotation
 import android.util.Log
 
 /*
@@ -36,4 +37,15 @@ internal object Logger {
     fun w(message: String) {
         Log.w(TAG, message)
     }
+
+    // region Specific messages
+
+    fun logUnableToParse(annotation: Annotation) =
+        w(
+            "Annotation with attribute=\"${annotation.key}\" and value=\"${annotation.value}\" " +
+                "cannot be parsed into valid span. " +
+                "Make sure attribute and its value are correct and supported."
+        )
+
+    // endregion
 }

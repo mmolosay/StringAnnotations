@@ -5,13 +5,12 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.args.emptyValueArgs
-import com.mmolosay.stringannotations.internal.AnnotationMapper
-import com.mmolosay.stringannotations.internal.AnnotatedStringProcessor
+import com.mmolosay.stringannotations.core.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
+import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
+import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 import com.mmolosay.stringannotations.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
-import com.mmolosay.stringannotations.internal.AnnotationTreeBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -40,14 +39,25 @@ public object AnnotatedStrings {
      * 2. Parses `<annotation>`s into spans.
      * 3. Applies spans to the [string].
      */
-    public fun process(
+    public fun <A> process(
         context: Context,
         string: SpannedString,
-        valueArgs: ValueArgs = emptyValueArgs(),
+        valueArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
-        val processor = StringAnnotations.dependencies.annotationProcessor
+        /*
+         * bottle neck — you either pass AnnotationProcessor as parameter of this function,
+         * or save it in dependencies, erasing its generic's type.
+         * in first case, you lose convenience, being forced to provide AnnotationProcessor
+         * instance each time using this function.
+         * if second case, you're forced to do unsafe cast as done below.
+         */
+        @Suppress("UNCHECKED_CAST")
+        val processor = StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
+            ?: throw IllegalArgumentException(
+                "StringAnnotations was configured to work with different type of valueArgs"
+            )
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val builder = SpannableStringBuilder(string)
         val stringArgs = stringifyFormatArgs(formatArgs)
@@ -56,16 +66,18 @@ public object AnnotatedStrings {
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
         // 2. replace wildcards, preserving annotation spans
-        AnnotatedStringProcessor.format(builder, tree, stringArgs)
+        AnnotatedStringFormatter.format(builder, tree, stringArgs)
 
-        // 3. parse updated StringAnnotation-s
-        val strAnnotations = AnnotationMapper.parseStringAnnotations(builder, annotations)
+        // 3. parse updated ranges
+        val ranges = AnnotationSpanProcessor.parseAnnotationRanges(builder, annotations)
 
         // 4. parse Annotation-s into spans of CharacterStyle type
-        val types = AnnotationMapper.parseAnnotations(context, processor, annotations, valueArgs)
+        val spans = annotations.mapNotNull { annotation ->
+            processor.parseAnnotation(context, annotation, valueArgs)
+        }
 
         // 5. apply spans to string
-        SpanProcessor.applySpans(builder, strAnnotations, types)
+        SpanProcessor.applySpans(builder, ranges, spans)
 
         return builder
     }
@@ -73,10 +85,10 @@ public object AnnotatedStrings {
     /**
      * Version of [process] method, but receives [id] of string resource with annotations.
      */
-    public fun process(
+    public fun <A> process(
         context: Context,
         @StringRes id: Int,
-        valueArgs: ValueArgs = emptyValueArgs(),
+        valueArgs: A? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(

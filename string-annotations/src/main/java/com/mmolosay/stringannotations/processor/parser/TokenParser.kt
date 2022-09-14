@@ -1,4 +1,7 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor.parser
+
+import android.content.Context
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +20,8 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Specifies a way of parsing string annotation token into value of some appropriate [V] type.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+public interface TokenParser<V> {
+    public fun parse(context: Context, token: Token): V?
+}

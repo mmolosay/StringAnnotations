@@ -1,11 +1,7 @@
 package com.mmolosay.stringannotations.internal
 
-import android.content.Context
 import android.text.Annotation
 import android.text.Spanned
-import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.AnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,19 +20,19 @@ import com.mmolosay.stringannotations.core.AnnotationProcessor
  */
 
 /**
- * Maps [Annotation] instances into other ones.
+ * Processes [Annotation]s.
  */
-internal object AnnotationMapper {
+internal object AnnotationSpanProcessor {
 
     /**
-     * Parses specified [annotations] of [string] into list of [StringAnnotation].
+     * Parses specified [annotations] of [spanned] into list of [StringAnnotation].
      */
     fun parseStringAnnotations(
-        string: Spanned,
+        spanned: Spanned,
         annotations: Array<out Annotation>
     ): List<StringAnnotation> =
         annotations.mapIndexed { index, annotation ->
-            val range = parseAnnotationRange(string, annotation)
+            val range = parseAnnotationRange(spanned, annotation)
             if (range.first == -1 || range.last == -1) {
                 throw IllegalArgumentException("annotation doesn\'t belong to this string")
             }
@@ -44,31 +40,26 @@ internal object AnnotationMapper {
         }
 
     /**
-     * Retrieves [annotation]'s start and end positions in terms of specified [string].
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full [string]
+     * Retrieves [annotation]'s start and end positions in terms of specified [spanned].
+     * If [annotation] is `null`, then we assume that is a top-most root, and return full [spanned]
      * range.
      */
     fun parseAnnotationRange(
-        string: Spanned,
+        spanned: Spanned,
         annotation: Annotation?
     ): IntRange {
-        annotation ?: return 0..string.length
-        val start = string.getSpanStart(annotation)
-        val end = string.getSpanEnd(annotation)
+        annotation ?: return 0..spanned.length
+        val start = spanned.getSpanStart(annotation)
+        val end = spanned.getSpanEnd(annotation)
         return start..end
     }
 
     /**
-     * Uses specified [processor] to process [annotations] of
-     * some spanned string into spans of [CharacterStyle] type.
+     * Variant of [parseAnnotationRange] that works with [annotations] array.
      */
-    fun parseAnnotations(
-        context: Context,
-        processor: AnnotationProcessor,
-        annotations: Array<out Annotation>,
-        args: ValueArgs
-    ): List<CharacterStyle?> =
-        annotations.map { annotation ->
-            processor.parseAnnotation(context, annotation, args)
-        }
+    fun parseAnnotationRanges(
+        spanned: Spanned,
+        annotations: Array<out Annotation>
+    ): List<IntRange> =
+        annotations.map { parseAnnotationRange(spanned, it) }
 }

@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.core
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ValueArgs
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -23,8 +22,11 @@ import com.mmolosay.stringannotations.args.ValueArgs
 
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [CharacterStyle] type.
+ * Works with value arguments of [A] type.
+ *
+ * One should implement it in order to parse custom annotation type.
  */
-public interface AnnotationProcessor {
+public interface AnnotationProcessor<A> {
 
     /**
      * Parses specified [annotation] into span of [CharacterStyle] type.
@@ -33,12 +35,11 @@ public interface AnnotationProcessor {
      * @param annotation annotation to be parsed.
      * @param args annotation runtime arguments to be substituted instead of placeholders.
      *
-     * @return parsed span of [CharacterStyle] type, or `null`, if annotation is unsupported or
-     * unparseable.
+     * @return parsed span of [CharacterStyle] type, or `null`, if annotation can not be parsed.
      */
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        args: ValueArgs
+        args: A?
     ): CharacterStyle?
 }

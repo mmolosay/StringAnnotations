@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.values
+package com.mmolosay.stringannotations.processor.token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,17 +17,11 @@ package com.mmolosay.stringannotations.values
  */
 
 /**
- * Specifies way of parsing value placeholder into value of some appropriate argument type.
+ * Represents some atomic value, that was parsed from string annotation's tag.
  */
-public interface ValueArgParser {
+@JvmInline
+public value class Token(public val string: String) {
 
-    /**
-     * Tries to infer argument from [args] list for specified [placeholder].
-     * Placeholder must have [expected] type.
-     */
-    public fun <V> parse(
-        placeholder: String,
-        expected: String,
-        args: List<V>
-    ): V?
+    override fun toString(): String =
+        string
 }

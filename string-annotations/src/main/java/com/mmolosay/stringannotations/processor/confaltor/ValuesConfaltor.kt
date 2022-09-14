@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor.confaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +17,8 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Combines set of values of type [V] into result of the same type.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+public interface ValuesConfaltor<V> {
+    public fun conflate(values: Sequence<V>): V?
+}

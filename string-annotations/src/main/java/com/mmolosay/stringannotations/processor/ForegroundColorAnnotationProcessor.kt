@@ -1,4 +1,7 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor
+
+import android.text.style.CharacterStyle
+import android.text.style.ForegroundColorSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +20,10 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * `AnnotationProcessor` for "color" annotation type.
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+internal class ForegroundColorAnnotationProcessor : BaseColorAnnotationProcessor() {
+
+    override fun makeSpan(value: Int): CharacterStyle =
+        ForegroundColorSpan(value)
+}

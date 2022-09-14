@@ -1,6 +1,7 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor
 
-import android.text.style.ClickableSpan
+import android.text.style.BackgroundColorSpan
+import android.text.style.CharacterStyle
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +20,10 @@ import android.text.style.ClickableSpan
  */
 
 /**
- * Empty implementation of [ValueArgs].
- * Should not be used as explicit type.
+ * `AnnotationProcessor` for "background" annotation type.
  */
-internal object EmptyValueArgs : ValueArgs {
-    override val colors: List<Int> = emptyList()
-    override val clickables: List<ClickableSpan> = emptyList()
-    override val typefaceStyles: List<Int> = emptyList()
-    override val absSizes: List<Int> = emptyList()
+internal class BackgroundColorAnnotationProcessor : BaseColorAnnotationProcessor() {
+
+    override fun makeSpan(value: Int): CharacterStyle =
+        BackgroundColorSpan(value)
 }

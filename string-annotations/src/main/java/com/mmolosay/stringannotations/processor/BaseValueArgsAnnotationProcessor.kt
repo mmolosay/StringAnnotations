@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor
+
+import com.mmolosay.stringannotations.args.ValueArgs
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,7 +19,6 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Assembles [ValueArgs] in declarative style.
+ * Base class for [BaseAnnotationProcessor] implementations, that works with [ValueArgs].
  */
-public fun ValueArgs(builder: ValueArgsBuilder.() -> ValueArgs): ValueArgs =
-    builder(ValueArgsBuilderImpl())
+public abstract class BaseValueArgsAnnotationProcessor<V> : BaseAnnotationProcessor<V, ValueArgs>()
