@@ -52,7 +52,7 @@ public object TypefaceStyleTokenParser : TokenParser<Int> {
      * [normal, bold, italic] -> bold_italic
      * ```
      */
-    public fun reduceTypefaceStyles(styles: List<Int>): Int? {
+    public fun reduceTypefaceStyles(styles: Collection<Int>): Int? {
         if (styles.isEmpty()) return null
         if (styles.size == 1) return styles.first()
         return if (styles.contains(Typeface.NORMAL)) {

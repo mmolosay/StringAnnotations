@@ -5,12 +5,13 @@ import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.core.DefaultValueArgParser
 import com.mmolosay.stringannotations.core.Token
 import com.mmolosay.stringannotations.core.Tokenizer
-import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.core.DefaultValueArgParser
-import com.mmolosay.stringannotations.core.Evaluator
 import com.mmolosay.stringannotations.core.ValueArgParser
+import com.mmolosay.stringannotations.parser.TokenParser
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -36,7 +37,7 @@ internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Nothing>() {
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val tokenParser: TokenParser<Nothing>? = null
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
-    override val evaluator: Evaluator<Nothing> = Evaluator.Single()
+    override val conflator: ValuesConfaltor<Nothing> = StrategyConflator.Single()
 
     private val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor =
         TypefaceStyleAnnotationProcessor()

@@ -7,9 +7,9 @@ import com.mmolosay.stringannotations.args.ValueArgs
 import com.mmolosay.stringannotations.core.AnnotationProcessor
 import com.mmolosay.stringannotations.core.Token
 import com.mmolosay.stringannotations.core.Tokenizer
-import com.mmolosay.stringannotations.parser.TokenParser
-import com.mmolosay.stringannotations.core.Evaluator
 import com.mmolosay.stringannotations.core.ValueArgParser
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.parser.TokenParser
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -36,7 +36,7 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
     protected abstract val tokenizer: Tokenizer
     protected abstract val tokenParser: TokenParser<V>?
     protected abstract val valueArgParser: ValueArgParser
-    protected abstract val evaluator: Evaluator<V>
+    protected abstract val conflator: ValuesConfaltor<V>
 
     override fun parseAnnotation(
         context: Context,
@@ -53,11 +53,12 @@ public abstract class BaseAnnotationProcessor<V> : AnnotationProcessor {
         args: ValueArgs?
     ): CharacterStyle? {
         val values =
-            tokens.mapNotNull { token ->
-                tokenParser?.parse(context, token)
-                    ?: inferArgs(args)?.let { valueArgParser.parse(token, it) }
-            }
-        val value = evaluator.evaluate(values) ?: return null
+            tokens
+                .mapNotNull { token ->
+                    tokenParser?.parse(context, token)
+                        ?: inferArgs(args)?.let { valueArgParser.parse(token, it) }
+                }
+        val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
 

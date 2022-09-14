@@ -3,11 +3,12 @@ package com.mmolosay.stringannotations.processor
 import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import com.mmolosay.stringannotations.args.ValueArgs
-import com.mmolosay.stringannotations.core.Tokenizer
-import com.mmolosay.stringannotations.parser.TokenParser
 import com.mmolosay.stringannotations.core.DefaultValueArgParser
-import com.mmolosay.stringannotations.core.Evaluator
+import com.mmolosay.stringannotations.core.Tokenizer
 import com.mmolosay.stringannotations.core.ValueArgParser
+import com.mmolosay.stringannotations.parser.TokenParser
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -33,7 +34,7 @@ internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableS
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val tokenParser: TokenParser<ClickableSpan>? = null
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
-    override val evaluator: Evaluator<ClickableSpan> = Evaluator.Single()
+    override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
     override fun inferArgs(args: ValueArgs?): List<ClickableSpan>? =
         args?.clickables

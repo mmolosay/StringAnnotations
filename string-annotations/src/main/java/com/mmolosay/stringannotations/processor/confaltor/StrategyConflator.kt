@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.processor.confaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,20 +17,20 @@ package com.mmolosay.stringannotations.core
  */
 
 /**
- * Transforms values of type [V] into final value of the same type.
- * It uses [pickingStrategy] to pick desired values and
+ * Implementation of [ValuesConfaltor].
+ * Utilizes [pickingStrategy] to pick desired values and
  * [reducingStrategy] to conflate them into final result.
  */
-public class Evaluator<V>(
+public class StrategyConflator<V>(
     private val pickingStrategy: PickingStrategy<V>,
     private val reducingStrategy: ReducingStrategy<V>
-) {
+) : ValuesConfaltor<V> {
 
     /**
-     * Picks desired values, using specified [pickingStrategy] and then reduces them
-     * to one final result, using specified [reducingStrategy].
+     * Picks desired values, using [pickingStrategy] and then reduces them
+     * to one final result, using [reducingStrategy].
      */
-    public fun evaluate(values: Sequence<V>): V? =
+    override fun conflate(values: Sequence<V>): V? =
         values
             .let { pickingStrategy.on(it) }
             .let { reducingStrategy.on(it) }
@@ -43,7 +43,7 @@ public class Evaluator<V>(
         /**
          * Applies this strategy on [values], returning list of selected ones.
          */
-        public fun on(values: Sequence<V>): List<V>
+        public fun on(values: Sequence<V>): Collection<V>
 
         public companion object {
 
@@ -81,7 +81,7 @@ public class Evaluator<V>(
         /**
          * Applies this strategy on [values], returning result of reducing.
          */
-        public fun on(values: List<V>): V?
+        public fun on(values: Collection<V>): V?
 
         public companion object {
 
@@ -96,7 +96,7 @@ public class Evaluator<V>(
             /**
              * Picks all values and reduces them with specified [reducer].
              */
-            public fun <V> Multiple(reducer: (values: List<V>) -> V?): ReducingStrategy<V> =
+            public fun <V> Multiple(reducer: (values: Collection<V>) -> V?): ReducingStrategy<V> =
                 ReducingStrategy(reducer)
         }
     }
@@ -106,8 +106,8 @@ public class Evaluator<V>(
         /**
          * Picks and uses very first value.
          */
-        public fun <V> Single(): Evaluator<V> =
-            Evaluator(
+        public fun <V> Single(): StrategyConflator<V> =
+            StrategyConflator(
                 pickingStrategy = PickingStrategy.First(),
                 reducingStrategy = ReducingStrategy.Single()
             )
@@ -115,8 +115,8 @@ public class Evaluator<V>(
         /**
          * Picks all values and reduces them with specified [reducer].
          */
-        public fun <V> All(reducer: (values: List<V>) -> V?): Evaluator<V> =
-            Evaluator(
+        public fun <V> All(reducer: (values: Collection<V>) -> V?): StrategyConflator<V> =
+            StrategyConflator(
                 pickingStrategy = PickingStrategy.All(),
                 reducingStrategy = ReducingStrategy.Multiple(reducer)
             )

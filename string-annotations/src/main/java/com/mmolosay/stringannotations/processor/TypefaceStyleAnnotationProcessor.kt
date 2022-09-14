@@ -3,12 +3,13 @@ package com.mmolosay.stringannotations.processor
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
 import com.mmolosay.stringannotations.args.ValueArgs
+import com.mmolosay.stringannotations.core.DefaultValueArgParser
 import com.mmolosay.stringannotations.core.Tokenizer
+import com.mmolosay.stringannotations.core.ValueArgParser
 import com.mmolosay.stringannotations.parser.TokenParser
 import com.mmolosay.stringannotations.parser.TypefaceStyleTokenParser
-import com.mmolosay.stringannotations.core.DefaultValueArgParser
-import com.mmolosay.stringannotations.core.Evaluator
-import com.mmolosay.stringannotations.core.ValueArgParser
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -34,8 +35,8 @@ internal class TypefaceStyleAnnotationProcessor : BaseAnnotationProcessor<Int>()
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val tokenParser: TokenParser<Int> = TypefaceStyleTokenParser
     override val valueArgParser: ValueArgParser = DefaultValueArgParser
-    override val evaluator: Evaluator<Int> =
-        Evaluator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
+    override val conflator: ValuesConfaltor<Int> =
+        StrategyConflator.All(TypefaceStyleTokenParser::reduceTypefaceStyles)
 
     override fun inferArgs(args: ValueArgs?): List<Int>? =
         args?.typefaceStyles
