@@ -19,12 +19,7 @@ import android.text.style.ClickableSpan
  */
 
 /**
- * Set of [QualifiedCollection] of some annotated string.
- * They are used in places of annotation tag value placeholders,
- * like `<annotation color="$arg$color$0">text</annotation>`.
- *
- * `AnnotationArguments` is a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing text sizes.
+ * Set of default [Arguments] of some annotated string.
  */
 public interface ArgumentsSet {
 
