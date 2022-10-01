@@ -12,7 +12,7 @@ dependencies {
 
     // since it's a sample project, it uses library as module
     // you should use it as a external dependency, see Installation section of library's README.md
-    implementation(project(":string-annotations"))
+    implementation(project(":string-annotations:view"))
 
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.6")
 

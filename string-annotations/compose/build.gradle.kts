@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = Project.APPLICATION_ID
+    namespace = "${Project.GROUP_ID}.compose"
 
     buildTypes {
         getByName("release") {
@@ -26,7 +26,8 @@ android {
 dependencies {
 
     // Modules
-    implementation(project(":string-annotations"))
+    api(project(":string-annotations:common:shared"))
+    implementation(project(":string-annotations:common:internal"))
 
     // Compose
 }
