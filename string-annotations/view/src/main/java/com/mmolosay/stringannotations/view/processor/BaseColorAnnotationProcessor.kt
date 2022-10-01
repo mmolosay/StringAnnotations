@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.view.processor
 
-import com.mmolosay.stringannotations.common.shared.args.Arguments
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.view.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.view.processor.parser.ColorValueParser

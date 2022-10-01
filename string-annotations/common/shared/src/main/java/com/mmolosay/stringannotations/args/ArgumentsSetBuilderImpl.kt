@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.common.shared.args
+package com.mmolosay.stringannotations.args
 
 import android.text.style.ClickableSpan
 

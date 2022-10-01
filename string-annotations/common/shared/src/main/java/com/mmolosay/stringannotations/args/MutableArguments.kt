@@ -1,7 +1,4 @@
-package com.mmolosay.stringannotations.view.processor.parser.arg
-
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.view.processor.token.Token
+package com.mmolosay.stringannotations.args
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,13 +16,8 @@ import com.mmolosay.stringannotations.view.processor.token.Token
  * limitations under the License.
  */
 
-/**
- * Specifies way of parsing value placeholder into some corresponding argument.
- */
-public interface AnnotationArgumentParser {
-
-    /**
-     * Tries to parse [token] as argument placeholder and obtain its argument from [args].
-     */
-    public fun <V> parse(token: Token, args: Arguments<V>): V?
-}
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
+public class MutableArguments<E>(
+    override val qualifier: String,
+    collection: MutableList<E> = mutableListOf()
+) : Arguments<E>(qualifier, collection), MutableList<E> by collection

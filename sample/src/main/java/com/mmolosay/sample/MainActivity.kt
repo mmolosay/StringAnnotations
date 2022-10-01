@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.databinding.MainScreenBinding
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.view.getAnnotatedString
 import com.mmolosay.stringannotations.view.span.clickable.ClickableSpan
 import com.mmolosay.stringannotations.view.span.clickable.ClickableTextAppearance

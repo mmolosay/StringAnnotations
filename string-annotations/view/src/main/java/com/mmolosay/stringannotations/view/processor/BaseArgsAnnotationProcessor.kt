@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.view.processor
 
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentsSet
 
 /*
  * Copyright 2022 Mikhail Malasai

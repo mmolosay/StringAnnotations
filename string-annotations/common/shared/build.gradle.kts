@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = "${Project.GROUP_ID}.common.shared"
+    namespace = Project.GROUP_ID
 
     buildTypes {
         getByName("release") {

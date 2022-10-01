@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.Spanned
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentsSet
 
 /*
  * Copyright 2022 Mikhail Malasai

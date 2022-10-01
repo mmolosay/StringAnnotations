@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.common.internal.utils
+package com.mmolosay.stringannotations.internal
 
 import android.text.Annotation
 import android.util.Log

@@ -1,6 +1,8 @@
-package com.mmolosay.stringannotations.common.internal
+package com.mmolosay.stringannotations.args
 
-import android.text.Annotation
+import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentsSetBuilder
+import com.mmolosay.stringannotations.args.ArgumentsSetBuilderImpl
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,20 +21,7 @@ import android.text.Annotation
  */
 
 /**
- * [Annotation] that may contain other ones.
- * Represents a node in tree-like structure.
+ * Assembles [ArgumentsSet] in declarative style.
  */
-internal data class AnnotationNode(
-    /**
-     * The [Annotation] object instance itself.
-     */
-    val annotation: Annotation?,
-
-    /**
-     * Direct children of [annotation].
-     */
-    val children: List<AnnotationNode>
-)
-
-internal fun AnnotationNode.hasChildren(): Boolean =
-    this.children.isNotEmpty()
+public fun ArgumentsSet(builder: ArgumentsSetBuilder.() -> ArgumentsSet): ArgumentsSet =
+    builder(ArgumentsSetBuilderImpl())

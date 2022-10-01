@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.view.processor
 import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.common.shared.args.Arguments
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.view.processor.parser.ValueParser
 import com.mmolosay.stringannotations.view.processor.parser.arg.AnnotationArgumentParser

@@ -1,4 +1,7 @@
-package com.mmolosay.stringannotations.common.shared.utils
+package com.mmolosay.stringannotations.args
+
+import android.text.style.ClickableSpan
+import com.mmolosay.stringannotations.args.Arguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,8 +20,28 @@ package com.mmolosay.stringannotations.common.shared.utils
  */
 
 /**
- * Specifies [qualifier].
+ * Set of default [Arguments] of some annotated string.
  */
-public interface Qualified {
-    public val qualifier: String
+public interface ArgumentsSet {
+
+    /**
+     * Color integers.
+     */
+    public val colors: Arguments<Int>
+
+    /**
+     * Clickable spans.
+     */
+    public val clickables: Arguments<ClickableSpan>
+
+    /**
+     * Typeface style integers.
+     */
+    public val typefaceStyles: Arguments<Int>
+
+    /**
+     * Absolute sizes in pixels.
+     */
+    public val absSizes: Arguments<Int>
+
 }

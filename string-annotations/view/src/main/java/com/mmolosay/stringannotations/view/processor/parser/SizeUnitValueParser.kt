@@ -5,7 +5,7 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
 import com.mmolosay.stringannotations.view.processor.token.Token
-import com.mmolosay.stringannotations.common.internal.utils.Logger
+import com.mmolosay.stringannotations.internal.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai

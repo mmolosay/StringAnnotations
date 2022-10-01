@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.view.processor.parser.arg
 
-import com.mmolosay.stringannotations.common.shared.args.Arguments
-import com.mmolosay.stringannotations.common.internal.utils.Logger
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.view.processor.token.Token
 
 /*

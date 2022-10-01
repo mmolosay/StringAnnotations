@@ -1,8 +1,6 @@
-package com.mmolosay.stringannotations.common.shared.args
+package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSetBuilder
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSetBuilderImpl
+import com.mmolosay.stringannotations.utils.Qualified
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -21,7 +19,15 @@ import com.mmolosay.stringannotations.common.shared.args.ArgumentsSetBuilderImpl
  */
 
 /**
- * Assembles [ArgumentsSet] in declarative style.
+ * Collection of runtime values of some annotated string.
+ *
+ * `Arguments` is a great way to use values, which are tough (or completely impossible)
+ * to parse from string, like click actions or dynamically computing values.
  */
-public fun ArgumentsSet(builder: ArgumentsSetBuilder.() -> ArgumentsSet): ArgumentsSet =
-    builder(ArgumentsSetBuilderImpl())
+public open class Arguments<E>(
+    override val qualifier: String,
+    private val list: List<E>
+) : List<E> by list, Qualified {
+
+    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+}

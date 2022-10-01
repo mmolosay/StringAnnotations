@@ -5,8 +5,8 @@ import android.text.Annotation
 import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
-import com.mmolosay.stringannotations.common.shared.args.Arguments
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.view.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.view.processor.parser.AsIsValueParser

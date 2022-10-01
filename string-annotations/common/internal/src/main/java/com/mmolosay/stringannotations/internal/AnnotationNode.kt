@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.common.shared.args
+package com.mmolosay.stringannotations.internal
+
+import android.text.Annotation
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -16,8 +18,21 @@ package com.mmolosay.stringannotations.common.shared.args
  * limitations under the License.
  */
 
-@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
-public class MutableArguments<E>(
-    override val qualifier: String,
-    collection: MutableList<E> = mutableListOf()
-) : Arguments<E>(qualifier, collection), MutableList<E> by collection
+/**
+ * [Annotation] that may contain other ones.
+ * Represents a node in tree-like structure.
+ */
+internal data class AnnotationNode(
+    /**
+     * The [Annotation] object instance itself.
+     */
+    val annotation: Annotation?,
+
+    /**
+     * Direct children of [annotation].
+     */
+    val children: List<AnnotationNode>
+)
+
+internal fun AnnotationNode.hasChildren(): Boolean =
+    this.children.isNotEmpty()

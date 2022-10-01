@@ -1,8 +1,8 @@
-package com.mmolosay.stringannotations.common.shared.args
+package com.mmolosay.stringannotations.args
 
 import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.common.shared.args.ArgumentsSet
-import com.mmolosay.stringannotations.common.shared.args.MutableArguments
+import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.MutableArguments
 
 /*
  * Copyright 2022 Mikhail Malasai

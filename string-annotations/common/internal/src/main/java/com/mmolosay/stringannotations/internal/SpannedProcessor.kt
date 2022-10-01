@@ -1,6 +1,7 @@
-package com.mmolosay.stringannotations.common.shared.args
+package com.mmolosay.stringannotations.internal
 
-import com.mmolosay.stringannotations.common.shared.utils.Qualified
+import android.text.Annotation
+import android.text.Spanned
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,15 +20,16 @@ import com.mmolosay.stringannotations.common.shared.utils.Qualified
  */
 
 /**
- * Collection of runtime values of some annotated string.
- *
- * `Arguments` is a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing values.
+ * Processes [Spanned] objects.
  */
-public open class Arguments<E>(
-    override val qualifier: String,
-    private val list: List<E>
-) : List<E> by list, Qualified {
+public object SpannedProcessor {
 
-    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+    /**
+     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
+     *
+     * All `<annotation>` tags with more then one attribute will be split into multiple,
+     * so that each has only one attribute.
+     */
+    public fun getAnnotationSpans(string: Spanned): Array<out Annotation> =
+        string.getSpans(0, string.length, Annotation::class.java)
 }
