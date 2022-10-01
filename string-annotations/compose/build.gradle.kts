@@ -1,5 +1,5 @@
 plugins {
-    id("android-library-conventions")
+    id("android-artifact-library-conventions")
 }
 
 android {
@@ -15,4 +15,18 @@ android {
             )
         }
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+}
+
+dependencies {
+
+    // Modules
+    implementation(project(":string-annotations"))
+
+    // Compose
 }
