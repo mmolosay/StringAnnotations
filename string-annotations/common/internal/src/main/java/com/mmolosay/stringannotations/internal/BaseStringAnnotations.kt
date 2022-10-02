@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations
+package com.mmolosay.stringannotations.internal
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -27,7 +27,7 @@ public abstract class BaseStringAnnotations<D> : StringAnnotations<D> {
      * Its `internal`, since the library utilises `Template Method` pattern,
      * and all necessary dependencies will be provided to high-level API.
      */
-    internal val dependencies: D
+    public val dependencies: D
         get() = getDependenciesInternal()
 
     private var _dependencies: D? = null

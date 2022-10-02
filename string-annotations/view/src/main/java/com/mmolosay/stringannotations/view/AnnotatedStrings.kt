@@ -30,8 +30,7 @@ import com.mmolosay.stringannotations.view.internal.SpanProcessor
 public object AnnotatedStrings {
 
     /**
-     * One should prefer using higher level extension functions,
-     * like [com.mmolosay.stringannotations.getAnnotatedString].
+     * One should prefer using higher level extension functions.
      *
      * 1. Formats specified [string] with [formatArgs] (see [String.format]),
      * preserving `<annotation>` spans.
@@ -54,15 +53,15 @@ public object AnnotatedStrings {
         // 1. format, preserving annotation spans
         val spannable = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
 
-        // 3. parse annotation ranges
+        // 2. parse annotation ranges
         val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
 
-        // 4. parse Annotation-s into spans of CharacterStyle type
+        // 3. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
             processor.parseAnnotation(context, annotation, arguments)
         }
 
-        // 5. apply spans to string
+        // 4. apply spans to string
         SpanProcessor.applySpans(spannable, ranges, spans)
 
         return spannable

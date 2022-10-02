@@ -27,6 +27,7 @@ dependencies {
 
     // Modules
     api(project(":string-annotations:common:shared"))
+    implementation(project(":string-annotations:common:internal"))
 
     // Compose
 }
