@@ -29,6 +29,5 @@ dependencies {
     api(project(":string-annotations:common:shared"))
     implementation(project(":string-annotations:common:internal"))
 
-    // TODO: try find dependency with just 'Fragment'
-    implementation("androidx.appcompat:appcompat:1.4.2") // for fragment extensions
+    implementation("androidx.fragment:fragment-ktx:1.5.3") // for fragment extensions
 }
