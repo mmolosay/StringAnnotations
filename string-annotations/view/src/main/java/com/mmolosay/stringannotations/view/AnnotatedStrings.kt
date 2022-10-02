@@ -3,11 +3,12 @@ package com.mmolosay.stringannotations.view
 import android.content.Context
 import android.text.Spanned
 import android.text.SpannedString
+import android.text.style.CharacterStyle
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.view.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.view.internal.SpanProcessor
 
 /*
@@ -95,8 +96,8 @@ public object AnnotatedStrings {
      * I was not able to find elegant solution for this problem.
      */
     @Suppress("UNCHECKED_CAST")
-    private fun <A> requireAnnotationProcessor(): AnnotationProcessor<A> =
-        StringAnnotations.dependencies.processor as? AnnotationProcessor<A>
+    private fun <A> requireAnnotationProcessor(): AnnotationProcessor<A, CharacterStyle> =
+        StringAnnotations.dependencies.processor as? AnnotationProcessor<A, CharacterStyle>
             ?: throw IllegalArgumentException(
                 "StringAnnotations was configured to work with different type of Annotation Arguments"
             )

@@ -4,12 +4,12 @@ import android.text.style.CharacterStyle
 import android.text.style.ClickableSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.view.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.view.processor.parser.ValueParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.token.Tokenizer
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.view.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for "clickable" annotation type.
  */
-internal class ClickableAnnotationProcessor : BaseArgsAnnotationProcessor<ClickableSpan>() {
+internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableSpan>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val valueParser: ValueParser<ClickableSpan>? = null

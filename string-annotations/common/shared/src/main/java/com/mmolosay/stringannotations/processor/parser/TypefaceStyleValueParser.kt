@@ -1,8 +1,8 @@
-package com.mmolosay.stringannotations.view.processor.parser
+package com.mmolosay.stringannotations.processor.parser
 
 import android.content.Context
 import android.graphics.Typeface
-import com.mmolosay.stringannotations.view.processor.token.Token
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai

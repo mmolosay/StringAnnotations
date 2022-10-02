@@ -1,6 +1,4 @@
-package com.mmolosay.stringannotations.view.processor
-
-import com.mmolosay.stringannotations.args.ArgumentsSet
+package com.mmolosay.stringannotations.processor.confaltor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,7 +17,8 @@ import com.mmolosay.stringannotations.args.ArgumentsSet
  */
 
 /**
- * Base class for [BaseAnnotationProcessor] implementations, that works with [ArgumentsSet].
+ * Combines set of values of type [V] into result of the same type.
  */
-public abstract class BaseArgsAnnotationProcessor<V> :
-    BaseAnnotationProcessor<V, ArgumentsSet>()
+public interface ValuesConfaltor<V> {
+    public fun conflate(values: Sequence<V>): V?
+}

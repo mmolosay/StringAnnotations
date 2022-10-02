@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.view.processor.confaltor
+package com.mmolosay.stringannotations.processor.confaltor
 
 /*
  * Copyright 2022 Mikhail Malasai

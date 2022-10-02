@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.view
 
-import com.mmolosay.stringannotations.view.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.view.processor.MasterAnnotationProcessor
 
 /*
@@ -88,19 +88,19 @@ public object StringAnnotations {
      */
     public interface Dependencies {
 
-        public val processor: AnnotationProcessor<*>
+        public val processor: AnnotationProcessor<*, *>
 
         /**
          * Provides convenient interface for assembling library's [Dependencies].
          */
         public class Builder {
 
-            private var processor: AnnotationProcessor<*>? = null
+            private var processor: AnnotationProcessor<*, *>? = null
 
             /**
              * Specifies [AnnotationProcessor] instance to be used.
              */
-            public fun annotationProcessor(instance: AnnotationProcessor<*>): Builder =
+            public fun annotationProcessor(instance: AnnotationProcessor<*, *>): Builder =
                 apply {
                     this.processor = instance
                 }
@@ -120,6 +120,6 @@ public object StringAnnotations {
      * Should not be used as explicit type.
      */
     internal data class DependenciesImpl(
-        override val processor: AnnotationProcessor<*>
+        override val processor: AnnotationProcessor<*, *>
     ) : Dependencies
 }

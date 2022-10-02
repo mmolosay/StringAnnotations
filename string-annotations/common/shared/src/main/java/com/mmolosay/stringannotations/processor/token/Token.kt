@@ -1,7 +1,4 @@
-package com.mmolosay.stringannotations.view.processor.parser.arg
-
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.view.processor.token.Token
+package com.mmolosay.stringannotations.processor.token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,12 +17,11 @@ import com.mmolosay.stringannotations.view.processor.token.Token
  */
 
 /**
- * Specifies way of parsing value placeholder into some corresponding argument.
+ * Represents some atomic value, that was parsed from string annotation's tag.
  */
-public interface AnnotationArgumentParser {
+@JvmInline
+public value class Token(public val string: String) {
 
-    /**
-     * Tries to parse [token] as argument placeholder and obtain its argument from [args].
-     */
-    public fun <V> parse(token: Token, args: Arguments<V>): V?
+    override fun toString(): String =
+        string
 }

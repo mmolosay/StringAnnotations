@@ -1,8 +1,7 @@
-package com.mmolosay.stringannotations.view.processor
+package com.mmolosay.stringannotations.processor
 
 import android.content.Context
 import android.text.Annotation
-import android.text.style.CharacterStyle
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -21,25 +20,25 @@ import android.text.style.CharacterStyle
  */
 
 /**
- * Parses [Annotation] of some [android.text.Spanned] string into span of [CharacterStyle] type.
+ * Parses [Annotation] of some [android.text.Spanned] string into span of [S] type.
  * Works with value arguments of [A] type.
  *
  * One should implement it in order to parse custom annotation type.
  */
-public interface AnnotationProcessor<A> {
+public interface AnnotationProcessor<A, S> {
 
     /**
-     * Parses specified [annotation] into span of [CharacterStyle] type.
+     * Parses specified [annotation] into span of [S] type.
      *
      * @param context caller context.
      * @param annotation annotation to be parsed.
      * @param arguments annotation runtime arguments to be substituted instead of placeholders.
      *
-     * @return parsed span of [CharacterStyle] type, or `null`, if annotation can not be parsed.
+     * @return parsed span of [S] type, or `null`, if annotation can not be parsed.
      */
     public fun parseAnnotation(
         context: Context,
         annotation: Annotation,
         arguments: A?
-    ): CharacterStyle?
+    ): S?
 }

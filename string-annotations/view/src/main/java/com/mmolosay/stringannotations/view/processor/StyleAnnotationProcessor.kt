@@ -7,14 +7,14 @@ import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.view.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.view.processor.parser.AsIsValueParser
-import com.mmolosay.stringannotations.view.processor.parser.ValueParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.token.Token
-import com.mmolosay.stringannotations.view.processor.token.Tokenizer
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.token.Token
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -35,7 +35,7 @@ import com.mmolosay.stringannotations.view.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for "style" annotation type.
  */
-internal class StyleAnnotationProcessor : BaseArgsAnnotationProcessor<Token>() {
+internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Token>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val valueParser: ValueParser<Token> = AsIsValueParser
@@ -48,10 +48,10 @@ internal class StyleAnnotationProcessor : BaseArgsAnnotationProcessor<Token>() {
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        argumentsSet: ArgumentsSet?
+        arguments: ArgumentsSet?
     ): CharacterStyle? =
-        super.parseAnnotation(context, annotation, argumentsSet)
-            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, argumentsSet)
+        super.parseAnnotation(context, annotation, arguments)
+            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, arguments)
 
     override fun inferArguments(set: ArgumentsSet?): Arguments<Token>? =
         null

@@ -4,6 +4,7 @@ import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,7 +23,9 @@ import com.mmolosay.stringannotations.args.ArgumentsSet
  */
 
 /**
- * Default implementation of [AnnotationProcessor], that works with [ArgumentsSet].
+ * Default implementation of [AnnotationProcessor], that works with [ArgumentsSet]
+ * and [CharacterStyle] spans.
+ *
  * Resolves actual [AnnotationProcessor] to be used with passed annotation, based on
  * its type (attribute).
  * It is able to process all default annotation types.
@@ -109,12 +112,12 @@ import com.mmolosay.stringannotations.args.ArgumentsSet
  * <annotation size-absolute="20.3sp">text of 20.3 SP size</annotation>
  * ```
  */
-public open class MasterAnnotationProcessor : AnnotationProcessor<ArgumentsSet> {
+public open class MasterAnnotationProcessor : AnnotationProcessor<ArgumentsSet, CharacterStyle> {
 
-    private val processors: MutableMap<String, AnnotationProcessor<ArgumentsSet>> =
+    private val processors: MutableMap<String, AnnotationProcessor<ArgumentsSet, CharacterStyle>> =
         mutableMapOf()
 
-    final override fun parseAnnotation(
+    public final override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
         arguments: ArgumentsSet?
@@ -124,7 +127,7 @@ public open class MasterAnnotationProcessor : AnnotationProcessor<ArgumentsSet> 
         return processor.parseAnnotation(context, annotation, arguments)
     }
 
-    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<ArgumentsSet>? =
+    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<ArgumentsSet, CharacterStyle>? =
         processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
 
     /**
@@ -134,7 +137,7 @@ public open class MasterAnnotationProcessor : AnnotationProcessor<ArgumentsSet> 
      *
      * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<ArgumentsSet>? =
+    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<ArgumentsSet, CharacterStyle>? =
         when (type) {
             "background" -> BackgroundColorAnnotationProcessor()
             "color" -> ForegroundColorAnnotationProcessor()

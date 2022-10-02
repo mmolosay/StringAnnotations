@@ -1,13 +1,8 @@
 package com.mmolosay.stringannotations.view.processor
 
-import android.content.Context
-import android.text.Annotation
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.view.processor.parser.ValueParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.token.Tokenizer
+import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -26,38 +21,8 @@ import com.mmolosay.stringannotations.view.processor.token.Tokenizer
  */
 
 /**
- * Base class for [AnnotationProcessor] implementations.
- * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
+ * Base class for [BaseAnnotationProcessor] implementations for Android Views system.
+ * Works with [ArgumentsSet] as type of annotation arguments and [CharacterStyle] as type of spans.
  */
-public abstract class BaseAnnotationProcessor<V, A> : AnnotationProcessor<A> {
-
-    protected abstract val tokenizer: Tokenizer
-    protected abstract val valueParser: ValueParser<V>?
-    protected abstract val argParser: AnnotationArgumentParser
-    protected abstract val conflator: ValuesConfaltor<V>
-
-    override fun parseAnnotation(
-        context: Context,
-        annotation: Annotation,
-        arguments: A?
-    ): CharacterStyle? {
-        val tokens = tokenizer.tokenize(annotation.value)
-        val values = tokens
-            .mapNotNull { token ->
-                valueParser?.parse(context, token)
-                    ?: inferArguments(arguments)?.let { argParser.parse(token, it) }
-            }
-        val value = conflator.conflate(values) ?: return null
-        return makeSpan(value)
-    }
-
-    /**
-     * Obtains list of appropiate for type of this annotation processor values from [set].
-     */
-    protected abstract fun inferArguments(set: A?): Arguments<V>?
-
-    /**
-     * Creates new instance of span, corresponding to type of this annotation processor.
-     */
-    protected abstract fun makeSpan(value: V): CharacterStyle?
-}
+public abstract class BaseAnnotationProcessor<V> :
+    BaseAnnotationProcessor<V, ArgumentsSet, CharacterStyle>()

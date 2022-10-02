@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.view.processor.token
+package com.mmolosay.stringannotations.processor.token
 
 /*
  * Copyright 2022 Mikhail Malasai

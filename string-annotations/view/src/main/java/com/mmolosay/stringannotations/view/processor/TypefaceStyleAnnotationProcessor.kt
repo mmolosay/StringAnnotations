@@ -4,13 +4,13 @@ import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.view.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.view.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.view.processor.parser.ValueParser
-import com.mmolosay.stringannotations.view.processor.parser.TypefaceStyleValueParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.view.processor.token.Tokenizer
+import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -31,7 +31,7 @@ import com.mmolosay.stringannotations.view.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for typeface style annotation type.
  */
-internal class TypefaceStyleAnnotationProcessor : BaseArgsAnnotationProcessor<Int>() {
+internal class TypefaceStyleAnnotationProcessor : BaseAnnotationProcessor<Int>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
