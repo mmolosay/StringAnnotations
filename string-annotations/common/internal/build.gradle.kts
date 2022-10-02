@@ -16,7 +16,3 @@ android {
         }
     }
 }
-
-dependencies {
-//    api("androidx.core:core-ktx:1.9.0")
-}

@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.view
 
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.internal.BaseStringAnnotations
+import com.mmolosay.stringannotations.core.BaseStringAnnotations
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.view.processor.MasterAnnotationProcessor
 

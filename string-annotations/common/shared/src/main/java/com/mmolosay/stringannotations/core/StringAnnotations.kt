@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.internal
+package com.mmolosay.stringannotations.core
 
 /*
  * Copyright 2022 Mikhail Malasai
