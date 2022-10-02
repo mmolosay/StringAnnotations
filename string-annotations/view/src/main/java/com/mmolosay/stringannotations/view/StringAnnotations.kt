@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.view
 
+import android.text.style.CharacterStyle
+import com.mmolosay.stringannotations.BaseStringAnnotations
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.view.processor.MasterAnnotationProcessor
 
@@ -27,80 +29,29 @@ import com.mmolosay.stringannotations.view.processor.MasterAnnotationProcessor
  * Call [StringAnnotations.dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-public object StringAnnotations {
+public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependencies>() {
 
-    /**
-     * Whether the library is configured or not.
-     */
-    public val isConfigured: Boolean
-        get() = (_dependencies != null)
-
-    /**
-     * Current dependencies of the library.
-     *
-     * Its `internal`, since the library utilises `Template Method` pattern,
-     * and all necessary dependencies will be provided to high-level API.
-     */
-    internal val dependencies: Dependencies
-        get() = getDependenciesInternal()
-
-    private var _dependencies: Dependencies? = null
-
-    // region Configure & Dispose
-
-    /**
-     * Configures the library's dependencies.
-     *
-     * Call to this method is not necessary, since the library will be configured with default
-     * dependencies at the moment of the very first call to its API.
-     * You should use this method, if you want to change default behaviour and provide custom
-     * dependencies.
-     */
-    public fun configure(dependencies: Dependencies) {
-        _dependencies = dependencies
-    }
-
-    /**
-     * Disposes all held objects.
-     *
-     * Should be called, when the library is never going to be needed again.
-     */
-    public fun dispose() {
-        _dependencies = null
-    }
-
-    // endregion
-
-    /**
-     * Retrieves current [dependencies].
-     * If it's `null`, then it's going to be initialized with default ones.
-     */
-    private fun getDependenciesInternal(): Dependencies {
-        if (!isConfigured) {
-            val dependencies = Dependencies.Builder().build()
-            configure(dependencies)
-        }
-        return requireNotNull(_dependencies)
-    }
+    override fun makeDefaultDependencies(): Dependencies =
+        Dependencies.Builder().build()
 
     /**
      * Dependencies of the library.
      */
     public interface Dependencies {
 
-        public val processor: AnnotationProcessor<*, *>
+        public val processor: AnnotationProcessor<*, CharacterStyle>
 
         /**
          * Provides convenient interface for assembling library's [Dependencies].
          */
         public class Builder {
 
-            private var processor: AnnotationProcessor<*, *>? = null
+            private var processor: AnnotationProcessor<*, CharacterStyle>? = null
 
             /**
              * Specifies [AnnotationProcessor] instance to be used.
              */
-            public fun annotationProcessor(instance: AnnotationProcessor<*, *>): Builder =
+            public fun annotationProcessor(instance: AnnotationProcessor<*, CharacterStyle>): Builder =
                 apply {
                     this.processor = instance
                 }
@@ -120,6 +71,6 @@ public object StringAnnotations {
      * Should not be used as explicit type.
      */
     internal data class DependenciesImpl(
-        override val processor: AnnotationProcessor<*, *>
+        override val processor: AnnotationProcessor<*, CharacterStyle>
     ) : Dependencies
 }
