@@ -3,6 +3,7 @@ package com.mmolosay.stringannotations.view.span.clickable
 import android.content.res.Resources
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.mmolosay.stringannotations.view.utils.ThemeUtils
 import com.mmolosay.stringannotations.view.utils.ThemeUtils.getClickableTextAppearance
 
 /*
@@ -42,9 +43,7 @@ public data class ClickableTextAppearance(
 /**
  * Retrieves [ClickableTextAppearance] from specified [theme].
  *
- * Firstly it will try to resolve style, set as attribute [R.attr.clickableTextAppearance] value
- * in the specified [theme].
- * If it is `null`, then will use default [R.style.Base_ClickableTextAppearance] style.
+ * @see ThemeUtils.getClickableTextAppearance
  */
 public fun ClickableTextAppearance.Companion.from(theme: Resources.Theme): ClickableTextAppearance =
     theme.getClickableTextAppearance()
