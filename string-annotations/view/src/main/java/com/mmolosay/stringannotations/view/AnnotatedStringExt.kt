@@ -46,7 +46,7 @@ public fun Context.getAnnotatedString(
     )
 
 /**
- * Simplified variant of [Context.getAnnotatedString] for cases, when there is no value arguments.
+ * Simplified variant of [Context.getAnnotatedString] for cases, when there is no annotation arguments.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
@@ -81,7 +81,7 @@ public fun Fragment.getAnnotatedString(
     )
 
 /**
- * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no value arguments.
+ * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no annotation arguments.
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
