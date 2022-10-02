@@ -23,7 +23,7 @@ import com.mmolosay.stringannotations.args.ArgumentsSet
  */
 
 /*
- * Extensions for convenience use.
+ * Extensions for convenient use.
  */
 
 /**
