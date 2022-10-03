@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.internal
 
 import android.text.Annotation
 import android.util.Log
+import com.mmolosay.shared.service.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,17 +25,14 @@ import android.util.Log
  *
  * All library's internal logging should go through this component.
  */
-public object Logger {
+public object Logger : Logger {
 
     /**
      * Library tag. Used for logging events.
      */
     private const val TAG = "StringAnnotations"
 
-    /**
-     * Logs specified [message] with library's tag and [Log.WARN] priority.
-     */
-    public fun w(message: String) {
+    override fun w(message: String) {
         Log.w(TAG, message)
     }
 

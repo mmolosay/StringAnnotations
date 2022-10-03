@@ -3,8 +3,8 @@ package com.mmolosay.stringannotations.processor.parser
 import android.content.Context
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.processor.token.Token
-import com.mmolosay.stringannotations.internal.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,7 +25,9 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation token of color type into color integer.
  */
-public object ColorValueParser : ValueParser<Int> {
+public class ColorValueParser(
+    private val logger: Logger
+) : ValueParser<Int> {
 
     @ColorInt
     override fun parse(context: Context, token: Token): Int? =
@@ -46,7 +48,7 @@ public object ColorValueParser : ValueParser<Int> {
         try {
             Color.parseColor(value)
         } catch (e: IllegalArgumentException) {
-            Logger.w("value=\"$value\" can not be parsed into valid color")
+            logger.w("value=\"$value\" can not be parsed into valid color")
             null // return null, if attribute value is invalid
         }
 }

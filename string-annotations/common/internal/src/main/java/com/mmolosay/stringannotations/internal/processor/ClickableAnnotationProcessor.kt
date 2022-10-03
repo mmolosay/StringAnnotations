@@ -2,12 +2,11 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.ColorValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,16 +24,17 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * limitations under the License.
  */
 
+// TODO: try replacing defining types of AnnotaitonProcessor with instantiation of anon object
 /**
- * `AnnotationProcessor` for any color annotation type.
+ * `AnnotationProcessor` for "clickable" annotation type.
  */
-public abstract class BaseColorAnnotationProcessor<S> :
-    ArgumentsSetAnnotationProcessor<Int, S>() {
+public abstract class ClickableAnnotationProcessor<S> :
+    ArgumentsSetAnnotationProcessor<ClickableSpan, S>() {
 
-    override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val valueParser: ValueParser<Int> = ColorValueParser(Logger)
-    override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
+    override val tokenizer: Tokenizer = Tokenizer.Solid()
+    override val valueParser: ValueParser<ClickableSpan>? = null
+    override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    final override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
-        set?.colors
+    override fun inferArguments(set: ArgumentsSet?): Arguments<ClickableSpan>? =
+        set?.clickables
 }

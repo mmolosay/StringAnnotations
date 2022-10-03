@@ -1,9 +1,8 @@
 package com.mmolosay.stringannotations.processor.parser.arg
 
-import android.util.Log.w
+import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.processor.token.Token
-import java.util.logging.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,7 +23,9 @@ import java.util.logging.Logger
 /**
  * Default implementation of [AnnotationArgumentParser].
  */
-public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
+public class DefaultAnnotationArgumentParser(
+    private val logger: Logger
+) : AnnotationArgumentParser {
 
     /**
      * Tries to infer argument from [args] list for specified [token].
@@ -54,17 +55,17 @@ public object DefaultAnnotationArgumentParser : AnnotationArgumentParser {
             val index = requireNotNull(parsePlaceholderIndex(ordinal))
             getArg(index, args)
         } catch (e: Exception) {
-//            Logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
+            logger?.w("Invalid annotation argument placeholder format: \"$placeholder\"")
             null
         }
 
     private fun parsePlaceholderIndex(ordinal: String): Int? =
         ordinal.toIntOrNull().also {
-//            it ?: Logger.w("Cannot parse \"$ordinal\" as argument index")
+            it ?: logger?.w("Cannot parse \"$ordinal\" as argument index")
         }
 
     private fun <V> getArg(index: Int, args: Arguments<V>): V? =
         args.getOrNull(index).also {
-//            it ?: Logger.w("There is no value argument at index=$index")
+            it ?: logger?.w("There is no value argument at index=$index")
         }
 }

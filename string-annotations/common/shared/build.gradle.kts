@@ -19,6 +19,9 @@ android {
 
 dependencies {
 
+    implementation(project(":string-annotations:common:service"))
+    // Modules
+
     // Dependencies
     implementation("androidx.annotation:annotation:1.5.0") // @ColorInt and others
 }

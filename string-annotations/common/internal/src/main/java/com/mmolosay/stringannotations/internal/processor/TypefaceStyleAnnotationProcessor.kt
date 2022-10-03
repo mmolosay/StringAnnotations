@@ -6,8 +6,6 @@ import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -34,7 +32,6 @@ public abstract class TypefaceStyleAnnotationProcessor<S> :
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 

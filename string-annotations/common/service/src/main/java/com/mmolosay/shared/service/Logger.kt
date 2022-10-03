@@ -1,6 +1,6 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.shared.service
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import android.util.Log
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +19,12 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Internal mutable implementation of [ArgumentsSet].
- * Should not be used as explicit type.
+ * Interface for implementation of dependency inversion.
  */
-internal class MutableArgumentsSet(
-    override val colors: MutableArguments<Int> = MutableArguments("color"),
-    override val clickables: MutableArguments<ClickableSpan> = MutableArguments("clickable"),
-    override val typefaceStyles: MutableArguments<Int> = MutableArguments("style"),
-    override val absSizes: MutableArguments<Int> = MutableArguments("size-absolute")
-) : ArgumentsSet
+public interface Logger {
+
+    /**
+     * Logs specified [message] with library's tag and [Log.WARN] priority.
+     */
+    public fun w(message: String)
+}

@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.Px
+import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.processor.token.Token
-import com.mmolosay.stringannotations.internal.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -26,7 +26,9 @@ import com.mmolosay.stringannotations.internal.Logger
 /**
  * Parses string annotation token of size type into pixel size.
  */
-public object SizeUnitValueParser : ValueParser<Int> {
+public class SizeUnitValueParser(
+    private val logger: Logger
+) : ValueParser<Int> {
 
     override fun parse(context: Context, token: Token): Int? =
         parse(token.string, context.resources.displayMetrics)
@@ -70,7 +72,7 @@ public object SizeUnitValueParser : ValueParser<Int> {
             UNIT_LABEL_SP -> parseSizeUnit(size, TypedValue.COMPLEX_UNIT_SP, metrics)
             UNIT_LABEL_DP -> parseSizeUnit(size, TypedValue.COMPLEX_UNIT_DIP, metrics)
             else -> {
-                Logger.w("Unknown size unit \"$unit\"")
+                logger.w("Unknown size unit \"$unit\"")
                 null
             }
         }
@@ -90,7 +92,9 @@ public object SizeUnitValueParser : ValueParser<Int> {
             /*metrics*/ metrics
         ).toInt()
 
-    private const val UNIT_LABEL_PX = "px"
-    private const val UNIT_LABEL_SP = "sp"
-    private const val UNIT_LABEL_DP = "dp"
+    private companion object {
+        const val UNIT_LABEL_PX = "px"
+        const val UNIT_LABEL_SP = "sp"
+        const val UNIT_LABEL_DP = "dp"
+    }
 }

@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import android.text.style.ClickableSpan
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai

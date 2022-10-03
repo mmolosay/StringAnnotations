@@ -10,8 +10,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.args.ArgumentsSet
 import com.mmolosay.stringannotations.view.getAnnotatedString
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 import com.mmolosay.stringannotations.view.span.clickable.ClickableSpan
-import com.mmolosay.stringannotations.view.span.clickable.ClickableTextAppearance
 import com.mmolosay.stringannotations.view.span.clickable.from
 
 // TODO: add example of usage with Compose
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
     private fun setDemo3() {
-        val appearance = ClickableTextAppearance.from(theme)
-        val span1 = ClickableSpan(appearance.copy(textColor = Color.RED)) {
+        val appearance = ClickableSpan.Appearance.from(theme)
+        val span1 = ClickableSpan(appearance) {
             Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
         }
         val span2 = ClickableSpan(
