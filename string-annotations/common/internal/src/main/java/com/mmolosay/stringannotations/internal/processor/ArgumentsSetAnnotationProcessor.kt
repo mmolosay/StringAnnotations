@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
@@ -23,12 +23,12 @@ import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgu
  */
 
 /**
- * [BaseAnnotationProcessor], that works with [ArgumentsSet] as type of annotation arguments.
+ * [BaseAnnotationProcessor], that works with [ArgumentSet] as type of annotation arguments.
  *
  * Employs [DefaultAnnotationArgumentParser] for [argParser].
  */
 public abstract class ArgumentsSetAnnotationProcessor<V, S> :
-    BaseAnnotationProcessor<V, ArgumentsSet, S>() {
+    BaseAnnotationProcessor<V, ArgumentSet, S>() {
 
     override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
 }

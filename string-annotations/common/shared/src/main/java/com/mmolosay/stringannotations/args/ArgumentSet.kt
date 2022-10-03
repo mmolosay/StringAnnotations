@@ -19,9 +19,9 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Set of default [Arguments] of some annotated string.
+ * Immutable set of default [Arguments] of some annotated string.
  */
-public interface ArgumentsSet {
+public interface ArgumentSet {
 
     /**
      * Color integers.

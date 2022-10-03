@@ -19,103 +19,103 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Scope, that provides declarative API for assembling [ArgumentsSet] instance.
+ * Scope, that provides declarative API for assembling [ArgumentSet] instance.
  */
 public interface ArgumentsSetBuilder {
 
     // region Colors
 
     /**
-     * Adds specified [item] in [ArgumentsSet.colors] list.
+     * Adds specified [item] in [ArgumentSet.colors] list.
      */
-    public fun color(item: Int): ArgumentsSet
+    public fun color(item: Int): ArgumentSet
 
     /**
-     * Executes [producer] and adds resulting color integer to [ArgumentsSet.colors] list.
+     * Executes [producer] and adds resulting color integer to [ArgumentSet.colors] list.
      */
-    public fun color(producer: () -> Int): ArgumentsSet
+    public fun color(producer: () -> Int): ArgumentSet
 
     /**
-     * Adds specified [items] in [ArgumentsSet.colors] list.
+     * Adds specified [items] in [ArgumentSet.colors] list.
      */
-    public fun colors(vararg items: Int): ArgumentsSet
+    public fun colors(vararg items: Int): ArgumentSet
 
     /**
-     * Executes [block], scoped to [Adder] of [ArgumentsSet.colors] list.
+     * Executes [block], scoped to [Adder] of [ArgumentSet.colors] list.
      */
-    public fun colors(block: Adder<Int>.() -> Unit): ArgumentsSet
+    public fun colors(block: Adder<Int>.() -> Unit): ArgumentSet
 
     // endregion
 
     // region Clickables
 
     /**
-     * Adds specified [item] in [ArgumentsSet.clickables] list.
+     * Adds specified [item] in [ArgumentSet.clickables] list.
      */
-    public fun clickable(item: ClickableSpan): ArgumentsSet
+    public fun clickable(item: ClickableSpan): ArgumentSet
 
     /**
-     * Executes [producer] and adds resulting clickable span to [ArgumentsSet.clickables] list.
+     * Executes [producer] and adds resulting clickable span to [ArgumentSet.clickables] list.
      */
-    public fun clickable(producer: () -> ClickableSpan): ArgumentsSet
+    public fun clickable(producer: () -> ClickableSpan): ArgumentSet
 
     /**
-     * Adds specified [items] in [ArgumentsSet.clickables] list.
+     * Adds specified [items] in [ArgumentSet.clickables] list.
      */
-    public fun clickables(vararg items: ClickableSpan): ArgumentsSet
+    public fun clickables(vararg items: ClickableSpan): ArgumentSet
 
     /**
-     * Executes [block], scoped to [Adder] of [ArgumentsSet.clickables] list.
+     * Executes [block], scoped to [Adder] of [ArgumentSet.clickables] list.
      */
-    public fun clickables(block: Adder<ClickableSpan>.() -> Unit): ArgumentsSet
+    public fun clickables(block: Adder<ClickableSpan>.() -> Unit): ArgumentSet
 
     // endregion
 
     // region Typeface styles
 
     /**
-     * Adds specified [item] in [ArgumentsSet.typefaceStyles] list.
+     * Adds specified [item] in [ArgumentSet.typefaceStyles] list.
      */
-    public fun typefaceStyle(item: Int): ArgumentsSet
+    public fun typefaceStyle(item: Int): ArgumentSet
 
     /**
-     * Executes [producer] and adds resulting typeface style integer to [ArgumentsSet.typefaceStyles] list.
+     * Executes [producer] and adds resulting typeface style integer to [ArgumentSet.typefaceStyles] list.
      */
-    public fun typefaceStyle(producer: () -> Int): ArgumentsSet
+    public fun typefaceStyle(producer: () -> Int): ArgumentSet
 
     /**
-     * Adds specified [items] in [ArgumentsSet.typefaceStyles] list.
+     * Adds specified [items] in [ArgumentSet.typefaceStyles] list.
      */
-    public fun typefaceStyles(vararg items: Int): ArgumentsSet
+    public fun typefaceStyles(vararg items: Int): ArgumentSet
 
     /**
-     * Executes [block], scoped to [Adder] of [ArgumentsSet.typefaceStyles] list.
+     * Executes [block], scoped to [Adder] of [ArgumentSet.typefaceStyles] list.
      */
-    public fun typefaceStyles(block: Adder<Int>.() -> Unit): ArgumentsSet
+    public fun typefaceStyles(block: Adder<Int>.() -> Unit): ArgumentSet
 
     // endregion
 
     // region Absolute sizes
 
     /**
-     * Adds specified [item] in [ArgumentsSet.absSizes] list.
+     * Adds specified [item] in [ArgumentSet.absSizes] list.
      */
-    public fun absoluteSize(item: Int): ArgumentsSet
+    public fun absoluteSize(item: Int): ArgumentSet
 
     /**
-     * Executes [producer] and adds resulting pixel size to [ArgumentsSet.absSizes] list.
+     * Executes [producer] and adds resulting pixel size to [ArgumentSet.absSizes] list.
      */
-    public fun absoluteSize(producer: () -> Int): ArgumentsSet
+    public fun absoluteSize(producer: () -> Int): ArgumentSet
 
     /**
-     * Adds specified [items] in [ArgumentsSet.absSizes] list.
+     * Adds specified [items] in [ArgumentSet.absSizes] list.
      */
-    public fun absoluteSizes(vararg items: Int): ArgumentsSet
+    public fun absoluteSizes(vararg items: Int): ArgumentSet
 
     /**
-     * Executes [block], scoped to [Adder] of [ArgumentsSet.absSizes] list.
+     * Executes [block], scoped to [Adder] of [ArgumentSet.absSizes] list.
      */
-    public fun absoluteSizes(block: Adder<Int>.() -> Unit): ArgumentsSet
+    public fun absoluteSizes(block: Adder<Int>.() -> Unit): ArgumentSet
 
     // endregion
 

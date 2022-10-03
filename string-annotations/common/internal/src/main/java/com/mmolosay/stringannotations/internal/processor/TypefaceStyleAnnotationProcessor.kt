@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
@@ -35,6 +35,6 @@ public abstract class TypefaceStyleAnnotationProcessor<S> :
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 
-    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+    override fun inferArguments(set: ArgumentSet?): Arguments<Int>? =
         set?.typefaceStyles
 }

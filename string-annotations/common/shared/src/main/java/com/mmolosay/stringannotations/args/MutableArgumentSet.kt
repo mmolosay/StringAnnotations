@@ -19,12 +19,12 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Internal mutable implementation of [ArgumentsSet].
+ * Internal mutable implementation of [ArgumentSet].
  * Should not be used as explicit type.
  */
-internal class MutableArgumentsSet(
+internal class MutableArgumentSet(
     override val colors: MutableArguments<Int> = MutableArguments("color"),
     override val clickables: MutableArguments<ClickableSpan> = MutableArguments("clickable"),
     override val typefaceStyles: MutableArguments<Int> = MutableArguments("style"),
     override val absSizes: MutableArguments<Int> = MutableArguments("size-absolute")
-) : ArgumentsSet
+) : ArgumentSet

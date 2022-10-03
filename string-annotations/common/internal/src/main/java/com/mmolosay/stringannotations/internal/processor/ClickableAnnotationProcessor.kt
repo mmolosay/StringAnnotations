@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
@@ -35,6 +35,6 @@ public abstract class ClickableAnnotationProcessor<S> :
     override val valueParser: ValueParser<ClickableSpan>? = null
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
-    override fun inferArguments(set: ArgumentsSet?): Arguments<ClickableSpan>? =
+    override fun inferArguments(set: ArgumentSet?): Arguments<ClickableSpan>? =
         set?.clickables
 }

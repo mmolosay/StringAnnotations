@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.views.processor
 
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 
 /*
@@ -22,7 +22,7 @@ import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 
 /**
  * Base class for [BaseAnnotationProcessor] implementations for Android Views system.
- * Works with [ArgumentsSet] as type of annotation arguments and [CharacterStyle] as type of spans.
+ * Works with [ArgumentSet] as type of annotation arguments and [CharacterStyle] as type of spans.
  */
 public abstract class BaseAnnotationProcessor<V> :
-    BaseAnnotationProcessor<V, ArgumentsSet, CharacterStyle>()
+    BaseAnnotationProcessor<V, ArgumentSet, CharacterStyle>()

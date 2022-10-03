@@ -24,7 +24,7 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
 
-    private val args = MutableArgumentsSet()
+    private val args = MutableArgumentSet()
 
     private val colorsAdder = ArgumentsSetBuilder.Adder(args.colors)
     private val clickablesAdder = ArgumentsSetBuilder.Adder(args.clickables)
@@ -33,64 +33,64 @@ internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
 
     // region Colors
 
-    override fun color(item: Int): ArgumentsSet =
+    override fun color(item: Int): ArgumentSet =
         add(item, args.colors)
 
-    override fun color(producer: () -> Int): ArgumentsSet =
+    override fun color(producer: () -> Int): ArgumentSet =
         add(producer, args.colors)
 
-    override fun colors(vararg items: Int): ArgumentsSet =
+    override fun colors(vararg items: Int): ArgumentSet =
         add(items.toTypedArray(), args.colors)
 
-    override fun colors(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentsSet =
+    override fun colors(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentSet =
         add(block, colorsAdder)
 
     // endregion
 
     // region Clickables
 
-    override fun clickable(item: ClickableSpan): ArgumentsSet =
+    override fun clickable(item: ClickableSpan): ArgumentSet =
         add(item, args.clickables)
 
-    override fun clickable(producer: () -> ClickableSpan): ArgumentsSet =
+    override fun clickable(producer: () -> ClickableSpan): ArgumentSet =
         add(producer, args.clickables)
 
-    override fun clickables(vararg items: ClickableSpan): ArgumentsSet =
+    override fun clickables(vararg items: ClickableSpan): ArgumentSet =
         add(items, args.clickables)
 
-    override fun clickables(block: ArgumentsSetBuilder.Adder<ClickableSpan>.() -> Unit): ArgumentsSet =
+    override fun clickables(block: ArgumentsSetBuilder.Adder<ClickableSpan>.() -> Unit): ArgumentSet =
         add(block, clickablesAdder)
 
     // endregion
 
     // region Typeface styles
 
-    override fun typefaceStyle(item: Int): ArgumentsSet =
+    override fun typefaceStyle(item: Int): ArgumentSet =
         add(item, args.typefaceStyles)
 
-    override fun typefaceStyle(producer: () -> Int): ArgumentsSet =
+    override fun typefaceStyle(producer: () -> Int): ArgumentSet =
         add(producer, args.typefaceStyles)
 
-    override fun typefaceStyles(vararg items: Int): ArgumentsSet =
+    override fun typefaceStyles(vararg items: Int): ArgumentSet =
         add(items.toTypedArray(), args.typefaceStyles)
 
-    override fun typefaceStyles(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentsSet =
+    override fun typefaceStyles(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentSet =
         add(block, typefaceStylesAdder)
 
     // endregion
 
     // region Absolute sizes
 
-    override fun absoluteSize(item: Int): ArgumentsSet =
+    override fun absoluteSize(item: Int): ArgumentSet =
         add(item, args.absSizes)
 
-    override fun absoluteSize(producer: () -> Int): ArgumentsSet =
+    override fun absoluteSize(producer: () -> Int): ArgumentSet =
         add(producer, args.absSizes)
 
-    override fun absoluteSizes(vararg items: Int): ArgumentsSet =
+    override fun absoluteSizes(vararg items: Int): ArgumentSet =
         add(items.toTypedArray(), args.absSizes)
 
-    override fun absoluteSizes(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentsSet =
+    override fun absoluteSizes(block: ArgumentsSetBuilder.Adder<Int>.() -> Unit): ArgumentSet =
         add(block, absSizesAdder)
 
     // endregion
@@ -98,7 +98,7 @@ internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
     private fun <T> add(
         element: T,
         dest: MutableCollection<T>
-    ): ArgumentsSet =
+    ): ArgumentSet =
         args.apply {
             dest.add(element)
         }
@@ -106,7 +106,7 @@ internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
     private fun <T> add(
         element: Array<out T>,
         dest: MutableCollection<T>
-    ): ArgumentsSet =
+    ): ArgumentSet =
         args.apply {
             dest.addAll(element)
         }
@@ -114,7 +114,7 @@ internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
     private fun <T> add(
         producer: () -> T,
         dest: MutableCollection<T>
-    ): ArgumentsSet =
+    ): ArgumentSet =
         args.apply {
             dest.add(producer())
         }
@@ -122,7 +122,7 @@ internal class ArgumentsSetBuilderImpl : ArgumentsSetBuilder {
     private fun <T> add(
         block: ArgumentsSetBuilder.Adder<T>.() -> Unit,
         adder: ArgumentsSetBuilder.Adder<T>
-    ): ArgumentsSet =
+    ): ArgumentSet =
         args.apply {
             block(adder)
         }

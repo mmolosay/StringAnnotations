@@ -1,9 +1,5 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.args.ArgumentsSetBuilder
-import com.mmolosay.stringannotations.args.ArgumentsSetBuilderImpl
-
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -21,7 +17,7 @@ import com.mmolosay.stringannotations.args.ArgumentsSetBuilderImpl
  */
 
 /**
- * Assembles [ArgumentsSet] in declarative style.
+ * Assembles [ArgumentSet] in declarative style.
  */
-public fun ArgumentsSet(builder: ArgumentsSetBuilder.() -> ArgumentsSet): ArgumentsSet =
+public fun ArgumentsSet(builder: ArgumentsSetBuilder.() -> ArgumentSet): ArgumentSet =
     builder(ArgumentsSetBuilderImpl())

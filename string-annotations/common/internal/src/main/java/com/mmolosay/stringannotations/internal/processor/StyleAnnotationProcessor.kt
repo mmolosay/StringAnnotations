@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.internal.processor
 import android.content.Context
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
@@ -41,12 +41,12 @@ public abstract class StyleAnnotationProcessor<S> : ArgumentsSetAnnotationProces
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        arguments: ArgumentsSet?
+        arguments: ArgumentSet?
     ): S? =
         super.parseAnnotation(context, annotation, arguments)
             ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, arguments)
 
-    override fun inferArguments(set: ArgumentsSet?): Arguments<Token>? =
+    override fun inferArguments(set: ArgumentSet?): Arguments<Token>? =
         null
 
     override fun makeSpan(value: Token): S? =
