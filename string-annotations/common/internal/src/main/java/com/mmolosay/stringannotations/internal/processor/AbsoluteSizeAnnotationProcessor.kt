@@ -1,11 +1,11 @@
-package com.mmolosay.stringannotations.view.processor
+package com.mmolosay.stringannotations.internal.processor
 
-import android.text.style.CharacterStyle
-import android.text.style.ClickableSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.SizeUnitValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
 import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
@@ -27,20 +27,17 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * limitations under the License.
  */
 
-// TODO: try replacing defining types of AnnotaitonProcessor with instantiation of anon object
 /**
- * `AnnotationProcessor` for "clickable" annotation type.
+ * `AnnotationProcessor` for "size-absolute" annotation type.
  */
-internal class ClickableAnnotationProcessor : BaseAnnotationProcessor<ClickableSpan>() {
+public abstract class AbsoluteSizeAnnotationProcessor<S> :
+    ArgumentsSetAnnotationProcessor<Int, S>() {
 
-    override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val valueParser: ValueParser<ClickableSpan>? = null
+    override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
+    override val valueParser: ValueParser<Int> = SizeUnitValueParser
     override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
-    override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
+    override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
-    override fun inferArguments(set: ArgumentsSet?): Arguments<ClickableSpan>? =
-        set?.clickables
-
-    override fun makeSpan(value: ClickableSpan): CharacterStyle =
-        value
+    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
+        set?.absSizes
 }

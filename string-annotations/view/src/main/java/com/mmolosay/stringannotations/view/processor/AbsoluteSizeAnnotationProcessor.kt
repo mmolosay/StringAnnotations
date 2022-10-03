@@ -2,15 +2,7 @@ package com.mmolosay.stringannotations.view.processor
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.SizeUnitValueParser
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.internal.processor.AbsoluteSizeAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -29,17 +21,9 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
- * `AnnotationProcessor` for "size-absolute" annotation type.
+ * Implementation of [AbsoluteSizeAnnotationProcessor] for Android Views system.
  */
-internal class AbsoluteSizeAnnotationProcessor : BaseAnnotationProcessor<Int>() {
-
-    override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val valueParser: ValueParser<Int> = SizeUnitValueParser
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
-    override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
-
-    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
-        set?.absSizes
+internal class AbsoluteSizeAnnotationProcessor : AbsoluteSizeAnnotationProcessor<CharacterStyle>() {
 
     override fun makeSpan(value: Int): CharacterStyle =
         AbsoluteSizeSpan(value)

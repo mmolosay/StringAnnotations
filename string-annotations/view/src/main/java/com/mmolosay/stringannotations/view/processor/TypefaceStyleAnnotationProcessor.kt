@@ -2,15 +2,7 @@ package com.mmolosay.stringannotations.view.processor
 
 import android.text.style.CharacterStyle
 import android.text.style.StyleSpan
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.internal.processor.TypefaceStyleAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -29,18 +21,10 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
- * `AnnotationProcessor` for typeface style annotation type.
+ *  * Implementation of [TypefaceStyleAnnotationProcessor] for Android Views system.
  */
-internal class TypefaceStyleAnnotationProcessor : BaseAnnotationProcessor<Int>() {
-
-    override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
-    override val conflator: ValuesConfaltor<Int> =
-        StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
-
-    override fun inferArguments(set: ArgumentsSet?): Arguments<Int>? =
-        set?.typefaceStyles
+internal class TypefaceStyleAnnotationProcessor :
+    TypefaceStyleAnnotationProcessor<CharacterStyle>() {
 
     override fun makeSpan(value: Int): CharacterStyle =
         StyleSpan(value)

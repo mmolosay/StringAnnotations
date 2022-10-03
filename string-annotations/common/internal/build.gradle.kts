@@ -16,3 +16,9 @@ android {
         }
     }
 }
+
+dependencies {
+
+    // Modules
+    implementation(project(":string-annotations:common:shared"))
+}

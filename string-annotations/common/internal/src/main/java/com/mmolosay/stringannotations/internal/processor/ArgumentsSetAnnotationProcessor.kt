@@ -1,7 +1,7 @@
-package com.mmolosay.stringannotations.view.processor
+package com.mmolosay.stringannotations.internal.processor
 
-import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
+import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,7 +20,7 @@ import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProc
  */
 
 /**
- * Implementation of [BaseColorAnnotationProcessor] for Android Views system.
+ * [BaseAnnotationProcessor], that works with [ArgumentsSet] as type of annotation arguments.
  */
-internal abstract class BaseColorAnnotationProcessor :
-    BaseColorAnnotationProcessor<CharacterStyle>()
+public abstract class ArgumentsSetAnnotationProcessor<V, S> :
+    BaseAnnotationProcessor<V, ArgumentsSet, S>()

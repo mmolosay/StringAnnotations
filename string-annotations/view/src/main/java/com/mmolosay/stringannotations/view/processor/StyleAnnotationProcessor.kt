@@ -1,20 +1,9 @@
 package com.mmolosay.stringannotations.view.processor
 
-import android.content.Context
-import android.text.Annotation
 import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsSet
-import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.token.Token
-import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.internal.processor.StyleAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -33,38 +22,15 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
- * `AnnotationProcessor` for "style" annotation type.
+ * Implementation of [StyleAnnotationProcessor] for Android Views system.
  */
-internal class StyleAnnotationProcessor : BaseAnnotationProcessor<Token>() {
+internal class StyleAnnotationProcessor : StyleAnnotationProcessor<CharacterStyle>() {
 
-    override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val valueParser: ValueParser<Token> = AsIsValueParser
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser
-    override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
+    override val typefaceStyleAnnotationProcessor = TypefaceStyleAnnotationProcessor()
 
-    private val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor =
-        TypefaceStyleAnnotationProcessor()
+    override fun makeUnderlineSpan(): CharacterStyle =
+        UnderlineSpan()
 
-    override fun parseAnnotation(
-        context: Context,
-        annotation: Annotation,
-        arguments: ArgumentsSet?
-    ): CharacterStyle? =
-        super.parseAnnotation(context, annotation, arguments)
-            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, arguments)
-
-    override fun inferArguments(set: ArgumentsSet?): Arguments<Token>? =
-        null
-
-    override fun makeSpan(value: Token): CharacterStyle? =
-        when (value) {
-            tokenUnderline -> UnderlineSpan()
-            tokenStrikethrough -> StrikethroughSpan()
-            else -> null
-        }
-
-    private companion object {
-        val tokenUnderline = Token("underline")
-        val tokenStrikethrough = Token("strikethrough")
-    }
+    override fun makeStrikethroughSpan(): CharacterStyle =
+        StrikethroughSpan()
 }
