@@ -27,6 +27,9 @@ import com.mmolosay.stringannotations.view.internal.SpanProcessor
  * limitations under the License.
  */
 
+/**
+ * Processes annotated string for Android Views system.
+ */
 public object AnnotatedStrings {
 
     /**
