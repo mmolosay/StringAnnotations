@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.args
 
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -16,8 +18,13 @@ package com.mmolosay.stringannotations.args
  * limitations under the License.
  */
 
-@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
-public class MutableArguments<E>(
-    override val qualifier: String,
-    collection: MutableList<E> = mutableListOf()
-) : Arguments<E>(qualifier, collection), MutableList<E> by collection
+/**
+ * Internal mutable implementation of [Arguments].
+ * Should not be used as explicit type.
+ */
+internal class MutableArguments(
+    override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
+    override val clickables: MutableQualifiedList<ClickableSpan> = MutableQualifiedList("clickable"),
+    override val typefaceStyles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
+    override val absSizes: MutableQualifiedList<Int> = MutableQualifiedList("size-absolute")
+) : Arguments

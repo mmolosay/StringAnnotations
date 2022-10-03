@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.utils.Qualified
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +19,31 @@ import com.mmolosay.stringannotations.utils.Qualified
  */
 
 /**
- * Qualified list of values.
+ * Immutable set of default [QualifiedList] of some annotated string.
+ *
+ * `Arguments` is a great way to use values, which are tough (or completely impossible)
+ * to parse from string, like click actions or dynamically computing values.
  */
-public open class Arguments<E>(
-    override val qualifier: String,
-    private val list: List<E>
-) : List<E> by list, Qualified {
+public interface Arguments {
 
-    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+    /**
+     * Color integers.
+     */
+    public val colors: QualifiedList<Int>
+
+    /**
+     * Clickable spans.
+     */
+    public val clickables: QualifiedList<ClickableSpan>
+
+    /**
+     * Typeface style integers.
+     */
+    public val typefaceStyles: QualifiedList<Int>
+
+    /**
+     * Absolute sizes in pixels.
+     */
+    public val absSizes: QualifiedList<Int>
+
 }

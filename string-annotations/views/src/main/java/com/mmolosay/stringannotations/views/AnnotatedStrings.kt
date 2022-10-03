@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
-import com.mmolosay.stringannotations.args.ArgumentSet
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
@@ -41,7 +41,7 @@ public object AnnotatedStrings {
      */
     public fun process(
         string: SpannedString,
-        arguments: ArgumentSet? = null,
+        arguments: Arguments? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
@@ -71,7 +71,7 @@ public object AnnotatedStrings {
     public fun process(
         context: Context,
         @StringRes id: Int,
-        arguments: ArgumentSet? = null,
+        arguments: Arguments? = null,
         vararg formatArgs: Any
     ): Spanned =
         process(

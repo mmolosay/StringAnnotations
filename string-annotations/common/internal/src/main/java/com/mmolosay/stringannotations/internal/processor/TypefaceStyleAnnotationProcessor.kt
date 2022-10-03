@@ -1,14 +1,14 @@
 package com.mmolosay.stringannotations.internal.processor
 
 import android.graphics.Typeface
-import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.AnnotationValueParser
-import com.mmolosay.stringannotations.processor.parser.DefaultAnnotationValueParser
+import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
+import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -34,11 +34,11 @@ public abstract class TypefaceStyleAnnotationProcessor<S> :
     BaseAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val parser: AnnotationValueParser = DefaultAnnotationValueParser(Logger)
+    override val parser: ValuesParser = DefaultValuesParser(Logger)
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.All(::reduceTypefaceStyles)
 
-    override fun inferArguments(set: ArgumentSet?): Arguments<Int>? =
-        set?.typefaceStyles
+    override fun Arguments.getValues(): QualifiedList<Int>? =
+        typefaceStyles
 
     private fun reduceTypefaceStyles(styles: Collection<Int>): Int? {
         if (styles.isEmpty()) return null

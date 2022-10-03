@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.utils
+package com.mmolosay.stringannotations.args
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,8 +17,12 @@ package com.mmolosay.stringannotations.utils
  */
 
 /**
- * Specifies [qualifier].
+ * Qualified list of elements [E].
  */
-public interface Qualified {
-    public val qualifier: String
+public open class QualifiedList<E>(
+    override val qualifier: String,
+    private val list: List<E>
+) : List<E> by list, Qualified {
+
+    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
 }

@@ -1,6 +1,7 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.processor.parser
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.processor.token.Token
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +20,13 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Internal mutable implementation of [ArgumentSet].
- * Should not be used as explicit type.
+ * Specifies way of parsing placeholder into some actual value,
+ * that will be used for span creation.
  */
-internal class MutableArgumentSet(
-    override val colors: MutableArguments<Int> = MutableArguments("color"),
-    override val clickables: MutableArguments<ClickableSpan> = MutableArguments("clickable"),
-    override val typefaceStyles: MutableArguments<Int> = MutableArguments("style"),
-    override val absSizes: MutableArguments<Int> = MutableArguments("size-absolute")
-) : ArgumentSet
+public interface ValuesParser {
+
+    /**
+     * Tries to parse [token] as argument placeholder and obtain its actual value from [values].
+     */
+    public fun <V> parse(token: Token, values: QualifiedList<V>): V?
+}

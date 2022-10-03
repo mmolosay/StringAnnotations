@@ -1,10 +1,10 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.AnnotationValueParser
+import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -33,25 +33,25 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 public abstract class BaseAnnotationProcessor<V, S> : AnnotationProcessor<S> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val parser: AnnotationValueParser
+    protected abstract val parser: ValuesParser
     protected abstract val conflator: ValuesConfaltor<V>
 
     override fun parseAnnotation(
         annotation: Annotation,
-        arguments: ArgumentSet?
+        arguments: Arguments?
     ): S? {
         val tokens = tokenizer.tokenize(annotation.value)
         val values = tokens.mapNotNull { token ->
-            inferArguments(arguments)?.let { parser.parse(token, it) }
+            arguments?.getValues()?.let { parser.parse(token, it) }
         }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
 
     /**
-     * Obtains list of appropiate for type of this annotation processor values from [set].
+     * Obtains list of values, appropiate for type of this annotation processor.
      */
-    protected abstract fun inferArguments(set: ArgumentSet?): Arguments<V>?
+    protected abstract fun Arguments.getValues(): QualifiedList<V>?
 
     /**
      * Creates new instance of span, corresponding to type of this annotation processor.

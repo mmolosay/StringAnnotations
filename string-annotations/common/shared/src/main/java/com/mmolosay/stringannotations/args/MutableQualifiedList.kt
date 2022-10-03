@@ -16,12 +16,8 @@ package com.mmolosay.stringannotations.args
  * limitations under the License.
  */
 
-/*
- * Extension for Arguments and stuff for convenience of use.
- */
-
-/**
- * Assembles [Arguments] in declarative style.
- */
-public fun Arguments(builder: ArgumentsBuilder.() -> Arguments): Arguments =
-    builder(ArgumentsBuilderImpl())
+@Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
+public class MutableQualifiedList<E>(
+    override val qualifier: String,
+    collection: MutableList<E> = mutableListOf()
+) : QualifiedList<E>(qualifier, collection), MutableList<E> by collection

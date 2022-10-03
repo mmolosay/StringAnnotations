@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.ArgumentSet
+import com.mmolosay.stringannotations.args.Arguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -38,6 +38,6 @@ public interface AnnotationProcessor<S> {
      */
     public fun parseAnnotation(
         annotation: Annotation,
-        arguments: ArgumentSet?
+        arguments: Arguments?
     ): S?
 }

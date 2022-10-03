@@ -1,7 +1,4 @@
-package com.mmolosay.stringannotations.processor.parser
-
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.processor.token.Token
+package com.mmolosay.stringannotations.args
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,13 +17,8 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Specifies way of parsing placeholder into some actual value,
- * that will be used for span creation.
+ * Specifies [qualifier].
  */
-public interface AnnotationValueParser {
-
-    /**
-     * Tries to parse [token] as argument placeholder and obtain its actual value from [arguments].
-     */
-    public fun <V> parse(token: Token, arguments: Arguments<V>): V?
+public interface Qualified {
+    public val qualifier: String
 }
