@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
- * Base class for [AnnotationProcessor] implementations for single annotation type.
+ * Abstract class for [AnnotationProcessor] implementations for single annotation type.
  * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
  *
  * @param V type of annotation values; for instance, `Int` for color.
