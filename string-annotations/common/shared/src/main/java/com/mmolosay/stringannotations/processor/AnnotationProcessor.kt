@@ -32,7 +32,7 @@ public interface AnnotationProcessor<A, S> {
      *
      * @param context caller context.
      * @param annotation annotation to be parsed.
-     * @param arguments annotation runtime arguments to be substituted instead of placeholders.
+     * @param arguments annotation arguments to be substituted instead of placeholders.
      *
      * @return parsed span of [S] type, or `null`, if annotation can not be parsed.
      */
