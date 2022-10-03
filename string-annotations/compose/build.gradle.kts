@@ -21,6 +21,13 @@ android {
             withSourcesJar()
         }
     }
+
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.1"
+    }
 }
 
 dependencies {
@@ -30,4 +37,7 @@ dependencies {
     implementation(project(":string-annotations:common:internal"))
 
     // Compose
+    implementation("androidx.compose.ui:ui:1.2.1")
+//    implementation("androidx.compose.ui:ui-tooling:1.2.1")
+//    implementation("androidx.compose.foundation:foundation:1.2.1")
 }
