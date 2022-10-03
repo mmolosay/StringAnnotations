@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.processor
 
 import android.content.Context
 import android.text.Annotation
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
@@ -25,14 +26,13 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
- * Base class for [AnnotationProcessor] implementations.
+ * Base class for [AnnotationProcessor] implementations for single annotation type.
  * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
  *
  * @param V type of annotation value; for instance, `Int` for color.
- * @param A type of annotation arguments.
  * @param S type of spans.
  */
-public abstract class BaseAnnotationProcessor<V, A, S> : AnnotationProcessor<A, S> {
+public abstract class BaseAnnotationProcessor<V, S> : AnnotationProcessor<S> {
 
     protected abstract val tokenizer: Tokenizer
     protected abstract val valueParser: ValueParser<V>?
@@ -42,7 +42,7 @@ public abstract class BaseAnnotationProcessor<V, A, S> : AnnotationProcessor<A, 
     override fun parseAnnotation(
         context: Context,
         annotation: Annotation,
-        arguments: A?
+        arguments: ArgumentSet?
     ): S? {
         val tokens = tokenizer.tokenize(annotation.value)
         val values = tokens
@@ -57,7 +57,7 @@ public abstract class BaseAnnotationProcessor<V, A, S> : AnnotationProcessor<A, 
     /**
      * Obtains list of appropiate for type of this annotation processor values from [set].
      */
-    protected abstract fun inferArguments(set: A?): Arguments<V>?
+    protected abstract fun inferArguments(set: ArgumentSet?): Arguments<V>?
 
     /**
      * Creates new instance of span, corresponding to type of this annotation processor.

@@ -20,6 +20,9 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 /**
  * Immutable set of default [Arguments] of some annotated string.
+ *
+ * `Arguments` is a great way to use values, which are tough (or completely impossible)
+ * to parse from string, like click actions or dynamically computing values.
  */
 public interface ArgumentSet {
 

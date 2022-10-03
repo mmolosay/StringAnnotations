@@ -19,10 +19,7 @@ import com.mmolosay.stringannotations.utils.Qualified
  */
 
 /**
- * Collection of runtime values of some annotated string.
- *
- * `Arguments` is a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing values.
+ * Qualified list of values.
  */
 public open class Arguments<E>(
     override val qualifier: String,

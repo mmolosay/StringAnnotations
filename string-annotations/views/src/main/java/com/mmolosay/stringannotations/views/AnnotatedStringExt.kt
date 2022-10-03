@@ -30,7 +30,7 @@ import com.mmolosay.stringannotations.args.ArgumentSet
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * @param id resource id of annotated string.
- * @param arguments annotation arguments, to be used instead of value placeholders.
+ * @param arguments annotation arguments to be substituted instead of placeholders.
  * @param formatArgs formatting arguments to be substituted.
  */
 public fun Context.getAnnotatedString(
@@ -52,7 +52,7 @@ public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any
 ): Spanned =
-    AnnotatedStrings.process<ArgumentSet>(
+    AnnotatedStrings.process(
         context = this,
         id = id,
         formatArgs = formatArgs

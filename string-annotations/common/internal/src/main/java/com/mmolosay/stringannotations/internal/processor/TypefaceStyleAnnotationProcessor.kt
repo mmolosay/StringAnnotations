@@ -1,11 +1,15 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentSet
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.TypefaceStyleValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -28,10 +32,11 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` for typeface style annotation type.
  */
 public abstract class TypefaceStyleAnnotationProcessor<S> :
-    ArgumentsSetAnnotationProcessor<Int, S>() {
+    BaseAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val valueParser: ValueParser<Int> = TypefaceStyleValueParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
     override val conflator: ValuesConfaltor<Int> =
         StrategyConflator.All(TypefaceStyleValueParser::reduceTypefaceStyles)
 

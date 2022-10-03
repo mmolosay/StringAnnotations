@@ -2,12 +2,16 @@ package com.mmolosay.stringannotations.internal.processor
 
 import android.content.Context
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentSet
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
 import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -30,10 +34,12 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for "style" annotation type.
  */
-public abstract class StyleAnnotationProcessor<S> : ArgumentsSetAnnotationProcessor<Token, S>() {
+public abstract class StyleAnnotationProcessor<S> :
+    BaseAnnotationProcessor<Token, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val valueParser: ValueParser<Token> = AsIsValueParser
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
     override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
 
     protected abstract val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor<S>

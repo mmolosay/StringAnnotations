@@ -2,9 +2,13 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentSet
+import com.mmolosay.stringannotations.internal.Logger
+import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.ValueParser
+import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
@@ -29,10 +33,11 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  * `AnnotationProcessor` for "clickable" annotation type.
  */
 public abstract class ClickableAnnotationProcessor<S> :
-    ArgumentsSetAnnotationProcessor<ClickableSpan, S>() {
+    BaseAnnotationProcessor<ClickableSpan, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val valueParser: ValueParser<ClickableSpan>? = null
+    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
 
     override fun inferArguments(set: ArgumentSet?): Arguments<ClickableSpan>? =
