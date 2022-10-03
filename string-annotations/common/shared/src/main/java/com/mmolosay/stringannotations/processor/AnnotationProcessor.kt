@@ -26,7 +26,7 @@ import com.mmolosay.stringannotations.args.Arguments
  *
  * One should implement it in order to parse custom annotation type.
  */
-public interface AnnotationProcessor<S> {
+public fun interface AnnotationProcessor<S> {
 
     /**
      * Parses specified [annotation] into span of [S] type.
