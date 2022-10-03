@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Tokenizer
@@ -27,7 +27,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` for any color annotation type.
  */
 public abstract class BaseColorAnnotationProcessor<S> :
-    BaseAnnotationProcessor<Int, S>() {
+    AbstractAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()

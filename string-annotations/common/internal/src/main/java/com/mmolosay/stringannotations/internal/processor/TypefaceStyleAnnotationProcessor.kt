@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.internal.processor
 import android.graphics.Typeface
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Tokenizer
@@ -28,7 +28,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` for typeface style annotation type.
  */
 public abstract class TypefaceStyleAnnotationProcessor<S> :
-    BaseAnnotationProcessor<Int, S>() {
+    AbstractAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.All(::reduceTypefaceStyles)

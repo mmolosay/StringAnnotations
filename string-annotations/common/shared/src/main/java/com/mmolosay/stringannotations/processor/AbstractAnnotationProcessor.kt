@@ -31,7 +31,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * @param V type of annotation values; for instance, `Int` for color.
  * @param S type of spans.
  */
-public abstract class BaseAnnotationProcessor<V, S> : AnnotationProcessor<S> {
+public abstract class AbstractAnnotationProcessor<V, S> : AnnotationProcessor<S> {
 
     protected abstract val tokenizer: Tokenizer
     protected abstract val conflator: ValuesConfaltor<V>

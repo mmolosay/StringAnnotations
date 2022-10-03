@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.internal.processor
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Token
@@ -29,7 +29,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` for "style" annotation type.
  */
 public abstract class StyleAnnotationProcessor<S> :
-    BaseAnnotationProcessor<Token, S>() {
+    AbstractAnnotationProcessor<Token, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()

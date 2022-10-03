@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.views.processor
 
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,7 +20,7 @@ import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
  */
 
 /**
- * Base class for [BaseAnnotationProcessor] implementations for Android Views system.
+ * Base class for [AbstractAnnotationProcessor] implementations for Android Views system.
  */
 public abstract class BaseAnnotationProcessor<V> :
-    BaseAnnotationProcessor<V, CharacterStyle>()
+    AbstractAnnotationProcessor<V, CharacterStyle>()

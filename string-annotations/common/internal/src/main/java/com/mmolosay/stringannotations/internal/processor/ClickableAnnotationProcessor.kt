@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Tokenizer
@@ -29,7 +29,7 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  * `AnnotationProcessor` for "clickable" annotation type.
  */
 public abstract class ClickableAnnotationProcessor<S> :
-    BaseAnnotationProcessor<ClickableSpan, S>() {
+    AbstractAnnotationProcessor<ClickableSpan, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val conflator: ValuesConfaltor<ClickableSpan> = StrategyConflator.Single()
