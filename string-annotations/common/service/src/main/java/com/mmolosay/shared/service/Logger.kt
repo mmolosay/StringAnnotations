@@ -1,5 +1,6 @@
 package com.mmolosay.shared.service
 
+import android.text.Annotation
 import android.util.Log
 
 /*
@@ -19,12 +20,29 @@ import android.util.Log
  */
 
 /**
- * Interface for implementation of dependency inversion.
+ * Logs library events, that require client's attention.
+ *
+ * All library's internal logging should go through this component.
  */
-public interface Logger {
+public object Logger {
 
     /**
-     * Logs specified [message] with library's tag and [Log.WARN] priority.
+     * Library tag. Used for logging events.
      */
-    public fun w(message: String)
+    private const val TAG = "StringAnnotations"
+
+    public fun w(message: String) {
+        Log.w(TAG, message)
+    }
+
+    // region Specific messages
+
+    public fun logUnableToParse(annotation: Annotation): Unit =
+        w(
+            "Annotation with attribute=\"${annotation.key}\" and value=\"${annotation.value}\" " +
+                "cannot be parsed into valid span. " +
+                "Make sure attribute and its value are correct and supported."
+        )
+
+    // endregion
 }

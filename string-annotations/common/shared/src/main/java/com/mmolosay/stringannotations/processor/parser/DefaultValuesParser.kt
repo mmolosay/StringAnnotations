@@ -24,9 +24,7 @@ import com.mmolosay.stringannotations.processor.token.Token
  * Default implementation of [ValuesParser].
  * Accepts placeholders of `"$arg${TYPE}${INDEX}"` format.
  */
-public class DefaultValuesParser(
-    private val logger: Logger
-) : ValuesParser {
+public object DefaultValuesParser : ValuesParser {
 
     override fun <V> parse(token: Token, values: QualifiedList<V>): V? =
         parse(token.string, values)
@@ -56,17 +54,17 @@ public class DefaultValuesParser(
             val index = requireNotNull(parsePlaceholderIndex(ordinal))
             getArgument(index, values)
         } catch (e: Exception) {
-            logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
+            Logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
             null
         }
 
     private fun parsePlaceholderIndex(ordinal: String): Int? =
         ordinal.toIntOrNull().also {
-            it ?: logger.w("Cannot parse \"$ordinal\" as argument index")
+            it ?: Logger.w("Cannot parse \"$ordinal\" as argument index")
         }
 
     private fun <V> getArgument(index: Int, args: QualifiedList<V>): V? =
         args.getOrNull(index).also {
-            it ?: logger.w("There is no value argument at index=$index")
+            it ?: Logger.w("There is no annotation argument at index=$index")
         }
 }

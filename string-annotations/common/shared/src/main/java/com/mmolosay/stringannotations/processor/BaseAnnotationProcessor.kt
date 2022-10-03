@@ -4,6 +4,7 @@ import android.text.Annotation
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
+import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -33,8 +34,9 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 public abstract class BaseAnnotationProcessor<V, S> : AnnotationProcessor<S> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val parser: ValuesParser
     protected abstract val conflator: ValuesConfaltor<V>
+
+    protected open val parser: ValuesParser = DefaultValuesParser
 
     override fun parseAnnotation(
         annotation: Annotation,
