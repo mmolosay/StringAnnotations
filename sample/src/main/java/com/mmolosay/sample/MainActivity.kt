@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.databinding.MainScreenBinding
-import com.mmolosay.stringannotations.args.ArgumentsSet
+import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.views.getAnnotatedString
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 import com.mmolosay.stringannotations.views.span.clickable.ClickableSpan
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         ) {
             Toast.makeText(this, "Clicked text with index=1", Toast.LENGTH_SHORT).show()
         }
-        val args = ArgumentsSet {
+        val args = ArgumentSet {
             clickables {
                 add(span1)
                 add(span2)
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      */
     private fun setDemo7() {
         val colorPurple = ContextCompat.getColor(this, R.color.purple_500)
-        val args = ArgumentsSet {
+        val args = ArgumentSet {
             colors {
                 add(colorPurple)
             }

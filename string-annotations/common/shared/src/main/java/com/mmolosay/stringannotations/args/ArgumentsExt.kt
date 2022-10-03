@@ -16,8 +16,12 @@ package com.mmolosay.stringannotations.args
  * limitations under the License.
  */
 
+/*
+ * Extension for Arguments and stuff for convenience of use.
+ */
+
 /**
  * Assembles [ArgumentSet] in declarative style.
  */
-public fun ArgumentsSet(builder: ArgumentsSetBuilder.() -> ArgumentSet): ArgumentSet =
+public fun ArgumentSet(builder: ArgumentsSetBuilder.() -> ArgumentSet): ArgumentSet =
     builder(ArgumentsSetBuilderImpl())
