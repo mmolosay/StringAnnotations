@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import android.content.Context
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.args.Arguments
@@ -8,10 +7,8 @@ import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.AsIsValueParser
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.AnnotationValueParser
+import com.mmolosay.stringannotations.processor.parser.DefaultAnnotationValueParser
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -38,19 +35,17 @@ public abstract class StyleAnnotationProcessor<S> :
     BaseAnnotationProcessor<Token, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val valueParser: ValueParser<Token> = AsIsValueParser
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
+    override val parser: AnnotationValueParser = DefaultAnnotationValueParser(Logger)
     override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
 
     protected abstract val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor<S>
 
     override fun parseAnnotation(
-        context: Context,
         annotation: Annotation,
         arguments: ArgumentSet?
     ): S? =
-        super.parseAnnotation(context, annotation, arguments)
-            ?: typefaceStyleAnnotationProcessor.parseAnnotation(context, annotation, arguments)
+        super.parseAnnotation(annotation, arguments)
+            ?: typefaceStyleAnnotationProcessor.parseAnnotation(annotation, arguments)
 
     override fun inferArguments(set: ArgumentSet?): Arguments<Token>? =
         null

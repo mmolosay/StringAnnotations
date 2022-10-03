@@ -1,12 +1,10 @@
 package com.mmolosay.stringannotations.processor
 
-import android.content.Context
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.ArgumentSet
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.AnnotationValueParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -29,27 +27,23 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * Base class for [AnnotationProcessor] implementations for single annotation type.
  * Utilizes a lot of usefull funtionality, making implementing custom [AnnotationProcessor] easier.
  *
- * @param V type of annotation value; for instance, `Int` for color.
+ * @param V type of annotation values; for instance, `Int` for color.
  * @param S type of spans.
  */
 public abstract class BaseAnnotationProcessor<V, S> : AnnotationProcessor<S> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val valueParser: ValueParser<V>?
-    protected abstract val argParser: AnnotationArgumentParser
+    protected abstract val parser: AnnotationValueParser
     protected abstract val conflator: ValuesConfaltor<V>
 
     override fun parseAnnotation(
-        context: Context,
         annotation: Annotation,
         arguments: ArgumentSet?
     ): S? {
         val tokens = tokenizer.tokenize(annotation.value)
-        val values = tokens
-            .mapNotNull { token ->
-                valueParser?.parse(context, token)
-                    ?: inferArguments(arguments)?.let { argParser.parse(token, it) }
-            }
+        val values = tokens.mapNotNull { token ->
+            inferArguments(arguments)?.let { parser.parse(token, it) }
+        }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }

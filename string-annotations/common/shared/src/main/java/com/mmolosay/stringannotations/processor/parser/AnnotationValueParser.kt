@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.processor.parser
 
-import android.content.Context
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.processor.token.Token
 
 /*
@@ -20,8 +20,13 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Specifies a way of parsing string annotation token into value of some appropriate [V] type.
+ * Specifies way of parsing placeholder into some actual value,
+ * that will be used for span creation.
  */
-public interface ValueParser<V> {
-    public fun parse(context: Context, token: Token): V?
+public interface AnnotationValueParser {
+
+    /**
+     * Tries to parse [token] as argument placeholder and obtain its actual value from [arguments].
+     */
+    public fun <V> parse(token: Token, arguments: Arguments<V>): V?
 }

@@ -6,10 +6,8 @@ import com.mmolosay.stringannotations.internal.Logger
 import com.mmolosay.stringannotations.processor.BaseAnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
-import com.mmolosay.stringannotations.processor.parser.ColorValueParser
-import com.mmolosay.stringannotations.processor.parser.ValueParser
-import com.mmolosay.stringannotations.processor.parser.arg.AnnotationArgumentParser
-import com.mmolosay.stringannotations.processor.parser.arg.DefaultAnnotationArgumentParser
+import com.mmolosay.stringannotations.processor.parser.AnnotationValueParser
+import com.mmolosay.stringannotations.processor.parser.DefaultAnnotationValueParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -35,8 +33,7 @@ public abstract class BaseColorAnnotationProcessor<S> :
     BaseAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val valueParser: ValueParser<Int> = ColorValueParser(Logger)
-    override val argParser: AnnotationArgumentParser = DefaultAnnotationArgumentParser(Logger)
+    override val parser: AnnotationValueParser = DefaultAnnotationValueParser(Logger)
     override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
     final override fun inferArguments(set: ArgumentSet?): Arguments<Int>? =

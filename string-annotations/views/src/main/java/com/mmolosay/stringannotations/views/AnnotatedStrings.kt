@@ -40,7 +40,6 @@ public object AnnotatedStrings {
      * 3. Applies spans to the [string].
      */
     public fun process(
-        context: Context,
         string: SpannedString,
         arguments: ArgumentSet? = null,
         vararg formatArgs: Any
@@ -57,7 +56,7 @@ public object AnnotatedStrings {
 
         // 3. parse Annotation-s into spans of CharacterStyle type
         val spans = annotations.mapNotNull { annotation ->
-            processor.parseAnnotation(context, annotation, arguments)
+            processor.parseAnnotation(annotation, arguments)
         }
 
         // 4. apply spans to string
@@ -76,7 +75,6 @@ public object AnnotatedStrings {
         vararg formatArgs: Any
     ): Spanned =
         process(
-            context = context,
             string = context.resources.getText(id) as SpannedString,
             arguments = arguments,
             formatArgs = formatArgs

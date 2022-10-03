@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.views.processor
 
-import android.content.Context
 import android.text.Annotation
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.ArgumentSet
@@ -118,13 +117,12 @@ public open class MasterAnnotationProcessor : ViewAnnotationProcessor {
         mutableMapOf()
 
     public final override fun parseAnnotation(
-        context: Context,
         annotation: Annotation,
         arguments: ArgumentSet?
     ): CharacterStyle? {
         val type = annotation.key
         val processor = getOrCreateAnnotationProcessor(type) ?: return null
-        return processor.parseAnnotation(context, annotation, arguments)
+        return processor.parseAnnotation(annotation, arguments)
     }
 
     private fun getOrCreateAnnotationProcessor(type: String): ViewAnnotationProcessor? =

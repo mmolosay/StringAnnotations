@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.processor.parser.arg
+package com.mmolosay.stringannotations.processor.parser
 
 import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.args.Arguments
@@ -21,51 +21,52 @@ import com.mmolosay.stringannotations.processor.token.Token
  */
 
 /**
- * Default implementation of [AnnotationArgumentParser].
+ * Default implementation of [AnnotationValueParser].
+ * Accepts placeholders of `"$arg${TYPE}${INDEX}"` format.
  */
-public class DefaultAnnotationArgumentParser(
+public class DefaultAnnotationValueParser(
     private val logger: Logger
-) : AnnotationArgumentParser {
+) : AnnotationValueParser {
+
+    override fun <V> parse(token: Token, arguments: Arguments<V>): V? =
+        parse(token.string, arguments)
 
     /**
-     * Tries to infer argument from [args] list for specified [token].
+     * Tries to parse [placeholder] into some value from [arguments] list.
      *
      * Steps:
      * 1. break placeholder into list of tokens, according to its format.
-     * 2. check that placeholder's type matches qualifier of [args].
+     * 2. check that placeholder's type matches qualifier of [arguments].
      * 3. get argument index via [parsePlaceholderIndex].
-     * 4. return argument at parsed index in [args] list.
+     * 4. return argument at parsed index in [arguments] list.
      *
-     * @param token annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
-     * @param args list to get argument from.
+     * @param placeholder annotation tag value placeholder of `"$arg${TYPE}${INDEX}"` format.
+     * @param arguments source of values.
      *
-     * @return argument from [args] at placeholder's parsed index.
+     * @return argument from [arguments] at placeholder's parsed index.
      */
-    override fun <V> parse(token: Token, args: Arguments<V>): V? =
-        parse(token.string, args)
-
-    private fun <V> parse(placeholder: String, args: Arguments<V>): V? =
+    private fun <V> parse(placeholder: String, arguments: Arguments<V>): V? =
         try {
             require(placeholder.startsWith('$'))
             val tokens = placeholder.substring(1).split("$", limit = 4)
             val (prefix, qualifier, ordinal) = tokens
             require(tokens.size == 3)
             require(prefix == "arg")
-            require(qualifier == args.qualifier)
+            require(qualifier == arguments.qualifier)
             val index = requireNotNull(parsePlaceholderIndex(ordinal))
-            getArg(index, args)
+            getArgument(index, arguments)
         } catch (e: Exception) {
-            logger?.w("Invalid annotation argument placeholder format: \"$placeholder\"")
+            logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
             null
         }
 
     private fun parsePlaceholderIndex(ordinal: String): Int? =
         ordinal.toIntOrNull().also {
-            it ?: logger?.w("Cannot parse \"$ordinal\" as argument index")
+            it ?: logger.w("Cannot parse \"$ordinal\" as argument index")
         }
 
-    private fun <V> getArg(index: Int, args: Arguments<V>): V? =
+    private fun <V> getArgument(index: Int, args: Arguments<V>): V? =
         args.getOrNull(index).also {
-            it ?: logger?.w("There is no value argument at index=$index")
+            it ?: logger.w("There is no value argument at index=$index")
         }
 }

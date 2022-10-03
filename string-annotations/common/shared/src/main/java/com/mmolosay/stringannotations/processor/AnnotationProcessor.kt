@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.processor
 
-import android.content.Context
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.ArgumentSet
 
@@ -32,14 +31,12 @@ public interface AnnotationProcessor<S> {
     /**
      * Parses specified [annotation] into span of [S] type.
      *
-     * @param context caller context.
      * @param annotation annotation to be parsed.
      * @param arguments annotation arguments to be substituted instead of placeholders.
      *
      * @return parsed span of [S] type, or `null`, if annotation can not be parsed.
      */
     public fun parseAnnotation(
-        context: Context,
         annotation: Annotation,
         arguments: ArgumentSet?
     ): S?
