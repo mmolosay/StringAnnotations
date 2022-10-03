@@ -23,7 +23,7 @@ include(
     ":string-annotations:common:shared",
     ":string-annotations:common:internal",
     ":string-annotations:common:service",
-    ":string-annotations:view",
+    ":string-annotations:views",
     ":string-annotations:compose",
     ":sample"
 )

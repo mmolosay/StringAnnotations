@@ -1,8 +1,8 @@
 package com.mmolosay.sample
 
 import android.app.Application
-import com.mmolosay.stringannotations.view.StringAnnotations
-import com.mmolosay.stringannotations.view.processor.MasterAnnotationProcessor
+import com.mmolosay.stringannotations.views.StringAnnotations
+import com.mmolosay.stringannotations.views.processor.MasterAnnotationProcessor
 
 class Application : Application() {
 
