@@ -43,7 +43,7 @@ public object AnnotatedStrings {
         vararg formatArgs: Any
     ): AnnotatedString {
         // 0. prepare dependencies
-//        val processor = StringAnnotations.dependencies.processor
+        val processor = StringAnnotations.dependencies.processor
         val annotations = SpannedProcessor.getAnnotationSpans(string)
 
         // 1. format, preserving annotation spans
@@ -52,12 +52,12 @@ public object AnnotatedStrings {
         // 2. parse annotation ranges
         val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
 
-        // 3. parse Annotation-s into spans of CharacterStyle type
+        // 3. parse Annotation-s into spans of SpanStyle type
         val spans = annotations.map { annotation ->
             processor.parseAnnotation(annotation, arguments)
         }
 
-        // 4. apply spans to string
+        // 4. apply spans and return result AnnotatedString
         return SpanProcessor.applySpans(spannable, spans, ranges)
     }
 }
