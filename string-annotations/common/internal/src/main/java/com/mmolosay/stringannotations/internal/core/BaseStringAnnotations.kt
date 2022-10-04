@@ -82,30 +82,4 @@ public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependenci
         public fun annotationProcessor(instance: AnnotationProcessor<S>): DependenciesBuilder<S>
         public fun build(): Dependencies
     }
-
-//        /**
-//         * Provides convenient interface for assembling library's [Dependencies].
-//         */
-//        public abstract class Builder {
-//
-//            private var processor: AnnotationProcessor<*>? = null
-//
-//            /**
-//             * Specifies [AnnotationProcessor] instance to be used.
-//             */
-//            public fun annotationProcessor(instance: AnnotationProcessor<*>): Builder =
-//                apply {
-//                    this.processor = instance
-//                }
-//
-//            /**
-//             * Assembles [Dependencies].
-//             */
-//            public fun build(): Dependencies =
-//                DependenciesImpl(
-//                    processor = processor ?: createDefaultAnnotationProcessor()
-//                )
-//
-//            protected abstract fun <S> createDefaultAnnotationProcessor(): AnnotationProcessor<S>
-//        }
 }
