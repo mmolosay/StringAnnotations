@@ -1,6 +1,5 @@
-package com.mmolosay.stringannotations.internal.core
+package com.mmolosay.stringannotations.core
 
-import com.mmolosay.stringannotations.core.StringAnnotations
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*

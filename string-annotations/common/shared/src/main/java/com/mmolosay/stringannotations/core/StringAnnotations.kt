@@ -24,12 +24,12 @@ package com.mmolosay.stringannotations.core
  * Call [dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-public interface StringAnnotations<D> {
+internal interface StringAnnotations<D> {
 
     /**
      * Whether the library is configured or not.
      */
-    public val isConfigured: Boolean
+    val isConfigured: Boolean
 
     /**
      * Configures the library's dependencies.
@@ -39,12 +39,12 @@ public interface StringAnnotations<D> {
      * You should use this method, if you want to change default behaviour and provide custom
      * dependencies.
      */
-    public fun configure(dependencies: D)
+    fun configure(dependencies: D)
 
     /**
      * Disposes all held objects.
      *
      * Should be called, when the library is never going to be needed again.
      */
-    public fun dispose()
+    fun dispose()
 }
