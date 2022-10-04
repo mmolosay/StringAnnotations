@@ -4,7 +4,7 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = Project.VIEWS_SAMPLE_ID
+        applicationId = Project.SAMPLE_VIEWS_ID
     }
 
     buildFeatures {

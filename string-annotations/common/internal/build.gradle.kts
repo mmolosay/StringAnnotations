@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = "${Project.GROUP_ID}.internal"
+    namespace = Project.SUPPORT_INTERNAL_NAMESPACE
 
     buildTypes {
         getByName("release") {

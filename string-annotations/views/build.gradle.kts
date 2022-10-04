@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = "${Project.GROUP_ID}.views"
+    namespace = Project.ARTIFACT_VIEWS_NAMESPACE
 
     buildTypes {
         getByName("release") {

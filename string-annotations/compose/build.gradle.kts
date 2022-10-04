@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = "${Project.GROUP_ID}.compose"
+    namespace = Project.ARTIFACT_COMPOSE_NAMESPACE
 
     buildTypes {
         getByName("release") {
