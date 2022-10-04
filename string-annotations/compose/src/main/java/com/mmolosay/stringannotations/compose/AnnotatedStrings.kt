@@ -53,7 +53,7 @@ public object AnnotatedStrings {
         val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
 
         // 3. parse Annotation-s into spans of CharacterStyle type
-        val spans = annotations.mapNotNull { annotation ->
+        val spans = annotations.map { annotation ->
             processor.parseAnnotation(annotation, arguments)
         }
 

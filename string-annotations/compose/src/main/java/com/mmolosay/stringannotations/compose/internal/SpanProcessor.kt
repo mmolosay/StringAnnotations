@@ -19,8 +19,8 @@ internal object SpanProcessor {
     ): AnnotatedString {
         val builder = AnnotatedString.Builder(text.toString())
         for (i in spans.indices) {
-            val span = spans.getOrNull(i) ?: return builder.toAnnotatedString()
-            val range = ranges.getOrNull(i) ?: return builder.toAnnotatedString()
+            val span = spans.getOrNull(i) ?: continue
+            val range = ranges.getOrNull(i) ?: continue
             applySpan(builder, span, range)
         }
         return builder.toAnnotatedString()
