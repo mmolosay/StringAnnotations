@@ -7,6 +7,7 @@ import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -16,6 +17,7 @@ import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
 import com.mmolosay.stringannotations.views.internal.ViewsSpan
+import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickableSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -74,6 +76,14 @@ internal fun BackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
 internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseColorAnnotationProcessor {
         ForegroundColorSpan(it)
+    }
+
+/**
+ * Implementation of [CustomizableClickableSpan] for Android Views system.
+ */
+internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseClickableAnnotationProcessor {
+        CustomizableClickableSpan(it)
     }
 
 /**

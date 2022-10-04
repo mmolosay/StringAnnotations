@@ -11,6 +11,7 @@ import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcesso
 import com.mmolosay.stringannotations.compose.internal.ComposeSpan
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -75,6 +76,14 @@ internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
 internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseColorAnnotationProcessor {
         SpanStyle(color = Color(it))
+    }
+
+/**
+ * Implementation of [BaseClickableAnnotationProcessor] for Compose UI.
+ */
+internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseClickableAnnotationProcessor {
+        SpanStyle() // TODO: https://developer.android.com/jetpack/compose/text#click-with-annotation
     }
 
 /**
