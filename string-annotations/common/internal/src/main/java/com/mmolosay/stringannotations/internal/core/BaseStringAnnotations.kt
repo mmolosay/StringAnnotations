@@ -1,4 +1,7 @@
-package com.mmolosay.stringannotations.core
+package com.mmolosay.stringannotations.internal.core
+
+import com.mmolosay.stringannotations.core.StringAnnotations
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,7 +22,8 @@ package com.mmolosay.stringannotations.core
 /**
  * Base implementaiton of [StringAnnotations] with dependencies initialization logic.
  */
-public abstract class BaseStringAnnotations<D> : StringAnnotations<D> {
+public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependencies> :
+    StringAnnotations<D> {
 
     /**
      * Current dependencies of the library.
@@ -63,4 +67,45 @@ public abstract class BaseStringAnnotations<D> : StringAnnotations<D> {
     }
 
     // endregion
+
+    /**
+     * Dependencies of the library.
+     */
+    public abstract class Dependencies {
+        public abstract val processor: AnnotationProcessor<*>
+    }
+
+    /**
+     * [Dependencies] builder.
+     */
+    protected interface DependenciesBuilder<S> {
+        public fun annotationProcessor(instance: AnnotationProcessor<S>): DependenciesBuilder<S>
+        public fun build(): Dependencies
+    }
+
+//        /**
+//         * Provides convenient interface for assembling library's [Dependencies].
+//         */
+//        public abstract class Builder {
+//
+//            private var processor: AnnotationProcessor<*>? = null
+//
+//            /**
+//             * Specifies [AnnotationProcessor] instance to be used.
+//             */
+//            public fun annotationProcessor(instance: AnnotationProcessor<*>): Builder =
+//                apply {
+//                    this.processor = instance
+//                }
+//
+//            /**
+//             * Assembles [Dependencies].
+//             */
+//            public fun build(): Dependencies =
+//                DependenciesImpl(
+//                    processor = processor ?: createDefaultAnnotationProcessor()
+//                )
+//
+//            protected abstract fun <S> createDefaultAnnotationProcessor(): AnnotationProcessor<S>
+//        }
 }

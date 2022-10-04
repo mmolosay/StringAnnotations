@@ -1,8 +1,8 @@
 package com.mmolosay.stringannotations.views
 
-import com.mmolosay.stringannotations.core.BaseStringAnnotations
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.core.BaseStringAnnotations
 import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsSpan
 import com.mmolosay.stringannotations.views.processor.MasterAnnotationProcessor
 
 /*
@@ -29,48 +29,28 @@ import com.mmolosay.stringannotations.views.processor.MasterAnnotationProcessor
  * Call [StringAnnotations.dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependencies>() {
+public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependecies>() {
 
-    override fun makeDefaultDependencies(): Dependencies =
-        Dependencies.Builder().build()
+    override fun makeDefaultDependencies(): Dependecies =
+        DependenciesBuilder().build()
 
-    /**
-     * Dependencies of the library.
-     */
-    public interface Dependencies {
-
-        public val processor: ViewsAnnotationProcessor
-
-        /**
-         * Provides convenient interface for assembling library's [Dependencies].
-         */
-        public class Builder {
-
-            private var processor: ViewsAnnotationProcessor? = null
-
-            /**
-             * Specifies [AnnotationProcessor] instance to be used.
-             */
-            public fun annotationProcessor(instance: ViewsAnnotationProcessor): Builder =
-                apply {
-                    this.processor = instance
-                }
-
-            /**
-             * Assembles [Dependencies].
-             */
-            public fun build(): Dependencies =
-                DependenciesImpl(
-                    processor = processor ?: MasterAnnotationProcessor()
-                )
-        }
-    }
-
-    /**
-     * Internal implementation of [Dependencies].
-     * Should not be used as explicit type.
-     */
-    internal data class DependenciesImpl(
+    public data class Dependecies(
         override val processor: ViewsAnnotationProcessor
-    ) : Dependencies
+    ) : Dependencies()
+
+    public class DependenciesBuilder :
+        BaseStringAnnotations.DependenciesBuilder<ViewsSpan> {
+
+        private var processor: ViewsAnnotationProcessor? = null
+
+        override fun annotationProcessor(instance: ViewsAnnotationProcessor): DependenciesBuilder =
+            apply {
+                this.processor = instance
+            }
+
+        override fun build(): Dependecies =
+            Dependecies(
+                processor = processor ?: MasterAnnotationProcessor()
+            )
+    }
 }
