@@ -38,5 +38,5 @@ public class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<Compo
         TODO() // ClickableAnnotationProcessor()
 
     override fun createAbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
-        TODO() // AbsoluteSizeAnnotationProcessor()
+        AbsoluteSizeAnnotationProcessor()
 }
