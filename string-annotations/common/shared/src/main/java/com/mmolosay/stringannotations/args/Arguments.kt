@@ -19,10 +19,12 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Immutable set of default [QualifiedList] of some annotated string.
+ * Immutable set of [QualifiedList]s of some annotated string.
  *
- * `Arguments` is a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing values.
+ * `Arguments` are used to provide data to annotations, that will result in their
+ * final appearance and/or behviour.
+ *
+ * `Arguments` may be extended in order to provide data to custom annotation types.
  */
 public interface Arguments {
 

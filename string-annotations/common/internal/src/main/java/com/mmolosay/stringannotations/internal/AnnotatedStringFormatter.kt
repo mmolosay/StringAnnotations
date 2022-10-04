@@ -4,6 +4,9 @@ import android.text.Annotation
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.SpannedString
+import com.mmolosay.stringannotations.internal.tree.AnnotationNode
+import com.mmolosay.stringannotations.internal.tree.AnnotationNodeProcessor
+import com.mmolosay.stringannotations.internal.tree.AnnotationTreeBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,7 +25,7 @@ import android.text.SpannedString
  */
 
 /**
- * Processes annotated strings.
+ * Formats annotated strings.
  */
 public object AnnotatedStringFormatter {
 

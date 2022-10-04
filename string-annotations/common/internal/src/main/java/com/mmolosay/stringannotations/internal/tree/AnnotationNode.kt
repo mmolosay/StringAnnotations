@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.internal
+package com.mmolosay.stringannotations.internal.tree
 
 import android.text.Annotation
 

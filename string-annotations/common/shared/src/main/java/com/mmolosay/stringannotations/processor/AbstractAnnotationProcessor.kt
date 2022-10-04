@@ -52,6 +52,8 @@ public abstract class AbstractAnnotationProcessor<V, S> : AnnotationProcessor<S>
 
     /**
      * Obtains list of values, appropiate for type of this annotation processor.
+     *
+     * In order to use custom, extended [Arguments], one should perform type check.
      */
     protected abstract fun Arguments.getValues(): QualifiedList<V>?
 

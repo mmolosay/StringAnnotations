@@ -1,6 +1,7 @@
-package com.mmolosay.stringannotations.internal
+package com.mmolosay.stringannotations.internal.tree
 
 import android.text.Spanned
+import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
