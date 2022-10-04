@@ -1,8 +1,6 @@
 package com.mmolosay.stringannotations.views
 
-import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.core.BaseStringAnnotations
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
 import com.mmolosay.stringannotations.views.internal.ViewsSpan
 import com.mmolosay.stringannotations.views.processor.MasterAnnotationProcessor
@@ -45,7 +43,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
 
         private var processor: ViewsAnnotationProcessor? = null
 
-        override fun annotationProcessor(instance: AnnotationProcessor<CharacterStyle>): DependenciesBuilder =
+        override fun annotationProcessor(instance: ViewsAnnotationProcessor): DependenciesBuilder =
             apply {
                 this.processor = instance
             }

@@ -1,8 +1,8 @@
 package com.mmolosay.stringannotations.views.processor
 
-import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -23,20 +23,20 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 /**
  * Implementation of [AbstractMasterAnnotationProcessor] for Android Views system.
  */
-public open class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<CharacterStyle>() {
+public open class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<ViewsSpan>() {
 
-    override fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<CharacterStyle> =
+    override fun createBackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
         BackgroundColorAnnotationProcessor()
 
-    override fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<CharacterStyle> =
+    override fun createForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
         ForegroundColorAnnotationProcessor()
 
-    override fun createStyleAnnotationProcessor(): AnnotationProcessor<CharacterStyle> =
+    override fun createStyleAnnotationProcessor(): ViewsAnnotationProcessor =
         StyleAnnotationProcessor()
 
-    override fun createClickableAnnotationProcessor(): AnnotationProcessor<CharacterStyle> =
+    override fun createClickableAnnotationProcessor(): ViewsAnnotationProcessor =
         ClickableAnnotationProcessor()
 
-    override fun createAbsoluteSizeAnnotationProcessor(): AnnotationProcessor<CharacterStyle> =
+    override fun createAbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
         AbsoluteSizeAnnotationProcessor()
 }
