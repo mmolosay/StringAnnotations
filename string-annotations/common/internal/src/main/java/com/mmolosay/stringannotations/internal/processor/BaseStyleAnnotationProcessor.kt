@@ -33,7 +33,7 @@ public abstract class BaseStyleAnnotationProcessor<S> :
     AbstractAnnotationProcessor<Token, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
-    override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
+    override val conflator: ValuesConfaltor<Token> = StrategyConflator.First()
 
     protected abstract val typefaceStyleAnnotationProcessor: AnnotationProcessor<S>
 

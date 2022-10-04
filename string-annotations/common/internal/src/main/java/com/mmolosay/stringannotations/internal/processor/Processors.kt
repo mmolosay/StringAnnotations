@@ -35,7 +35,7 @@ public fun <S> BaseColorAnnotationProcessor(
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.Single(),
+        conflator = StrategyConflator.First(),
         values = { colors },
         factory = factory
     )
@@ -48,7 +48,7 @@ public fun <S> BaseClickableAnnotationProcessor(
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
-        conflator = StrategyConflator.Single(),
+        conflator = StrategyConflator.First(),
         values = { clickables },
         factory = factory
     )
@@ -61,7 +61,7 @@ public fun <S> BaseTypefaceStyleAnnotationProcessor(
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.Single(),
+        conflator = StrategyConflator.First(),
         values = { typefaceStyles },
         factory = factory
     )
@@ -74,7 +74,7 @@ public fun <S> BaseAbsoluteSizeAnnotationProcessor(
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.Single(),
+        conflator = StrategyConflator.First(),
         values = { absSizes },
         factory = factory
     )

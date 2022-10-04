@@ -106,8 +106,7 @@ public class StrategyConflator<V>(
         /**
          * Picks and uses very first value.
          */
-        // TODO: rename to First
-        public fun <V> Single(): StrategyConflator<V> =
+        public fun <V> First(): StrategyConflator<V> =
             StrategyConflator(
                 pickingStrategy = PickingStrategy.First(),
                 reducingStrategy = ReducingStrategy.Single()
