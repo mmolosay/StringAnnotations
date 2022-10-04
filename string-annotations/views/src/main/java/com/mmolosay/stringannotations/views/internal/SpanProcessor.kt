@@ -34,8 +34,8 @@ internal object SpanProcessor {
         spans: List<CharacterStyle?>
     ) {
         for (i in spans.indices) {
-            val span = spans.getOrNull(i) ?: return
-            val range = ranges.getOrNull(i) ?: return
+            val span = spans.getOrNull(i) ?: break
+            val range = ranges.getOrNull(i) ?: break
             applySpan(spannable, span, range)
         }
     }
