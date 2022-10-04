@@ -5,7 +5,6 @@ plugins {
 
 android {
     defaultConfig {
-        applicationId = "com.mmolosay.stringannotations.sample"
         versionCode = 1
         versionName = "1.0"
 

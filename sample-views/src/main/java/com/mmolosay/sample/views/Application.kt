@@ -1,4 +1,4 @@
-package com.mmolosay.sample
+package com.mmolosay.sample.views
 
 import android.app.Application
 import android.text.style.CharacterStyle

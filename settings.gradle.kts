@@ -20,10 +20,10 @@ dependencyResolutionManagement {
 }
 rootProject.name = "StringAnnotations"
 include(
+    ":string-annotations:common:service",
     ":string-annotations:common:shared",
     ":string-annotations:common:internal",
-    ":string-annotations:common:service",
     ":string-annotations:views",
     ":string-annotations:compose",
-    ":sample"
+    ":sample-views"
 )

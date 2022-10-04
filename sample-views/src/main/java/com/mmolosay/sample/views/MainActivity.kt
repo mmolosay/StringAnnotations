@@ -1,4 +1,4 @@
-package com.mmolosay.sample
+package com.mmolosay.sample.views
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.mmolosay.sample.databinding.MainScreenBinding
+import com.mmolosay.sample.views.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.views.getAnnotatedString
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.views.getAnnotatedString
 import com.mmolosay.stringannotations.views.span.clickable.ClickableSpan
 import com.mmolosay.stringannotations.views.span.clickable.from
 
