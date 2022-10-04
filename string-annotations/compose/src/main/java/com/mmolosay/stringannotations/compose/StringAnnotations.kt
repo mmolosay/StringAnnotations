@@ -29,14 +29,14 @@ import com.mmolosay.stringannotations.internal.core.BaseStringAnnotations
  * Call [StringAnnotations.dispose], when you're done working with library and ready to
  * free its dependencies.
  */
-public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependecies>() {
+public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependencies>() {
 
-    override fun makeDefaultDependencies(): Dependecies =
+    override fun makeDefaultDependencies(): Dependencies =
         DependenciesBuilder().build()
 
-    public data class Dependecies(
+    public data class Dependencies(
         override val processor: ComposeAnnotationProcessor
-    ) : Dependencies()
+    ) : BaseStringAnnotations.Dependencies()
 
     public class DependenciesBuilder :
         BaseStringAnnotations.DependenciesBuilder<ComposeSpan> {
@@ -48,8 +48,8 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
                 this.processor = instance
             }
 
-        override fun build(): Dependecies =
-            Dependecies(
+        override fun build(): Dependencies =
+            Dependencies(
                 processor = processor ?: MasterAnnotationProcessor()
             )
     }
