@@ -1,8 +1,7 @@
-package com.mmolosay.stringannotations.internal.processor
+package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
