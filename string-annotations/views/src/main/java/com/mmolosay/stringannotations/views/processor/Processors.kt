@@ -1,13 +1,18 @@
-package com.mmolosay.stringannotations.internal.processor
+package com.mmolosay.stringannotations.views.processor
 
+import android.text.style.AbsoluteSizeSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -26,33 +31,36 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /*
- * AnnotationProcessor extensions and utils.
+ * AnnotationProcessor builders.
  */
 
 /**
- * Builder for [AnnotationProcessor] implementations for single annotation type.
+ * Builder for [AnnotationProcessor] implementations for single annotation type for Android Views
+ * system.
  * Employs [AbstractAnnotationProcessor] inside.
  *
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
  * implemented in [AbstractAnnotationProcessor].
  */
-public fun <V, S> AnnotationProcessor(
+public fun <V> ViewsAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: Arguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> S
-): AnnotationProcessor<S> =
-    object : AbstractAnnotationProcessor<V, S>() {
+    factory: (value: V) -> ViewsSpan
+): ViewsAnnotationProcessor =
+    AnnotationProcessor(
+        tokenizer = tokenizer,
+        conflator = conflator,
+        parser = parser,
+        values = values,
+        factory = factory
+    )
 
-        override val tokenizer: Tokenizer = tokenizer
-        override val conflator: ValuesConfaltor<V> = conflator
-
-        override val parser: ValuesParser = parser
-
-        override fun Arguments.getValues(): QualifiedList<V>? =
-            this.values()
-
-        override fun makeSpan(value: V): S? =
-            factory(value)
+/**
+ * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Android Views system.
+ */
+internal fun AbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseAbsoluteSizeAnnotationProcessor {
+        AbsoluteSizeSpan(it)
     }

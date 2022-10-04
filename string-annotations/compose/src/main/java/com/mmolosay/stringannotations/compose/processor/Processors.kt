@@ -1,7 +1,15 @@
-package com.mmolosay.stringannotations.internal.processor
+package com.mmolosay.stringannotations.compose.processor
 
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcessor
+import com.mmolosay.stringannotations.compose.internal.ComposeSpan
+import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -26,33 +34,38 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /*
- * AnnotationProcessor extensions and utils.
+ * AnnotationProcessor builders.
  */
 
 /**
- * Builder for [AnnotationProcessor] implementations for single annotation type.
+ * Builder for [AnnotationProcessor] implementations for single annotation type for Compose UI.
  * Employs [AbstractAnnotationProcessor] inside.
  *
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
  * implemented in [AbstractAnnotationProcessor].
  */
-public fun <V, S> AnnotationProcessor(
+public fun <V> ComposeAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: Arguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> S
-): AnnotationProcessor<S> =
-    object : AbstractAnnotationProcessor<V, S>() {
+    factory: (value: V) -> ComposeSpan
+): ComposeAnnotationProcessor =
+    AnnotationProcessor(
+        tokenizer = tokenizer,
+        conflator = conflator,
+        parser = parser,
+        values = values,
+        factory = factory
+    )
 
-        override val tokenizer: Tokenizer = tokenizer
-        override val conflator: ValuesConfaltor<V> = conflator
-
-        override val parser: ValuesParser = parser
-
-        override fun Arguments.getValues(): QualifiedList<V>? =
-            this.values()
-
-        override fun makeSpan(value: V): S? =
-            factory(value)
+/**
+ * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Compose UI.
+ */
+@OptIn(ExperimentalUnitApi::class)
+internal fun AbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseAbsoluteSizeAnnotationProcessor {
+        SpanStyle(
+            fontSize = TextUnit(it.toFloat(), TextUnitType.Sp)
+        )
     }

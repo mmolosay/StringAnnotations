@@ -1,10 +1,7 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
-import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -23,15 +20,19 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * limitations under the License.
  */
 
+/*
+ * AnnotationProcessor builders.
+ */
+
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
-public abstract class AbsoluteSizeAnnotationProcessor<S> :
-    AbstractAnnotationProcessor<Int, S>() {
-
-    override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
-
-    override fun Arguments.getValues(): QualifiedList<Int>? =
-        absSizes
-}
+public fun <S> BaseAbsoluteSizeAnnotationProcessor(
+    factory: (value: Int) -> S
+): AnnotationProcessor<S> =
+    AnnotationProcessor(
+        tokenizer = Tokenizer.Split().distinct(),
+        conflator = StrategyConflator.Single(),
+        values = { absSizes },
+        factory = factory
+    )
