@@ -23,8 +23,6 @@ import com.mmolosay.stringannotations.args.Arguments
  * Parses [Annotation] of some [android.text.Spanned] string into span of [S] type.
  *
  * It can be used both as processor for single annotation type or for all of them.
- *
- * One should implement it in order to parse custom annotation type.
  */
 public fun interface AnnotationProcessor<S> {
 
