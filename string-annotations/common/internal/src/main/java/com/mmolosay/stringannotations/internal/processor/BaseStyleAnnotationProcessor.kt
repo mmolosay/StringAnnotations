@@ -4,6 +4,7 @@ import android.text.Annotation
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Token
@@ -28,13 +29,13 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for "style" annotation type.
  */
-public abstract class StyleAnnotationProcessor<S> :
+public abstract class BaseStyleAnnotationProcessor<S> :
     AbstractAnnotationProcessor<Token, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Solid()
     override val conflator: ValuesConfaltor<Token> = StrategyConflator.Single()
 
-    protected abstract val typefaceStyleAnnotationProcessor: TypefaceStyleAnnotationProcessor<S>
+    protected abstract val typefaceStyleAnnotationProcessor: AnnotationProcessor<S>
 
     override fun parseAnnotation(
         annotation: Annotation,

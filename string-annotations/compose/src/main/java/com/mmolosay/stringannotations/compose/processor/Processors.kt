@@ -1,7 +1,12 @@
+@file:Suppress("FunctionName")
+
 package com.mmolosay.stringannotations.compose.processor
 
+import android.graphics.Typeface
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
@@ -13,6 +18,7 @@ import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -52,7 +58,7 @@ public fun <V> ComposeAnnotationProcessor(
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: Arguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> ComposeSpan
+    factory: (value: V) -> ComposeSpan?
 ): ComposeAnnotationProcessor =
     AnnotationProcessor(
         tokenizer = tokenizer,
@@ -84,6 +90,23 @@ internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
 internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseClickableAnnotationProcessor {
         SpanStyle() // TODO: https://developer.android.com/jetpack/compose/text#click-with-annotation
+    }
+
+/**
+ * Implementation of [BaseTypefaceStyleAnnotationProcessor] for Compose UI.
+ */
+internal fun TypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseTypefaceStyleAnnotationProcessor {
+        when (it) {
+            Typeface.BOLD -> SpanStyle(fontWeight = FontWeight.Bold)
+            Typeface.ITALIC -> SpanStyle(fontStyle = FontStyle.Italic)
+            Typeface.BOLD_ITALIC ->
+                SpanStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
+                )
+            else -> null
+        }
     }
 
 /**

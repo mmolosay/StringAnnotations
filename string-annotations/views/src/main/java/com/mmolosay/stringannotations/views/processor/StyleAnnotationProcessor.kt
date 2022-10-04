@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.views.processor
 import android.text.style.CharacterStyle
 import android.text.style.StrikethroughSpan
 import android.text.style.UnderlineSpan
-import com.mmolosay.stringannotations.internal.processor.StyleAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseStyleAnnotationProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,9 +22,9 @@ import com.mmolosay.stringannotations.internal.processor.StyleAnnotationProcesso
  */
 
 /**
- * Implementation of [StyleAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseStyleAnnotationProcessor] for Android Views system.
  */
-internal class StyleAnnotationProcessor : StyleAnnotationProcessor<CharacterStyle>() {
+internal class StyleAnnotationProcessor : BaseStyleAnnotationProcessor<CharacterStyle>() {
 
     override val typefaceStyleAnnotationProcessor = TypefaceStyleAnnotationProcessor()
 

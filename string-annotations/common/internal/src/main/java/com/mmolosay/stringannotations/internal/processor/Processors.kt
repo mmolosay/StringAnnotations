@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -29,7 +31,7 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  * `AnnotationProcessor` for any color annotation type.
  */
 public fun <S> BaseColorAnnotationProcessor(
-    factory: (value: Int) -> S
+    factory: (value: Int) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
@@ -42,7 +44,7 @@ public fun <S> BaseColorAnnotationProcessor(
  * `AnnotationProcessor` for "clickable" annotation type.
  */
 public fun <S> BaseClickableAnnotationProcessor(
-    factory: (value: ClickableSpan) -> S
+    factory: (value: ClickableSpan) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
@@ -52,10 +54,23 @@ public fun <S> BaseClickableAnnotationProcessor(
     )
 
 /**
+ * `AnnotationProcessor` for typeface style annotation type.
+ */
+public fun <S> BaseTypefaceStyleAnnotationProcessor(
+    factory: (value: Int) -> S?
+): AnnotationProcessor<S> =
+    AnnotationProcessor(
+        tokenizer = Tokenizer.Split().distinct(),
+        conflator = StrategyConflator.Single(),
+        values = { typefaceStyles },
+        factory = factory
+    )
+
+/**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
 public fun <S> BaseAbsoluteSizeAnnotationProcessor(
-    factory: (value: Int) -> S
+    factory: (value: Int) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),

@@ -1,14 +1,18 @@
+@file:Suppress("FunctionName")
+
 package com.mmolosay.stringannotations.views.processor
 
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -52,7 +56,7 @@ public fun <V> ViewsAnnotationProcessor(
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: Arguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> ViewsSpan
+    factory: (value: V) -> ViewsSpan?
 ): ViewsAnnotationProcessor =
     AnnotationProcessor(
         tokenizer = tokenizer,
@@ -84,6 +88,14 @@ internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
 internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseClickableAnnotationProcessor {
         CustomizableClickableSpan(it)
+    }
+
+/**
+ * Implementation of [BaseTypefaceStyleAnnotationProcessor] for Android Views system.
+ */
+internal fun TypefaceStyleAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseTypefaceStyleAnnotationProcessor {
+        StyleSpan(it)
     }
 
 /**
