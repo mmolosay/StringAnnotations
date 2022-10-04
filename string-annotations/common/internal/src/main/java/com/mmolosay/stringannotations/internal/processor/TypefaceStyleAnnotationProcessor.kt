@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import android.graphics.Typeface
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
@@ -31,18 +30,8 @@ public abstract class TypefaceStyleAnnotationProcessor<S> :
     AbstractAnnotationProcessor<Int, S>() {
 
     override val tokenizer: Tokenizer = Tokenizer.Split().distinct()
-    override val conflator: ValuesConfaltor<Int> = StrategyConflator.All(::reduceTypefaceStyles)
+    override val conflator: ValuesConfaltor<Int> = StrategyConflator.Single()
 
     override fun Arguments.getValues(): QualifiedList<Int>? =
         typefaceStyles
-
-    private fun reduceTypefaceStyles(styles: Collection<Int>): Int? {
-        if (styles.isEmpty()) return null
-        if (styles.size == 1) return styles.first()
-        return if (styles.contains(Typeface.NORMAL)) {
-            reduceTypefaceStyles(styles - Typeface.NORMAL)
-        } else {
-            Typeface.BOLD_ITALIC
-        }
-    }
 }

@@ -8,6 +8,11 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  */
 
 /**
+ * Type of spans for Android Views system.
+ */
+internal typealias ViewsSpan = CharacterStyle
+
+/**
  * [AnnotationProcessor] for Android Views system.
  */
-internal typealias ViewAnnotationProcessor = AnnotationProcessor<CharacterStyle>
+internal typealias ViewsAnnotationProcessor = AnnotationProcessor<ViewsSpan>

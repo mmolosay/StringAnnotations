@@ -1,10 +1,8 @@
 package com.mmolosay.stringannotations.views.processor
 
-import android.text.Annotation
-import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
-import com.mmolosay.stringannotations.views.internal.ViewAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.AbstractMasterAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -23,125 +21,22 @@ import com.mmolosay.stringannotations.views.internal.ViewAnnotationProcessor
  */
 
 /**
- * Default implementation of [AnnotationProcessor], producing [CharacterStyle] spans.
- *
- * Resolves actual [AnnotationProcessor] to be used with passed annotation, based on
- * its type (attribute).
- * It is able to process all out-of-the-box annotation types.
- *
- * One should inherit this class in order to add support for custom annotation type.
- *
- * ## List of default supported annotations:
- *
- * ### Background color
- *
- * Annotation, that specifies background color of its body.
- *
- * ```
- * HEX color:
- * <annotation background="#ff0000">text with red background</annotation>
- *
- * Generic color name:
- * <annotation background="green">text with green background</annotation>
- * ```
- *
- * ### Foreground color
- *
- * Annotation, that specifies color of its body.
- *
- * ```
- * HEX color:
- * <annotation color="#ff0000">red text</annotation>
- *
- * Generic color name:
- * <annotation color="green">green text</annotation>
- * ```
- *
- * ### Clickable
- *
- * Annotation, that specifies ability of its body to intercept click events.
- *
- * Use runtime value arguments to specify span for the annotation.
- *
- * You should also explicitly specify, that your `TextView` contains clickable text
- * by calling [android.widget.TextView.setMovementMethod].
- *
- * ```
- * <annotation clickable="arg$clickable$0">clickable text</annotation>
- * ```
- *
- * ### Typeface style
- *
- * Annotation, that specifies typeface style of its body.
- *
- * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
- *
- * ```
- * <annotation style="bold|italic">bold and italic text</annotaiton>
- * ```
- *
- * ### Strikethrough style
- *
- * Annotation, that crosses its body out.
- *
- * ```
- * <annotation style="strikethrough">crossed out text</annotation>
- * ```
- *
- * ### Underline style
- *
- * Annotation, that underlines its body.
- *
- * ```
- * <annotation style="underline">underlined text</annotation>
- * ```
- *
- * ### Absolute size
- *
- * Annotation, that specifies absolute size of its body.
- *
- * ```
- * Pixels (just size will be treated the same):
- * <annotation size-absolute="20.3px">text of 20.3 px size</annotation>
- *
- * DPs:
- * <annotation size-absolute="20.3dp">text of 20.3 DP size</annotation>
- *
- * SPs:
- * <annotation size-absolute="20.3sp">text of 20.3 SP size</annotation>
- * ```
+ * Implementation of [AbstractMasterAnnotationProcessor] for Android Views system.
  */
-public open class MasterAnnotationProcessor : ViewAnnotationProcessor {
+public class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<ViewsSpan>() {
 
-    private val processors: MutableMap<String, ViewAnnotationProcessor> =
-        mutableMapOf()
+    override fun createBackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
+        BackgroundColorAnnotationProcessor()
 
-    public final override fun parseAnnotation(
-        annotation: Annotation,
-        arguments: Arguments?
-    ): CharacterStyle? {
-        val type = annotation.key
-        val processor = getOrCreateAnnotationProcessor(type) ?: return null
-        return processor.parseAnnotation(annotation, arguments)
-    }
+    override fun createForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
+        ForegroundColorAnnotationProcessor()
 
-    private fun getOrCreateAnnotationProcessor(type: String): ViewAnnotationProcessor? =
-        processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
+    override fun createStyleAnnotationProcessor(): ViewsAnnotationProcessor =
+        StyleAnnotationProcessor()
 
-    /**
-     * Create instance of [AnnotationProcessor], according to [type] of annotation.
-     *
-     * @param type attribute of string annotation tag.
-     *
-     * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
-     */
-    protected open fun createAnnotationProcessor(type: String): ViewAnnotationProcessor? =
-        when (type) {
-            "background" -> BackgroundColorAnnotationProcessor()
-            "color" -> ForegroundColorAnnotationProcessor()
-            "style" -> StyleAnnotationProcessor()
-            "clickable" -> ClickableAnnotationProcessor()
-            "size-absolute" -> AbsoluteSizeAnnotationProcessor()
-            else -> null
-        }
+    override fun createClickableAnnotationProcessor(): ViewsAnnotationProcessor =
+        ClickableAnnotationProcessor()
+
+    override fun createAbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
+        AbsoluteSizeAnnotationProcessor()
 }
