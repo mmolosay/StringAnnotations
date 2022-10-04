@@ -25,6 +25,19 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  */
 
 /**
+ * `AnnotationProcessor` for any color annotation type.
+ */
+public fun <S> BaseColorAnnotationProcessor(
+    factory: (value: Int) -> S
+): AnnotationProcessor<S> =
+    AnnotationProcessor(
+        tokenizer = Tokenizer.Split().distinct(),
+        conflator = StrategyConflator.Single(),
+        values = { colors },
+        factory = factory
+    )
+
+/**
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
 public fun <S> BaseAbsoluteSizeAnnotationProcessor(

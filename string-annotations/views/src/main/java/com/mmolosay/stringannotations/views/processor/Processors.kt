@@ -1,10 +1,13 @@
 package com.mmolosay.stringannotations.views.processor
 
 import android.text.style.AbsoluteSizeSpan
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -56,6 +59,22 @@ public fun <V> ViewsAnnotationProcessor(
         values = values,
         factory = factory
     )
+
+/**
+ * Implementation of [BaseColorAnnotationProcessor] for Android Views system.
+ */
+internal fun BackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseColorAnnotationProcessor {
+        BackgroundColorSpan(it)
+    }
+
+/**
+ * Implementation of [BaseColorAnnotationProcessor] for Android Views system.
+ */
+internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseColorAnnotationProcessor {
+        ForegroundColorSpan(it)
+    }
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Android Views system.

@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.compose.processor
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -10,6 +11,7 @@ import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcesso
 import com.mmolosay.stringannotations.compose.internal.ComposeSpan
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -58,6 +60,22 @@ public fun <V> ComposeAnnotationProcessor(
         values = values,
         factory = factory
     )
+
+/**
+ * Implementation of [BaseColorAnnotationProcessor] for Compose UI.
+ */
+internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseColorAnnotationProcessor {
+        SpanStyle(background = Color(it))
+    }
+
+/**
+ * Implementation of [BaseColorAnnotationProcessor] for Compose UI.
+ */
+internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseColorAnnotationProcessor {
+        SpanStyle(color = Color(it))
+    }
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Compose UI.
