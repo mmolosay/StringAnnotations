@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.TextSize
 import com.mmolosay.stringannotations.compose.annotatedStringResource
+import com.mmolosay.stringannotations.compose.args.SpSize
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 // region Previews
@@ -171,9 +171,9 @@ private fun Demo5() =
 @Composable
 private fun Demo6() =
     Demo {
-        val size = TextSize(10.5f) // SPs
+        val size = SpSize(10.5f)
         val args = Arguments {
-            absoluteSize(size) // SPs
+            absoluteSize(size)
         }
         Text(
             text = annotatedStringResource(R.string.demo6, args)

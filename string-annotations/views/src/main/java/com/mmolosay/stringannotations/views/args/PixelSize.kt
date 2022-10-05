@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.views.args
+
+import com.mmolosay.stringannotations.args.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,12 +19,13 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Size of text, defined in some units.
+ * Implementation of [TextSize] for Android Views system.
+ * Here [value] is defined in `pixels` units.
  */
-public interface TextSize {
+public class PixelSize(override val value: Float) : TextSize {
 
     /**
-     * Size of text. The concrete units will be determined in implementation.
+     * Builder for [TextSize] in declarative style.
      */
-    public val value: Float
+    public constructor(computation: () -> Float) : this(computation())
 }

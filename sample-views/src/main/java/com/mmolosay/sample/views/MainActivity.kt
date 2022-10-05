@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.views.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.TextSize
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.views.args.PixelSize
 import com.mmolosay.stringannotations.views.getAnnotatedString
 import com.mmolosay.stringannotations.views.span.clickable.ClickableSpan
 import com.mmolosay.stringannotations.views.span.clickable.from
@@ -128,11 +128,11 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      */
     private fun setDemo6() {
         val size = 24.5f
-        val size1 = TextSize(size) // already pixels
-        val size2 = TextSize {
+        val size1 = PixelSize(size) // already pixels
+        val size2 = PixelSize {
             TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, resources.displayMetrics)
         }
-        val size3 = TextSize {
+        val size3 = PixelSize {
             TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, resources.displayMetrics)
         }
         val args = Arguments {

@@ -1,4 +1,6 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.compose.args
+
+import com.mmolosay.stringannotations.args.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,12 +19,13 @@ package com.mmolosay.stringannotations.args
  */
 
 /**
- * Size of text, defined in some units.
+ * Implementation of [TextSize] for Compose UI.
+ * Here [value] is defined in `SP` units.
  */
-public interface TextSize {
+public class SpSize(override val value: Float) : TextSize {
 
     /**
-     * Size of text. The concrete units will be determined in implementation.
+     * Builder for [TextSize] in declarative style.
      */
-    public val value: Float
+    public constructor(computation: () -> Float) : this(computation())
 }
