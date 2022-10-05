@@ -171,7 +171,7 @@ private fun Demo5() =
 private fun Demo6() =
     Demo {
         val args = Arguments {
-            absoluteSize(10.5f.toInt()) // SPs
+            absoluteSize(10.5f) // SPs
         }
         Text(
             text = annotatedStringResource(R.string.demo6, args)

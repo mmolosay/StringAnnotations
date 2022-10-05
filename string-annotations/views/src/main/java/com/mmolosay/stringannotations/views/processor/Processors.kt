@@ -115,5 +115,5 @@ internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
  */
 internal fun AbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseAbsoluteSizeAnnotationProcessor {
-        AbsoluteSizeSpan(it)
+        AbsoluteSizeSpan(it.toInt())
     }

@@ -100,22 +100,22 @@ public interface ArgumentsBuilder {
     /**
      * Adds specified [item] in [Arguments.absSizes] list.
      */
-    public fun absoluteSize(item: Int): Arguments
+    public fun absoluteSize(item: Float): Arguments
 
     /**
      * Executes [producer] and adds resulting pixel size to [Arguments.absSizes] list.
      */
-    public fun absoluteSize(producer: () -> Int): Arguments
+    public fun absoluteSize(producer: () -> Float): Arguments
 
     /**
      * Adds specified [items] in [Arguments.absSizes] list.
      */
-    public fun absoluteSizes(vararg items: Int): Arguments
+    public fun absoluteSizes(vararg items: Float): Arguments
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.absSizes] list.
      */
-    public fun absoluteSizes(block: Adder<Int>.() -> Unit): Arguments
+    public fun absoluteSizes(block: Adder<Float>.() -> Unit): Arguments
 
     // endregion
 

@@ -127,13 +127,11 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      */
     private fun setDemo6() {
         val size = 24.5f
-        val size1 = size.toInt() // already pixels
+        val size1 = size // already pixels
         val size2 = TypedValue
             .applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, resources.displayMetrics)
-            .toInt()
         val size3 = TypedValue
             .applyDimension(TypedValue.COMPLEX_UNIT_SP, size, resources.displayMetrics)
-            .toInt()
         val args = Arguments {
             absoluteSizes(size1, size2, size3)
         }

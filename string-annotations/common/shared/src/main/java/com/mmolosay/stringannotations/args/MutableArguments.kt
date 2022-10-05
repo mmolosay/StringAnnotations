@@ -26,5 +26,5 @@ internal class MutableArguments(
     override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
     override val clickables: MutableQualifiedList<ClickableSpan> = MutableQualifiedList("clickable"),
     override val typefaceStyles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
-    override val absSizes: MutableQualifiedList<Int> = MutableQualifiedList("size-absolute")
+    override val absSizes: MutableQualifiedList<Float> = MutableQualifiedList("size-absolute")
 ) : Arguments

@@ -101,7 +101,7 @@ public fun <S> BaseDecorationAnnotationProcessor(
  * `AnnotationProcessor` for "size-absolute" annotation type.
  */
 public fun <S> BaseAbsoluteSizeAnnotationProcessor(
-    factory: (value: Int) -> S?
+    factory: (value: Float) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),

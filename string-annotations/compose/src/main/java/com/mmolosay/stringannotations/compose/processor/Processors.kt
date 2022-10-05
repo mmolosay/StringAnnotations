@@ -127,6 +127,6 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
 internal fun AbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseAbsoluteSizeAnnotationProcessor {
         SpanStyle(
-            fontSize = TextUnit(it.toFloat(), TextUnitType.Sp)
+            fontSize = TextUnit(it, TextUnitType.Sp)
         )
     }

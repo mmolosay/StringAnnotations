@@ -44,8 +44,8 @@ public interface Arguments {
     public val typefaceStyles: QualifiedList<Int>
 
     /**
-     * Absolute sizes in pixels.
+     * Absolute sizes in pixels. // TODO: in sp
      */
-    public val absSizes: QualifiedList<Int>
+    public val absSizes: QualifiedList<Float>
 
 }
