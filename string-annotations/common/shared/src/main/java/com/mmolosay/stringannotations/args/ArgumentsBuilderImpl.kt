@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -49,16 +49,16 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
 
     // region Clickables
 
-    override fun clickable(item: ClickableSpan): Arguments =
+    override fun clickable(item: ClickOwner): Arguments =
         add(item, args.clickables)
 
-    override fun clickable(producer: () -> ClickableSpan): Arguments =
+    override fun clickable(producer: () -> ClickOwner): Arguments =
         add(producer, args.clickables)
 
-    override fun clickables(vararg items: ClickableSpan): Arguments =
+    override fun clickables(vararg items: ClickOwner): Arguments =
         add(items, args.clickables)
 
-    override fun clickables(block: ArgumentsBuilder.Adder<ClickableSpan>.() -> Unit): Arguments =
+    override fun clickables(block: ArgumentsBuilder.Adder<ClickOwner>.() -> Unit): Arguments =
         add(block, clickablesAdder)
 
     // endregion

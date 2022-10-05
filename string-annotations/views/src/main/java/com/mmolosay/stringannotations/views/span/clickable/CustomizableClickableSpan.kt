@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.views.span.clickable
 import android.text.TextPaint
 import android.text.style.ClickableSpan
 import android.view.View
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan as ClickableSpanData
+import com.mmolosay.stringannotations.views.args.Clickable
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,14 +22,14 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan as Clickable
  */
 
 /**
- * [ClickableSpan] with flexible customization.
+ * [Clickable] with customizable appearance.
  */
 internal class CustomizableClickableSpan(
-    private val span: ClickableSpanData
+    private val clickable: Clickable
 ) : ClickableSpan() {
 
     override fun onClick(p0: View) {
-        span.action.click()
+        clickable.action.click()
     }
 
     override fun updateDrawState(paint: TextPaint) {
@@ -38,7 +38,7 @@ internal class CustomizableClickableSpan(
     }
 
     private fun applyAppearance(paint: TextPaint) {
-        paint.isUnderlineText = span.appearance.underlineText
-        paint.color = span.appearance.textColor
+        paint.isUnderlineText = clickable.appearance.underlineText
+        paint.color = clickable.appearance.textColor
     }
 }

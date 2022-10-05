@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,7 +24,7 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 internal class MutableArguments(
     override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
-    override val clickables: MutableQualifiedList<ClickableSpan> = MutableQualifiedList("clickable"),
+    override val clickables: MutableQualifiedList<ClickOwner> = MutableQualifiedList("clickable"),
     override val typefaceStyles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
     override val absSizes: MutableQualifiedList<TextSize> = MutableQualifiedList("size-absolute")
 ) : Arguments

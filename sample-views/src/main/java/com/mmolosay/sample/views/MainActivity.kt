@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.views.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.views.args.Clickable
 import com.mmolosay.stringannotations.views.args.PixelSize
 import com.mmolosay.stringannotations.views.getAnnotatedString
-import com.mmolosay.stringannotations.views.span.clickable.ClickableSpan
+import com.mmolosay.stringannotations.views.span.clickable.Clickable
 import com.mmolosay.stringannotations.views.span.clickable.from
 
 class MainActivity : AppCompatActivity(R.layout.main_screen) {
@@ -70,11 +70,11 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
     private fun setDemo3() {
-        val appearance = ClickableSpan.Appearance.from(theme)
-        val span1 = ClickableSpan(appearance) {
+        val appearance = Clickable.Appearance.from(theme)
+        val span1 = Clickable(appearance) {
             Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
         }
-        val span2 = ClickableSpan(
+        val span2 = Clickable(
             theme = theme,
             builder = {
                 copy(

@@ -2,7 +2,8 @@ package com.mmolosay.stringannotations.views.span.clickable
 
 import android.content.Context
 import android.content.res.Resources
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.views.args.Clickable
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -21,22 +22,22 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /*
- * ClickableSpan builder functions.
+ * `Clickable` builder functions.
  */
 
 /**
- * Creates new instance of [ClickableSpan] with specified click [action] and appearance.
+ * Creates new instance of [ClickOwner] with specified click [action] and appearance.
  *
- * Appearance [builder] will be scoped to [ClickableSpan.Appearance], set in your [theme].
+ * Appearance [builder] will be scoped to [ClickOwner.Appearance], set in your [theme].
  */
-public fun ClickableSpan(
+public fun Clickable(
     theme: Resources.Theme,
-    builder: ClickableSpan.Appearance.() -> ClickableSpan.Appearance,
-    action: ClickableSpan.ClickAction
-): ClickableSpan {
-    val themeAppearance = ClickableSpan.Appearance.from(theme)
+    builder: Clickable.Appearance.() -> Clickable.Appearance,
+    action: ClickOwner.ClickAction
+): Clickable {
+    val themeAppearance = Clickable.Appearance.from(theme)
     val appearance = builder(themeAppearance)
-    return ClickableSpan(
+    return Clickable(
         appearance = appearance,
         action = action
     )
@@ -47,29 +48,29 @@ public fun ClickableSpan(
  *
  * @see [com.mmolosay.stringannotations.view.span.clickable.ClickableSpan]
  */
-public fun ClickableSpan(
+public fun Clickable(
     context: Context,
-    builder: ClickableSpan.Appearance.() -> ClickableSpan.Appearance,
-    action: ClickableSpan.ClickAction
-): ClickableSpan {
-    val themeAppearance = ClickableSpan.Appearance.from(context.theme)
+    builder: Clickable.Appearance.() -> Clickable.Appearance,
+    action: ClickOwner.ClickAction
+): Clickable {
+    val themeAppearance = Clickable.Appearance.from(context.theme)
     val appearance = builder(themeAppearance)
-    return ClickableSpan(
+    return Clickable(
         appearance = appearance,
         action = action
     )
 }
 
 /**
- * Creates new instance of [ClickableSpan] with specified click [action].
+ * Creates new instance of [ClickOwner] with specified click [action].
  * The [appearance]'s default value will be retrieved from [theme].
  */
-public fun ClickableSpan(
+public fun Clickable(
     theme: Resources.Theme,
-    appearance: ClickableSpan.Appearance = ClickableSpan.Appearance.from(theme),
-    action: ClickableSpan.ClickAction
-): ClickableSpan =
-    ClickableSpan(
+    appearance: Clickable.Appearance = Clickable.Appearance.from(theme),
+    action: ClickOwner.ClickAction
+): Clickable =
+    Clickable(
         appearance = appearance,
         action = action
     )

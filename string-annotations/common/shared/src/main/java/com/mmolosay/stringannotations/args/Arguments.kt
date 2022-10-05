@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -36,7 +36,7 @@ public interface Arguments {
     /**
      * Clickable spans.
      */
-    public val clickables: QualifiedList<ClickableSpan>
+    public val clickables: QualifiedList<ClickOwner>
 
     /**
      * Typeface style integers.

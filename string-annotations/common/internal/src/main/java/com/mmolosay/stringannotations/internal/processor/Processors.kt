@@ -11,7 +11,7 @@ import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -50,7 +50,7 @@ public fun <S> BaseColorAnnotationProcessor(
  * `AnnotationProcessor` for "clickable" annotation type.
  */
 public fun <S> BaseClickableAnnotationProcessor(
-    factory: (value: ClickableSpan) -> S?
+    factory: (value: ClickOwner) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),

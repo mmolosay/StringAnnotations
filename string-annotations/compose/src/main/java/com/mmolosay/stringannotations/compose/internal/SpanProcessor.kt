@@ -4,7 +4,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /**
  * Processes spans (as [SpanStyle]).
@@ -63,12 +63,12 @@ internal object SpanProcessor {
 
     private fun applySpan(
         builder: AnnotatedString.Builder,
-        span: ClickableSpan,
+        span: ClickOwner,
         range: IntRange
     ) {
         builder.addStringAnnotation(
             tag = "clickable",
-            annotation = span.annotation,
+            annotation = "", // TODO: span.annotation,
             start = range.first,
             end = range.last
         )

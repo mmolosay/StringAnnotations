@@ -1,8 +1,5 @@
 package com.mmolosay.stringannotations.spans.clickable
 
-import android.graphics.Color
-import androidx.annotation.ColorInt
-
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -20,33 +17,13 @@ import androidx.annotation.ColorInt
  */
 
 /**
- * Span with click action.
+ * Owner of [ClickAction].
  */
-public data class ClickableSpan(
-    val appearance: Appearance = Appearance(),
-    val annotation: String = "",
-    val action: ClickAction
-) {
+public interface ClickOwner {
+
+    public val action: ClickAction
 
     public fun interface ClickAction {
         public fun click()
-    }
-
-    /**
-     * Appearance properties of clickable text.
-     */
-    public data class Appearance(
-
-        /**
-         * Defines, whether text should be underlined or not.
-         */
-        val underlineText: Boolean = false,
-
-        /**
-         * Color of text.
-         */
-        @ColorInt val textColor: Int = Color.BLUE
-    ) {
-        public companion object
     }
 }

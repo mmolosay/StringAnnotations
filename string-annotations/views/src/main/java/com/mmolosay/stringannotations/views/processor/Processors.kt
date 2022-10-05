@@ -90,7 +90,7 @@ internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
  */
 internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseClickableAnnotationProcessor {
-        CustomizableClickableSpan(it)
+        TODO() // CustomizableClickableSpan(it)
     }
 
 /**

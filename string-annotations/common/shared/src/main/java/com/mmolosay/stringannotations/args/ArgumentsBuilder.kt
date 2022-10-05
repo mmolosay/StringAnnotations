@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -52,22 +52,22 @@ public interface ArgumentsBuilder {
     /**
      * Adds specified [item] in [Arguments.clickables] list.
      */
-    public fun clickable(item: ClickableSpan): Arguments
+    public fun clickable(item: ClickOwner): Arguments
 
     /**
      * Executes [producer] and adds resulting clickable span to [Arguments.clickables] list.
      */
-    public fun clickable(producer: () -> ClickableSpan): Arguments
+    public fun clickable(producer: () -> ClickOwner): Arguments
 
     /**
      * Adds specified [items] in [Arguments.clickables] list.
      */
-    public fun clickables(vararg items: ClickableSpan): Arguments
+    public fun clickables(vararg items: ClickOwner): Arguments
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.clickables] list.
      */
-    public fun clickables(block: Adder<ClickableSpan>.() -> Unit): Arguments
+    public fun clickables(block: Adder<ClickOwner>.() -> Unit): Arguments
 
     // endregion
 
