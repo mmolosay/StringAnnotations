@@ -6,27 +6,25 @@
 
     <!-- region Individual types -->
 
-    <string name="demo1">Demo #1: this text is <annotation color="blue">bluuuuue</annotation></string>
+    <string name="demo1">Demo #1: text with <annotation color="$arg$color$0">color</annotation></string>
 
-    <string name="demo2">Demo #2: this text is <annotation background="#ededed">on background and with %1$s</annotation></string>
+    <string name="demo2">Demo #2: text with <annotation background="$arg$color$0">background and placeholder: %1$s</annotation></string>
 
     <string name="demo3">Demo #3: <annotation clickable="$arg$clickable$0">click me</annotation> and <annotation clickable="$arg$clickable$1">me as well</annotation></string>
 
-    <string name="demo4">Demo #4: regular, <annotation style="bold">bold</annotation>, <annotation style="italic">italic</annotation> and <annotation style="bold|italic">combined</annotation> text</string>
+    <string name="demo4">Demo #4: text <annotation style="$arg$style$0">with</annotation> <annotation style="$arg$style$1">typeface</annotation> <annotation style="$arg$style$2">styles</annotation></string>
 
-    <string name="demo5">Demo #5: <annotation style="strikethrough">crossed out</annotation> and <annotation style="underline">underlined</annotation> text</string>
+    <string name="demo5">Demo #5: <annotation decoration="strikethrough">crossed out</annotation> and <annotation decoration="underline">underlined</annotation> text</string>
 
-    <string name="demo6">Demo #6: text with absolute size of 20.5 in <annotation size-absolute="20.5">pixels</annotation>, <annotation size-absolute="20.5dp">DIPs</annotation> and <annotation size-absolute="20.5sp">SPs</annotation></string>
-
-    <string name="demo7">Demo #7: color value is being set in <annotation color="$arg$color$0">runtime</annotation></string>
+    <string name="demo6">Demo #6: text with same absolute size in <annotation size-absolute="$arg$size-absolute$0">pixels</annotation>, <annotation size-absolute="$arg$size-absolute$1">DIPs</annotation> and <annotation size-absolute="$arg$size-absolute$2">SPs</annotation></string>
 
     <!-- endregion -->
 
-    <!-- region Common placeholders -->
+    <!-- region Values, to be used instead of placeholders -->
 
-    <string name="placeholder1">Placeholder#1</string>
-    <string name="placeholder2">Placeholder#2</string>
-    <string name="placeholder3">Placeholder#3</string>
+    <string name="value1">value#1</string>
+    <string name="value2">value#2</string>
+    <string name="value3">value#3</string>
 
     <!-- endregion -->
 

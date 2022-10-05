@@ -8,8 +8,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -53,13 +53,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             tools:text="@string/demo6" />
-
-        <TextView
-            android:id="@+id/demo7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            tools:text="@string/demo7" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

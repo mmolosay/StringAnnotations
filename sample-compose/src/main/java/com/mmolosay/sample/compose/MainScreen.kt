@@ -55,11 +55,16 @@ fun Main() {
         Demo3()
         Demo4()
         Demo5()
+        Demo6()
     }
 }
 
 // region Demos
 
+/**
+ * Demo for [R.string.demo1].
+ * Demonstrates foreground color annotation.
+ */
 @Composable
 private fun Demo1() {
     val args = Arguments {
@@ -70,6 +75,10 @@ private fun Demo1() {
     )
 }
 
+/**
+ * Demo for [R.string.demo2].
+ * Demonstrates background color annotation.
+ */
 @Composable
 private fun Demo2() {
     val args = Arguments {
@@ -81,6 +90,10 @@ private fun Demo2() {
     )
 }
 
+/**
+ * Demo for [R.string.demo3].
+ * Demonstrates clickable annotations.
+ */
 @Composable
 private fun Demo3() {
     val context = LocalContext.current
@@ -103,6 +116,10 @@ private fun Demo3() {
     )
 }
 
+/**
+ * Demo for [R.string.demo4].
+ * Demonstrates typeface style annotations: bold, italic and bold&italic.
+ */
 @Composable
 private fun Demo4() {
     val style1 = Typeface.ITALIC
@@ -116,10 +133,28 @@ private fun Demo4() {
     )
 }
 
+/**
+ * Demo for [R.string.demo5].
+ * Demonstrates decoration annotations: underline and strikethrough.
+ */
 @Composable
 private fun Demo5() {
     Text(
         text = annotatedStringResource(R.string.demo5)
+    )
+}
+
+/**
+ * Demo for [R.string.demo6].
+ * Demonstrates absolute size annotation.
+ */
+@Composable
+private fun Demo6() {
+    val args = Arguments {
+        absoluteSize(10.5f.toInt()) // SPs
+    }
+    Text(
+        text = annotatedStringResource(R.string.demo6, args)
     )
 }
 

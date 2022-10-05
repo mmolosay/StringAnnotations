@@ -1,11 +1,12 @@
 package com.mmolosay.sample.views
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.TypedValue
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.views.databinding.MainScreenBinding
 import com.mmolosay.stringannotations.args.Arguments
@@ -36,7 +37,6 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemo4()
         setDemo5()
         setDemo6()
-        setDemo7()
     }
 
     /**
@@ -44,7 +44,10 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates foreground color annotation.
      */
     private fun setDemo1() {
-        binding.demo1.text = getAnnotatedString(R.string.demo1)
+        val args = Arguments {
+            color(Color.BLUE)
+        }
+        binding.demo1.text = getAnnotatedString(R.string.demo1, args)
     }
 
     /**
@@ -52,13 +55,16 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates background color annotation.
      */
     private fun setDemo2() {
-        val placeholder1 = getString(R.string.placeholder1)
-        binding.demo2.text = getAnnotatedString(R.string.demo2, placeholder1)
+        val args = Arguments {
+            color(Color.LTGRAY)
+        }
+        val placeholder1 = getString(R.string.value1)
+        binding.demo2.text = getAnnotatedString(R.string.demo2, args, placeholder1)
     }
 
     /**
      * Demo for [R.string.demo3].
-     * Demonstrates clickable annotations via runtime value arguments.
+     * Demonstrates clickable annotations.
      *
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
@@ -95,15 +101,21 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     /**
      * Demo for [R.string.demo4].
-     * Demonstrates typeface style annotations: normal, bold, italic and bold&italic.
+     * Demonstrates typeface style annotations: bold, italic and bold&italic.
      */
     private fun setDemo4() {
-        binding.demo4.text = getAnnotatedString(R.string.demo4)
+        val style1 = Typeface.ITALIC
+        val style2 = Typeface.BOLD
+        val style3 = Typeface.BOLD_ITALIC
+        val args = Arguments {
+            typefaceStyles(style1, style2, style3)
+        }
+        binding.demo4.text = getAnnotatedString(R.string.demo4, args)
     }
 
     /**
      * Demo for [R.string.demo5].
-     * Demonstrates crossed out and underlined style annotations.
+     * Demonstrates decoration annotations: underline and strikethrough.
      */
     private fun setDemo5() {
         binding.demo5.text = getAnnotatedString(R.string.demo5)
@@ -111,24 +123,21 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     /**
      * Demo for [R.string.demo6].
-     * Demonstrates crossed out and underlined style annotations.
+     * Demonstrates absolute size annotations: in pixels, DIPs and SPs.
      */
     private fun setDemo6() {
-        binding.demo6.text = getAnnotatedString(R.string.demo6)
-    }
-
-    /**
-     * Demo for [R.string.demo7].
-     * Demonstrates using runtime value arguments.
-     */
-    private fun setDemo7() {
-        val colorPurple = ContextCompat.getColor(this, R.color.purple_500)
+        val size = 24.5f
+        val size1 = size.toInt() // already pixels
+        val size2 = TypedValue
+            .applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, resources.displayMetrics)
+            .toInt()
+        val size3 = TypedValue
+            .applyDimension(TypedValue.COMPLEX_UNIT_SP, size, resources.displayMetrics)
+            .toInt()
         val args = Arguments {
-            colors {
-                add(colorPurple)
-            }
+            absoluteSizes(size1, size2, size3)
         }
-        binding.demo7.text = getAnnotatedString(R.string.demo7, args)
+        binding.demo6.text = getAnnotatedString(R.string.demo6, args)
     }
 
     // endregion
