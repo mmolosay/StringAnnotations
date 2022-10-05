@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -147,12 +146,12 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
      */
     protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
         when (type) {
-            "background" -> createBackgroundColorAnnotationProcessor()
-            "color" -> createForegroundColorAnnotationProcessor()
-            ArgumentsQualifiers.style -> createStyleAnnotationProcessor()
-            "decoration" -> createDecorationAnnotationProcessor()
-            ArgumentsQualifiers.clickable -> createClickableAnnotationProcessor()
-            ArgumentsQualifiers.size -> createSizeAnnotationProcessor()
+            AnnotationTypes.background -> createBackgroundColorAnnotationProcessor()
+            AnnotationTypes.color -> createForegroundColorAnnotationProcessor()
+            AnnotationTypes.style -> createStyleAnnotationProcessor()
+            AnnotationTypes.decoration -> createDecorationAnnotationProcessor()
+            AnnotationTypes.clickable -> createClickableAnnotationProcessor()
+            AnnotationTypes.size -> createSizeAnnotationProcessor()
             else -> null
         }
 
@@ -185,4 +184,16 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
      * Create instance of [AnnotationProcessor] for 'size' annotation type.
      */
     protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<A, S>
+
+    /**
+     * Types of out-of-the-box annotations.
+     */
+    private object AnnotationTypes {
+        const val background = "background"
+        const val color = "color"
+        const val style = "style"
+        const val decoration = "decoration"
+        const val clickable = "clickable"
+        const val size = "size"
+    }
 }
