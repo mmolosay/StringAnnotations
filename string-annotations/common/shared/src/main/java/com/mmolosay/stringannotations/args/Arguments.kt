@@ -35,7 +35,7 @@ public interface Arguments<C : ClickOwner> {
     /**
      * Color integers.
      */
-    public val colors: QualifiedList<Int> // TODO: replace with ColorsList : QualifiedList<Int>("colors") ?
+    public val colors: QualifiedList<Int>
 
     /**
      * Clickable spans.
