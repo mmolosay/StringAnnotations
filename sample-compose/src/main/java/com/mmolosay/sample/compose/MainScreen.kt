@@ -8,12 +8,21 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.compose.annotatedStringResource
 
 // region Previews
 
+/*
+ * Unfortunately, Compose Preview can not be rendered, when there's some
+ * annotated strings in layout:
+ * class java.lang.String cannot be cast to class android.text.SpannedString,
+ * but it all fine in runtime
+ */
 @Preview
 @Composable
 private fun MainScreenPreview() {
@@ -44,7 +53,10 @@ fun Main() {
 
 @Composable
 private fun Demo1() {
-    val text = stringResource(R.string.demo1)
+    val args = Arguments {
+        color(Color.Blue.toArgb())
+    }
+    val text = annotatedStringResource(R.string.demo1, args)
     Text(text)
 }
 
