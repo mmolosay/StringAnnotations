@@ -81,16 +81,16 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
 
     // region Absolute sizes
 
-    override fun absoluteSize(item: Float): Arguments =
+    override fun absoluteSize(item: TextSize): Arguments =
         add(item, args.absSizes)
 
-    override fun absoluteSize(producer: () -> Float): Arguments =
+    override fun absoluteSize(producer: () -> TextSize): Arguments =
         add(producer, args.absSizes)
 
-    override fun absoluteSizes(vararg items: Float): Arguments =
-        add(items.toTypedArray(), args.absSizes)
+    override fun absoluteSizes(vararg items: TextSize): Arguments =
+        add(items, args.absSizes)
 
-    override fun absoluteSizes(block: ArgumentsBuilder.Adder<Float>.() -> Unit): Arguments =
+    override fun absoluteSizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments =
         add(block, absSizesAdder)
 
     // endregion

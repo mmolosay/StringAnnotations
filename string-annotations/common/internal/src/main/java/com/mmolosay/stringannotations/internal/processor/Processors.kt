@@ -4,6 +4,7 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.args.TextSize
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
@@ -99,9 +100,11 @@ public fun <S> BaseDecorationAnnotationProcessor(
 
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
+ * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
+ * implementation.
  */
 public fun <S> BaseAbsoluteSizeAnnotationProcessor(
-    factory: (value: Float) -> S?
+    factory: (value: TextSize) -> S?
 ): AnnotationProcessor<S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),

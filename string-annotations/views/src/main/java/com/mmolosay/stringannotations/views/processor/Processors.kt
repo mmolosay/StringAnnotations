@@ -112,8 +112,9 @@ internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Android Views system.
+ * Expects `TextSize.value` to be `pixels` units.
  */
 internal fun AbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseAbsoluteSizeAnnotationProcessor {
-        AbsoluteSizeSpan(it.toInt())
+        AbsoluteSizeSpan(it.value.toInt())
     }

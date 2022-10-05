@@ -1,7 +1,5 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
-
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -19,12 +17,13 @@ import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
  */
 
 /**
- * Internal mutable implementation of [Arguments].
- * Should not be used as explicit type.
+ * Size of text, defined in some units.
  */
-internal class MutableArguments(
-    override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
-    override val clickables: MutableQualifiedList<ClickableSpan> = MutableQualifiedList("clickable"),
-    override val typefaceStyles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
-    override val absSizes: MutableQualifiedList<TextSize> = MutableQualifiedList("size-absolute")
-) : Arguments
+// can't be defined as `value` class, because will become not usable with `vararg`
+public class TextSize(public val value: Float) {
+
+    /**
+     * Builder for [TextSize] in declarative style.
+     */
+    public constructor(computation: () -> Float) : this(computation())
+}

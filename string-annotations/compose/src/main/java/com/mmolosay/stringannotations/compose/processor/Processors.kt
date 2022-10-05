@@ -122,11 +122,12 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Compose UI.
+ * Expects `TextSize.value` to be `SP` units.
  */
 @OptIn(ExperimentalUnitApi::class)
 internal fun AbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseAbsoluteSizeAnnotationProcessor {
         SpanStyle(
-            fontSize = TextUnit(it, TextUnitType.Sp)
+            fontSize = TextUnit(it.value, TextUnitType.Sp)
         )
     }
