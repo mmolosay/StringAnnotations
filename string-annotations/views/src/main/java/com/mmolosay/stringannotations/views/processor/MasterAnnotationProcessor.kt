@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.views.processor
 
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
 import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsArguments
 import com.mmolosay.stringannotations.views.internal.ViewsSpan
 
 /*
@@ -23,7 +24,8 @@ import com.mmolosay.stringannotations.views.internal.ViewsSpan
 /**
  * Implementation of [AbstractMasterAnnotationProcessor] for Android Views system.
  */
-public open class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<ViewsSpan>() {
+public open class MasterAnnotationProcessor :
+    AbstractMasterAnnotationProcessor<ViewsArguments, ViewsSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
         BackgroundColorAnnotationProcessor()

@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.compose.processor
 
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.compose.args.Clickable
 
 /**
  * Aggregation of possible "spans" for Compose UI.
@@ -10,7 +10,7 @@ import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 public class ComposeSpan private constructor(
     public val spanStyle: SpanStyle? = null,
     public val paragraphStyle: ParagraphStyle? = null,
-    public val clickable: ClickOwner? = null
+    public val clickable: Clickable? = null
 ) {
 
     public operator fun component1(): SpanStyle? =
@@ -19,7 +19,7 @@ public class ComposeSpan private constructor(
     public operator fun component2(): ParagraphStyle? =
         paragraphStyle
 
-    public operator fun component3(): ClickOwner? =
+    public operator fun component3(): Clickable? =
         clickable
 
     public companion object {
@@ -37,9 +37,9 @@ public class ComposeSpan private constructor(
             ComposeSpan(paragraphStyle = type)
 
         /**
-         * Creates [ComposeSpan] with specified [ClickOwner].
+         * Creates [ComposeSpan] with specified [Clickable].
          */
-        public fun of(type: ClickOwner): ComposeSpan =
+        public fun of(type: Clickable): ComposeSpan =
             ComposeSpan(clickable = type)
     }
 }

@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.args.types
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -16,12 +16,13 @@ package com.mmolosay.stringannotations.args
  * limitations under the License.
  */
 
-/*
- * Extension for Arguments and stuff for convenience of use.
- */
-
 /**
- * Assembles [Arguments] in declarative style.
+ * Size of text, defined in some units.
  */
-public fun Arguments(builder: ArgumentsBuilder.() -> Arguments): Arguments =
-    builder(ArgumentsBuilderImpl())
+public interface TextSize {
+
+    /**
+     * Size of text. The concrete units will be determined in implementation.
+     */
+    public val value: Float
+}

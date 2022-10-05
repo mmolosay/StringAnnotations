@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.views.args
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.types.ClickOwner
 
 /**
  * Implementation of [ClickOwner] for Android Views system.

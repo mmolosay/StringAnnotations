@@ -8,7 +8,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -41,7 +41,7 @@ import com.mmolosay.stringannotations.args.Arguments
 @ReadOnlyComposable
 public fun annotatedStringResource(
     @StringRes id: Int,
-    arguments: Arguments,
+    arguments: ComposeArguments,
     vararg formatArgs: Any
 ): AnnotatedString =
     AnnotatedStrings.process(

@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.compose
 
 import android.text.SpannedString
 import androidx.compose.ui.text.AnnotatedString
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
@@ -39,7 +39,7 @@ public object AnnotatedStrings {
      */
     public fun process(
         string: SpannedString,
-        arguments: Arguments? = null,
+        arguments: ComposeArguments? = null,
         vararg formatArgs: Any
     ): AnnotatedString {
         // 0. prepare dependencies

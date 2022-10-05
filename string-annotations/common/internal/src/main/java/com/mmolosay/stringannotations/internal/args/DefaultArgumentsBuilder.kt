@@ -1,6 +1,9 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.internal.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,12 +22,12 @@ import com.mmolosay.stringannotations.spans.clickable.ClickOwner
  */
 
 /**
- * Internal implementation of [ArgumentsBuilder].
+ * Implementation of [ArgumentsBuilder].
  * Should not be used as explicit type.
  */
-internal class ArgumentsBuilderImpl : ArgumentsBuilder {
+public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
 
-    private val args = MutableArguments()
+    private val args = MutableArguments<C>()
 
     private val colorsAdder = ArgumentsBuilder.Adder(args.colors)
     private val clickablesAdder = ArgumentsBuilder.Adder(args.clickables)
@@ -33,64 +36,64 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
 
     // region Colors
 
-    override fun color(item: Int): Arguments =
+    override fun color(item: Int): Arguments<C> =
         add(item, args.colors)
 
-    override fun color(producer: () -> Int): Arguments =
+    override fun color(producer: () -> Int): Arguments<C> =
         add(producer, args.colors)
 
-    override fun colors(vararg items: Int): Arguments =
+    override fun colors(vararg items: Int): Arguments<C> =
         add(items.toTypedArray(), args.colors)
 
-    override fun colors(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments =
+    override fun colors(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
         add(block, colorsAdder)
 
     // endregion
 
     // region Clickables
 
-    override fun clickable(item: ClickOwner): Arguments =
+    override fun clickable(item: C): Arguments<C> =
         add(item, args.clickables)
 
-    override fun clickable(producer: () -> ClickOwner): Arguments =
+    override fun clickable(producer: () -> C): Arguments<C> =
         add(producer, args.clickables)
 
-    override fun clickables(vararg items: ClickOwner): Arguments =
+    override fun clickables(vararg items: C): Arguments<C> =
         add(items, args.clickables)
 
-    override fun clickables(block: ArgumentsBuilder.Adder<ClickOwner>.() -> Unit): Arguments =
+    override fun clickables(block: ArgumentsBuilder.Adder<C>.() -> Unit): Arguments<C> =
         add(block, clickablesAdder)
 
     // endregion
 
     // region Typeface styles
 
-    override fun typefaceStyle(item: Int): Arguments =
+    override fun typefaceStyle(item: Int): Arguments<C> =
         add(item, args.typefaceStyles)
 
-    override fun typefaceStyle(producer: () -> Int): Arguments =
+    override fun typefaceStyle(producer: () -> Int): Arguments<C> =
         add(producer, args.typefaceStyles)
 
-    override fun typefaceStyles(vararg items: Int): Arguments =
+    override fun typefaceStyles(vararg items: Int): Arguments<C> =
         add(items.toTypedArray(), args.typefaceStyles)
 
-    override fun typefaceStyles(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments =
+    override fun typefaceStyles(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
         add(block, typefaceStylesAdder)
 
     // endregion
 
     // region Absolute sizes
 
-    override fun absoluteSize(item: TextSize): Arguments =
+    override fun absoluteSize(item: TextSize): Arguments<C> =
         add(item, args.absSizes)
 
-    override fun absoluteSize(producer: () -> TextSize): Arguments =
+    override fun absoluteSize(producer: () -> TextSize): Arguments<C> =
         add(producer, args.absSizes)
 
-    override fun absoluteSizes(vararg items: TextSize): Arguments =
+    override fun absoluteSizes(vararg items: TextSize): Arguments<C> =
         add(items, args.absSizes)
 
-    override fun absoluteSizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments =
+    override fun absoluteSizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments<C> =
         add(block, absSizesAdder)
 
     // endregion
@@ -98,7 +101,7 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
     private fun <T> add(
         element: T,
         dest: MutableCollection<T>
-    ): Arguments =
+    ): Arguments<C> =
         args.apply {
             dest.add(element)
         }
@@ -106,7 +109,7 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
     private fun <T> add(
         element: Array<out T>,
         dest: MutableCollection<T>
-    ): Arguments =
+    ): Arguments<C> =
         args.apply {
             dest.addAll(element)
         }
@@ -114,7 +117,7 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
     private fun <T> add(
         producer: () -> T,
         dest: MutableCollection<T>
-    ): Arguments =
+    ): Arguments<C> =
         args.apply {
             dest.add(producer())
         }
@@ -122,7 +125,7 @@ internal class ArgumentsBuilderImpl : ArgumentsBuilder {
     private fun <T> add(
         block: ArgumentsBuilder.Adder<T>.() -> Unit,
         adder: ArgumentsBuilder.Adder<T>
-    ): Arguments =
+    ): Arguments<C> =
         args.apply {
             block(adder)
         }

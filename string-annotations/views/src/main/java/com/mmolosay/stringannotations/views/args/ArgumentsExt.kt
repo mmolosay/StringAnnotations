@@ -1,6 +1,9 @@
-package com.mmolosay.stringannotations.compose.args
+package com.mmolosay.stringannotations.views.args
 
-import com.mmolosay.stringannotations.args.types.TextSize
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
+import com.mmolosay.stringannotations.views.internal.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -18,14 +21,14 @@ import com.mmolosay.stringannotations.args.types.TextSize
  * limitations under the License.
  */
 
-/**
- * Implementation of [TextSize] for Compose UI.
- * Here [value] is defined in `SP` units.
+/*
+ * Extension for Arguments and stuff for convenience of use.
  */
-public class SpSize(override val value: Float) : TextSize {
 
-    /**
-     * Builder for [TextSize] in declarative style.
-     */
-    public constructor(computation: () -> Float) : this(computation())
-}
+/**
+ * Assembles [Arguments] for Android Views system in declarative style.
+ */
+public fun Arguments(
+    builder: ArgumentsBuilder<Clickable>.() -> ViewsArguments
+): ViewsArguments =
+    builder(DefaultArgumentsBuilder())

@@ -4,14 +4,14 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
-import com.mmolosay.stringannotations.args.TextSize
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -33,12 +33,14 @@ import com.mmolosay.stringannotations.spans.clickable.ClickOwner
  * AnnotationProcessor builders.
  */
 
+private typealias AnyArguments = Arguments<*>
+
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public fun <S> BaseColorAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
     factory: (value: Int) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
@@ -49,9 +51,9 @@ public fun <S> BaseColorAnnotationProcessor(
 /**
  * `AnnotationProcessor` for "clickable" annotation type.
  */
-public fun <S> BaseClickableAnnotationProcessor(
-    factory: (value: ClickOwner) -> S?
-): AnnotationProcessor<S> =
+public fun <C : ClickOwner, S> BaseClickableAnnotationProcessor(
+    factory: (value: C) -> S?
+): AnnotationProcessor<Arguments<C>, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
         conflator = StrategyConflator.First(),
@@ -62,9 +64,9 @@ public fun <S> BaseClickableAnnotationProcessor(
 /**
  * `AnnotationProcessor` for "style" annotation type.
  */
-public fun <S> BaseTypefaceStyleAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseTypefaceStyleAnnotationProcessor(
     factory: (value: Int) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
@@ -75,19 +77,19 @@ public fun <S> BaseTypefaceStyleAnnotationProcessor(
 /**
  * `AnnotationProcessor` for "decoration" annotation type.
  */
-public fun <S> BaseDecorationAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
     underlineSpansFactory: () -> S?,
     strikethroughSpansFactory: () -> S?,
-): AnnotationProcessor<S> =
-    object : AbstractAnnotationProcessor<Token, S>() {
+): AnnotationProcessor<A, S> =
+    object : AbstractAnnotationProcessor<A, Token, S>() {
 
         override val tokenizer: Tokenizer = Tokenizer.Solid()
         override val conflator: ValuesConfaltor<Token> = StrategyConflator.First()
 
-        override fun parseValue(token: Token, arguments: Arguments?): Token =
+        override fun parseValue(token: Token, arguments: A?): Token =
             token // since requires value of type Token, we just pass it
 
-        override fun Arguments.getValues(): QualifiedList<Token>? =
+        override fun A.getValues(): QualifiedList<Token>? =
             null // TODO: update once added to Arguments
 
         override fun makeSpan(value: Token): S? =
@@ -103,9 +105,9 @@ public fun <S> BaseDecorationAnnotationProcessor(
  * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
  * implementation.
  */
-public fun <S> BaseAbsoluteSizeAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseAbsoluteSizeAnnotationProcessor(
     factory: (value: TextSize) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),

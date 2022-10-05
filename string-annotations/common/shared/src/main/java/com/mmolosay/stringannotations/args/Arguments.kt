@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -24,19 +25,22 @@ import com.mmolosay.stringannotations.spans.clickable.ClickOwner
  * `Arguments` are used to provide data to annotations, that will result in their
  * final appearance and/or behviour.
  *
- * `Arguments` may be extended in order to provide data to custom annotation types.
+ * Each artifact of `StringAnnotations` library must provide their own implementation and
+ * resolve all generic types.
+ * `Arguments` and their implementations should be extended in order to provide data to
+ * custom annotation types.
  */
-public interface Arguments {
+public interface Arguments<C : ClickOwner> {
 
     /**
      * Color integers.
      */
-    public val colors: QualifiedList<Int>
+    public val colors: QualifiedList<Int> // TODO: replace with ColorsList : QualifiedList<Int>("colors") ?
 
     /**
      * Clickable spans.
      */
-    public val clickables: QualifiedList<ClickOwner>
+    public val clickables: QualifiedList<C>
 
     /**
      * Typeface style integers.

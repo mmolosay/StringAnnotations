@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.views.span.clickable
 
 import android.content.Context
 import android.content.res.Resources
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.views.args.Clickable
 
 /*

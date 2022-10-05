@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.Arguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -121,21 +120,21 @@ import com.mmolosay.stringannotations.args.Arguments
  * ```
  * <annotation size-absolute="$arg$size-absolute$0">text of absolute size</annotation>
  */
-public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor<S> {
+public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProcessor<A, S> {
 
-    private val processors: MutableMap<String, AnnotationProcessor<S>> =
+    private val processors: MutableMap<String, AnnotationProcessor<A, S>> =
         mutableMapOf()
 
     public final override fun parseAnnotation(
         annotation: Annotation,
-        arguments: Arguments?
+        arguments: A?
     ): S? {
         val type = annotation.key
         val processor = getOrCreateAnnotationProcessor(type) ?: return null
         return processor.parseAnnotation(annotation, arguments)
     }
 
-    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<S>? =
+    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
         processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
 
     /**
@@ -145,7 +144,7 @@ public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor
      *
      * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<S>? =
+    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
         when (type) {
             "background" -> createBackgroundColorAnnotationProcessor()
             "color" -> createForegroundColorAnnotationProcessor()
@@ -159,30 +158,30 @@ public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor
     /**
      * Create instance of [AnnotationProcessor] for 'background' annotation type.
      */
-    protected abstract fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'color' annotation type.
      */
-    protected abstract fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'style' annotation type.
      */
-    protected abstract fun createTypefaceStyleAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createTypefaceStyleAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'decoration' annotation type.
      */
-    protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'clickable' annotation type.
      */
-    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'size-absolute' annotation type.
      */
-    protected abstract fun createAbsoluteSizeAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createAbsoluteSizeAnnotationProcessor(): AnnotationProcessor<A, S>
 }

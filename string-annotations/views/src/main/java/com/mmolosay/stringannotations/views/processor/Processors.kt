@@ -8,7 +8,6 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
-import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
@@ -22,7 +21,9 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.views.args.Clickable
 import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsArguments
 import com.mmolosay.stringannotations.views.internal.ViewsSpan
 import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickableSpan
 
@@ -58,7 +59,7 @@ public fun <V> ViewsAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
-    values: Arguments.() -> QualifiedList<V>?,
+    values: ViewsArguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ViewsSpan?
 ): ViewsAnnotationProcessor =
     AnnotationProcessor(
@@ -89,8 +90,8 @@ internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
  * Implementation of [CustomizableClickableSpan] for Android Views system.
  */
 internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseClickableAnnotationProcessor {
-        TODO() // CustomizableClickableSpan(it)
+    BaseClickableAnnotationProcessor<Clickable, ViewsSpan> {
+        CustomizableClickableSpan(it)
     }
 
 /**

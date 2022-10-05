@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.spans.clickable
+package com.mmolosay.stringannotations.args.types
 
 /*
  * Copyright 2022 Mikhail Malasai

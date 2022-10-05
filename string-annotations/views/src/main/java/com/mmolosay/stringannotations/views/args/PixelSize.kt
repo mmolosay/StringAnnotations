@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.views.args
 
-import com.mmolosay.stringannotations.args.TextSize
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai

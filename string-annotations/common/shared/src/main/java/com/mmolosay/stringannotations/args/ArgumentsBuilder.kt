@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,30 +21,36 @@ import com.mmolosay.stringannotations.spans.clickable.ClickOwner
 
 /**
  * Scope, that provides declarative API for assembling [Arguments] instance.
+ *
+ * Each artifact of `StringAnnotations` library must provide their own implementation and
+ * resolve all generic types.
  */
-public interface ArgumentsBuilder {
+public interface ArgumentsBuilder<C : ClickOwner> {
 
     // region Colors
+
+    // TODO: introduce interface with all 4 methods and apply it to ArgumentsBuilder
+    //       4 times with different type as generic parameter?
 
     /**
      * Adds specified [item] in [Arguments.colors] list.
      */
-    public fun color(item: Int): Arguments
+    public fun color(item: Int): Arguments<C>
 
     /**
-     * Executes [producer] and adds resulting color integer to [Arguments.colors] list.
+     * Executes [producer] and adds result to [Arguments.colors] list.
      */
-    public fun color(producer: () -> Int): Arguments
+    public fun color(producer: () -> Int): Arguments<C>
 
     /**
      * Adds specified [items] in [Arguments.colors] list.
      */
-    public fun colors(vararg items: Int): Arguments
+    public fun colors(vararg items: Int): Arguments<C>
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.colors] list.
      */
-    public fun colors(block: Adder<Int>.() -> Unit): Arguments
+    public fun colors(block: Adder<Int>.() -> Unit): Arguments<C>
 
     // endregion
 
@@ -52,22 +59,22 @@ public interface ArgumentsBuilder {
     /**
      * Adds specified [item] in [Arguments.clickables] list.
      */
-    public fun clickable(item: ClickOwner): Arguments
+    public fun clickable(item: C): Arguments<C>
 
     /**
-     * Executes [producer] and adds resulting clickable span to [Arguments.clickables] list.
+     * Executes [producer] and adds result to [Arguments.clickables] list.
      */
-    public fun clickable(producer: () -> ClickOwner): Arguments
+    public fun clickable(producer: () -> C): Arguments<C>
 
     /**
      * Adds specified [items] in [Arguments.clickables] list.
      */
-    public fun clickables(vararg items: ClickOwner): Arguments
+    public fun clickables(vararg items: C): Arguments<C>
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.clickables] list.
      */
-    public fun clickables(block: Adder<ClickOwner>.() -> Unit): Arguments
+    public fun clickables(block: Adder<C>.() -> Unit): Arguments<C>
 
     // endregion
 
@@ -76,22 +83,22 @@ public interface ArgumentsBuilder {
     /**
      * Adds specified [item] in [Arguments.typefaceStyles] list.
      */
-    public fun typefaceStyle(item: Int): Arguments
+    public fun typefaceStyle(item: Int): Arguments<C>
 
     /**
-     * Executes [producer] and adds resulting typeface style integer to [Arguments.typefaceStyles] list.
+     * Executes [producer] and adds result to [Arguments.typefaceStyles] list.
      */
-    public fun typefaceStyle(producer: () -> Int): Arguments
+    public fun typefaceStyle(producer: () -> Int): Arguments<C>
 
     /**
      * Adds specified [items] in [Arguments.typefaceStyles] list.
      */
-    public fun typefaceStyles(vararg items: Int): Arguments
+    public fun typefaceStyles(vararg items: Int): Arguments<C>
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.typefaceStyles] list.
      */
-    public fun typefaceStyles(block: Adder<Int>.() -> Unit): Arguments
+    public fun typefaceStyles(block: Adder<Int>.() -> Unit): Arguments<C>
 
     // endregion
 
@@ -100,22 +107,22 @@ public interface ArgumentsBuilder {
     /**
      * Adds specified [item] in [Arguments.absSizes] list.
      */
-    public fun absoluteSize(item: TextSize): Arguments
+    public fun absoluteSize(item: TextSize): Arguments<C>
 
     /**
-     * Executes [producer] and adds resulting pixel size to [Arguments.absSizes] list.
+     * Executes [producer] and adds result to [Arguments.absSizes] list.
      */
-    public fun absoluteSize(producer: () -> TextSize): Arguments
+    public fun absoluteSize(producer: () -> TextSize): Arguments<C>
 
     /**
      * Adds specified [items] in [Arguments.absSizes] list.
      */
-    public fun absoluteSizes(vararg items: TextSize): Arguments
+    public fun absoluteSizes(vararg items: TextSize): Arguments<C>
 
     /**
      * Executes [block], scoped to [Adder] of [Arguments.absSizes] list.
      */
-    public fun absoluteSizes(block: Adder<TextSize>.() -> Unit): Arguments
+    public fun absoluteSizes(block: Adder<TextSize>.() -> Unit): Arguments<C>
 
     // endregion
 

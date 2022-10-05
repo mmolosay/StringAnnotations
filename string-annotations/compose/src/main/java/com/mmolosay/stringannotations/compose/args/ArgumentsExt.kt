@@ -1,4 +1,9 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.compose.args
+
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.compose.internal.ComposeArguments
+import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -16,13 +21,14 @@ package com.mmolosay.stringannotations.args
  * limitations under the License.
  */
 
-/**
- * Size of text, defined in some units.
+/*
+ * Extension for Arguments and stuff for convenience of use.
  */
-public interface TextSize {
 
-    /**
-     * Size of text. The concrete units will be determined in implementation.
-     */
-    public val value: Float
-}
+/**
+ * Assembles [Arguments] for Compose UI in declarative style.
+ */
+public fun Arguments(
+    builder: ArgumentsBuilder<Clickable>.() -> ComposeArguments
+): ComposeArguments =
+    builder(DefaultArgumentsBuilder())

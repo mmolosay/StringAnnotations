@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.compose.args
 
-import com.mmolosay.stringannotations.spans.clickable.ClickOwner
+import com.mmolosay.stringannotations.args.types.ClickOwner
 
 /**
  * Implementation of [ClickOwner] for Compose UI.

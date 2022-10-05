@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.mmolosay.sample.views.databinding.MainScreenBinding
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.views.args.Arguments
 import com.mmolosay.stringannotations.views.args.Clickable
 import com.mmolosay.stringannotations.views.args.PixelSize
 import com.mmolosay.stringannotations.views.getAnnotatedString

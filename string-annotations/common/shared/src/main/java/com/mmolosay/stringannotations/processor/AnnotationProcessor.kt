@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.Arguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -21,10 +20,11 @@ import com.mmolosay.stringannotations.args.Arguments
 
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [S] type.
+ * Values for actual spans will be obtained from annotation arguments of type [A].
  *
  * It can be used both as processor for single annotation type or for all of them.
  */
-public fun interface AnnotationProcessor<S> {
+public fun interface AnnotationProcessor<A, S> {
 
     /**
      * Parses specified [annotation] into span of [S] type.
@@ -36,6 +36,6 @@ public fun interface AnnotationProcessor<S> {
      */
     public fun parseAnnotation(
         annotation: Annotation,
-        arguments: Arguments?
+        arguments: A?
     ): S?
 }

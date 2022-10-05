@@ -2,11 +2,11 @@ package com.mmolosay.stringannotations.views
 
 import android.text.Spanned
 import android.text.SpannedString
-import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
 import com.mmolosay.stringannotations.views.internal.SpanProcessor
+import com.mmolosay.stringannotations.views.internal.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -39,7 +39,7 @@ public object AnnotatedStrings {
      */
     public fun process(
         string: SpannedString,
-        arguments: Arguments? = null,
+        arguments: ViewsArguments? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies
