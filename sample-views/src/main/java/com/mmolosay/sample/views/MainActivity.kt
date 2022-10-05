@@ -14,7 +14,6 @@ import com.mmolosay.stringannotations.views.getAnnotatedString
 import com.mmolosay.stringannotations.views.span.clickable.ClickableSpan
 import com.mmolosay.stringannotations.views.span.clickable.from
 
-// TODO: add example of usage with Compose
 class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     private val binding by viewBinding(MainScreenBinding::bind)

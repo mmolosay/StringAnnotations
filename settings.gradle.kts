@@ -25,5 +25,6 @@ include(
     ":string-annotations:common:internal",
     ":string-annotations:views",
     ":string-annotations:compose",
-    ":sample-views"
+    ":sample-views",
+    ":sample-compose"
 )
