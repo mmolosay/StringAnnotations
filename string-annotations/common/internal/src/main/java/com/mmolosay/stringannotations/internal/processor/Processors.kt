@@ -2,8 +2,12 @@
 
 package com.mmolosay.stringannotations.internal.processor
 
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
@@ -74,16 +78,23 @@ public fun <S> BaseDecorationAnnotationProcessor(
     underlineSpansFactory: () -> S?,
     strikethroughSpansFactory: () -> S?,
 ): AnnotationProcessor<S> =
-    AnnotationProcessor<Token, S>(
-        tokenizer = Tokenizer.Solid(),
-        conflator = StrategyConflator.First(),
-        values = { null }, // TODO: add decorations to Arguments
-    ) {
-        when (it) {
-            Tokens.underline -> underlineSpansFactory()
-            Tokens.strikethrough -> strikethroughSpansFactory()
-            else -> null
-        }
+    object : AbstractAnnotationProcessor<Token, S>() {
+
+        override val tokenizer: Tokenizer = Tokenizer.Solid()
+        override val conflator: ValuesConfaltor<Token> = StrategyConflator.First()
+
+        override fun parseValue(token: Token, arguments: Arguments?): Token =
+            token // since requires value of type Token, we just pass it
+
+        override fun Arguments.getValues(): QualifiedList<Token>? =
+            null // TODO: update once added to Arguments
+
+        override fun makeSpan(value: Token): S? =
+            when (value) {
+                Tokens.underline -> underlineSpansFactory()
+                Tokens.strikethrough -> strikethroughSpansFactory()
+                else -> null
+            }
     }
 
 /**

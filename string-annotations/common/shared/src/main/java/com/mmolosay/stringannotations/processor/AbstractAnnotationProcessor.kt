@@ -6,6 +6,7 @@ import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
+import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
 /*
@@ -43,12 +44,16 @@ public abstract class AbstractAnnotationProcessor<V, S> : AnnotationProcessor<S>
         arguments: Arguments?
     ): S? {
         val tokens = tokenizer.tokenize(annotation.value)
-        val values = tokens.mapNotNull { token ->
-            arguments?.getValues()?.let { parser.parse(token, it) }
-        }
+        val values = tokens.mapNotNull { token -> parseValue(token, arguments) }
         val value = conflator.conflate(values) ?: return null
         return makeSpan(value)
     }
+
+    /**
+     * Specifies the way of parsing [token] into some value of type [V].
+     */
+    protected open fun parseValue(token: Token, arguments: Arguments?): V? =
+        arguments?.getValues()?.let { parser.parse(token, it) }
 
     /**
      * Obtains list of values, appropiate for type of this annotation processor.
@@ -58,7 +63,7 @@ public abstract class AbstractAnnotationProcessor<V, S> : AnnotationProcessor<S>
     protected abstract fun Arguments.getValues(): QualifiedList<V>?
 
     /**
-     * Creates new instance of span, corresponding to type of this annotation processor.
+     * Creates new span of type [S], corresponding to type of this annotation processor.
      */
     protected abstract fun makeSpan(value: V): S?
 }
