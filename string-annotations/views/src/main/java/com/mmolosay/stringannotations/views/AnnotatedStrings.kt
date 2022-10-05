@@ -1,9 +1,7 @@
 package com.mmolosay.stringannotations.views
 
-import android.content.Context
 import android.text.Spanned
 import android.text.SpannedString
-import androidx.annotation.StringRes
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
@@ -64,19 +62,4 @@ public object AnnotatedStrings {
 
         return spannable
     }
-
-    /**
-     * Version of [process] method, but receives [id] of string resource with annotations.
-     */
-    public fun process(
-        context: Context,
-        @StringRes id: Int,
-        arguments: Arguments? = null,
-        vararg formatArgs: Any
-    ): Spanned =
-        process(
-            string = context.resources.getText(id) as SpannedString,
-            arguments = arguments,
-            formatArgs = formatArgs
-        )
 }
