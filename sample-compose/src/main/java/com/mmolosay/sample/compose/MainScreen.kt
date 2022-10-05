@@ -1,5 +1,6 @@
 package com.mmolosay.sample.compose
 
+import android.graphics.Typeface
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -52,6 +53,7 @@ fun Main() {
         Demo1()
         Demo2()
         Demo3()
+        Demo4()
     }
 }
 
@@ -97,6 +99,19 @@ private fun Demo3() {
     }
     Text(
         text = annotatedStringResource(R.string.demo3, args)
+    )
+}
+
+@Composable
+private fun Demo4() {
+    val style1 = Typeface.ITALIC
+    val style2 = Typeface.BOLD
+    val style3 = Typeface.BOLD_ITALIC
+    val args = Arguments {
+        typefaceStyles(style1, style2, style3)
+    }
+    Text(
+        text = annotatedStringResource(R.string.demo4, args)
     )
 }
 

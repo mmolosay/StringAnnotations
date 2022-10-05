@@ -12,7 +12,7 @@
 
     <string name="demo3">Demo #3: <annotation clickable="$arg$clickable$0">click me</annotation> and <annotation clickable="$arg$clickable$1">me as well</annotation></string>
 
-    <string name="demo4">Demo #4: regular, <annotation style="bold">bold</annotation>, <annotation style="italic">italic</annotation> and <annotation style="bold|italic">combined</annotation> text</string>
+    <string name="demo4">Demo #4: text <annotation style="$arg$style$0">with</annotation> <annotation style="$arg$style$1">typeface</annotation> <annotation style="$arg$style$2">styles</annotation></string>
 
     <string name="demo5">Demo #5: <annotation style="strikethrough">crossed out</annotation> and <annotation style="underline">underlined</annotation> text</string>
 
