@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.compose.processor
 
 import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcessor
-import com.mmolosay.stringannotations.compose.internal.ComposeSpan
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
 
 /*

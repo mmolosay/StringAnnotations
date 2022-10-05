@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.compose.annotatedStringResource
 import com.mmolosay.stringannotations.compose.args.SpSize
+import com.mmolosay.stringannotations.compose.getClickableAnnotationAt
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 // region Previews
@@ -115,22 +117,39 @@ private fun Demo2() =
 private fun Demo3() =
     Demo {
         val context = LocalContext.current
-        val clickable1 = ClickableSpan {
+        val onClick1 = {
             Toast
                 .makeText(context, "Clicked annotation with index=0", Toast.LENGTH_SHORT)
                 .show()
         }
-        val appearance2 = ClickableSpan.Appearance(underlineText = true)
-        val clickable2 = ClickableSpan(appearance2) {
+        val onClick2 = {
             Toast
                 .makeText(context, "Clicked annotation with index=1", Toast.LENGTH_SHORT)
                 .show()
         }
+        val clickable1 = ClickableSpan(
+            annotation = "first",
+            action = onClick1
+        )
+        val clickable2 = ClickableSpan(
+            appearance = ClickableSpan.Appearance(underlineText = true),
+            annotation = "second",
+            action = onClick2
+        )
         val args = Arguments {
             clickables(clickable1, clickable2)
         }
-        Text(
-            text = annotatedStringResource(R.string.demo3, args)
+        val text = annotatedStringResource(R.string.demo3, args)
+        ClickableText(
+            text = text,
+            onClick = { offset ->
+                text.getClickableAnnotationAt(offset)?.let { annotation ->
+                    when (annotation.item) {
+                        "first" -> onClick1()
+                        "second" -> onClick2()
+                    }
+                }
+            }
         )
     }
 

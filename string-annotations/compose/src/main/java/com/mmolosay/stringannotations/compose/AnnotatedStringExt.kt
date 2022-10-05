@@ -43,15 +43,12 @@ public fun annotatedStringResource(
     @StringRes id: Int,
     arguments: Arguments,
     vararg formatArgs: Any
-): AnnotatedString {
-    val resources = resources()
-    val spanned = resources.getText(id) as SpannedString
-    return AnnotatedStrings.process(
-        string = spanned,
+): AnnotatedString =
+    AnnotatedStrings.process(
+        string = spannedStringResource(id),
         arguments = arguments,
         formatArgs = formatArgs
     )
-}
 
 /**
  * Simplified variant of [annotatedStringResource] for cases, when there is no annotation arguments.
@@ -61,14 +58,34 @@ public fun annotatedStringResource(
 public fun annotatedStringResource(
     @StringRes id: Int,
     vararg formatArgs: Any
-): AnnotatedString {
-    val resources = resources()
-    val spanned = resources.getText(id) as SpannedString
-    return AnnotatedStrings.process(
-        string = spanned,
+): AnnotatedString =
+    AnnotatedStrings.process(
+        string = spannedStringResource(id),
         arguments = null,
         formatArgs = formatArgs
     )
+
+/**
+ * Get string annotation of clickable type of `this` [AnnotatedString], that contains
+ * specified [offset] in its placement range.
+ *
+ * @return first annotation of `null`, if there's no such.
+ */
+public fun AnnotatedString.getClickableAnnotationAt(offset: Int): AnnotatedString.Range<String>? =
+    this.getStringAnnotations(
+        tag = "clickable",
+        start = offset,
+        end = offset
+    ).firstOrNull()
+
+/**
+ * Returns [SpannedString], associated with a specified string resource [id] with `<annotation>`s.
+ */
+@Composable
+@ReadOnlyComposable
+private fun spannedStringResource(@StringRes id: Int): SpannedString {
+    val resources = resources()
+    return resources.getText(id) as SpannedString
 }
 
 /**

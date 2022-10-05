@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.TextUnitType
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcessor
-import com.mmolosay.stringannotations.compose.internal.ComposeSpan
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
@@ -75,7 +74,7 @@ public fun <V> ComposeAnnotationProcessor(
  */
 internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseColorAnnotationProcessor {
-        SpanStyle(background = Color(it))
+        ComposeSpan.of(SpanStyle(background = Color(it)))
     }
 
 /**
@@ -83,7 +82,7 @@ internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
  */
 internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseColorAnnotationProcessor {
-        SpanStyle(color = Color(it))
+        ComposeSpan.of(SpanStyle(color = Color(it)))
     }
 
 /**
@@ -91,7 +90,7 @@ internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
  */
 internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseClickableAnnotationProcessor {
-        SpanStyle() // TODO: https://developer.android.com/jetpack/compose/text#click-with-annotation
+        ComposeSpan.of(it)
     }
 
 /**
@@ -108,7 +107,7 @@ internal fun TypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
                     fontStyle = FontStyle.Italic
                 )
             else -> null
-        }
+        }?.let { style -> ComposeSpan.of(style) }
     }
 
 /**
@@ -116,8 +115,12 @@ internal fun TypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
  */
 internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseDecorationAnnotationProcessor(
-        underlineSpansFactory = { SpanStyle(textDecoration = TextDecoration.Underline) },
-        strikethroughSpansFactory = { SpanStyle(textDecoration = TextDecoration.LineThrough) },
+        underlineSpansFactory = {
+            ComposeSpan.of(SpanStyle(textDecoration = TextDecoration.Underline))
+        },
+        strikethroughSpansFactory = {
+            ComposeSpan.of(SpanStyle(textDecoration = TextDecoration.LineThrough))
+        },
     )
 
 /**
@@ -127,7 +130,5 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
 @OptIn(ExperimentalUnitApi::class)
 internal fun AbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseAbsoluteSizeAnnotationProcessor {
-        SpanStyle(
-            fontSize = TextUnit(it.value, TextUnitType.Sp)
-        )
+        ComposeSpan.of(SpanStyle(fontSize = TextUnit(it.value, TextUnitType.Sp)))
     }

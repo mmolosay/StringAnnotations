@@ -24,6 +24,7 @@ import androidx.annotation.ColorInt
  */
 public data class ClickableSpan(
     val appearance: Appearance = Appearance(),
+    val annotation: String = "",
     val action: ClickAction
 ) {
 

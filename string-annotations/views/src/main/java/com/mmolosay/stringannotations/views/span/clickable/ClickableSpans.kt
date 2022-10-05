@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.views.span.clickable
 import android.content.Context
 import android.content.res.Resources
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
-import com.mmolosay.stringannotations.views.span.clickable.from
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -37,7 +36,10 @@ public fun ClickableSpan(
 ): ClickableSpan {
     val themeAppearance = ClickableSpan.Appearance.from(theme)
     val appearance = builder(themeAppearance)
-    return ClickableSpan(appearance, action)
+    return ClickableSpan(
+        appearance = appearance,
+        action = action
+    )
 }
 
 /**
@@ -52,7 +54,10 @@ public fun ClickableSpan(
 ): ClickableSpan {
     val themeAppearance = ClickableSpan.Appearance.from(context.theme)
     val appearance = builder(themeAppearance)
-    return ClickableSpan(appearance, action)
+    return ClickableSpan(
+        appearance = appearance,
+        action = action
+    )
 }
 
 /**
@@ -64,4 +69,7 @@ public fun ClickableSpan(
     appearance: ClickableSpan.Appearance = ClickableSpan.Appearance.from(theme),
     action: ClickableSpan.ClickAction
 ): ClickableSpan =
-    ClickableSpan(appearance, action)
+    ClickableSpan(
+        appearance = appearance,
+        action = action
+    )

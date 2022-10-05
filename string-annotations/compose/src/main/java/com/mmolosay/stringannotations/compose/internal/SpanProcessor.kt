@@ -1,7 +1,10 @@
 package com.mmolosay.stringannotations.compose.internal
 
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
+import com.mmolosay.stringannotations.compose.processor.ComposeSpan
+import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
 /**
  * Processes spans (as [SpanStyle]).
@@ -14,7 +17,7 @@ internal object SpanProcessor {
      */
     fun applySpans(
         text: CharSequence,
-        spans: List<SpanStyle?>,
+        spans: List<ComposeSpan?>,
         ranges: List<IntRange>
     ): AnnotatedString {
         val builder = AnnotatedString.Builder(text.toString())
@@ -31,9 +34,44 @@ internal object SpanProcessor {
      */
     private fun applySpan(
         builder: AnnotatedString.Builder,
+        span: ComposeSpan,
+        range: IntRange
+    ) {
+        val (style, paragraph, clickable) = span
+        when {
+            style != null -> applySpan(builder, style, range)
+            paragraph != null -> applySpan(builder, paragraph, range)
+            clickable != null -> applySpan(builder, clickable, range)
+        }
+    }
+
+    private fun applySpan(
+        builder: AnnotatedString.Builder,
         span: SpanStyle,
         range: IntRange
     ) {
         builder.addStyle(span, range.first, range.last)
     }
+
+    private fun applySpan(
+        builder: AnnotatedString.Builder,
+        span: ParagraphStyle,
+        range: IntRange
+    ) {
+        builder.addStyle(span, range.first, range.last)
+    }
+
+    private fun applySpan(
+        builder: AnnotatedString.Builder,
+        span: ClickableSpan,
+        range: IntRange
+    ) {
+        builder.addStringAnnotation(
+            tag = "clickable",
+            annotation = span.annotation,
+            start = range.first,
+            end = range.last
+        )
+    }
+
 }
