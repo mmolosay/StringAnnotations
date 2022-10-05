@@ -54,6 +54,7 @@ fun Main() {
         Demo2()
         Demo3()
         Demo4()
+        Demo5()
     }
 }
 
@@ -112,6 +113,13 @@ private fun Demo4() {
     }
     Text(
         text = annotatedStringResource(R.string.demo4, args)
+    )
+}
+
+@Composable
+private fun Demo5() {
+    Text(
+        text = annotatedStringResource(R.string.demo5)
     )
 }
 

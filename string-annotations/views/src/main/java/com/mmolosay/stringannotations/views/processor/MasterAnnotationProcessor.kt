@@ -31,8 +31,11 @@ public open class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<
     override fun createForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
         ForegroundColorAnnotationProcessor()
 
-    override fun createStyleAnnotationProcessor(): ViewsAnnotationProcessor =
-        StyleAnnotationProcessor()
+    override fun createTypefaceStyleAnnotationProcessor(): ViewsAnnotationProcessor =
+        TypefaceStyleAnnotationProcessor()
+
+    override fun createDecorationAnnotationProcessor(): ViewsAnnotationProcessor =
+        DecorationAnnotationProcessor()
 
     override fun createClickableAnnotationProcessor(): ViewsAnnotationProcessor =
         ClickableAnnotationProcessor()

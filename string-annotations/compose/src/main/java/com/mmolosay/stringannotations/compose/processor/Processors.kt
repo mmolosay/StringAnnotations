@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
@@ -18,6 +19,7 @@ import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -108,6 +110,15 @@ internal fun TypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
             else -> null
         }
     }
+
+/**
+ * Implementation of [BaseDecorationAnnotationProcessor] for Compose UI.
+ */
+internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseDecorationAnnotationProcessor(
+        underlineSpansFactory = { SpanStyle(textDecoration = TextDecoration.Underline) },
+        strikethroughSpansFactory = { SpanStyle(textDecoration = TextDecoration.LineThrough) },
+    )
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Compose UI.

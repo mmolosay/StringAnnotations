@@ -5,13 +5,16 @@ package com.mmolosay.stringannotations.views.processor
 import android.text.style.AbsoluteSizeSpan
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -97,6 +100,15 @@ internal fun TypefaceStyleAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseTypefaceStyleAnnotationProcessor {
         StyleSpan(it)
     }
+
+/**
+ * Implementation of [BaseDecorationAnnotationProcessor] for Android Views system.
+ */
+internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseDecorationAnnotationProcessor(
+        underlineSpansFactory = { UnderlineSpan() },
+        strikethroughSpansFactory = { StrikethroughSpan() },
+    )
 
 /**
  * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Android Views system.

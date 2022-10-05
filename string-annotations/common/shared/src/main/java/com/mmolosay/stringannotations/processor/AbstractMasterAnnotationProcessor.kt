@@ -79,13 +79,13 @@ import com.mmolosay.stringannotations.args.Arguments
  *
  * ### Typeface style
  *
+ * Annotation, that specifies typeface style of its body.
+ *
  * __Annotation attribute: `style`__
  *
  * __Arguments qualifier: `style`__
  *
  * __Inline values: —__
- *
- * Annotation, that specifies typeface style of its body.
  *
  * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
  *
@@ -93,32 +93,19 @@ import com.mmolosay.stringannotations.args.Arguments
  * <annotation style="$arg$style$0">text with typeface style</annotaiton>
  * ```
  *
- * ### Strikethrough style
+ * ### Decoration
  *
- * Annotation, that crosses its body out.
+ * Annotation, that decorates its body.
  *
- * __Annotation attribute: `style`__
+ * __Annotation attribute: `decoration`__
  *
- * __Arguments qualifier: —__
+ * __Arguments qualifier: —__ TODO: declare once ready
  *
- * __Inline values: `strikethrough`__
- *
- * ```
- * <annotation style="strikethrough">crossed out text</annotation>
- * ```
- *
- * ### Underline style
- *
- * Annotation, that underlines its body.
- *
- * __Annotation attribute: `style`__
- *
- * __Arguments qualifier: —__
- *
- * __Inline values: `underline`__
+ * __Inline values: `underline, strikethrough`__
  *
  * ```
- * <annotation style="underline">underlined text</annotation>
+ * <annotation decoration="underline">underlined text</annotation>
+ * <annotation decoration="strikethrough">crossed out text</annotation>
  * ```
  *
  * ### Absolute size
@@ -162,7 +149,8 @@ public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor
         when (type) {
             "background" -> createBackgroundColorAnnotationProcessor()
             "color" -> createForegroundColorAnnotationProcessor()
-            "style" -> createStyleAnnotationProcessor()
+            "style" -> createTypefaceStyleAnnotationProcessor()
+            "decoration" -> createDecorationAnnotationProcessor()
             "clickable" -> createClickableAnnotationProcessor()
             "size-absolute" -> createAbsoluteSizeAnnotationProcessor()
             else -> null
@@ -181,7 +169,12 @@ public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor
     /**
      * Create instance of [AnnotationProcessor] for 'style' annotation type.
      */
-    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<S>
+    protected abstract fun createTypefaceStyleAnnotationProcessor(): AnnotationProcessor<S>
+
+    /**
+     * Create instance of [AnnotationProcessor] for 'decoration' annotation type.
+     */
+    protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'clickable' annotation type.

@@ -31,8 +31,11 @@ public class MasterAnnotationProcessor : AbstractMasterAnnotationProcessor<Compo
     override fun createForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
         ForegroundColorAnnotationProcessor()
 
-    override fun createStyleAnnotationProcessor(): ComposeAnnotationProcessor =
-        StyleAnnotationProcessor()
+    override fun createTypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
+        TypefaceStyleAnnotationProcessor()
+
+    override fun createDecorationAnnotationProcessor(): ComposeAnnotationProcessor =
+        DecorationAnnotationProcessor()
 
     override fun createClickableAnnotationProcessor(): ComposeAnnotationProcessor =
         ClickableAnnotationProcessor()

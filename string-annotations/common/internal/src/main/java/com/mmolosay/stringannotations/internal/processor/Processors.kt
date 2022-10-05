@@ -4,6 +4,7 @@ package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
+import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.spans.clickable.ClickableSpan
 
@@ -54,7 +55,7 @@ public fun <S> BaseClickableAnnotationProcessor(
     )
 
 /**
- * `AnnotationProcessor` for typeface style annotation type.
+ * `AnnotationProcessor` for "style" annotation type.
  */
 public fun <S> BaseTypefaceStyleAnnotationProcessor(
     factory: (value: Int) -> S?
@@ -65,6 +66,25 @@ public fun <S> BaseTypefaceStyleAnnotationProcessor(
         values = { typefaceStyles },
         factory = factory
     )
+
+/**
+ * `AnnotationProcessor` for "decoration" annotation type.
+ */
+public fun <S> BaseDecorationAnnotationProcessor(
+    underlineSpansFactory: () -> S?,
+    strikethroughSpansFactory: () -> S?,
+): AnnotationProcessor<S> =
+    AnnotationProcessor<Token, S>(
+        tokenizer = Tokenizer.Solid(),
+        conflator = StrategyConflator.First(),
+        values = { null }, // TODO: add decorations to Arguments
+    ) {
+        when (it) {
+            Tokens.underline -> underlineSpansFactory()
+            Tokens.strikethrough -> strikethroughSpansFactory()
+            else -> null
+        }
+    }
 
 /**
  * `AnnotationProcessor` for "size-absolute" annotation type.
@@ -78,3 +98,8 @@ public fun <S> BaseAbsoluteSizeAnnotationProcessor(
         values = { absSizes },
         factory = factory
     )
+
+private object Tokens {
+    val underline = Token("underline")
+    val strikethrough = Token("strikethrough")
+}
