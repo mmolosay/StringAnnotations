@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mmolosay.stringannotations.args.Arguments
@@ -46,6 +47,7 @@ fun Main() {
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Demo1()
+        Demo2()
     }
 }
 
@@ -56,8 +58,20 @@ private fun Demo1() {
     val args = Arguments {
         color(Color.Blue.toArgb())
     }
-    val text = annotatedStringResource(R.string.demo1, args)
-    Text(text)
+    Text(
+        text = annotatedStringResource(R.string.demo1, args)
+    )
+}
+
+@Composable
+private fun Demo2() {
+    val args = Arguments {
+        color(Color.LightGray.toArgb())
+    }
+    val formatValue1 = stringResource(R.string.value1)
+    Text(
+        text = annotatedStringResource(R.string.demo2, args, formatValue1)
+    )
 }
 
 // endregion
