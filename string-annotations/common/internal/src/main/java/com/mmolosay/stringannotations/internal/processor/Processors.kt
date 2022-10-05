@@ -101,7 +101,7 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
     }
 
 /**
- * `AnnotationProcessor` for "size-absolute" annotation type.
+ * `AnnotationProcessor` for "size" annotation type.
  * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
  * implementation.
  */

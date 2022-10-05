@@ -16,7 +16,7 @@
 
     <string name="demo5">Demo #5: <annotation decoration="strikethrough">crossed out</annotation> and <annotation decoration="underline">underlined</annotation> text</string>
 
-    <string name="demo6">Demo #6: text with absolute size in <annotation size-absolute="$arg$size-absolute$0">SPs</annotation></string>
+    <string name="demo6">Demo #6: text with absolute size in <annotation size="$arg$size$0">SPs</annotation></string>
 
     <!-- endregion -->
 

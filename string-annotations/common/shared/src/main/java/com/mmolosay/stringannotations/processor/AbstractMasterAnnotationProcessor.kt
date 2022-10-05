@@ -112,14 +112,14 @@ import com.mmolosay.stringannotations.args.ArgumentsQualifiers
  *
  * Annotation, that specifies absolute size of its body (in pixels).
  *
- * __Annotation attribute: `size-absolute`__
+ * __Annotation attribute: `size`__
  *
- * __Arguments qualifier: `size-absolute`__
+ * __Arguments qualifier: `size`__
  *
  * __Inline values: —__
  *
  * ```
- * <annotation size-absolute="$arg$size-absolute$0">text of absolute size</annotation>
+ * <annotation size="$arg$size$0">text of absolute size</annotation>
  */
 public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProcessor<A, S> {
 
@@ -182,7 +182,7 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'size-absolute' annotation type.
+     * Create instance of [AnnotationProcessor] for 'size' annotation type.
      */
     protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<A, S>
 }
