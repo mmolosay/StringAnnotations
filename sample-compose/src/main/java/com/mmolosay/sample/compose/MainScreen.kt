@@ -28,7 +28,7 @@ import com.mmolosay.stringannotations.compose.annotatedStringResource
 import com.mmolosay.stringannotations.compose.args.Arguments
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.args.SpSize
-import com.mmolosay.stringannotations.compose.getClickableAnnotationAt
+import com.mmolosay.stringannotations.compose.onClick
 
 // region Previews
 
@@ -134,12 +134,7 @@ private fun Demo3() =
         ClickableText(
             text = text,
             onClick = { offset ->
-                text.getClickableAnnotationAt(offset)?.let { annotation ->
-                    when (annotation.item) {
-                        clickable1.annotation -> clickable1.action.click()
-                        clickable2.annotation -> clickable2.action.click()
-                    }
-                }
+                text.onClick(offset, args.clickables)
             },
             style = LocalTextStyle.current
         )

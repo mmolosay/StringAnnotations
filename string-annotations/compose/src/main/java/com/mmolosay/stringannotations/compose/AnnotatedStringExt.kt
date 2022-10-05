@@ -8,6 +8,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 
 /*
@@ -64,6 +65,17 @@ public fun annotatedStringResource(
         arguments = null,
         formatArgs = formatArgs
     )
+
+/**
+ * Invoke click action of [Clickable], corresponding to [getClickableAnnotationAt] [offset].
+ */
+public fun AnnotatedString.onClick(offset: Int, clickables: List<Clickable>) {
+    this.getClickableAnnotationAt(offset)?.let { annotation ->
+        clickables
+            .find { annotation.item == it.annotation }
+            ?.run { action.click() }
+    }
+}
 
 /**
  * Get string annotation of clickable type of `this` [AnnotatedString], that contains
