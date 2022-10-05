@@ -45,11 +45,11 @@ public interface Arguments<C : ClickOwner> {
     /**
      * Typeface style integers.
      */
-    public val typefaceStyles: QualifiedList<Int>
+    public val typefaceStyles: QualifiedList<Int> // TODO: rename to styles
 
     /**
      * Absolute sizes.
      */
-    public val absSizes: QualifiedList<TextSize>
+    public val absSizes: QualifiedList<TextSize> // TODO: rename to sizes
 
 }

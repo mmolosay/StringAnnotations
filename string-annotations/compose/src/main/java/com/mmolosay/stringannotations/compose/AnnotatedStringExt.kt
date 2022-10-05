@@ -8,6 +8,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 
@@ -67,7 +68,8 @@ public fun annotatedStringResource(
     )
 
 /**
- * Invoke click action of [Clickable], corresponding to [getClickableAnnotationAt] [offset].
+ * Invoke click action of [Clickable] from [clickables] list,
+ * that corresponds to [getClickableAnnotationAt] [offset].
  */
 public fun AnnotatedString.onClick(offset: Int, clickables: List<Clickable>) {
     this.getClickableAnnotationAt(offset)?.let { annotation ->
@@ -87,7 +89,7 @@ public fun AnnotatedString.onClick(offset: Int, clickables: List<Clickable>) {
  */
 public fun AnnotatedString.getClickableAnnotationAt(offset: Int): AnnotatedString.Range<String>? =
     this.getStringAnnotations(
-        tag = "clickable",
+        tag = ArgumentsQualifiers.clickable,
         start = offset,
         end = offset
     ).firstOrNull()

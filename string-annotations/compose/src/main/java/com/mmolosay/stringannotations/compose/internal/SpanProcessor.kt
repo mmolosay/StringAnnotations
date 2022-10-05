@@ -3,6 +3,7 @@ package com.mmolosay.stringannotations.compose.internal
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
+import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 
@@ -67,7 +68,7 @@ internal object SpanProcessor {
         range: IntRange
     ) {
         builder.addStringAnnotation(
-            tag = "clickable",
+            tag = ArgumentsQualifiers.clickable,
             annotation = span.annotation,
             start = range.first,
             end = range.last
