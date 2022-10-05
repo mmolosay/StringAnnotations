@@ -29,9 +29,6 @@ public interface ArgumentsBuilder<C : ClickOwner> {
 
     // region Colors
 
-    // TODO: introduce interface with all 4 methods and apply it to ArgumentsBuilder
-    //       4 times with different type as generic parameter?
-
     /**
      * Adds specified [item] in [Arguments.colors] list.
      */
