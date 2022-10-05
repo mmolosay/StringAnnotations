@@ -70,6 +70,8 @@ public fun annotatedStringResource(
  * specified [offset] in its placement range.
  *
  * @return first annotation of `null`, if there's no such.
+ *
+ * @see [AnnotatedString.getStringAnnotations]
  */
 public fun AnnotatedString.getClickableAnnotationAt(offset: Int): AnnotatedString.Range<String>? =
     this.getStringAnnotations(
