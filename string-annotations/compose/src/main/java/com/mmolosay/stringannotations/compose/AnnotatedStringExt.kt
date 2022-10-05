@@ -30,7 +30,13 @@ import com.mmolosay.stringannotations.args.Arguments
  * Extensions for convenience of use.
  */
 
-// TODO: doc
+/**
+ * Returns [AnnotatedString], associated with a specified string resource [id] with `<annotation>`s.
+ *
+ * @param id resource id of annotated string.
+ * @param arguments annotation arguments to be substituted instead of placeholders.
+ * @param formatArgs formatting arguments to be substituted.
+ */
 @Composable
 @ReadOnlyComposable
 public fun annotatedStringResource(
@@ -47,6 +53,9 @@ public fun annotatedStringResource(
     )
 }
 
+/**
+ * Simplified variant of [annotatedStringResource] for cases, when there is no annotation arguments.
+ */
 @Composable
 @ReadOnlyComposable
 public fun annotatedStringResource(
