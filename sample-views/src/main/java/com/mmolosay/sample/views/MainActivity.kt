@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         val style2 = Typeface.BOLD
         val style3 = Typeface.BOLD_ITALIC
         val args = Arguments {
-            typefaceStyles(style1, style2, style3)
+            styles(style1, style2, style3)
         }
         binding.demo4.text = getAnnotatedString(R.string.demo4, args)
     }
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
             TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, resources.displayMetrics)
         }
         val args = Arguments {
-            absoluteSizes(size1, size2, size3)
+            sizes(size1, size2, size3)
         }
         binding.demo6.text = getAnnotatedString(R.string.demo6, args)
     }

@@ -64,13 +64,13 @@ public fun <C : ClickOwner, S> BaseClickableAnnotationProcessor(
 /**
  * `AnnotationProcessor` for "style" annotation type.
  */
-public fun <A : AnyArguments, S> BaseTypefaceStyleAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
     factory: (value: Int) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { typefaceStyles },
+        values = { styles },
         factory = factory
     )
 
@@ -105,13 +105,13 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
  * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
  * implementation.
  */
-public fun <A : AnyArguments, S> BaseAbsoluteSizeAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
     factory: (value: TextSize) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { absSizes },
+        values = { sizes },
         factory = factory
     )
 

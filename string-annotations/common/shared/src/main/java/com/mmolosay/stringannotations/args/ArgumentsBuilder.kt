@@ -75,51 +75,51 @@ public interface ArgumentsBuilder<C : ClickOwner> {
 
     // endregion
 
-    // region Typeface styles
+    // region Styles
 
     /**
-     * Adds specified [item] in [Arguments.typefaceStyles] list.
+     * Adds specified [item] in [Arguments.styles] list.
      */
-    public fun typefaceStyle(item: Int): Arguments<C>
+    public fun style(item: Int): Arguments<C>
 
     /**
-     * Executes [producer] and adds result to [Arguments.typefaceStyles] list.
+     * Executes [producer] and adds result to [Arguments.styles] list.
      */
-    public fun typefaceStyle(producer: () -> Int): Arguments<C>
+    public fun style(producer: () -> Int): Arguments<C>
 
     /**
-     * Adds specified [items] in [Arguments.typefaceStyles] list.
+     * Adds specified [items] in [Arguments.styles] list.
      */
-    public fun typefaceStyles(vararg items: Int): Arguments<C>
+    public fun styles(vararg items: Int): Arguments<C>
 
     /**
-     * Executes [block], scoped to [Adder] of [Arguments.typefaceStyles] list.
+     * Executes [block], scoped to [Adder] of [Arguments.styles] list.
      */
-    public fun typefaceStyles(block: Adder<Int>.() -> Unit): Arguments<C>
+    public fun styles(block: Adder<Int>.() -> Unit): Arguments<C>
 
     // endregion
 
-    // region Absolute sizes
+    // region Sizes
 
     /**
-     * Adds specified [item] in [Arguments.absSizes] list.
+     * Adds specified [item] in [Arguments.sizes] list.
      */
-    public fun absoluteSize(item: TextSize): Arguments<C>
+    public fun size(item: TextSize): Arguments<C>
 
     /**
-     * Executes [producer] and adds result to [Arguments.absSizes] list.
+     * Executes [producer] and adds result to [Arguments.sizes] list.
      */
-    public fun absoluteSize(producer: () -> TextSize): Arguments<C>
+    public fun size(producer: () -> TextSize): Arguments<C>
 
     /**
-     * Adds specified [items] in [Arguments.absSizes] list.
+     * Adds specified [items] in [Arguments.sizes] list.
      */
-    public fun absoluteSizes(vararg items: TextSize): Arguments<C>
+    public fun sizes(vararg items: TextSize): Arguments<C>
 
     /**
-     * Executes [block], scoped to [Adder] of [Arguments.absSizes] list.
+     * Executes [block], scoped to [Adder] of [Arguments.sizes] list.
      */
-    public fun absoluteSizes(block: Adder<TextSize>.() -> Unit): Arguments<C>
+    public fun sizes(block: Adder<TextSize>.() -> Unit): Arguments<C>
 
     // endregion
 

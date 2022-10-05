@@ -15,11 +15,11 @@ import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcessor
 import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
-import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
-import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -94,10 +94,10 @@ internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
     }
 
 /**
- * Implementation of [BaseTypefaceStyleAnnotationProcessor] for Compose UI.
+ * Implementation of [BaseStyleAnnotationProcessor] for Compose UI.
  */
-internal fun TypefaceStyleAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseTypefaceStyleAnnotationProcessor {
+internal fun StyleAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseStyleAnnotationProcessor {
         when (it) {
             Typeface.BOLD -> SpanStyle(fontWeight = FontWeight.Bold)
             Typeface.ITALIC -> SpanStyle(fontStyle = FontStyle.Italic)
@@ -124,11 +124,11 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
     )
 
 /**
- * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Compose UI.
+ * Implementation of [BaseSizeAnnotationProcessor] for Compose UI.
  * Expects `TextSize.value` to be `SP` units.
  */
 @OptIn(ExperimentalUnitApi::class)
-internal fun AbsoluteSizeAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseAbsoluteSizeAnnotationProcessor {
+internal fun SizeAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseSizeAnnotationProcessor {
         ComposeSpan.of(SpanStyle(fontSize = TextUnit(it.value, TextUnitType.Sp)))
     }

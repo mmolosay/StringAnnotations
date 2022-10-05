@@ -151,7 +151,7 @@ private fun Demo4() =
         val style2 = Typeface.BOLD
         val style3 = Typeface.BOLD_ITALIC
         val args = Arguments {
-            typefaceStyles(style1, style2, style3)
+            styles(style1, style2, style3)
         }
         Text(
             text = annotatedStringResource(R.string.demo4, args)
@@ -179,7 +179,7 @@ private fun Demo6() =
     Demo {
         val size = SpSize(10.5f)
         val args = Arguments {
-            absoluteSize(size)
+            size(size)
         }
         Text(
             text = annotatedStringResource(R.string.demo6, args)

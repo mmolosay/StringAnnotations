@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
+import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -148,10 +149,10 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
         when (type) {
             "background" -> createBackgroundColorAnnotationProcessor()
             "color" -> createForegroundColorAnnotationProcessor()
-            "style" -> createTypefaceStyleAnnotationProcessor()
+            ArgumentsQualifiers.style -> createStyleAnnotationProcessor()
             "decoration" -> createDecorationAnnotationProcessor()
-            "clickable" -> createClickableAnnotationProcessor()
-            "size-absolute" -> createAbsoluteSizeAnnotationProcessor()
+            ArgumentsQualifiers.clickable -> createClickableAnnotationProcessor()
+            ArgumentsQualifiers.size -> createSizeAnnotationProcessor()
             else -> null
         }
 
@@ -168,7 +169,7 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     /**
      * Create instance of [AnnotationProcessor] for 'style' annotation type.
      */
-    protected abstract fun createTypefaceStyleAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for 'decoration' annotation type.
@@ -183,5 +184,5 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     /**
      * Create instance of [AnnotationProcessor] for 'size-absolute' annotation type.
      */
-    protected abstract fun createAbsoluteSizeAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<A, S>
 }

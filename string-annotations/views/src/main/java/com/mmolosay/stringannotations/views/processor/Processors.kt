@@ -10,11 +10,11 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
-import com.mmolosay.stringannotations.internal.processor.BaseAbsoluteSizeAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
-import com.mmolosay.stringannotations.internal.processor.BaseTypefaceStyleAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseSizeAnnotationProcessor
+import com.mmolosay.stringannotations.internal.processor.BaseStyleAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
@@ -95,10 +95,10 @@ internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
     }
 
 /**
- * Implementation of [BaseTypefaceStyleAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseStyleAnnotationProcessor] for Android Views system.
  */
-internal fun TypefaceStyleAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseTypefaceStyleAnnotationProcessor {
+internal fun StyleAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseStyleAnnotationProcessor {
         StyleSpan(it)
     }
 
@@ -112,10 +112,10 @@ internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
     )
 
 /**
- * Implementation of [BaseAbsoluteSizeAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseSizeAnnotationProcessor] for Android Views system.
  * Expects `TextSize.value` to be `pixels` units.
  */
-internal fun AbsoluteSizeAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseAbsoluteSizeAnnotationProcessor {
+internal fun SizeAnnotationProcessor(): ViewsAnnotationProcessor =
+    BaseSizeAnnotationProcessor {
         AbsoluteSizeSpan(it.value.toInt())
     }

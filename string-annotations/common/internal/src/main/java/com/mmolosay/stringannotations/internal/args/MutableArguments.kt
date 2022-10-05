@@ -29,6 +29,6 @@ import com.mmolosay.stringannotations.args.types.TextSize
 internal class MutableArguments<C : ClickOwner>(
     override val colors: MutableQualifiedList<Int> = MutableQualifiedList(ArgumentsQualifiers.color),
     override val clickables: MutableQualifiedList<C> = MutableQualifiedList(ArgumentsQualifiers.clickable),
-    override val typefaceStyles: MutableQualifiedList<Int> = MutableQualifiedList(ArgumentsQualifiers.typefaceStyle),
-    override val absSizes: MutableQualifiedList<TextSize> = MutableQualifiedList(ArgumentsQualifiers.absSize)
+    override val styles: MutableQualifiedList<Int> = MutableQualifiedList(ArgumentsQualifiers.style),
+    override val sizes: MutableQualifiedList<TextSize> = MutableQualifiedList(ArgumentsQualifiers.size)
 ) : Arguments<C>

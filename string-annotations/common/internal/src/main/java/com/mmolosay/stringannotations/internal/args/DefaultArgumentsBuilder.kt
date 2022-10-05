@@ -31,8 +31,8 @@ public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
 
     private val colorsAdder = ArgumentsBuilder.Adder(args.colors)
     private val clickablesAdder = ArgumentsBuilder.Adder(args.clickables)
-    private val typefaceStylesAdder = ArgumentsBuilder.Adder(args.typefaceStyles)
-    private val absSizesAdder = ArgumentsBuilder.Adder(args.absSizes)
+    private val stylesAdder = ArgumentsBuilder.Adder(args.styles)
+    private val sizesAdder = ArgumentsBuilder.Adder(args.sizes)
 
     // region Colors
 
@@ -66,35 +66,35 @@ public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
 
     // endregion
 
-    // region Typeface styles
+    // region Styles
 
-    override fun typefaceStyle(item: Int): Arguments<C> =
-        add(item, args.typefaceStyles)
+    override fun style(item: Int): Arguments<C> =
+        add(item, args.styles)
 
-    override fun typefaceStyle(producer: () -> Int): Arguments<C> =
-        add(producer, args.typefaceStyles)
+    override fun style(producer: () -> Int): Arguments<C> =
+        add(producer, args.styles)
 
-    override fun typefaceStyles(vararg items: Int): Arguments<C> =
-        add(items.toTypedArray(), args.typefaceStyles)
+    override fun styles(vararg items: Int): Arguments<C> =
+        add(items.toTypedArray(), args.styles)
 
-    override fun typefaceStyles(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
-        add(block, typefaceStylesAdder)
+    override fun styles(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
+        add(block, stylesAdder)
 
     // endregion
 
-    // region Absolute sizes
+    // region Sizes
 
-    override fun absoluteSize(item: TextSize): Arguments<C> =
-        add(item, args.absSizes)
+    override fun size(item: TextSize): Arguments<C> =
+        add(item, args.sizes)
 
-    override fun absoluteSize(producer: () -> TextSize): Arguments<C> =
-        add(producer, args.absSizes)
+    override fun size(producer: () -> TextSize): Arguments<C> =
+        add(producer, args.sizes)
 
-    override fun absoluteSizes(vararg items: TextSize): Arguments<C> =
-        add(items, args.absSizes)
+    override fun sizes(vararg items: TextSize): Arguments<C> =
+        add(items, args.sizes)
 
-    override fun absoluteSizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments<C> =
-        add(block, absSizesAdder)
+    override fun sizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments<C> =
+        add(block, sizesAdder)
 
     // endregion
 
