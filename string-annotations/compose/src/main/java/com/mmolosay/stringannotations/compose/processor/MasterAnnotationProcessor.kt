@@ -23,7 +23,7 @@ import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcesso
 /**
  * Implementation of [AbstractMasterAnnotationProcessor] for Compose UI.
  */
-public class MasterAnnotationProcessor :
+public open class MasterAnnotationProcessor :
     AbstractMasterAnnotationProcessor<ComposeArguments, ComposeSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
