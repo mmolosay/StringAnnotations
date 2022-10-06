@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.internal.args
 
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsQualifiers
+import com.mmolosay.stringannotations.args.MutableArguments
 import com.mmolosay.stringannotations.args.MutableQualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
@@ -23,12 +22,11 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Internal mutable implementation of [Arguments].
- * Should not be used as explicit type.
+ * Default internal implementation of [MutableArguments].
  */
-internal class MutableArguments<C : ClickOwner>(
-    override val colors: MutableQualifiedList<Int> = MutableQualifiedList(ArgumentsQualifiers.color),
-    override val clickables: MutableQualifiedList<C> = MutableQualifiedList(ArgumentsQualifiers.clickable),
-    override val styles: MutableQualifiedList<Int> = MutableQualifiedList(ArgumentsQualifiers.style),
-    override val sizes: MutableQualifiedList<TextSize> = MutableQualifiedList(ArgumentsQualifiers.size)
-) : Arguments<C>
+internal class DefaultMutableArguments<C : ClickOwner>(
+    override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
+    override val clickables: MutableQualifiedList<C> = MutableQualifiedList("clickable"),
+    override val styles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
+    override val sizes: MutableQualifiedList<TextSize> = MutableQualifiedList("size")
+) : MutableArguments<C>

@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.internal.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.args.MutableArguments
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 
@@ -27,7 +28,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
 
-    private val args = MutableArguments<C>()
+    private val args: MutableArguments<C> = DefaultMutableArguments()
 
     private val colorsAdder = ArgumentsBuilder.Adder(args.colors)
     private val clickablesAdder = ArgumentsBuilder.Adder(args.clickables)
