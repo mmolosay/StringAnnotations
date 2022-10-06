@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import com.mmolosay.sample.compose.custom.CustomArguments
 import com.mmolosay.stringannotations.compose.annotatedStringResource
 import com.mmolosay.stringannotations.compose.args.Arguments
 import com.mmolosay.stringannotations.compose.args.Clickable
@@ -73,6 +74,7 @@ fun Main() {
             Demo4()
             Demo5()
             Demo6()
+            CustomDemo()
         }
     }
 }
@@ -179,6 +181,17 @@ private fun Demo6() {
     Text(
         text = annotatedStringResource(R.string.demo6, args)
     )
+}
+
+@Composable
+private fun CustomDemo() {
+    val base = Arguments {
+        color(0)
+    }
+    val args = CustomArguments(base) {
+        custom("")
+    }
+    Text(text = annotatedStringResource(R.string.demo6, args))
 }
 
 // endregion

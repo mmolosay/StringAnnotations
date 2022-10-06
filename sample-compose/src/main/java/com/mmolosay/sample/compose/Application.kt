@@ -1,8 +1,8 @@
 package com.mmolosay.sample.compose
 
 import android.app.Application
+import com.mmolosay.sample.compose.custom.CustomMasterAnnotationProcessor
 import com.mmolosay.stringannotations.compose.StringAnnotations
-import com.mmolosay.stringannotations.compose.processor.MasterAnnotationProcessor
 
 class Application : Application() {
 
@@ -18,7 +18,7 @@ class Application : Application() {
      * will be configured with default dependencies, if there was no custom ones specified.
      */
     private fun configureStringAnnotations() {
-        val processor = MasterAnnotationProcessor()
+        val processor = CustomMasterAnnotationProcessor()
         val dependencies = StringAnnotations.DependenciesBuilder()
             .annotationProcessor(processor)
             .build()
