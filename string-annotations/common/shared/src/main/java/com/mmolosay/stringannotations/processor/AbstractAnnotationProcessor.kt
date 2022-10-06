@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser

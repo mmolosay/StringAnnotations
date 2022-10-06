@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.args.qualified
 
 /*
  * Copyright 2022 Mikhail Malasai

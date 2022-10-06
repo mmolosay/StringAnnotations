@@ -22,6 +22,9 @@ import com.mmolosay.stringannotations.args.types.TextSize
 /**
  * Scope, that provides declarative API for assembling [Arguments] instance.
  *
+ * Note: it should not be used in order to implement builder for custom arguments.
+ * One should define fully custom builder component and use it.
+ *
  * Each artifact of `StringAnnotations` library must provide their own implementation and
  * resolve all generic types.
  */

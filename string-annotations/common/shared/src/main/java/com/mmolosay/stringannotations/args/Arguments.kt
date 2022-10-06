@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.args
 
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 
@@ -20,7 +21,8 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Immutable set of [QualifiedList]s of some annotated string.
+ * Default annotation arguments of `StringAnnotations` library.
+ * Represents immutable set of [QualifiedList]s with values, destined for some annotated string.
  *
  * `Arguments` are used to provide data to annotations, that will result in their
  * final appearance and/or behviour.

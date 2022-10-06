@@ -3,7 +3,7 @@
 package com.mmolosay.stringannotations.internal.processor
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor

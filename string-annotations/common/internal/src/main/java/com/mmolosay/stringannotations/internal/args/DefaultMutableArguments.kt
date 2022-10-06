@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.internal.args
 
 import com.mmolosay.stringannotations.args.MutableArguments
-import com.mmolosay.stringannotations.args.MutableQualifiedList
+import com.mmolosay.stringannotations.args.qualified.MutableQualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 

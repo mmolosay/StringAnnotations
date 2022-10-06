@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.internal.processor
 
-import com.mmolosay.stringannotations.args.QualifiedList
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
