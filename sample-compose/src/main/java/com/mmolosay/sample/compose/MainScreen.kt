@@ -2,7 +2,7 @@ package com.mmolosay.sample.compose
 
 import android.graphics.Typeface
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -64,7 +64,8 @@ fun Main() {
         LocalTextStyle provides DemoTextStyle,
     ) {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Demo1()
             Demo2()
@@ -83,116 +84,101 @@ fun Main() {
  * Demonstrates foreground color annotation.
  */
 @Composable
-private fun Demo1() =
-    Demo {
-        val args = Arguments {
-            color(Color.Blue.toArgb())
-        }
-        Text(
-            text = annotatedStringResource(R.string.demo1, args)
-        )
+private fun Demo1() {
+    val args = Arguments {
+        color(Color.Blue.toArgb())
     }
+    Text(
+        text = annotatedStringResource(R.string.demo1, args)
+    )
+}
 
 /**
  * Demo for [R.string.demo2].
  * Demonstrates background color annotation.
  */
 @Composable
-private fun Demo2() =
-    Demo {
-        val args = Arguments {
-            color(Color.LightGray.toArgb())
-        }
-        val formatValue1 = stringResource(R.string.value1)
-        Text(
-            text = annotatedStringResource(R.string.demo2, args, formatValue1)
-        )
+private fun Demo2() {
+    val args = Arguments {
+        color(Color.LightGray.toArgb())
     }
+    val formatValue1 = stringResource(R.string.value1)
+    Text(
+        text = annotatedStringResource(R.string.demo2, args, formatValue1)
+    )
+}
 
 /**
  * Demo for [R.string.demo3].
  * Demonstrates clickable annotations.
  */
 @Composable
-private fun Demo3() =
-    Demo {
-        val context = LocalContext.current
-        val clickable1 = Clickable("first") {
-            Toast
-                .makeText(context, "Clicked annotation with index=0", Toast.LENGTH_SHORT)
-                .show()
-        }
-        val clickable2 = Clickable("second") {
-            Toast
-                .makeText(context, "Clicked annotation with index=1", Toast.LENGTH_SHORT)
-                .show()
-        }
-        val args = Arguments {
-            clickables(clickable1, clickable2)
-        }
-        val text = annotatedStringResource(R.string.demo3, args)
-        ClickableText(
-            text = text,
-            onClick = { offset ->
-                text.onClick(offset, args.clickables)
-            },
-            style = LocalTextStyle.current
-        )
+private fun Demo3() {
+    val context = LocalContext.current
+    val clickable1 = Clickable("first") {
+        Toast
+            .makeText(context, "Clicked annotation with index=0", Toast.LENGTH_SHORT)
+            .show()
     }
+    val clickable2 = Clickable("second") {
+        Toast
+            .makeText(context, "Clicked annotation with index=1", Toast.LENGTH_SHORT)
+            .show()
+    }
+    val args = Arguments {
+        clickables(clickable1, clickable2)
+    }
+    val text = annotatedStringResource(R.string.demo3, args)
+    ClickableText(
+        text = text,
+        onClick = { offset ->
+            text.onClick(offset, args.clickables)
+        },
+        style = LocalTextStyle.current
+    )
+}
 
 /**
  * Demo for [R.string.demo4].
  * Demonstrates typeface style annotations: bold, italic and bold&italic.
  */
 @Composable
-private fun Demo4() =
-    Demo {
-        val style1 = Typeface.ITALIC
-        val style2 = Typeface.BOLD
-        val style3 = Typeface.BOLD_ITALIC
-        val args = Arguments {
-            styles(style1, style2, style3)
-        }
-        Text(
-            text = annotatedStringResource(R.string.demo4, args)
-        )
+private fun Demo4() {
+    val style1 = Typeface.ITALIC
+    val style2 = Typeface.BOLD
+    val style3 = Typeface.BOLD_ITALIC
+    val args = Arguments {
+        styles(style1, style2, style3)
     }
+    Text(
+        text = annotatedStringResource(R.string.demo4, args)
+    )
+}
 
 /**
  * Demo for [R.string.demo5].
  * Demonstrates decoration annotations: underline and strikethrough.
  */
 @Composable
-private fun Demo5() =
-    Demo {
-        Text(
-            text = annotatedStringResource(R.string.demo5)
-        )
-    }
+private fun Demo5() {
+    Text(
+        text = annotatedStringResource(R.string.demo5)
+    )
+}
 
 /**
  * Demo for [R.string.demo6].
  * Demonstrates absolute size annotation.
  */
 @Composable
-private fun Demo6() =
-    Demo {
-        val size = SpSize(10.5f)
-        val args = Arguments {
-            size(size)
-        }
-        Text(
-            text = annotatedStringResource(R.string.demo6, args)
-        )
+private fun Demo6() {
+    val size = SpSize(10.5f)
+    val args = Arguments {
+        size(size)
     }
-
-@Composable
-private fun Demo(
-    content: @Composable () -> Unit
-) {
-    Box(modifier = Modifier.padding(top = 8.dp)) {
-        content()
-    }
+    Text(
+        text = annotatedStringResource(R.string.demo6, args)
+    )
 }
 
 // endregion
