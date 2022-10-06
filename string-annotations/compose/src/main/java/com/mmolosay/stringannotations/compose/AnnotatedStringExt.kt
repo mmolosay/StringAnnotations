@@ -8,9 +8,9 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
-import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.internal.ComposeArguments
+import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -89,7 +89,7 @@ public fun AnnotatedString.onClick(offset: Int, clickables: List<Clickable>) {
  */
 public fun AnnotatedString.getClickableAnnotationAt(offset: Int): AnnotatedString.Range<String>? =
     this.getStringAnnotations(
-        tag = ArgumentsQualifiers.clickable,
+        tag = SpanProcessor.ClickableTag,
         start = offset,
         end = offset
     ).firstOrNull()

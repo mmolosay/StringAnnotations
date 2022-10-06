@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.compose.internal
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
-import com.mmolosay.stringannotations.args.ArgumentsQualifiers
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 
@@ -11,6 +10,8 @@ import com.mmolosay.stringannotations.compose.processor.ComposeSpan
  * Processes spans (as [SpanStyle]).
  */
 internal object SpanProcessor {
+
+    const val ClickableTag = "clickable"
 
     /**
      * Attaches specified [spans] to the [ranges] of [text] accordingly.
@@ -68,11 +69,10 @@ internal object SpanProcessor {
         range: IntRange
     ) {
         builder.addStringAnnotation(
-            tag = ArgumentsQualifiers.clickable,
+            tag = ClickableTag,
             annotation = span.annotation,
             start = range.first,
             end = range.last
         )
     }
-
 }
