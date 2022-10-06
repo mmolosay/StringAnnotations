@@ -5,7 +5,6 @@ import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai

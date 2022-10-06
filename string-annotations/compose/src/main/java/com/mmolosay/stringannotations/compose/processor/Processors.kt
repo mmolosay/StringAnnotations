@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
-import com.mmolosay.stringannotations.compose.internal.ComposeAnnotationProcessor
-import com.mmolosay.stringannotations.compose.internal.ComposeArguments
+import com.mmolosay.stringannotations.compose.ComposeAnnotationProcessor
+import com.mmolosay.stringannotations.compose.ComposeArguments
 import com.mmolosay.stringannotations.internal.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor

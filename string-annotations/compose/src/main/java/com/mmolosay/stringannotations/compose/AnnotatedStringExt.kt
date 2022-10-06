@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import com.mmolosay.stringannotations.compose.args.Clickable
-import com.mmolosay.stringannotations.compose.internal.ComposeArguments
 import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 
 /*

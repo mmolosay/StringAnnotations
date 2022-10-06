@@ -1,9 +1,9 @@
 package com.mmolosay.stringannotations.views.processor
 
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
-import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
-import com.mmolosay.stringannotations.views.internal.ViewsSpan
+import com.mmolosay.stringannotations.views.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.ViewsArguments
+import com.mmolosay.stringannotations.views.ViewsSpan
 
 /*
  * Copyright 2022 Mikhail Malasai

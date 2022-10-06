@@ -6,7 +6,6 @@ import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
 import com.mmolosay.stringannotations.views.internal.SpanProcessor
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai

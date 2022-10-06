@@ -3,7 +3,7 @@ package com.mmolosay.stringannotations.views.args
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
 import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
+import com.mmolosay.stringannotations.views.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai

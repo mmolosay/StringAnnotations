@@ -1,9 +1,6 @@
 package com.mmolosay.stringannotations.views
 
 import com.mmolosay.stringannotations.core.BaseStringAnnotations
-import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
-import com.mmolosay.stringannotations.views.internal.ViewsSpan
 import com.mmolosay.stringannotations.views.processor.MasterAnnotationProcessor
 
 /*

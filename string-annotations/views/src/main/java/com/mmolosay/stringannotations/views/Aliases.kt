@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.views.internal
+package com.mmolosay.stringannotations.views
 
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.Arguments
@@ -6,20 +6,20 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.views.args.Clickable
 
 /*
- * Typealiases for internal use.
+ * Typealiases for convenience of use.
  */
 
 /**
  * [Arguments] for Android Views system.
  */
-internal typealias ViewsArguments = Arguments<Clickable>
+public typealias ViewsArguments = Arguments<Clickable>
 
 /**
  * Type of spans for Android Views system.
  */
-internal typealias ViewsSpan = CharacterStyle
+public typealias ViewsSpan = CharacterStyle
 
 /**
  * [AnnotationProcessor] for Android Views system.
  */
-internal typealias ViewsAnnotationProcessor = AnnotationProcessor<ViewsArguments, ViewsSpan>
+public typealias ViewsAnnotationProcessor = AnnotationProcessor<ViewsArguments, ViewsSpan>

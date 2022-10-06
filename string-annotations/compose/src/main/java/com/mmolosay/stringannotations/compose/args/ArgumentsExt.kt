@@ -2,7 +2,7 @@ package com.mmolosay.stringannotations.compose.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.compose.internal.ComposeArguments
+import com.mmolosay.stringannotations.compose.ComposeArguments
 import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
 
 /*

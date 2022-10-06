@@ -21,10 +21,10 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.views.ViewsAnnotationProcessor
+import com.mmolosay.stringannotations.views.ViewsArguments
+import com.mmolosay.stringannotations.views.ViewsSpan
 import com.mmolosay.stringannotations.views.args.Clickable
-import com.mmolosay.stringannotations.views.internal.ViewsAnnotationProcessor
-import com.mmolosay.stringannotations.views.internal.ViewsArguments
-import com.mmolosay.stringannotations.views.internal.ViewsSpan
 import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickableSpan
 
 /*
