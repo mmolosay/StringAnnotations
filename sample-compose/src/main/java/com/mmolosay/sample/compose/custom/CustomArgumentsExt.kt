@@ -8,6 +8,6 @@ import com.mmolosay.stringannotations.args.emptyArguments
  */
 fun CustomArguments(
     base: Arguments = emptyArguments(),
-    scope: CustomAnnotationValuesBuilder.() -> Unit
+    scope: CustomArgumentsBuilder.() -> Unit
 ): Arguments =
-    CustomAnnotationValuesBuilder().apply(scope).build(base)
+    CustomArgumentsBuilder().apply(scope).build(base)

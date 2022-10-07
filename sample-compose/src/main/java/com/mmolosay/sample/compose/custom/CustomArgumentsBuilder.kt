@@ -6,7 +6,7 @@ import com.mmolosay.stringannotations.args.Arguments
 /**
  * Builder for [CustomArguments].
  */
-class CustomAnnotationValuesBuilder {
+class CustomArgumentsBuilder {
 
     private val letterSpacings = mutableListOf<TextUnit>()
 
