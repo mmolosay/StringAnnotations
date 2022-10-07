@@ -127,10 +127,9 @@ private fun Demo3() {
             .makeText(context, "Clicked annotation with index=1", Toast.LENGTH_SHORT)
             .show()
     }
-    // TODO: AnnotationValuesBuilder.clickables(items: List<Clickable>)
     val clickables = listOf(clickable1, clickable2)
     val args = Arguments {
-        clickables(clickable1, clickable2)
+        clickables(clickables)
     }
     val text = annotatedStringResource(R.string.demo3, args)
     ClickableText(

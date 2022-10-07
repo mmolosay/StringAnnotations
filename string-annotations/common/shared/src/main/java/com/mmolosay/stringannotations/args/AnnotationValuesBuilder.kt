@@ -42,6 +42,11 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     public fun colors(vararg items: Int): AnnotationValues<C>
 
     /**
+     * Adds specified [items] in [AnnotationValues.colors] list.
+     */
+    public fun colors(items: Collection<Int>): AnnotationValues<C>
+
+    /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.colors] list.
      */
     public fun colors(block: Adder<Int>.() -> Unit): AnnotationValues<C>
@@ -64,6 +69,11 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
      * Adds specified [items] in [AnnotationValues.clickables] list.
      */
     public fun clickables(vararg items: C): AnnotationValues<C>
+
+    /**
+     * Adds specified [items] in [AnnotationValues.clickables] list.
+     */
+    public fun clickables(items: Collection<C>): AnnotationValues<C>
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.clickables] list.
@@ -90,6 +100,11 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     public fun styles(vararg items: Int): AnnotationValues<C>
 
     /**
+     * Adds specified [items] in [AnnotationValues.styles] list.
+     */
+    public fun styles(items: Collection<Int>): AnnotationValues<C>
+
+    /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.styles] list.
      */
     public fun styles(block: Adder<Int>.() -> Unit): AnnotationValues<C>
@@ -112,6 +127,11 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
      * Adds specified [items] in [AnnotationValues.sizes] list.
      */
     public fun sizes(vararg items: TextSize): AnnotationValues<C>
+
+    /**
+     * Adds specified [items] in [AnnotationValues.sizes] list.
+     */
+    public fun sizes(items: Collection<TextSize>): AnnotationValues<C>
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.sizes] list.

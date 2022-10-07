@@ -27,23 +27,26 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuilder<C> {
 
-    private val args = MutableAnnotationValues<C>()
+    private val values = MutableAnnotationValues<C>()
 
-    private val colorsAdder = AnnotationValuesBuilder.Adder(args.colors)
-    private val clickablesAdder = AnnotationValuesBuilder.Adder(args.clickables)
-    private val stylesAdder = AnnotationValuesBuilder.Adder(args.styles)
-    private val sizesAdder = AnnotationValuesBuilder.Adder(args.sizes)
+    private val colorsAdder = AnnotationValuesBuilder.Adder(values.colors)
+    private val clickablesAdder = AnnotationValuesBuilder.Adder(values.clickables)
+    private val stylesAdder = AnnotationValuesBuilder.Adder(values.styles)
+    private val sizesAdder = AnnotationValuesBuilder.Adder(values.sizes)
 
     // region Colors
 
     override fun color(item: Int): AnnotationValues<C> =
-        add(item, args.colors)
+        add(item, values.colors)
 
     override fun color(producer: () -> Int): AnnotationValues<C> =
-        add(producer, args.colors)
+        add(producer, values.colors)
 
     override fun colors(vararg items: Int): AnnotationValues<C> =
-        add(items.toTypedArray(), args.colors)
+        add(items.toTypedArray(), values.colors)
+
+    override fun colors(items: Collection<Int>): AnnotationValues<C> =
+        add(items, values.colors)
 
     override fun colors(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
         add(block, colorsAdder)
@@ -53,13 +56,16 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     // region Clickables
 
     override fun clickable(item: C): AnnotationValues<C> =
-        add(item, args.clickables)
+        add(item, values.clickables)
 
     override fun clickable(producer: () -> C): AnnotationValues<C> =
-        add(producer, args.clickables)
+        add(producer, values.clickables)
 
     override fun clickables(vararg items: C): AnnotationValues<C> =
-        add(items, args.clickables)
+        add(items, values.clickables)
+
+    override fun clickables(items: Collection<C>): AnnotationValues<C> =
+        add(items, values.clickables)
 
     override fun clickables(block: AnnotationValuesBuilder.Adder<C>.() -> Unit): AnnotationValues<C> =
         add(block, clickablesAdder)
@@ -69,13 +75,16 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     // region Styles
 
     override fun style(item: Int): AnnotationValues<C> =
-        add(item, args.styles)
+        add(item, values.styles)
 
     override fun style(producer: () -> Int): AnnotationValues<C> =
-        add(producer, args.styles)
+        add(producer, values.styles)
 
     override fun styles(vararg items: Int): AnnotationValues<C> =
-        add(items.toTypedArray(), args.styles)
+        add(items.toTypedArray(), values.styles)
+
+    override fun styles(items: Collection<Int>): AnnotationValues<C> =
+        add(items, values.styles)
 
     override fun styles(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
         add(block, stylesAdder)
@@ -85,13 +94,16 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     // region Sizes
 
     override fun size(item: TextSize): AnnotationValues<C> =
-        add(item, args.sizes)
+        add(item, values.sizes)
 
     override fun size(producer: () -> TextSize): AnnotationValues<C> =
-        add(producer, args.sizes)
+        add(producer, values.sizes)
 
     override fun sizes(vararg items: TextSize): AnnotationValues<C> =
-        add(items, args.sizes)
+        add(items, values.sizes)
+
+    override fun sizes(items: Collection<TextSize>): AnnotationValues<C> =
+        add(items, values.sizes)
 
     override fun sizes(block: AnnotationValuesBuilder.Adder<TextSize>.() -> Unit): AnnotationValues<C> =
         add(block, sizesAdder)
@@ -102,23 +114,31 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         element: T,
         dest: MutableCollection<T>
     ): AnnotationValues<C> =
-        args.apply {
+        values.apply {
             dest.add(element)
         }
 
     private fun <T> add(
-        element: Array<out T>,
+        elements: Array<out T>,
         dest: MutableCollection<T>
     ): AnnotationValues<C> =
-        args.apply {
-            dest.addAll(element)
+        values.apply {
+            dest.addAll(elements)
+        }
+
+    private fun <T> add(
+        elements: Collection<T>,
+        dest: MutableCollection<T>
+    ): AnnotationValues<C> =
+        values.apply {
+            dest.addAll(elements)
         }
 
     private fun <T> add(
         producer: () -> T,
         dest: MutableCollection<T>
     ): AnnotationValues<C> =
-        args.apply {
+        values.apply {
             dest.add(producer())
         }
 
@@ -126,7 +146,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         block: AnnotationValuesBuilder.Adder<T>.() -> Unit,
         adder: AnnotationValuesBuilder.Adder<T>
     ): AnnotationValues<C> =
-        args.apply {
+        values.apply {
             block(adder)
         }
 }
