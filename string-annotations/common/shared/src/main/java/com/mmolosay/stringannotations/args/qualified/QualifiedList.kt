@@ -19,10 +19,7 @@ package com.mmolosay.stringannotations.args.qualified
 /**
  * Qualified list of elements [E].
  */
-public open class QualifiedList<E>(
+public open class QualifiedList<out E>(
     override val qualifier: String,
     list: List<E>
-) : List<E> by list, Qualified {
-
-    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
-}
+) : List<E> by list, Qualified

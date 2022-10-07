@@ -3,6 +3,7 @@ package com.mmolosay.stringannotations.views.processor
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
 import com.mmolosay.stringannotations.views.ViewsAnnotationProcessor
 import com.mmolosay.stringannotations.views.ViewsSpan
+import com.mmolosay.stringannotations.views.args.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -27,7 +28,7 @@ import com.mmolosay.stringannotations.views.ViewsSpan
  * custom ones.
  */
 public open class MasterAnnotationProcessor :
-    AbstractMasterAnnotationProcessor<ViewsSpan>() {
+    AbstractMasterAnnotationProcessor<ViewsArguments, ViewsSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
         BackgroundColorAnnotationProcessor()

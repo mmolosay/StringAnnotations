@@ -22,23 +22,21 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Implementation of [ArgumentsBuilder].
- * Should not be used as explicit type.
+ * Abstract implementation of [ArgumentsBuilder] with methods for all values of "final" types.
  */
-public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
+public abstract class AbstractArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
 
-    private val colors = mutableListOf<Int>()
-    private val clickables = mutableListOf<C>()
-    private val styles = mutableListOf<Int>()
-    private val sizes = mutableListOf<TextSize>()
+    protected val colors: MutableList<Int> = mutableListOf()
+    protected val clickables: MutableList<C> = mutableListOf()
+    protected val styles: MutableList<Int> = mutableListOf()
+    protected val sizes: MutableList<TextSize> = mutableListOf()
 
     private val colorsAdder = ArgumentsBuilder.Adder(colors)
     private val clickablesAdder = ArgumentsBuilder.Adder(clickables)
     private val stylesAdder = ArgumentsBuilder.Adder(styles)
     private val sizesAdder = ArgumentsBuilder.Adder(sizes)
 
-    public fun build(): Arguments =
-        Arguments(colors, clickables, styles, sizes)
+    public abstract fun build(): Arguments
 
     // region Colors
 

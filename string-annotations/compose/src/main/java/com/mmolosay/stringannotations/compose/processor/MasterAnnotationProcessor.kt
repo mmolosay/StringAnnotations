@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.compose.processor
 
 import com.mmolosay.stringannotations.compose.ComposeAnnotationProcessor
+import com.mmolosay.stringannotations.compose.args.ComposeArguments
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor
 
 /*
@@ -26,7 +27,7 @@ import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcesso
  * custom ones.
  */
 public open class MasterAnnotationProcessor :
-    AbstractMasterAnnotationProcessor<ComposeSpan>() {
+    AbstractMasterAnnotationProcessor<ComposeArguments, ComposeSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
         BackgroundColorAnnotationProcessor()

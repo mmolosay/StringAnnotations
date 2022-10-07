@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.TextUnitType
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.compose.ComposeAnnotationProcessor
-import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
@@ -89,9 +88,10 @@ internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
  * Implementation of [BaseClickableAnnotationProcessor] for Compose UI.
  */
 internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseClickableAnnotationProcessor<Clickable, ComposeSpan> {
-        ComposeSpan.of(it)
-    }
+    BaseClickableAnnotationProcessor(
+        values = { clickables },
+        factory = { ComposeSpan.of(it) }
+    )
 
 /**
  * Implementation of [BaseStyleAnnotationProcessor] for Compose UI.

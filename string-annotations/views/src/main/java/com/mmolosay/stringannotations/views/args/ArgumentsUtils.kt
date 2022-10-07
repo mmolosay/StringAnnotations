@@ -2,7 +2,6 @@ package com.mmolosay.stringannotations.views.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,12 +24,23 @@ import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
  */
 
 /**
- * Assembles [Arguments] for Android Views UI in declarative style.
+ * Assembles [ViewsArguments] in declarative style.
  */
 public fun Arguments(
     scope: ArgumentsBuilder<Clickable>.() -> Unit
-): Arguments =
+): ViewsArguments =
     builder().apply(scope).build()
 
-private fun builder(): ArgumentsBuilderImpl<Clickable> =
-    ArgumentsBuilderImpl()
+/**
+ * Returns instance of empty [ViewsArguments].
+ */
+public fun emptyArguments(): ViewsArguments =
+    object : ViewsArguments {
+        override val colors = Arguments.Colors(emptyList())
+        override val clickables = Arguments.Clickables<Clickable>(emptyList())
+        override val styles = Arguments.Styles(emptyList())
+        override val sizes = Arguments.Sizes(emptyList())
+    }
+
+private fun builder(): ViewsArgumentsBuilder =
+    ViewsArgumentsBuilder()

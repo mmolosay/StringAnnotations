@@ -1,5 +1,6 @@
 package com.mmolosay.stringannotations.compose
 
+import com.mmolosay.stringannotations.compose.args.ComposeArguments
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
@@ -26,4 +27,4 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 /**
  * [AnnotationProcessor] for Compose UI.
  */
-public typealias ComposeAnnotationProcessor = AnnotationProcessor<ComposeSpan>
+public typealias ComposeAnnotationProcessor = AnnotationProcessor<ComposeArguments, ComposeSpan>

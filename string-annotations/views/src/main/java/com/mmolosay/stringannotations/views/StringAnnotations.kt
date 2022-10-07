@@ -37,7 +37,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
     ) : BaseStringAnnotations.Dependencies()
 
     public class DependenciesBuilder :
-        BaseStringAnnotations.DependenciesBuilder<ViewsSpan> {
+        BaseStringAnnotations.DependenciesBuilder<ViewsAnnotationProcessor> {
 
         private var processor: ViewsAnnotationProcessor? = null
 

@@ -5,7 +5,7 @@ import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.views.args.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -36,7 +36,7 @@ import com.mmolosay.stringannotations.args.Arguments
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
-    arguments: Arguments,
+    arguments: ViewsArguments,
     vararg formatArgs: Any
 ): Spanned =
     AnnotatedStrings.process(
@@ -71,7 +71,7 @@ public fun Context.getAnnotatedString(
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
-    arguments: Arguments,
+    arguments: ViewsArguments,
     vararg formatArgs: Any
 ): Spanned =
     requireContext().getAnnotatedString(

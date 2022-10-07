@@ -37,9 +37,9 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public fun <S> BaseColorAnnotationProcessor(
+public fun <A : Arguments, S> BaseColorAnnotationProcessor(
     factory: (value: Int) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
@@ -51,22 +51,23 @@ public fun <S> BaseColorAnnotationProcessor(
  * `AnnotationProcessor` for [AnnotationTypes.clickable] annotation type.
  */
 @Suppress("UNCHECKED_CAST") // price for not including actual AnnotationValues type in generic
-public fun <C : ClickOwner, S> BaseClickableAnnotationProcessor(
+public fun <C : ClickOwner, A : Arguments, S> BaseClickableAnnotationProcessor(
+    values: A.() -> QualifiedList<C>,
     factory: (value: C) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
         conflator = StrategyConflator.First(),
-        values = { clickables as? QualifiedList<C> },
+        values = values,
         factory = factory
     )
 
 /**
  * `AnnotationProcessor` for [AnnotationTypes.style] annotation type.
  */
-public fun <S> BaseStyleAnnotationProcessor(
+public fun <A : Arguments, S> BaseStyleAnnotationProcessor(
     factory: (value: Int) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
@@ -77,19 +78,19 @@ public fun <S> BaseStyleAnnotationProcessor(
 /**
  * `AnnotationProcessor` for [AnnotationTypes.decoration] annotation type.
  */
-public fun <S> BaseDecorationAnnotationProcessor(
+public fun <A : Arguments, S> BaseDecorationAnnotationProcessor(
     underlineSpansFactory: () -> S?,
     strikethroughSpansFactory: () -> S?,
-): AnnotationProcessor<S> =
-    object : AbstractAnnotationProcessor<Token, S>() {
+): AnnotationProcessor<A, S> =
+    object : AbstractAnnotationProcessor<Token, A, S>() {
 
         override val tokenizer: Tokenizer = Tokenizer.Solid()
         override val conflator: ValuesConfaltor<Token> = StrategyConflator.First()
 
-        override fun parseValue(token: Token, arguments: Arguments?): Token =
+        override fun parseValue(token: Token, arguments: A?): Token =
             token // since requires value of type Token, we just pass it
 
-        override fun Arguments.getValues(): QualifiedList<Token>? =
+        override fun A.getValues(): QualifiedList<Token>? =
             null // TODO: update once added to Arguments
 
         override fun makeSpan(value: Token): S? =
@@ -105,9 +106,9 @@ public fun <S> BaseDecorationAnnotationProcessor(
  * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
  * implementation.
  */
-public fun <S> BaseSizeAnnotationProcessor(
+public fun <A : Arguments, S> BaseSizeAnnotationProcessor(
     factory: (value: TextSize) -> S?
-): AnnotationProcessor<S> =
+): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),

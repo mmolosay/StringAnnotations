@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.views
 
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.views.args.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -31,4 +32,4 @@ public typealias ViewsSpan = CharacterStyle
 /**
  * [AnnotationProcessor] for Android Views UI.
  */
-public typealias ViewsAnnotationProcessor = AnnotationProcessor<ViewsSpan>
+public typealias ViewsAnnotationProcessor = AnnotationProcessor<ViewsArguments, ViewsSpan>

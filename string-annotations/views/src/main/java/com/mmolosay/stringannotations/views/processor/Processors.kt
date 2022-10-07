@@ -23,7 +23,6 @@ import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.views.ViewsAnnotationProcessor
 import com.mmolosay.stringannotations.views.ViewsSpan
-import com.mmolosay.stringannotations.views.args.Clickable
 import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickableSpan
 
 /*
@@ -89,9 +88,10 @@ internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
  * Implementation of [CustomizableClickableSpan] for Android Views UI.
  */
 internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseClickableAnnotationProcessor<Clickable, ViewsSpan> {
-        CustomizableClickableSpan(it)
-    }
+    BaseClickableAnnotationProcessor(
+        values = { clickables },
+        factory = { CustomizableClickableSpan(it) }
+    )
 
 /**
  * Implementation of [BaseStyleAnnotationProcessor] for Android Views UI.

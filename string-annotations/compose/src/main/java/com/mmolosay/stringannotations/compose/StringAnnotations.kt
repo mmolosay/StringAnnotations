@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.compose
 
-import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.compose.processor.MasterAnnotationProcessor
 import com.mmolosay.stringannotations.core.BaseStringAnnotations
 
@@ -38,7 +37,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
     ) : BaseStringAnnotations.Dependencies()
 
     public class DependenciesBuilder :
-        BaseStringAnnotations.DependenciesBuilder<ComposeSpan> {
+        BaseStringAnnotations.DependenciesBuilder<ComposeAnnotationProcessor> {
 
         private var processor: ComposeAnnotationProcessor? = null
 
