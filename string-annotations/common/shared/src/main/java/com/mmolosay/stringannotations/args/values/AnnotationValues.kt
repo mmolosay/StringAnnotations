@@ -1,7 +1,6 @@
 package com.mmolosay.stringannotations.args.values
 
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
-import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
@@ -26,7 +25,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
  *
  * Each artifact of `StringAnnotations` library must resolve all generic types.
  */
-public interface AnnotationValues<C : ClickOwner> {
+public interface AnnotationValues {
 
     /**
      * Color integers.
@@ -38,7 +37,7 @@ public interface AnnotationValues<C : ClickOwner> {
     /**
      * Clickable spans.
      */
-    public val clickables: QualifiedList<out C>
+    public val clickables: QualifiedList<*>
 
     /**
      * Typeface style integers.

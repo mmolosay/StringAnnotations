@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.values.AnnotationValues
 
 /*
@@ -23,5 +22,5 @@ import com.mmolosay.stringannotations.args.values.AnnotationValues
  * Owner of [AnnotationValues].
  */
 public interface Arguments {
-    public val values: AnnotationValues<out ClickOwner>
+    public val values: AnnotationValues
 }

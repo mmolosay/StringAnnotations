@@ -37,7 +37,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     private val stylesAdder = AnnotationValuesBuilder.Adder(styles)
     private val sizesAdder = AnnotationValuesBuilder.Adder(sizes)
 
-    public fun build(): AnnotationValues<C> =
+    public fun build(): AnnotationValues =
         AnnotationValues(colors, clickables, styles, sizes)
 
     // region Colors

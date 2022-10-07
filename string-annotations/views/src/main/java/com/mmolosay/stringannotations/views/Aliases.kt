@@ -3,7 +3,6 @@ package com.mmolosay.stringannotations.views
 import android.text.style.CharacterStyle
 import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
-import com.mmolosay.stringannotations.views.args.Clickable
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -28,7 +27,7 @@ import com.mmolosay.stringannotations.views.args.Clickable
 /**
  * [AnnotationValues] for Android Views UI.
  */
-public typealias ViewsAnnotationValues = AnnotationValues<Clickable>
+public typealias ViewsAnnotationValues = AnnotationValues
 
 /**
  * Type of spans for Android Views UI.

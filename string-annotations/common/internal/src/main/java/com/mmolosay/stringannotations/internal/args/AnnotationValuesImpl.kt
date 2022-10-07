@@ -29,8 +29,8 @@ internal fun <C : ClickOwner> AnnotationValues(
     clickables: List<C>,
     styles: List<Int>,
     sizes: List<TextSize>,
-): AnnotationValues<C> =
-    object : AnnotationValues<C> {
+): AnnotationValues =
+    object : AnnotationValues {
         override val colors = QualifiedList("color", colors)
         override val clickables = QualifiedList("clickable", clickables)
         override val styles = QualifiedList("style", styles)
