@@ -1,9 +1,10 @@
 package com.mmolosay.sample.compose.custom
 
 import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
+import com.mmolosay.stringannotations.compose.args.EmptyAnnotationValues
 
-fun Arguments(
-    values: ComposeAnnotationValues,
-    builder: CustomAnnotationValuesBuilder.() -> CustomAnnotationValues
+fun CustomArguments(
+    values: ComposeAnnotationValues = EmptyAnnotationValues(),
+    scope: CustomAnnotationValuesBuilder.() -> Unit
 ): CustomAnnotationValues =
-    builder(CustomAnnotationValuesBuilder((values)))
+    CustomAnnotationValuesBuilder(values).apply(scope).build()

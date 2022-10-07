@@ -4,15 +4,16 @@ import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 
 class CustomAnnotationValuesBuilder(values: ComposeAnnotationValues) {
 
-    private val args = MutableCustomValues(values)
+    private val values = MutableCustomValues(values)
 
-    fun custom(item: String): CustomAnnotationValues =
-        args.apply {
-            args.customs.add(item)
-        }
+    fun build(): CustomAnnotationValues =
+        values
 
-    fun customs(vararg items: String): CustomAnnotationValues =
-        args.apply {
-            args.customs.addAll(items)
-        }
+    fun custom(item: String) {
+        values.customs.add(item)
+    }
+
+    fun customs(vararg items: String) {
+        values.customs.addAll(items)
+    }
 }
