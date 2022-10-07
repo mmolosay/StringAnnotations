@@ -27,7 +27,6 @@ import com.mmolosay.stringannotations.internal.SpannedProcessor
 /**
  * Processes annotated string for Android Views UI.
  */
-// TODO: extract common functionality?
 public object AnnotatedStrings {
 
     /**
