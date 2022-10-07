@@ -22,9 +22,9 @@ import com.mmolosay.stringannotations.args.types.TextSize
 
 /**
  * Immutable set of [QualifiedList]s with values, destined for some annotated string.
+ * Contains values for all annotation types, supported out-of-the-box.
  *
- * Each artifact of `StringAnnotations` library must provide their own implementation and
- * resolve all generic types.
+ * Each artifact of `StringAnnotations` library must resolve all generic types.
  */
 public interface AnnotationValues<C : ClickOwner> {
 

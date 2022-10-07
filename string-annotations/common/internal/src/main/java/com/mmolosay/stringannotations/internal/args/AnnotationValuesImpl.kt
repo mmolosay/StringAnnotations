@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.internal.args
 
-import com.mmolosay.stringannotations.args.qualified.MutableQualifiedList
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 import com.mmolosay.stringannotations.args.values.AnnotationValues
@@ -22,12 +22,17 @@ import com.mmolosay.stringannotations.args.values.AnnotationValues
  */
 
 /**
- * Implementation of mutable [AnnotationValues].
- * Should not be used as explicit type.
+ * Builder for [AnnotationValues].
  */
-internal class MutableAnnotationValues<C : ClickOwner>(
-    override val colors: MutableQualifiedList<Int> = MutableQualifiedList("color"),
-    override val clickables: MutableQualifiedList<C> = MutableQualifiedList("clickable"),
-    override val styles: MutableQualifiedList<Int> = MutableQualifiedList("style"),
-    override val sizes: MutableQualifiedList<TextSize> = MutableQualifiedList("size")
-) : AnnotationValues<C>
+internal fun <C : ClickOwner> AnnotationValues(
+    colors: List<Int>,
+    clickables: List<C>,
+    styles: List<Int>,
+    sizes: List<TextSize>,
+): AnnotationValues<C> =
+    object : AnnotationValues<C> {
+        override val colors = QualifiedList("color", colors)
+        override val clickables = QualifiedList("clickable", clickables)
+        override val styles = QualifiedList("style", styles)
+        override val sizes = QualifiedList("size", sizes)
+    }
