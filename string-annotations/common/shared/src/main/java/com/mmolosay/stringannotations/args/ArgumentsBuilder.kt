@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args.values
+package com.mmolosay.stringannotations.args
 
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
@@ -20,34 +20,34 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Scope, that provides declarative API for assembling [AnnotationValues] instance.
+ * Scope, that provides declarative API for assembling [Arguments] instance.
  */
-public interface AnnotationValuesBuilder<C : ClickOwner> {
+public interface ArgumentsBuilder<C : ClickOwner> {
 
     // region Colors
 
     /**
-     * Adds specified [item] in [AnnotationValues.colors] list.
+     * Adds specified [item] in [Arguments.colors] list.
      */
     public fun color(item: Int)
 
     /**
-     * Executes [producer] and adds result to [AnnotationValues.colors] list.
+     * Executes [producer] and adds result to [Arguments.colors] list.
      */
     public fun color(producer: () -> Int)
 
     /**
-     * Adds specified [items] in [AnnotationValues.colors] list.
+     * Adds specified [items] in [Arguments.colors] list.
      */
     public fun colors(vararg items: Int)
 
     /**
-     * Adds specified [items] in [AnnotationValues.colors] list.
+     * Adds specified [items] in [Arguments.colors] list.
      */
     public fun colors(items: Collection<Int>)
 
     /**
-     * Executes [block], scoped to [Adder] of [AnnotationValues.colors] list.
+     * Executes [block], scoped to [Adder] of [Arguments.colors] list.
      */
     public fun colors(block: Adder<Int>.() -> Unit)
 
@@ -56,27 +56,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     // region Clickables
 
     /**
-     * Adds specified [item] in [AnnotationValues.clickables] list.
+     * Adds specified [item] in [Arguments.clickables] list.
      */
     public fun clickable(item: C)
 
     /**
-     * Executes [producer] and adds result to [AnnotationValues.clickables] list.
+     * Executes [producer] and adds result to [Arguments.clickables] list.
      */
     public fun clickable(producer: () -> C)
 
     /**
-     * Adds specified [items] in [AnnotationValues.clickables] list.
+     * Adds specified [items] in [Arguments.clickables] list.
      */
     public fun clickables(vararg items: C)
 
     /**
-     * Adds specified [items] in [AnnotationValues.clickables] list.
+     * Adds specified [items] in [Arguments.clickables] list.
      */
     public fun clickables(items: Collection<C>)
 
     /**
-     * Executes [block], scoped to [Adder] of [AnnotationValues.clickables] list.
+     * Executes [block], scoped to [Adder] of [Arguments.clickables] list.
      */
     public fun clickables(block: Adder<C>.() -> Unit)
 
@@ -85,27 +85,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     // region Styles
 
     /**
-     * Adds specified [item] in [AnnotationValues.styles] list.
+     * Adds specified [item] in [Arguments.styles] list.
      */
     public fun style(item: Int)
 
     /**
-     * Executes [producer] and adds result to [AnnotationValues.styles] list.
+     * Executes [producer] and adds result to [Arguments.styles] list.
      */
     public fun style(producer: () -> Int)
 
     /**
-     * Adds specified [items] in [AnnotationValues.styles] list.
+     * Adds specified [items] in [Arguments.styles] list.
      */
     public fun styles(vararg items: Int)
 
     /**
-     * Adds specified [items] in [AnnotationValues.styles] list.
+     * Adds specified [items] in [Arguments.styles] list.
      */
     public fun styles(items: Collection<Int>)
 
     /**
-     * Executes [block], scoped to [Adder] of [AnnotationValues.styles] list.
+     * Executes [block], scoped to [Adder] of [Arguments.styles] list.
      */
     public fun styles(block: Adder<Int>.() -> Unit)
 
@@ -114,27 +114,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     // region Sizes
 
     /**
-     * Adds specified [item] in [AnnotationValues.sizes] list.
+     * Adds specified [item] in [Arguments.sizes] list.
      */
     public fun size(item: TextSize)
 
     /**
-     * Executes [producer] and adds result to [AnnotationValues.sizes] list.
+     * Executes [producer] and adds result to [Arguments.sizes] list.
      */
     public fun size(producer: () -> TextSize)
 
     /**
-     * Adds specified [items] in [AnnotationValues.sizes] list.
+     * Adds specified [items] in [Arguments.sizes] list.
      */
     public fun sizes(vararg items: TextSize)
 
     /**
-     * Adds specified [items] in [AnnotationValues.sizes] list.
+     * Adds specified [items] in [Arguments.sizes] list.
      */
     public fun sizes(items: Collection<TextSize>)
 
     /**
-     * Executes [block], scoped to [Adder] of [AnnotationValues.sizes] list.
+     * Executes [block], scoped to [Adder] of [Arguments.sizes] list.
      */
     public fun sizes(block: Adder<TextSize>.() -> Unit)
 

@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args.values
+package com.mmolosay.stringannotations.args
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -17,11 +17,11 @@ package com.mmolosay.stringannotations.args.values
  */
 
 /*
- * Utils and extensions for `AnnotationValues`
+ * Utilities and extensions for `Arguments`.
  */
 
 /**
- * Returns empty [AnnotationValues].
+ * Returns empty [Arguments].
  */
-public fun emptyAnnotationValues(): AnnotationValues =
-    EmptyAnnotationValues
+public fun emptyArguments(): Arguments =
+    EmptyArguments

@@ -43,7 +43,7 @@ public fun <S> BaseColorAnnotationProcessor(
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { values.colors },
+        values = { colors },
         factory = factory
     )
 
@@ -57,7 +57,7 @@ public fun <C : ClickOwner, S> BaseClickableAnnotationProcessor(
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
         conflator = StrategyConflator.First(),
-        values = { values.clickables as? QualifiedList<C> },
+        values = { clickables as? QualifiedList<C> },
         factory = factory
     )
 
@@ -70,7 +70,7 @@ public fun <S> BaseStyleAnnotationProcessor(
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { values.styles },
+        values = { styles },
         factory = factory
     )
 
@@ -111,7 +111,7 @@ public fun <S> BaseSizeAnnotationProcessor(
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { values.sizes },
+        values = { sizes },
         factory = factory
     )
 

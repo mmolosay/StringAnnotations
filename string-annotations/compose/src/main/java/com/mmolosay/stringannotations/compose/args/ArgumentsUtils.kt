@@ -1,9 +1,8 @@
 package com.mmolosay.stringannotations.compose.args
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.values.AnnotationValues
-import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
-import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
+import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,24 +21,16 @@ import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
  */
 
 /*
- * Extension for Arguments and stuff for convenience of use.
+ * Utilities and extensions for `Arguments`.
  */
 
 /**
  * Assembles [Arguments] for Compose UI in declarative style.
  */
 public fun Arguments(
-    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
+    scope: ArgumentsBuilder<Clickable>.() -> Unit
 ): Arguments =
-    Arguments(AnnotationValues(scope))
-
-/**
- * Assembles [AnnotationValues] in a declarative style.
- */
-public fun AnnotationValues(
-    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
-): AnnotationValues =
     builder().apply(scope).build()
 
-private fun builder(): AnnotationValuesBuilderImpl<Clickable> =
-    AnnotationValuesBuilderImpl()
+private fun builder(): ArgumentsBuilderImpl<Clickable> =
+    ArgumentsBuilderImpl()

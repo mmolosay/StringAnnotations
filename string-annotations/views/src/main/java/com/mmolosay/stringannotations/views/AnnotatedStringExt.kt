@@ -31,13 +31,13 @@ import com.mmolosay.stringannotations.args.Arguments
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * @param id resource id of annotated string.
- * @param arguments annotation arguments to be substituted instead of placeholders.
+ * @param arguments annotation arguments to be used instead of value placeholders.
  * @param formatArgs formatting arguments to be substituted.
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
     arguments: Arguments,
-    vararg formatArgs: Any,
+    vararg formatArgs: Any
 ): Spanned =
     AnnotatedStrings.process(
         string = getSpannedString(id),
@@ -64,7 +64,7 @@ public fun Context.getAnnotatedString(
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
  *
  * @param id resource id of annotated string.
- * @param arguments annotation arguments, to be used instead of value placeholders.
+ * @param arguments annotation arguments to be used instead of value placeholders.
  * @param formatArgs formatting arguments to be substituted.
  *
  * @throws IllegalStateException if fragment was not attached to context.

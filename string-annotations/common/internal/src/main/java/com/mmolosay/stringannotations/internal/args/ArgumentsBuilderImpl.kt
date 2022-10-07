@@ -1,9 +1,9 @@
 package com.mmolosay.stringannotations.internal.args
 
+import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.ArgumentsBuilder
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
-import com.mmolosay.stringannotations.args.values.AnnotationValues
-import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,23 +22,23 @@ import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
  */
 
 /**
- * Implementation of [AnnotationValuesBuilder].
+ * Implementation of [ArgumentsBuilder].
  * Should not be used as explicit type.
  */
-public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuilder<C> {
+public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
 
     private val colors = mutableListOf<Int>()
     private val clickables = mutableListOf<C>()
     private val styles = mutableListOf<Int>()
     private val sizes = mutableListOf<TextSize>()
 
-    private val colorsAdder = AnnotationValuesBuilder.Adder(colors)
-    private val clickablesAdder = AnnotationValuesBuilder.Adder(clickables)
-    private val stylesAdder = AnnotationValuesBuilder.Adder(styles)
-    private val sizesAdder = AnnotationValuesBuilder.Adder(sizes)
+    private val colorsAdder = ArgumentsBuilder.Adder(colors)
+    private val clickablesAdder = ArgumentsBuilder.Adder(clickables)
+    private val stylesAdder = ArgumentsBuilder.Adder(styles)
+    private val sizesAdder = ArgumentsBuilder.Adder(sizes)
 
-    public fun build(): AnnotationValues =
-        AnnotationValues(colors, clickables, styles, sizes)
+    public fun build(): Arguments =
+        Arguments(colors, clickables, styles, sizes)
 
     // region Colors
 
@@ -58,7 +58,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         add(items, colors)
     }
 
-    override fun colors(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit) {
+    override fun colors(block: ArgumentsBuilder.Adder<Int>.() -> Unit) {
         add(block, colorsAdder)
     }
 
@@ -82,7 +82,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         add(items, clickables)
     }
 
-    override fun clickables(block: AnnotationValuesBuilder.Adder<C>.() -> Unit) {
+    override fun clickables(block: ArgumentsBuilder.Adder<C>.() -> Unit) {
         add(block, clickablesAdder)
     }
 
@@ -106,7 +106,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         add(items, styles)
     }
 
-    override fun styles(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit) {
+    override fun styles(block: ArgumentsBuilder.Adder<Int>.() -> Unit) {
         add(block, stylesAdder)
     }
 
@@ -130,7 +130,7 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
         add(items, sizes)
     }
 
-    override fun sizes(block: AnnotationValuesBuilder.Adder<TextSize>.() -> Unit) {
+    override fun sizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit) {
         add(block, sizesAdder)
     }
 
@@ -165,8 +165,8 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     }
 
     private fun <T> add(
-        block: AnnotationValuesBuilder.Adder<T>.() -> Unit,
-        adder: AnnotationValuesBuilder.Adder<T>
+        block: ArgumentsBuilder.Adder<T>.() -> Unit,
+        adder: ArgumentsBuilder.Adder<T>
     ) {
         block(adder)
     }

@@ -2,9 +2,9 @@ package com.mmolosay.sample.compose.custom
 
 import androidx.compose.ui.text.SpanStyle
 import com.mmolosay.stringannotations.compose.ComposeAnnotationProcessor
+import com.mmolosay.stringannotations.compose.processor.ComposeAnnotationProcessor
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.compose.processor.MasterAnnotationProcessor
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.processor.confaltor.StrategyConflator
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 
@@ -20,10 +20,10 @@ class CustomMasterAnnotationProcessor : MasterAnnotationProcessor() {
         }
 
     private fun createLetterSpacingAnnotationProcessor(): ComposeAnnotationProcessor =
-        AnnotationProcessor(
+        ComposeAnnotationProcessor(
             tokenizer = Tokenizer.Solid(),
             conflator = StrategyConflator.First(),
-            values = { (values as? CustomAnnotationValues)?.letterSpacings }
+            values = { (this as? CustomArguments)?.letterSpacings }
         ) {
             ComposeSpan.of(SpanStyle(letterSpacing = it))
         }

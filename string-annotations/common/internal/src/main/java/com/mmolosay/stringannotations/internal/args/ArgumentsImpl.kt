@@ -1,9 +1,9 @@
 package com.mmolosay.stringannotations.internal.args
 
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
-import com.mmolosay.stringannotations.args.values.AnnotationValues
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,17 +22,18 @@ import com.mmolosay.stringannotations.args.values.AnnotationValues
  */
 
 /**
- * Builder for [AnnotationValues].
+ * Builder for [Arguments].
  */
-internal fun <C : ClickOwner> AnnotationValues(
+internal fun <C : ClickOwner> Arguments(
     colors: List<Int>,
     clickables: List<C>,
     styles: List<Int>,
     sizes: List<TextSize>,
-): AnnotationValues =
-    object : AnnotationValues {
+): Arguments =
+    object : Arguments {
         override val colors = QualifiedList("color", colors)
-        override val clickables: QualifiedList<out ClickOwner> = QualifiedList("clickable", clickables)
+        override val clickables: QualifiedList<out ClickOwner> =
+            QualifiedList("clickable", clickables)
         override val styles = QualifiedList("style", styles)
         override val sizes = QualifiedList("size", sizes)
     }

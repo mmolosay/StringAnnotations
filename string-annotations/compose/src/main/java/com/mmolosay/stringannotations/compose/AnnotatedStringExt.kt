@@ -36,7 +36,7 @@ import com.mmolosay.stringannotations.compose.internal.SpanProcessor
  * Returns [AnnotatedString], associated with a specified string resource [id] with `<annotation>`s.
  *
  * @param id resource id of annotated string.
- * @param arguments annotation arguments to be substituted instead of placeholders.
+ * @param arguments annotation arguments to be used instead of value placeholders.
  * @param formatArgs formatting arguments to be substituted.
  */
 @Composable

@@ -1,6 +1,8 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.values.AnnotationValues
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,8 +21,34 @@ import com.mmolosay.stringannotations.args.values.AnnotationValues
  */
 
 /**
- * Owner of [AnnotationValues].
+ * Immutable set of [QualifiedList]s with values, destined for some annotated string.
+ * Contains values for all annotation types, supported out-of-the-box.
  */
-public class Arguments(
-    public val values: AnnotationValues
-)
+public interface Arguments {
+
+    /**
+     * Color integers.
+     *
+     * @see [androidx.annotation.ColorInt]
+     */
+    public val colors: QualifiedList<Int>
+
+    /**
+     * Clickable spans.
+     */
+    public val clickables: QualifiedList<out ClickOwner>
+
+    /**
+     * Typeface style integers.
+     *
+     * @see [android.graphics.Typeface.BOLD]
+     * @see [android.graphics.Typeface.ITALIC]
+     * @see [android.graphics.Typeface.BOLD_ITALIC]
+     */
+    public val styles: QualifiedList<Int>
+
+    /**
+     * Absolute sizes.
+     */
+    public val sizes: QualifiedList<TextSize>
+}
