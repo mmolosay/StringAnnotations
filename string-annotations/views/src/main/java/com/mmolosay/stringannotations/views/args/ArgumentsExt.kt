@@ -33,3 +33,11 @@ public fun Arguments(
     builder: AnnotationValuesBuilder<Clickable>.() -> ViewsAnnotationValues
 ): ViewsArguments =
     ViewsArguments(builder(AnnotationValuesBuilderImpl()))
+
+/**
+ * Assembles [ViewsAnnotationValues] in a declarative style.
+ */
+public fun AnnotationValues(
+    builder: AnnotationValuesBuilder<Clickable>.() -> ViewsAnnotationValues
+): ViewsAnnotationValues =
+    builder(AnnotationValuesBuilderImpl())

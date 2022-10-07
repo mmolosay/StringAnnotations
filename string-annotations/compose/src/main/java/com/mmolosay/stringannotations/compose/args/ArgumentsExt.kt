@@ -31,4 +31,12 @@ import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 public fun Arguments(
     builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
 ): ComposeArguments =
-    ComposeArguments(builder(AnnotationValuesBuilderImpl()))
+    ComposeArguments(AnnotationValues(builder))
+
+/**
+ * Assembles [ComposeAnnotationValues] in a declarative style.
+ */
+public fun AnnotationValues(
+    builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
+): ComposeAnnotationValues =
+    builder(AnnotationValuesBuilderImpl())

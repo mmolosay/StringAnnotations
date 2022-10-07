@@ -2,7 +2,7 @@ package com.mmolosay.sample.compose.custom
 
 import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 
-fun CustomArguments(
+fun Arguments(
     values: ComposeAnnotationValues,
     builder: CustomAnnotationValuesBuilder.() -> CustomAnnotationValues
 ): CustomAnnotationValues =

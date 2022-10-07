@@ -24,8 +24,9 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import com.mmolosay.sample.compose.custom.CustomArguments
+import com.mmolosay.sample.compose.custom.Arguments
 import com.mmolosay.stringannotations.compose.annotatedStringResource
+import com.mmolosay.stringannotations.compose.args.AnnotationValues
 import com.mmolosay.stringannotations.compose.args.Arguments
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.args.SpSize
@@ -186,10 +187,8 @@ private fun Demo6() {
 
 @Composable
 private fun CustomDemo() {
-    val values = Arguments {
-        color(0)
-    }.values
-    val args = CustomArguments(values) {
+    val values = AnnotationValues { color(0) }
+    val args = Arguments(values) {
         custom("")
     }
     Text(text = annotatedStringResource(R.string.demo6, args))
