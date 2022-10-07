@@ -1,4 +1,4 @@
-package com.mmolosay.stringannotations.args
+package com.mmolosay.stringannotations.args.values
 
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner

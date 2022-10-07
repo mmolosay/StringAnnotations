@@ -1,9 +1,9 @@
 package com.mmolosay.stringannotations.internal.args
 
-import com.mmolosay.stringannotations.args.AnnotationValues
-import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
+import com.mmolosay.stringannotations.args.values.AnnotationValues
+import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
 
 /*
  * Copyright 2022 Mikhail Malasai

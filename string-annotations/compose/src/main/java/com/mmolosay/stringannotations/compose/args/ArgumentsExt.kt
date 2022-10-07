@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.compose.args
 
-import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 

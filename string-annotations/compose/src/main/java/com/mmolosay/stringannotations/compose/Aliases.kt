@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.compose
 
-import com.mmolosay.stringannotations.args.AnnotationValues
+import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.processor.AnnotationProcessor

@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.views
 
 import android.text.style.CharacterStyle
-import com.mmolosay.stringannotations.args.AnnotationValues
+import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 import com.mmolosay.stringannotations.views.args.Clickable
 

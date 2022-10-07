@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.args
 
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.values.AnnotationValues
 
 /*
  * Copyright 2022 Mikhail Malasai

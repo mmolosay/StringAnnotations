@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.views.args
 
-import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 import com.mmolosay.stringannotations.views.ViewsAnnotationValues
 import com.mmolosay.stringannotations.views.ViewsArguments
