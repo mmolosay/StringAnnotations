@@ -1,25 +1,19 @@
 package com.mmolosay.sample.compose.custom
 
-import com.mmolosay.stringannotations.args.qualified.MutableQualifiedList
+import androidx.compose.ui.unit.TextUnit
 import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 
-class CustomAnnotationValuesBuilder(values: ComposeAnnotationValues) {
+/**
+ * Builder for [CustomAnnotationValues].
+ */
+class CustomAnnotationValuesBuilder {
 
-    private val values = MutableCustomAnnotationValues(values)
+    private val letterSpacings = mutableListOf<TextUnit>()
 
-    fun build(): CustomAnnotationValues =
-        values
+    fun build(base: ComposeAnnotationValues): CustomAnnotationValues =
+        CustomAnnotationValues(base, letterSpacings)
 
-    fun custom(item: String) {
-        values.customs.add(item)
+    fun letterSpacing(item: TextUnit) {
+        letterSpacings.add(item)
     }
-
-    fun customs(vararg items: String) {
-        values.customs.addAll(items)
-    }
-
-    private class MutableCustomAnnotationValues(
-        values: ComposeAnnotationValues,
-        override val customs: MutableQualifiedList<String> = MutableQualifiedList("custom")
-    ) : CustomAnnotationValues, ComposeAnnotationValues by values
 }

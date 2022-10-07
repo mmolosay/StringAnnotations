@@ -184,12 +184,17 @@ private fun Demo6() {
     )
 }
 
+/**
+ * Demo for [R.string.customDemo].
+ * Demonstrates custom "letter-spacing" annotation type.
+ */
+@OptIn(ExperimentalUnitApi::class)
 @Composable
 private fun CustomDemo() {
     val args = CustomArguments {
-        custom("")
+        letterSpacing(TextUnit(10f, TextUnitType.Sp))
     }
-    Text(text = annotatedStringResource(R.string.demo6, args))
+    Text(text = annotatedStringResource(R.string.customDemo, args))
 }
 
 // endregion

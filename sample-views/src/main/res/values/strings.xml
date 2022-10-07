@@ -4,8 +4,6 @@
 
     <!-- Annotations demonstration -->
 
-    <!-- region Individual types -->
-
     <string name="demo1">Demo #1: text with <annotation color="$arg$color$0">color</annotation></string>
 
     <string name="demo2">Demo #2: text with <annotation background="$arg$color$0">background and placeholder: %1$s</annotation></string>
@@ -17,8 +15,6 @@
     <string name="demo5">Demo #5: <annotation decoration="strikethrough">crossed out</annotation> and <annotation decoration="underline">underlined</annotation> text</string>
 
     <string name="demo6">Demo #6: text with same absolute size in <annotation size="$arg$size$0">pixels</annotation>, <annotation size="$arg$size$1">DIPs</annotation> and <annotation size="$arg$size$2">SPs</annotation></string>
-
-    <!-- endregion -->
 
     <!-- region Values, to be used instead of placeholders -->
 
