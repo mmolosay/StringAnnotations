@@ -30,14 +30,23 @@ import com.mmolosay.stringannotations.views.ViewsArguments
  * Assembles [Arguments] for Android Views UI in declarative style.
  */
 public fun Arguments(
-    builder: AnnotationValuesBuilder<Clickable>.() -> ViewsAnnotationValues
+    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
 ): ViewsArguments =
-    ViewsArguments(builder(AnnotationValuesBuilderImpl()))
+    ViewsArguments(AnnotationValues(scope))
 
 /**
  * Assembles [ViewsAnnotationValues] in a declarative style.
  */
 public fun AnnotationValues(
-    builder: AnnotationValuesBuilder<Clickable>.() -> ViewsAnnotationValues
+    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
 ): ViewsAnnotationValues =
-    builder(AnnotationValuesBuilderImpl())
+    builder().apply(scope).build()
+
+/**
+ * Instantiates empty [ViewsAnnotationValues].
+ */
+public fun EmptyAnnotationValues(): ViewsAnnotationValues =
+    builder().build()
+
+private fun builder(): AnnotationValuesBuilderImpl<Clickable> =
+    AnnotationValuesBuilderImpl()

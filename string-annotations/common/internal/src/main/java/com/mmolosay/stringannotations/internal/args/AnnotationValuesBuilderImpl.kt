@@ -34,119 +34,137 @@ public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuild
     private val stylesAdder = AnnotationValuesBuilder.Adder(values.styles)
     private val sizesAdder = AnnotationValuesBuilder.Adder(values.sizes)
 
+    public fun build(): AnnotationValues<C> =
+        values
+
     // region Colors
 
-    override fun color(item: Int): AnnotationValues<C> =
+    override fun color(item: Int) {
         add(item, values.colors)
+    }
 
-    override fun color(producer: () -> Int): AnnotationValues<C> =
+    override fun color(producer: () -> Int) {
         add(producer, values.colors)
+    }
 
-    override fun colors(vararg items: Int): AnnotationValues<C> =
+    override fun colors(vararg items: Int) {
         add(items.toTypedArray(), values.colors)
+    }
 
-    override fun colors(items: Collection<Int>): AnnotationValues<C> =
+    override fun colors(items: Collection<Int>) {
         add(items, values.colors)
+    }
 
-    override fun colors(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
+    override fun colors(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit) {
         add(block, colorsAdder)
+    }
 
     // endregion
 
     // region Clickables
 
-    override fun clickable(item: C): AnnotationValues<C> =
+    override fun clickable(item: C) {
         add(item, values.clickables)
+    }
 
-    override fun clickable(producer: () -> C): AnnotationValues<C> =
+    override fun clickable(producer: () -> C) {
         add(producer, values.clickables)
+    }
 
-    override fun clickables(vararg items: C): AnnotationValues<C> =
+    override fun clickables(vararg items: C) {
         add(items, values.clickables)
+    }
 
-    override fun clickables(items: Collection<C>): AnnotationValues<C> =
+    override fun clickables(items: Collection<C>) {
         add(items, values.clickables)
+    }
 
-    override fun clickables(block: AnnotationValuesBuilder.Adder<C>.() -> Unit): AnnotationValues<C> =
+    override fun clickables(block: AnnotationValuesBuilder.Adder<C>.() -> Unit) {
         add(block, clickablesAdder)
+    }
 
     // endregion
 
     // region Styles
 
-    override fun style(item: Int): AnnotationValues<C> =
+    override fun style(item: Int) {
         add(item, values.styles)
+    }
 
-    override fun style(producer: () -> Int): AnnotationValues<C> =
+    override fun style(producer: () -> Int) {
         add(producer, values.styles)
+    }
 
-    override fun styles(vararg items: Int): AnnotationValues<C> =
+    override fun styles(vararg items: Int) {
         add(items.toTypedArray(), values.styles)
+    }
 
-    override fun styles(items: Collection<Int>): AnnotationValues<C> =
+    override fun styles(items: Collection<Int>) {
         add(items, values.styles)
+    }
 
-    override fun styles(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
+    override fun styles(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit) {
         add(block, stylesAdder)
+    }
 
     // endregion
 
     // region Sizes
 
-    override fun size(item: TextSize): AnnotationValues<C> =
+    override fun size(item: TextSize) {
         add(item, values.sizes)
+    }
 
-    override fun size(producer: () -> TextSize): AnnotationValues<C> =
+    override fun size(producer: () -> TextSize) {
         add(producer, values.sizes)
+    }
 
-    override fun sizes(vararg items: TextSize): AnnotationValues<C> =
+    override fun sizes(vararg items: TextSize) {
         add(items, values.sizes)
+    }
 
-    override fun sizes(items: Collection<TextSize>): AnnotationValues<C> =
+    override fun sizes(items: Collection<TextSize>) {
         add(items, values.sizes)
+    }
 
-    override fun sizes(block: AnnotationValuesBuilder.Adder<TextSize>.() -> Unit): AnnotationValues<C> =
+    override fun sizes(block: AnnotationValuesBuilder.Adder<TextSize>.() -> Unit) {
         add(block, sizesAdder)
+    }
 
     // endregion
 
     private fun <T> add(
         element: T,
         dest: MutableCollection<T>
-    ): AnnotationValues<C> =
-        values.apply {
-            dest.add(element)
-        }
+    ) {
+        dest.add(element)
+    }
 
     private fun <T> add(
         elements: Array<out T>,
         dest: MutableCollection<T>
-    ): AnnotationValues<C> =
-        values.apply {
-            dest.addAll(elements)
-        }
+    ) {
+        dest.addAll(elements)
+    }
 
     private fun <T> add(
         elements: Collection<T>,
         dest: MutableCollection<T>
-    ): AnnotationValues<C> =
-        values.apply {
-            dest.addAll(elements)
-        }
+    ) {
+        dest.addAll(elements)
+    }
 
     private fun <T> add(
         producer: () -> T,
         dest: MutableCollection<T>
-    ): AnnotationValues<C> =
-        values.apply {
-            dest.add(producer())
-        }
+    ) {
+        dest.add(producer())
+    }
 
     private fun <T> add(
         block: AnnotationValuesBuilder.Adder<T>.() -> Unit,
         adder: AnnotationValuesBuilder.Adder<T>
-    ): AnnotationValues<C> =
-        values.apply {
-            block(adder)
-        }
+    ) {
+        block(adder)
+    }
 }

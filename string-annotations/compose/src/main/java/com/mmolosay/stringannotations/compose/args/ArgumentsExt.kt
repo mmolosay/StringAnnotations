@@ -29,14 +29,23 @@ import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
  * Assembles [Arguments] for Compose UI in declarative style.
  */
 public fun Arguments(
-    builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
+    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
 ): ComposeArguments =
-    ComposeArguments(AnnotationValues(builder))
+    ComposeArguments(AnnotationValues(scope))
 
 /**
  * Assembles [ComposeAnnotationValues] in a declarative style.
  */
 public fun AnnotationValues(
-    builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
+    scope: AnnotationValuesBuilder<Clickable>.() -> Unit
 ): ComposeAnnotationValues =
-    builder(AnnotationValuesBuilderImpl())
+    builder().apply(scope).build()
+
+/**
+ * Instantiates empty [ComposeAnnotationValues].
+ */
+public fun EmptyAnnotationValues(): ComposeAnnotationValues =
+    builder().build()
+
+private fun builder(): AnnotationValuesBuilderImpl<Clickable> =
+    AnnotationValuesBuilderImpl()

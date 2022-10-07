@@ -29,27 +29,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     /**
      * Adds specified [item] in [AnnotationValues.colors] list.
      */
-    public fun color(item: Int): AnnotationValues<C>
+    public fun color(item: Int)
 
     /**
      * Executes [producer] and adds result to [AnnotationValues.colors] list.
      */
-    public fun color(producer: () -> Int): AnnotationValues<C>
+    public fun color(producer: () -> Int)
 
     /**
      * Adds specified [items] in [AnnotationValues.colors] list.
      */
-    public fun colors(vararg items: Int): AnnotationValues<C>
+    public fun colors(vararg items: Int)
 
     /**
      * Adds specified [items] in [AnnotationValues.colors] list.
      */
-    public fun colors(items: Collection<Int>): AnnotationValues<C>
+    public fun colors(items: Collection<Int>)
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.colors] list.
      */
-    public fun colors(block: Adder<Int>.() -> Unit): AnnotationValues<C>
+    public fun colors(block: Adder<Int>.() -> Unit)
 
     // endregion
 
@@ -58,27 +58,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     /**
      * Adds specified [item] in [AnnotationValues.clickables] list.
      */
-    public fun clickable(item: C): AnnotationValues<C>
+    public fun clickable(item: C)
 
     /**
      * Executes [producer] and adds result to [AnnotationValues.clickables] list.
      */
-    public fun clickable(producer: () -> C): AnnotationValues<C>
+    public fun clickable(producer: () -> C)
 
     /**
      * Adds specified [items] in [AnnotationValues.clickables] list.
      */
-    public fun clickables(vararg items: C): AnnotationValues<C>
+    public fun clickables(vararg items: C)
 
     /**
      * Adds specified [items] in [AnnotationValues.clickables] list.
      */
-    public fun clickables(items: Collection<C>): AnnotationValues<C>
+    public fun clickables(items: Collection<C>)
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.clickables] list.
      */
-    public fun clickables(block: Adder<C>.() -> Unit): AnnotationValues<C>
+    public fun clickables(block: Adder<C>.() -> Unit)
 
     // endregion
 
@@ -87,27 +87,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     /**
      * Adds specified [item] in [AnnotationValues.styles] list.
      */
-    public fun style(item: Int): AnnotationValues<C>
+    public fun style(item: Int)
 
     /**
      * Executes [producer] and adds result to [AnnotationValues.styles] list.
      */
-    public fun style(producer: () -> Int): AnnotationValues<C>
+    public fun style(producer: () -> Int)
 
     /**
      * Adds specified [items] in [AnnotationValues.styles] list.
      */
-    public fun styles(vararg items: Int): AnnotationValues<C>
+    public fun styles(vararg items: Int)
 
     /**
      * Adds specified [items] in [AnnotationValues.styles] list.
      */
-    public fun styles(items: Collection<Int>): AnnotationValues<C>
+    public fun styles(items: Collection<Int>)
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.styles] list.
      */
-    public fun styles(block: Adder<Int>.() -> Unit): AnnotationValues<C>
+    public fun styles(block: Adder<Int>.() -> Unit)
 
     // endregion
 
@@ -116,27 +116,27 @@ public interface AnnotationValuesBuilder<C : ClickOwner> {
     /**
      * Adds specified [item] in [AnnotationValues.sizes] list.
      */
-    public fun size(item: TextSize): AnnotationValues<C>
+    public fun size(item: TextSize)
 
     /**
      * Executes [producer] and adds result to [AnnotationValues.sizes] list.
      */
-    public fun size(producer: () -> TextSize): AnnotationValues<C>
+    public fun size(producer: () -> TextSize)
 
     /**
      * Adds specified [items] in [AnnotationValues.sizes] list.
      */
-    public fun sizes(vararg items: TextSize): AnnotationValues<C>
+    public fun sizes(vararg items: TextSize)
 
     /**
      * Adds specified [items] in [AnnotationValues.sizes] list.
      */
-    public fun sizes(items: Collection<TextSize>): AnnotationValues<C>
+    public fun sizes(items: Collection<TextSize>)
 
     /**
      * Executes [block], scoped to [Adder] of [AnnotationValues.sizes] list.
      */
-    public fun sizes(block: Adder<TextSize>.() -> Unit): AnnotationValues<C>
+    public fun sizes(block: Adder<TextSize>.() -> Unit)
 
     // endregion
 
