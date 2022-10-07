@@ -1,10 +1,8 @@
-package com.mmolosay.stringannotations.compose
+package com.mmolosay.stringannotations.internal.args
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.compose.args.Arguments
-import com.mmolosay.stringannotations.compose.args.Clickable
-import com.mmolosay.stringannotations.compose.processor.ComposeSpan
-import com.mmolosay.stringannotations.processor.AnnotationProcessor
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -22,16 +20,18 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  * limitations under the License.
  */
 
-/*
- * Typealiases for convenience of use.
- */
-
 /**
- * Definition of [Arguments] for Compose UI.
+ * Builder for [Arguments].
  */
-public typealias ComposeArguments = Arguments<Clickable>
-
-/**
- * Definition of [AnnotationProcessor] for Compose UI.
- */
-public typealias ComposeAnnotationProcessor = AnnotationProcessor<ComposeArguments, ComposeSpan>
+internal fun <C : ClickOwner> Arguments(
+    colors: List<Int>,
+    clickables: List<C>,
+    styles: List<Int>,
+    sizes: List<TextSize>,
+): Arguments<C> =
+    object : Arguments<C> {
+        override val colors = Arguments.Colors(colors)
+        override val clickables = Arguments.Clickables(clickables)
+        override val styles = Arguments.Styles(styles)
+        override val sizes = Arguments.Sizes(sizes)
+    }

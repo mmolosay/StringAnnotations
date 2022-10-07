@@ -34,10 +34,12 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` builders.
  */
 
+private typealias AnyArguments = Arguments<*>
+
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
-public fun <A : Arguments, S> BaseColorAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
     factory: (value: Int) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
@@ -51,21 +53,20 @@ public fun <A : Arguments, S> BaseColorAnnotationProcessor(
  * `AnnotationProcessor` for [AnnotationTypes.clickable] annotation type.
  */
 @Suppress("UNCHECKED_CAST") // price for not including actual AnnotationValues type in generic
-public fun <C : ClickOwner, A : Arguments, S> BaseClickableAnnotationProcessor(
-    values: A.() -> QualifiedList<C>,
+public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcessor(
     factory: (value: C) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
         conflator = StrategyConflator.First(),
-        values = values,
+        values = { clickables },
         factory = factory
     )
 
 /**
  * `AnnotationProcessor` for [AnnotationTypes.style] annotation type.
  */
-public fun <A : Arguments, S> BaseStyleAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
     factory: (value: Int) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
@@ -78,7 +79,7 @@ public fun <A : Arguments, S> BaseStyleAnnotationProcessor(
 /**
  * `AnnotationProcessor` for [AnnotationTypes.decoration] annotation type.
  */
-public fun <A : Arguments, S> BaseDecorationAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
     underlineSpansFactory: () -> S?,
     strikethroughSpansFactory: () -> S?,
 ): AnnotationProcessor<A, S> =
@@ -106,7 +107,7 @@ public fun <A : Arguments, S> BaseDecorationAnnotationProcessor(
  * [TextSize.value] units (pixels, SPs, etc.) are expected to be defined in concrete
  * implementation.
  */
-public fun <A : Arguments, S> BaseSizeAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
     factory: (value: TextSize) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(

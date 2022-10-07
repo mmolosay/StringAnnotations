@@ -24,6 +24,11 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public interface ArgumentsBuilder<C : ClickOwner> {
 
+    /**
+     * Assembles [Arguments].
+     */
+    public fun build(): Arguments<C>
+
     // region Colors
 
     /**

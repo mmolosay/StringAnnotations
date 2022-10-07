@@ -2,7 +2,7 @@ package com.mmolosay.sample.compose.custom
 
 import androidx.compose.ui.unit.TextUnit
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
-import com.mmolosay.stringannotations.compose.args.ComposeArguments
+import com.mmolosay.stringannotations.compose.ComposeArguments
 
 /**
  * Custom annotation values with [letterSpacings].

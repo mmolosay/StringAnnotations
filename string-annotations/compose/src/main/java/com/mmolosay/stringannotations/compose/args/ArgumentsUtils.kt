@@ -2,6 +2,8 @@ package com.mmolosay.stringannotations.compose.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.compose.ComposeArguments
+import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -34,6 +36,7 @@ public fun Arguments(
 /**
  * Returns instance of empty [ComposeArguments].
  */
+// TODO extract
 public fun emptyArguments(): ComposeArguments =
     object : ComposeArguments {
         override val colors = Arguments.Colors(emptyList())
@@ -42,5 +45,5 @@ public fun emptyArguments(): ComposeArguments =
         override val sizes = Arguments.Sizes(emptyList())
     }
 
-private fun builder(): ComposeArgumentsBuilder =
-    ComposeArgumentsBuilder()
+private fun builder(): ArgumentsBuilder<Clickable> =
+    ArgumentsBuilderImpl()

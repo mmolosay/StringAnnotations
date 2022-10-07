@@ -2,6 +2,8 @@ package com.mmolosay.stringannotations.views.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
+import com.mmolosay.stringannotations.views.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -42,5 +44,5 @@ public fun emptyArguments(): ViewsArguments =
         override val sizes = Arguments.Sizes(emptyList())
     }
 
-private fun builder(): ViewsArgumentsBuilder =
-    ViewsArgumentsBuilder()
+private fun builder(): ArgumentsBuilder<Clickable> =
+    ArgumentsBuilderImpl()
