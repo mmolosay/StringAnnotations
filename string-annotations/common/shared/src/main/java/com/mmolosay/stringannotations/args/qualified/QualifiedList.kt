@@ -21,7 +21,7 @@ package com.mmolosay.stringannotations.args.qualified
  */
 public open class QualifiedList<E>(
     override val qualifier: String,
-    private val list: List<E>
+    list: List<E>
 ) : List<E> by list, Qualified {
 
     public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
