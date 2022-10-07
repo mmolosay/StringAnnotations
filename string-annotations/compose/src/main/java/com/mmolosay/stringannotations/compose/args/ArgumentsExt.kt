@@ -28,7 +28,6 @@ import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 /**
  * Assembles [Arguments] for Compose UI in declarative style.
  */
-// TODO: extract common functionality?
 public fun Arguments(
     builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
 ): ComposeArguments =
