@@ -16,8 +16,11 @@ package com.mmolosay.stringannotations.args.qualified
  * limitations under the License.
  */
 
+/**
+ * Mutable [QualifiedList] of elements [E].
+ */
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
 public class MutableQualifiedList<E>(
     override val qualifier: String,
-    collection: MutableList<E> = mutableListOf()
-) : QualifiedList<E>(qualifier, collection), MutableList<E> by collection
+    list: MutableList<E> = mutableListOf()
+) : QualifiedList<E>(qualifier, list), MutableList<E> by list
