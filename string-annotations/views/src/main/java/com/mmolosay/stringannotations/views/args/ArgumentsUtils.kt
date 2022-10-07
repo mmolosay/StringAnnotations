@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.views.args
 
-import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilder
 import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 import com.mmolosay.stringannotations.views.ViewsArguments
@@ -32,17 +31,6 @@ public fun Arguments(
     scope: ArgumentsBuilder<Clickable>.() -> Unit
 ): ViewsArguments =
     builder().apply(scope).build()
-
-/**
- * Returns instance of empty [ViewsArguments].
- */
-public fun emptyArguments(): ViewsArguments =
-    object : ViewsArguments {
-        override val colors = Arguments.Colors(emptyList())
-        override val clickables = Arguments.Clickables<Clickable>(emptyList())
-        override val styles = Arguments.Styles(emptyList())
-        override val sizes = Arguments.Sizes(emptyList())
-    }
 
 private fun builder(): ArgumentsBuilder<Clickable> =
     ArgumentsBuilderImpl()

@@ -24,7 +24,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
  * Immutable set of [QualifiedList]s with values, destined for some annotated string.
  * Contains values for all annotation types, supported out-of-the-box.
  */
-public interface Arguments<C : ClickOwner> {
+public interface Arguments<out C : ClickOwner> {
 
     public val colors: Colors
     public val clickables: Clickables<C>
@@ -41,7 +41,7 @@ public interface Arguments<C : ClickOwner> {
     /**
      * Clickable spans.
      */
-    public class Clickables<C>(list: List<C>) : QualifiedList<C>("clickable", list)
+    public class Clickables<out C>(list: List<C>) : QualifiedList<C>("clickable", list)
 
     /**
      * Typeface style integers.

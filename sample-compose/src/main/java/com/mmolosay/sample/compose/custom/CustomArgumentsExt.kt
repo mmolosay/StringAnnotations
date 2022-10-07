@@ -1,8 +1,8 @@
 package com.mmolosay.sample.compose.custom
 
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.emptyArguments
 import com.mmolosay.stringannotations.compose.ComposeArguments
-import com.mmolosay.stringannotations.compose.args.emptyArguments
 
 /**
  * Assembles [Arguments] with [CustomArguments] in declarative style.

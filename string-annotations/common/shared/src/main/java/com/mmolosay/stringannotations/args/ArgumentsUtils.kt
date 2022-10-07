@@ -1,8 +1,6 @@
-package com.mmolosay.stringannotations.compose.args
+package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.compose.ComposeArguments
-import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
+import com.mmolosay.stringannotations.args.types.ClickOwner
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,12 +23,7 @@ import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
  */
 
 /**
- * Assembles [ComposeArguments] in declarative style.
+ * Returns instance of empty [Arguments].
  */
-public fun Arguments(
-    scope: ArgumentsBuilder<Clickable>.() -> Unit
-): ComposeArguments =
-    builder().apply(scope).build()
-
-private fun builder(): ArgumentsBuilder<Clickable> =
-    ArgumentsBuilderImpl()
+public fun <C : ClickOwner> emptyArguments(): Arguments<C> =
+    EmptyArguments
