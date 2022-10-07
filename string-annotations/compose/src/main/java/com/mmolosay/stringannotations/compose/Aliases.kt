@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.compose
 
-import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
 
@@ -23,11 +22,6 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
 /*
  * Typealiases for convenience of use.
  */
-
-/**
- * [AnnotationValues] for Compose UI.
- */
-public typealias ComposeAnnotationValues = AnnotationValues
 
 /**
  * [AnnotationProcessor] for Compose UI.

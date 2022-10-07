@@ -21,6 +21,6 @@ import com.mmolosay.stringannotations.args.values.AnnotationValues
 /**
  * Owner of [AnnotationValues].
  */
-public interface Arguments {
+public class Arguments(
     public val values: AnnotationValues
-}
+)

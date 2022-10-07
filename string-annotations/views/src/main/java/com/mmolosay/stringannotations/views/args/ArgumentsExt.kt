@@ -1,10 +1,9 @@
 package com.mmolosay.stringannotations.views.args
 
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
-import com.mmolosay.stringannotations.views.ViewsAnnotationValues
-import com.mmolosay.stringannotations.views.ViewsArguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -31,21 +30,21 @@ import com.mmolosay.stringannotations.views.ViewsArguments
  */
 public fun Arguments(
     scope: AnnotationValuesBuilder<Clickable>.() -> Unit
-): ViewsArguments =
-    ViewsArguments(AnnotationValues(scope))
+): Arguments =
+    Arguments(AnnotationValues(scope))
 
 /**
- * Assembles [ViewsAnnotationValues] in a declarative style.
+ * Assembles [AnnotationValues] in a declarative style.
  */
 public fun AnnotationValues(
     scope: AnnotationValuesBuilder<Clickable>.() -> Unit
-): ViewsAnnotationValues =
+): AnnotationValues =
     builder().apply(scope).build()
 
 /**
- * Instantiates empty [ViewsAnnotationValues].
+ * Instantiates empty [AnnotationValues].
  */
-public fun EmptyAnnotationValues(): ViewsAnnotationValues =
+public fun EmptyAnnotationValues(): AnnotationValues =
     builder().build()
 
 private fun builder(): AnnotationValuesBuilderImpl<Clickable> =

@@ -1,8 +1,8 @@
 package com.mmolosay.stringannotations.compose.args
 
 import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.values.AnnotationValues
 import com.mmolosay.stringannotations.args.values.AnnotationValuesBuilder
-import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 
 /*
@@ -30,21 +30,21 @@ import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
  */
 public fun Arguments(
     scope: AnnotationValuesBuilder<Clickable>.() -> Unit
-): ComposeArguments =
-    ComposeArguments(AnnotationValues(scope))
+): Arguments =
+    Arguments(AnnotationValues(scope))
 
 /**
- * Assembles [ComposeAnnotationValues] in a declarative style.
+ * Assembles [AnnotationValues] in a declarative style.
  */
 public fun AnnotationValues(
     scope: AnnotationValuesBuilder<Clickable>.() -> Unit
-): ComposeAnnotationValues =
+): AnnotationValues =
     builder().apply(scope).build()
 
 /**
- * Instantiates empty [ComposeAnnotationValues].
+ * Instantiates empty [AnnotationValues].
  */
-public fun EmptyAnnotationValues(): ComposeAnnotationValues =
+public fun EmptyAnnotationValues(): AnnotationValues =
     builder().build()
 
 private fun builder(): AnnotationValuesBuilderImpl<Clickable> =
