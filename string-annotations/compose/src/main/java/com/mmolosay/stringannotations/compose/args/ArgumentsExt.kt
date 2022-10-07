@@ -41,11 +41,5 @@ public fun AnnotationValues(
 ): AnnotationValues =
     builder().apply(scope).build()
 
-/**
- * Instantiates empty [AnnotationValues].
- */
-public fun EmptyAnnotationValues(): AnnotationValues =
-    builder().build()
-
 private fun builder(): AnnotationValuesBuilderImpl<Clickable> =
     AnnotationValuesBuilderImpl()
