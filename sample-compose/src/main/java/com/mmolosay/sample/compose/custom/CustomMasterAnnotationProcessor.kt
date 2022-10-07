@@ -18,7 +18,7 @@ class CustomMasterAnnotationProcessor : MasterAnnotationProcessor() {
         AnnotationProcessor(
             tokenizer = Tokenizer.Solid(),
             conflator = StrategyConflator.First(),
-            values = { (this as? CustomArguments)?.customs }
+            values = { (this as? CustomAnnotationValues)?.customs }
         ) {
             null // TODO: assemble your ComposeSpan here
         }

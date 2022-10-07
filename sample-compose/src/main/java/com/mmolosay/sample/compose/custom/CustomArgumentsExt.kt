@@ -1,9 +1,9 @@
 package com.mmolosay.sample.compose.custom
 
-import com.mmolosay.stringannotations.compose.ComposeArguments
+import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 
 fun CustomArguments(
-    baseArgs: ComposeArguments,
-    builder: CustomArgumentsBuilder.() -> CustomArguments
-): CustomArguments =
-    builder(CustomArgumentsBuilder((baseArgs)))
+    values: ComposeAnnotationValues,
+    builder: CustomAnnotationValuesBuilder.() -> CustomAnnotationValues
+): CustomAnnotationValues =
+    builder(CustomAnnotationValuesBuilder((values)))

@@ -1,9 +1,9 @@
 package com.mmolosay.sample.compose.custom
 
 import com.mmolosay.stringannotations.args.qualified.MutableQualifiedList
-import com.mmolosay.stringannotations.compose.ComposeArguments
+import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
 
-class MutableCustomArguments(
-    private val arguments: ComposeArguments,
+class MutableCustomValues(
+    values: ComposeAnnotationValues,
     override val customs: MutableQualifiedList<String> = MutableQualifiedList("custom")
-) : CustomArguments, ComposeArguments by arguments
+) : CustomAnnotationValues, ComposeAnnotationValues by values

@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.compose
 
 import android.text.SpannedString
 import androidx.compose.ui.text.AnnotatedString
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
@@ -24,8 +25,9 @@ import com.mmolosay.stringannotations.internal.SpannedProcessor
  */
 
 /**
- * Processes annotated string for Android Views system.
+ * Processes annotated string for Android Views UI.
  */
+// TODO: extract common functionality?
 public object AnnotatedStrings {
 
     /**
@@ -38,7 +40,7 @@ public object AnnotatedStrings {
      */
     public fun process(
         string: SpannedString,
-        arguments: ComposeArguments? = null,
+        arguments: Arguments? = null,
         vararg formatArgs: Any
     ): AnnotatedString {
         // 0. prepare dependencies

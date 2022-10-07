@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.views
 
 import android.text.Spanned
 import android.text.SpannedString
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
@@ -24,7 +25,7 @@ import com.mmolosay.stringannotations.views.internal.SpanProcessor
  */
 
 /**
- * Processes annotated string for Android Views system.
+ * Processes annotated string for Android Views UI.
  */
 public object AnnotatedStrings {
 
@@ -38,7 +39,7 @@ public object AnnotatedStrings {
      */
     public fun process(
         string: SpannedString,
-        arguments: ViewsArguments? = null,
+        arguments: Arguments? = null,
         vararg formatArgs: Any
     ): Spanned {
         // 0. prepare dependencies

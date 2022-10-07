@@ -1,8 +1,7 @@
 package com.mmolosay.stringannotations.internal.args
 
-import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.args.MutableArguments
+import com.mmolosay.stringannotations.args.AnnotationValues
+import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 
@@ -23,78 +22,78 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Implementation of [ArgumentsBuilder].
+ * Implementation of [AnnotationValuesBuilder].
  * Should not be used as explicit type.
  */
-public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
+public class AnnotationValuesBuilderImpl<C : ClickOwner> : AnnotationValuesBuilder<C> {
 
-    private val args: MutableArguments<C> = DefaultMutableArguments()
+    private val args = MutableAnnotationValues<C>()
 
-    private val colorsAdder = ArgumentsBuilder.Adder(args.colors)
-    private val clickablesAdder = ArgumentsBuilder.Adder(args.clickables)
-    private val stylesAdder = ArgumentsBuilder.Adder(args.styles)
-    private val sizesAdder = ArgumentsBuilder.Adder(args.sizes)
+    private val colorsAdder = AnnotationValuesBuilder.Adder(args.colors)
+    private val clickablesAdder = AnnotationValuesBuilder.Adder(args.clickables)
+    private val stylesAdder = AnnotationValuesBuilder.Adder(args.styles)
+    private val sizesAdder = AnnotationValuesBuilder.Adder(args.sizes)
 
     // region Colors
 
-    override fun color(item: Int): Arguments<C> =
+    override fun color(item: Int): AnnotationValues<C> =
         add(item, args.colors)
 
-    override fun color(producer: () -> Int): Arguments<C> =
+    override fun color(producer: () -> Int): AnnotationValues<C> =
         add(producer, args.colors)
 
-    override fun colors(vararg items: Int): Arguments<C> =
+    override fun colors(vararg items: Int): AnnotationValues<C> =
         add(items.toTypedArray(), args.colors)
 
-    override fun colors(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
+    override fun colors(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
         add(block, colorsAdder)
 
     // endregion
 
     // region Clickables
 
-    override fun clickable(item: C): Arguments<C> =
+    override fun clickable(item: C): AnnotationValues<C> =
         add(item, args.clickables)
 
-    override fun clickable(producer: () -> C): Arguments<C> =
+    override fun clickable(producer: () -> C): AnnotationValues<C> =
         add(producer, args.clickables)
 
-    override fun clickables(vararg items: C): Arguments<C> =
+    override fun clickables(vararg items: C): AnnotationValues<C> =
         add(items, args.clickables)
 
-    override fun clickables(block: ArgumentsBuilder.Adder<C>.() -> Unit): Arguments<C> =
+    override fun clickables(block: AnnotationValuesBuilder.Adder<C>.() -> Unit): AnnotationValues<C> =
         add(block, clickablesAdder)
 
     // endregion
 
     // region Styles
 
-    override fun style(item: Int): Arguments<C> =
+    override fun style(item: Int): AnnotationValues<C> =
         add(item, args.styles)
 
-    override fun style(producer: () -> Int): Arguments<C> =
+    override fun style(producer: () -> Int): AnnotationValues<C> =
         add(producer, args.styles)
 
-    override fun styles(vararg items: Int): Arguments<C> =
+    override fun styles(vararg items: Int): AnnotationValues<C> =
         add(items.toTypedArray(), args.styles)
 
-    override fun styles(block: ArgumentsBuilder.Adder<Int>.() -> Unit): Arguments<C> =
+    override fun styles(block: AnnotationValuesBuilder.Adder<Int>.() -> Unit): AnnotationValues<C> =
         add(block, stylesAdder)
 
     // endregion
 
     // region Sizes
 
-    override fun size(item: TextSize): Arguments<C> =
+    override fun size(item: TextSize): AnnotationValues<C> =
         add(item, args.sizes)
 
-    override fun size(producer: () -> TextSize): Arguments<C> =
+    override fun size(producer: () -> TextSize): AnnotationValues<C> =
         add(producer, args.sizes)
 
-    override fun sizes(vararg items: TextSize): Arguments<C> =
+    override fun sizes(vararg items: TextSize): AnnotationValues<C> =
         add(items, args.sizes)
 
-    override fun sizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit): Arguments<C> =
+    override fun sizes(block: AnnotationValuesBuilder.Adder<TextSize>.() -> Unit): AnnotationValues<C> =
         add(block, sizesAdder)
 
     // endregion
@@ -102,7 +101,7 @@ public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
     private fun <T> add(
         element: T,
         dest: MutableCollection<T>
-    ): Arguments<C> =
+    ): AnnotationValues<C> =
         args.apply {
             dest.add(element)
         }
@@ -110,7 +109,7 @@ public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
     private fun <T> add(
         element: Array<out T>,
         dest: MutableCollection<T>
-    ): Arguments<C> =
+    ): AnnotationValues<C> =
         args.apply {
             dest.addAll(element)
         }
@@ -118,15 +117,15 @@ public class DefaultArgumentsBuilder<C : ClickOwner> : ArgumentsBuilder<C> {
     private fun <T> add(
         producer: () -> T,
         dest: MutableCollection<T>
-    ): Arguments<C> =
+    ): AnnotationValues<C> =
         args.apply {
             dest.add(producer())
         }
 
     private fun <T> add(
-        block: ArgumentsBuilder.Adder<T>.() -> Unit,
-        adder: ArgumentsBuilder.Adder<T>
-    ): Arguments<C> =
+        block: AnnotationValuesBuilder.Adder<T>.() -> Unit,
+        adder: AnnotationValuesBuilder.Adder<T>
+    ): AnnotationValues<C> =
         args.apply {
             block(adder)
         }

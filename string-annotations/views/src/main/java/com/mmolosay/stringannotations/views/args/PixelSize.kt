@@ -19,7 +19,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Implementation of [TextSize] for Android Views system.
+ * Implementation of [TextSize] for Android Views UI.
  * Here [value] is defined in `pixels` units.
  */
 public class PixelSize(override val value: Float) : TextSize {

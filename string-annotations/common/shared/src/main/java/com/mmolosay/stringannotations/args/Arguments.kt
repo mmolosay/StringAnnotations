@@ -1,8 +1,6 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
-import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -21,37 +19,8 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Default annotation arguments of `StringAnnotations` library.
- * Represents immutable set of [QualifiedList]s with values, destined for some annotated string.
- *
- * `Arguments` are used to provide data to annotations, that will result in their
- * final appearance and/or behviour.
- *
- * Each artifact of `StringAnnotations` library must provide their own implementation and
- * resolve all generic types.
- * `Arguments` and their implementations should be extended in order to provide data to
- * custom annotation types.
+ * Owner of [AnnotationValues].
  */
-public interface Arguments<C : ClickOwner> {
-
-    /**
-     * Color integers.
-     */
-    public val colors: QualifiedList<Int>
-
-    /**
-     * Clickable spans.
-     */
-    public val clickables: QualifiedList<C>
-
-    /**
-     * Typeface style integers.
-     */
-    public val styles: QualifiedList<Int>
-
-    /**
-     * Absolute sizes.
-     */
-    public val sizes: QualifiedList<TextSize>
-
+public interface Arguments {
+    public val values: AnnotationValues<out ClickOwner>
 }

@@ -1,5 +1,8 @@
+@file:Suppress("FunctionName")
+
 package com.mmolosay.stringannotations.processor
 
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
@@ -33,21 +36,21 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
  * implemented in [AbstractAnnotationProcessor].
  */
-public fun <A, V, S> AnnotationProcessor(
+public fun <V, S> AnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
-    values: A.() -> QualifiedList<V>?,
+    values: Arguments.() -> QualifiedList<V>?,
     factory: (value: V) -> S?
-): AnnotationProcessor<A, S> =
-    object : AbstractAnnotationProcessor<A, V, S>() {
+): AnnotationProcessor<S> =
+    object : AbstractAnnotationProcessor<V, S>() {
 
         override val tokenizer: Tokenizer = tokenizer
         override val conflator: ValuesConfaltor<V> = conflator
 
         override val parser: ValuesParser = parser
 
-        override fun A.getValues(): QualifiedList<V>? =
+        override fun Arguments.getValues(): QualifiedList<V>? =
             this.values()
 
         override fun makeSpan(value: V): S? =

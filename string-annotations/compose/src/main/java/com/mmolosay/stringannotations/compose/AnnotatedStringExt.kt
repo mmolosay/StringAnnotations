@@ -8,6 +8,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 
@@ -42,7 +43,7 @@ import com.mmolosay.stringannotations.compose.internal.SpanProcessor
 @ReadOnlyComposable
 public fun annotatedStringResource(
     @StringRes id: Int,
-    arguments: ComposeArguments,
+    arguments: Arguments,
     vararg formatArgs: Any
 ): AnnotatedString =
     AnnotatedStrings.process(

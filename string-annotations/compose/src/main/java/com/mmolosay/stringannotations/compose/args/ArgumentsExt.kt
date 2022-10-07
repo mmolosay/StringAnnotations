@@ -1,9 +1,9 @@
 package com.mmolosay.stringannotations.compose.args
 
+import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.compose.ComposeArguments
-import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
+import com.mmolosay.stringannotations.compose.ComposeAnnotationValues
+import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -28,7 +28,8 @@ import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
 /**
  * Assembles [Arguments] for Compose UI in declarative style.
  */
+// TODO: extract common functionality?
 public fun Arguments(
-    builder: ArgumentsBuilder<Clickable>.() -> ComposeArguments
+    builder: AnnotationValuesBuilder<Clickable>.() -> ComposeAnnotationValues
 ): ComposeArguments =
-    builder(DefaultArgumentsBuilder())
+    ComposeArguments(builder(AnnotationValuesBuilderImpl()))

@@ -127,6 +127,8 @@ private fun Demo3() {
             .makeText(context, "Clicked annotation with index=1", Toast.LENGTH_SHORT)
             .show()
     }
+    // TODO: AnnotationValuesBuilder.clickables(items: List<Clickable>)
+    val clickables = listOf(clickable1, clickable2)
     val args = Arguments {
         clickables(clickable1, clickable2)
     }
@@ -134,7 +136,7 @@ private fun Demo3() {
     ClickableText(
         text = text,
         onClick = { offset ->
-            text.onClick(offset, args.clickables)
+            text.onClick(offset, clickables)
         },
         style = LocalTextStyle.current
     )
@@ -185,10 +187,10 @@ private fun Demo6() {
 
 @Composable
 private fun CustomDemo() {
-    val base = Arguments {
+    val values = Arguments {
         color(0)
-    }
-    val args = CustomArguments(base) {
+    }.values
+    val args = CustomArguments(values) {
         custom("")
     }
     Text(text = annotatedStringResource(R.string.demo6, args))

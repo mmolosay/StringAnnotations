@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
@@ -21,7 +22,6 @@ import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
 import com.mmolosay.stringannotations.views.ViewsAnnotationProcessor
-import com.mmolosay.stringannotations.views.ViewsArguments
 import com.mmolosay.stringannotations.views.ViewsSpan
 import com.mmolosay.stringannotations.views.args.Clickable
 import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickableSpan
@@ -43,7 +43,7 @@ import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickable
  */
 
 /*
- * AnnotationProcessor builders.
+ * `AnnotationProcessor` builders.
  */
 
 /**
@@ -58,7 +58,7 @@ public fun <V> ViewsAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
-    values: ViewsArguments.() -> QualifiedList<V>?,
+    values: Arguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ViewsSpan?
 ): ViewsAnnotationProcessor =
     AnnotationProcessor(
@@ -70,7 +70,7 @@ public fun <V> ViewsAnnotationProcessor(
     )
 
 /**
- * Implementation of [BaseColorAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseColorAnnotationProcessor] for Android Views UI.
  */
 internal fun BackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseColorAnnotationProcessor {
@@ -78,7 +78,7 @@ internal fun BackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
     }
 
 /**
- * Implementation of [BaseColorAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseColorAnnotationProcessor] for Android Views UI.
  */
 internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseColorAnnotationProcessor {
@@ -86,7 +86,7 @@ internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
     }
 
 /**
- * Implementation of [CustomizableClickableSpan] for Android Views system.
+ * Implementation of [CustomizableClickableSpan] for Android Views UI.
  */
 internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseClickableAnnotationProcessor<Clickable, ViewsSpan> {
@@ -94,7 +94,7 @@ internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
     }
 
 /**
- * Implementation of [BaseStyleAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseStyleAnnotationProcessor] for Android Views UI.
  */
 internal fun StyleAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseStyleAnnotationProcessor {
@@ -102,7 +102,7 @@ internal fun StyleAnnotationProcessor(): ViewsAnnotationProcessor =
     }
 
 /**
- * Implementation of [BaseDecorationAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseDecorationAnnotationProcessor] for Android Views UI.
  */
 internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
     BaseDecorationAnnotationProcessor(
@@ -111,7 +111,7 @@ internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
     )
 
 /**
- * Implementation of [BaseSizeAnnotationProcessor] for Android Views system.
+ * Implementation of [BaseSizeAnnotationProcessor] for Android Views UI.
  * Expects `TextSize.value` to be `pixels` units.
  */
 internal fun SizeAnnotationProcessor(): ViewsAnnotationProcessor =

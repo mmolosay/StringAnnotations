@@ -1,8 +1,9 @@
 package com.mmolosay.stringannotations.views.args
 
+import com.mmolosay.stringannotations.args.AnnotationValuesBuilder
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
-import com.mmolosay.stringannotations.internal.args.DefaultArgumentsBuilder
+import com.mmolosay.stringannotations.internal.args.AnnotationValuesBuilderImpl
+import com.mmolosay.stringannotations.views.ViewsAnnotationValues
 import com.mmolosay.stringannotations.views.ViewsArguments
 
 /*
@@ -26,9 +27,9 @@ import com.mmolosay.stringannotations.views.ViewsArguments
  */
 
 /**
- * Assembles [Arguments] for Android Views system in declarative style.
+ * Assembles [Arguments] for Android Views UI in declarative style.
  */
 public fun Arguments(
-    builder: ArgumentsBuilder<Clickable>.() -> ViewsArguments
+    builder: AnnotationValuesBuilder<Clickable>.() -> ViewsAnnotationValues
 ): ViewsArguments =
-    builder(DefaultArgumentsBuilder())
+    ViewsArguments(builder(AnnotationValuesBuilderImpl()))

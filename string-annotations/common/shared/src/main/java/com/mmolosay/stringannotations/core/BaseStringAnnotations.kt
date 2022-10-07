@@ -71,14 +71,14 @@ public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependenci
      * Dependencies of the library.
      */
     public abstract class Dependencies {
-        public abstract val processor: AnnotationProcessor<*, *>
+        public abstract val processor: AnnotationProcessor<*>
     }
 
     /**
      * [Dependencies] builder.
      */
-    protected interface DependenciesBuilder<A, S> {
-        public fun annotationProcessor(instance: AnnotationProcessor<A, S>): DependenciesBuilder<A, S>
+    protected interface DependenciesBuilder<S> {
+        public fun annotationProcessor(instance: AnnotationProcessor<S>): DependenciesBuilder<S>
         public fun build(): Dependencies
     }
 }

@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.compose
 
-import com.mmolosay.stringannotations.args.Arguments
+import com.mmolosay.stringannotations.args.AnnotationValues
 import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 import com.mmolosay.stringannotations.processor.AnnotationProcessor
@@ -10,11 +10,11 @@ import com.mmolosay.stringannotations.processor.AnnotationProcessor
  */
 
 /**
- * [Arguments] for Compose UI.
+ * [AnnotationValues] for Compose UI.
  */
-public typealias ComposeArguments = Arguments<Clickable>
+public typealias ComposeAnnotationValues = AnnotationValues<Clickable>
 
 /**
  * [AnnotationProcessor] for Compose UI.
  */
-public typealias ComposeAnnotationProcessor = AnnotationProcessor<ComposeArguments, ComposeSpan>
+public typealias ComposeAnnotationProcessor = AnnotationProcessor<ComposeSpan>

@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
+import com.mmolosay.stringannotations.args.Arguments
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -25,9 +26,6 @@ import android.text.Annotation
  * Resolves actual [AnnotationProcessor] to be used with passed annotation, based on
  * its type (attribute).
  * It is able to process all out-of-the-box annotation types.
- *
- * One should inherit this class in order to extend out-of-the-box annotaiton types with
- * custom ones.
  *
  * ## List of default supported annotations:
  *
@@ -120,21 +118,21 @@ import android.text.Annotation
  * ```
  * <annotation size="$arg$size$0">text of absolute size</annotation>
  */
-public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProcessor<A, S> {
+public abstract class AbstractMasterAnnotationProcessor<S> : AnnotationProcessor<S> {
 
-    private val processors: MutableMap<String, AnnotationProcessor<A, S>> =
+    private val processors: MutableMap<String, AnnotationProcessor<S>> =
         mutableMapOf()
 
     public final override fun parseAnnotation(
         annotation: Annotation,
-        arguments: A?
+        arguments: Arguments?
     ): S? {
         val type = annotation.key
         val processor = getOrCreateAnnotationProcessor(type) ?: return null
         return processor.parseAnnotation(annotation, arguments)
     }
 
-    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
+    private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<S>? =
         processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
 
     /**
@@ -144,7 +142,7 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
      *
      * @return appropriate [AnnotationProcessor] instance of `null`, if [type] is not supported.
      */
-    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
+    protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<S>? =
         when (type) {
             AnnotationTypes.background -> createBackgroundColorAnnotationProcessor()
             AnnotationTypes.color -> createForegroundColorAnnotationProcessor()
@@ -156,44 +154,44 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
         }
 
     /**
-     * Create instance of [AnnotationProcessor] for 'background' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.background] annotation type.
      */
-    protected abstract fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'color' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.color] annotation type.
      */
-    protected abstract fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'style' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.style] annotation type.
      */
-    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'decoration' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.decoration] annotation type.
      */
-    protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'clickable' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.clickable] annotation type.
      */
-    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
-     * Create instance of [AnnotationProcessor] for 'size' annotation type.
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.size] annotation type.
      */
-    protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<A, S>
+    protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<S>
 
     /**
      * Types of out-of-the-box annotations.
      */
-    private object AnnotationTypes {
-        const val background = "background"
-        const val color = "color"
-        const val style = "style"
-        const val decoration = "decoration"
-        const val clickable = "clickable"
-        const val size = "size"
+    public object AnnotationTypes {
+        public const val background: String = "background"
+        public const val color: String = "color"
+        public const val style: String = "style"
+        public const val decoration: String = "decoration"
+        public const val clickable: String = "clickable"
+        public const val size: String = "size"
     }
 }

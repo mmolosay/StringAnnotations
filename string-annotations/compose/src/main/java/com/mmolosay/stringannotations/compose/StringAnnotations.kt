@@ -38,7 +38,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
     ) : BaseStringAnnotations.Dependencies()
 
     public class DependenciesBuilder :
-        BaseStringAnnotations.DependenciesBuilder<ComposeArguments, ComposeSpan> {
+        BaseStringAnnotations.DependenciesBuilder<ComposeSpan> {
 
         private var processor: ComposeAnnotationProcessor? = null
 

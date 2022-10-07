@@ -5,7 +5,7 @@ import androidx.annotation.ColorInt
 import com.mmolosay.stringannotations.args.types.ClickOwner
 
 /**
- * Implementation of [ClickOwner] for Android Views system.
+ * Implementation of [ClickOwner] for Android Views UI.
  *
  * Additionaly, provides [appearance] of clickable text.
  */
