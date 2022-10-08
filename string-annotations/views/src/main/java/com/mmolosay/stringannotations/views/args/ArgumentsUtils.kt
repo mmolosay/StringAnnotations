@@ -30,7 +30,4 @@ import com.mmolosay.stringannotations.views.ViewsArguments
 public fun Arguments(
     scope: ArgumentsBuilder<Clickable>.() -> Unit
 ): ViewsArguments =
-    builder().apply(scope).build()
-
-private fun builder(): ArgumentsBuilder<Clickable> =
-    ArgumentsBuilderImpl()
+    ArgumentsBuilderImpl<Clickable>().apply(scope).build()

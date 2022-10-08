@@ -30,7 +30,4 @@ import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 public fun Arguments(
     scope: ArgumentsBuilder<Clickable>.() -> Unit
 ): ComposeArguments =
-    builder().apply(scope).build()
-
-private fun builder(): ArgumentsBuilder<Clickable> =
-    ArgumentsBuilderImpl()
+    ArgumentsBuilderImpl<Clickable>().apply(scope).build()

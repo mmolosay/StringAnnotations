@@ -37,7 +37,10 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
     private val stylesAdder = ArgumentsBuilder.Adder(styles)
     private val sizesAdder = ArgumentsBuilder.Adder(sizes)
 
-    override fun build(): Arguments<C> =
+    /**
+     * Assembles [Arguments].
+     */
+    public fun build(): Arguments<C> =
         Arguments(colors, clickables, styles, sizes)
 
     // region Colors
