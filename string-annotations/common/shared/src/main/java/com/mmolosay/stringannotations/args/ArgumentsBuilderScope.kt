@@ -22,7 +22,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
 /**
  * Scope, that provides declarative API for assembling [Arguments] instance.
  */
-public interface ArgumentsBuilder<C : ClickOwner> {
+public interface ArgumentsBuilderScope<C : ClickOwner> {
 
     // region Colors
 

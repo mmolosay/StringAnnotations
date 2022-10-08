@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.compose.args
 
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.args.ArgumentsBuilderScope
 import com.mmolosay.stringannotations.compose.ComposeArguments
 import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 
@@ -28,6 +28,6 @@ import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
  * Assembles [ComposeArguments] in declarative style.
  */
 public fun Arguments(
-    scope: ArgumentsBuilder<Clickable>.() -> Unit
+    scope: ArgumentsBuilderScope<Clickable>.() -> Unit
 ): ComposeArguments =
     ArgumentsBuilderImpl<Clickable>().apply(scope).build()

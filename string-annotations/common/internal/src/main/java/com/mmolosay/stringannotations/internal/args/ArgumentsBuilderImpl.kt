@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.internal.args
 
 import com.mmolosay.stringannotations.args.Arguments
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.args.ArgumentsBuilderScope
 import com.mmolosay.stringannotations.args.types.ClickOwner
 import com.mmolosay.stringannotations.args.types.TextSize
 
@@ -22,23 +22,25 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Implementation of [ArgumentsBuilder].
+ * Implementation of [ArgumentsBuilderScope].
  * Should not be used as explicit type.
  */
-public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
+public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
     private val colors: MutableList<Int> = mutableListOf()
     private val clickables: MutableList<C> = mutableListOf()
     private val styles: MutableList<Int> = mutableListOf()
     private val sizes: MutableList<TextSize> = mutableListOf()
 
-    private val colorsAdder = ArgumentsBuilder.Adder(colors)
-    private val clickablesAdder = ArgumentsBuilder.Adder(clickables)
-    private val stylesAdder = ArgumentsBuilder.Adder(styles)
-    private val sizesAdder = ArgumentsBuilder.Adder(sizes)
+    private val colorsAdder = ArgumentsBuilderScope.Adder(colors)
+    private val clickablesAdder = ArgumentsBuilderScope.Adder(clickables)
+    private val stylesAdder = ArgumentsBuilderScope.Adder(styles)
+    private val sizesAdder = ArgumentsBuilderScope.Adder(sizes)
 
     /**
      * Assembles [Arguments].
+     * This method is not defined in [ArgumentsBuilderScope] in order to hide
+     * it from end user.
      */
     public fun build(): Arguments<C> =
         Arguments(colors, clickables, styles, sizes)
@@ -61,7 +63,7 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
         add(items, colors)
     }
 
-    override fun colors(block: ArgumentsBuilder.Adder<Int>.() -> Unit) {
+    override fun colors(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
         add(block, colorsAdder)
     }
 
@@ -85,7 +87,7 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
         add(items, clickables)
     }
 
-    override fun clickables(block: ArgumentsBuilder.Adder<C>.() -> Unit) {
+    override fun clickables(block: ArgumentsBuilderScope.Adder<C>.() -> Unit) {
         add(block, clickablesAdder)
     }
 
@@ -109,7 +111,7 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
         add(items, styles)
     }
 
-    override fun styles(block: ArgumentsBuilder.Adder<Int>.() -> Unit) {
+    override fun styles(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
         add(block, stylesAdder)
     }
 
@@ -133,7 +135,7 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
         add(items, sizes)
     }
 
-    override fun sizes(block: ArgumentsBuilder.Adder<TextSize>.() -> Unit) {
+    override fun sizes(block: ArgumentsBuilderScope.Adder<TextSize>.() -> Unit) {
         add(block, sizesAdder)
     }
 
@@ -168,8 +170,8 @@ public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilder<C> {
     }
 
     private fun <T> add(
-        block: ArgumentsBuilder.Adder<T>.() -> Unit,
-        adder: ArgumentsBuilder.Adder<T>
+        block: ArgumentsBuilderScope.Adder<T>.() -> Unit,
+        adder: ArgumentsBuilderScope.Adder<T>
     ) {
         block(adder)
     }

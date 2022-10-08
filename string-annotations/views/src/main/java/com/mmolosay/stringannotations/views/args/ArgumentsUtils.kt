@@ -1,6 +1,6 @@
 package com.mmolosay.stringannotations.views.args
 
-import com.mmolosay.stringannotations.args.ArgumentsBuilder
+import com.mmolosay.stringannotations.args.ArgumentsBuilderScope
 import com.mmolosay.stringannotations.internal.args.ArgumentsBuilderImpl
 import com.mmolosay.stringannotations.views.ViewsArguments
 
@@ -28,6 +28,6 @@ import com.mmolosay.stringannotations.views.ViewsArguments
  * Assembles [ViewsArguments] in declarative style.
  */
 public fun Arguments(
-    scope: ArgumentsBuilder<Clickable>.() -> Unit
+    scope: ArgumentsBuilderScope<Clickable>.() -> Unit
 ): ViewsArguments =
     ArgumentsBuilderImpl<Clickable>().apply(scope).build()
