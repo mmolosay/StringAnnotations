@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
  * Implementation of [ArgumentsBuilderScope].
  * Should not be used as explicit type.
  */
-public class ArgumentsBuilderImpl<C : ClickOwner> : ArgumentsBuilderScope<C> {
+public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
     private val colors: MutableList<Int> = mutableListOf()
     private val clickables: MutableList<C> = mutableListOf()
