@@ -57,7 +57,7 @@ public fun <V> ComposeAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
-    values: ComposeArguments.() -> QualifiedList<V>?, // TODO: A : ComposeArguments?
+    values: ComposeArguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ComposeSpan?
 ): ComposeAnnotationProcessor =
     AnnotationProcessor(
