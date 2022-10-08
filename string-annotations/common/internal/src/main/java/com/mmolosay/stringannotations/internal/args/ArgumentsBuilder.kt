@@ -23,7 +23,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
 
 /**
  * Implementation of [ArgumentsBuilderScope].
- * Should not be used as explicit type.
+ * Except for inherited functionality, provides [build] method for acquiring assembled [Arguments].
  */
 public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 

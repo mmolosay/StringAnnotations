@@ -20,7 +20,8 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 
 /**
- * Scope, that provides declarative API for assembling [Arguments] instance.
+ * Provides declarative API for assembling [Arguments] instance.
+ * Has no `build` method, since designed to be used as `Kotlin scope`.
  */
 public interface ArgumentsBuilderScope<C : ClickOwner> {
 
