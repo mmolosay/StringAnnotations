@@ -73,22 +73,6 @@ import android.text.Annotation
  * <annotation clickable="$arg$clickable$0">clickable text</annotation>
  * ```
  *
- * ### Typeface style
- *
- * Annotation, that specifies typeface style of its body.
- *
- * __Annotation attribute: `style`__
- *
- * __Arguments qualifier: `style`__
- *
- * __Inline values: —__
- *
- * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
- *
- * ```
- * <annotation style="$arg$style$0">text with typeface style</annotaiton>
- * ```
- *
  * ### Decoration
  *
  * Annotation, that decorates its body.
@@ -117,6 +101,23 @@ import android.text.Annotation
  *
  * ```
  * <annotation size="$arg$size$0">text of absolute size</annotation>
+ * ```
+ *
+ * ### Typeface style
+ *
+ * Annotation, that specifies typeface style of its body.
+ *
+ * __Annotation attribute: `style`__
+ *
+ * __Arguments qualifier: `style`__
+ *
+ * __Inline values: —__
+ *
+ * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
+ *
+ * ```
+ * <annotation style="$arg$style$0">text with typeface style</annotaiton>
+ * ```
  */
 public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProcessor<A, S> {
 
@@ -145,11 +146,11 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     protected open fun createAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
         when (type) {
             AnnotationTypes.background -> createBackgroundColorAnnotationProcessor()
-            AnnotationTypes.color -> createForegroundColorAnnotationProcessor()
-            AnnotationTypes.style -> createStyleAnnotationProcessor()
-            AnnotationTypes.decoration -> createDecorationAnnotationProcessor()
             AnnotationTypes.clickable -> createClickableAnnotationProcessor()
+            AnnotationTypes.color -> createForegroundColorAnnotationProcessor()
+            AnnotationTypes.decoration -> createDecorationAnnotationProcessor()
             AnnotationTypes.size -> createSizeAnnotationProcessor()
+            AnnotationTypes.style -> createStyleAnnotationProcessor()
             else -> null
         }
 
@@ -159,14 +160,14 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     protected abstract fun createBackgroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.clickable] annotation type.
+     */
+    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<A, S>
+
+    /**
      * Create instance of [AnnotationProcessor] for [AnnotationTypes.color] annotation type.
      */
     protected abstract fun createForegroundColorAnnotationProcessor(): AnnotationProcessor<A, S>
-
-    /**
-     * Create instance of [AnnotationProcessor] for [AnnotationTypes.style] annotation type.
-     */
-    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Create instance of [AnnotationProcessor] for [AnnotationTypes.decoration] annotation type.
@@ -174,14 +175,14 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
     protected abstract fun createDecorationAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
-     * Create instance of [AnnotationProcessor] for [AnnotationTypes.clickable] annotation type.
-     */
-    protected abstract fun createClickableAnnotationProcessor(): AnnotationProcessor<A, S>
-
-    /**
      * Create instance of [AnnotationProcessor] for [AnnotationTypes.size] annotation type.
      */
     protected abstract fun createSizeAnnotationProcessor(): AnnotationProcessor<A, S>
+
+    /**
+     * Create instance of [AnnotationProcessor] for [AnnotationTypes.style] annotation type.
+     */
+    protected abstract fun createStyleAnnotationProcessor(): AnnotationProcessor<A, S>
 
     /**
      * Types of out-of-the-box annotations.

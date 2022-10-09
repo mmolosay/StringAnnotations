@@ -109,7 +109,7 @@ internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
         when (it) {
             TextDecoration.Underline -> UnderlineSpan()
             TextDecoration.Striketrhough -> StrikethroughSpan()
-            else -> null as ViewsSpan? // wtf
+            else -> null as ViewsSpan? // fails type infering without explicit cast
         }
     }
 

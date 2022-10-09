@@ -1,7 +1,7 @@
 package com.mmolosay.stringannotations.views.internal
 
 import android.text.Spannable
-import android.text.style.CharacterStyle
+import com.mmolosay.stringannotations.views.ViewsSpan
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -20,7 +20,7 @@ import android.text.style.CharacterStyle
  */
 
 /**
- * Processes spans (as [CharacterStyle]).
+ * Processes [ViewsSpan]s.
  */
 internal object SpanProcessor {
 
@@ -31,7 +31,7 @@ internal object SpanProcessor {
     fun applySpans(
         spannable: Spannable,
         ranges: List<IntRange>,
-        spans: List<CharacterStyle?>
+        spans: List<ViewsSpan?>
     ) {
         for (i in spans.indices) {
             val span = spans.getOrNull(i) ?: continue
@@ -45,7 +45,7 @@ internal object SpanProcessor {
      */
     private fun applySpan(
         spannable: Spannable,
-        span: CharacterStyle,
+        span: ViewsSpan,
         range: IntRange
     ) {
         spannable.setSpan(span, range.first, range.last, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -38,19 +38,6 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
 private typealias AnyArguments = Arguments<*>
 
 /**
- * `AnnotationProcessor` for any color annotation type.
- */
-public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
-    factory: (value: Int) -> S?
-): AnnotationProcessor<A, S> =
-    AnnotationProcessor(
-        tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.First(),
-        values = { colors },
-        factory = factory
-    )
-
-/**
  * `AnnotationProcessor` for [AnnotationTypes.clickable] annotation type.
  */
 @Suppress("UNCHECKED_CAST") // price for not including actual AnnotationValues type in generic
@@ -65,15 +52,15 @@ public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcesso
     )
 
 /**
- * `AnnotationProcessor` for [AnnotationTypes.style] annotation type.
+ * `AnnotationProcessor` for any color annotation type.
  */
-public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
+public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
     factory: (value: Int) -> S?
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
-        values = { styles },
+        values = { colors },
         factory = factory
     )
 
@@ -114,6 +101,19 @@ public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
         values = { sizes },
+        factory = factory
+    )
+
+/**
+ * `AnnotationProcessor` for [AnnotationTypes.style] annotation type.
+ */
+public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
+    factory: (value: Int) -> S?
+): AnnotationProcessor<A, S> =
+    AnnotationProcessor(
+        tokenizer = Tokenizer.Split().distinct(),
+        conflator = StrategyConflator.First(),
+        values = { styles },
         factory = factory
     )
 

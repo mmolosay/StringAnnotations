@@ -28,17 +28,17 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
-    private val colors: MutableList<Int> = mutableListOf()
     private val clickables: MutableList<C> = mutableListOf()
-    private val styles: MutableList<Int> = mutableListOf()
+    private val colors: MutableList<Int> = mutableListOf()
     private val decorations: MutableList<TextDecoration> = mutableListOf()
     private val sizes: MutableList<TextSize> = mutableListOf()
+    private val styles: MutableList<Int> = mutableListOf()
 
-    private val colorsAdder = ArgumentsBuilderScope.Adder(colors)
     private val clickablesAdder = ArgumentsBuilderScope.Adder(clickables)
-    private val stylesAdder = ArgumentsBuilderScope.Adder(styles)
+    private val colorsAdder = ArgumentsBuilderScope.Adder(colors)
     private val decorationsAdder = ArgumentsBuilderScope.Adder(decorations)
     private val sizesAdder = ArgumentsBuilderScope.Adder(sizes)
+    private val stylesAdder = ArgumentsBuilderScope.Adder(styles)
 
     /**
      * Assembles [Arguments].
@@ -46,31 +46,7 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
      * it from end user.
      */
     public fun build(): Arguments<C> =
-        Arguments(colors, clickables, styles, decorations, sizes)
-
-    // region Colors
-
-    override fun color(item: Int) {
-        add(item, colors)
-    }
-
-    override fun color(producer: () -> Int) {
-        add(producer, colors)
-    }
-
-    override fun colors(vararg items: Int) {
-        add(items.toTypedArray(), colors)
-    }
-
-    override fun colors(items: Collection<Int>) {
-        add(items, colors)
-    }
-
-    override fun colors(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
-        add(block, colorsAdder)
-    }
-
-    // endregion
+        Arguments(clickables, colors, decorations, sizes, styles)
 
     // region Clickables
 
@@ -96,26 +72,26 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
     // endregion
 
-    // region Styles
+    // region Colors
 
-    override fun style(item: Int) {
-        add(item, styles)
+    override fun color(item: Int) {
+        add(item, colors)
     }
 
-    override fun style(producer: () -> Int) {
-        add(producer, styles)
+    override fun color(producer: () -> Int) {
+        add(producer, colors)
     }
 
-    override fun styles(vararg items: Int) {
-        add(items.toTypedArray(), styles)
+    override fun colors(vararg items: Int) {
+        add(items.toTypedArray(), colors)
     }
 
-    override fun styles(items: Collection<Int>) {
-        add(items, styles)
+    override fun colors(items: Collection<Int>) {
+        add(items, colors)
     }
 
-    override fun styles(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
-        add(block, stylesAdder)
+    override fun colors(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
+        add(block, colorsAdder)
     }
 
     // endregion
@@ -164,6 +140,30 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
     override fun sizes(block: ArgumentsBuilderScope.Adder<TextSize>.() -> Unit) {
         add(block, sizesAdder)
+    }
+
+    // endregion
+
+    // region Styles
+
+    override fun style(item: Int) {
+        add(item, styles)
+    }
+
+    override fun style(producer: () -> Int) {
+        add(producer, styles)
+    }
+
+    override fun styles(vararg items: Int) {
+        add(items.toTypedArray(), styles)
+    }
+
+    override fun styles(items: Collection<Int>) {
+        add(items, styles)
+    }
+
+    override fun styles(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
+        add(block, stylesAdder)
     }
 
     // endregion

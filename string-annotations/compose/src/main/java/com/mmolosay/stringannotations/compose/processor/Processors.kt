@@ -70,6 +70,14 @@ public fun <V> ComposeAnnotationProcessor(
     )
 
 /**
+ * Implementation of [BaseClickableAnnotationProcessor] for Compose UI.
+ */
+internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseClickableAnnotationProcessor {
+        ComposeSpan.of(it)
+    }
+
+/**
  * Implementation of [BaseColorAnnotationProcessor] for Compose UI.
  */
 internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
@@ -83,31 +91,6 @@ internal fun BackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
 internal fun ForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseColorAnnotationProcessor {
         ComposeSpan.of(SpanStyle(color = Color(it)))
-    }
-
-/**
- * Implementation of [BaseClickableAnnotationProcessor] for Compose UI.
- */
-internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseClickableAnnotationProcessor {
-        ComposeSpan.of(it)
-    }
-
-/**
- * Implementation of [BaseStyleAnnotationProcessor] for Compose UI.
- */
-internal fun StyleAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseStyleAnnotationProcessor {
-        when (it) {
-            Typeface.BOLD -> SpanStyle(fontWeight = FontWeight.Bold)
-            Typeface.ITALIC -> SpanStyle(fontStyle = FontStyle.Italic)
-            Typeface.BOLD_ITALIC ->
-                SpanStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic
-                )
-            else -> null
-        }?.let { style -> ComposeSpan.of(style) }
     }
 
 /**
@@ -130,4 +113,21 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
 internal fun SizeAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseSizeAnnotationProcessor {
         ComposeSpan.of(SpanStyle(fontSize = TextUnit(it.value, TextUnitType.Sp)))
+    }
+
+/**
+ * Implementation of [BaseStyleAnnotationProcessor] for Compose UI.
+ */
+internal fun StyleAnnotationProcessor(): ComposeAnnotationProcessor =
+    BaseStyleAnnotationProcessor {
+        when (it) {
+            Typeface.BOLD -> SpanStyle(fontWeight = FontWeight.Bold)
+            Typeface.ITALIC -> SpanStyle(fontStyle = FontStyle.Italic)
+            Typeface.BOLD_ITALIC ->
+                SpanStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
+                )
+            else -> null
+        }?.let { style -> ComposeSpan.of(style) }
     }

@@ -25,16 +25,16 @@ import com.mmolosay.stringannotations.args.types.TextSize
  * Builder for [Arguments].
  */
 internal fun <C : ClickOwner> Arguments(
-    colors: List<Int>,
     clickables: List<C>,
-    styles: List<Int>,
+    colors: List<Int>,
     decorations: List<TextDecoration>,
     sizes: List<TextSize>,
+    styles: List<Int>,
 ): Arguments<C> =
     object : Arguments<C> {
-        override val colors = Arguments.Colors(colors)
         override val clickables = Arguments.Clickables(clickables)
-        override val styles = Arguments.Styles(styles)
+        override val colors = Arguments.Colors(colors)
         override val decorations = Arguments.Decorations(decorations)
         override val sizes = Arguments.Sizes(sizes)
+        override val styles = Arguments.Styles(styles)
     }

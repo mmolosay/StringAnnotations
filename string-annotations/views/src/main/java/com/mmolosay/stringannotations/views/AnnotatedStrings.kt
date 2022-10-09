@@ -5,7 +5,6 @@ import android.text.SpannedString
 import com.mmolosay.stringannotations.internal.AnnotatedStringFormatter
 import com.mmolosay.stringannotations.internal.AnnotationSpanProcessor
 import com.mmolosay.stringannotations.internal.SpannedProcessor
-import com.mmolosay.stringannotations.views.args.ViewsArguments
 import com.mmolosay.stringannotations.views.internal.SpanProcessor
 
 /*

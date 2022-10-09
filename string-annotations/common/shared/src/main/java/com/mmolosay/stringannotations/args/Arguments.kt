@@ -27,24 +27,38 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public interface Arguments<out C : ClickOwner> {
 
-    // TODO: rearrange in alphabetical order, here and in associated components
-    public val colors: Colors
+    // please, preserve alphabetical order
     public val clickables: Clickables<C>
-    public val styles: Styles
+    public val colors: Colors
     public val decorations: Decorations
     public val sizes: Sizes
+    public val styles: Styles
+
+    /**
+     * Clickable spans.
+     */
+    public class Clickables<out C>(list: List<C>) :
+        QualifiedList<C>("clickable", list)
 
     /**
      * Color integers.
      *
      * @see [androidx.annotation.ColorInt]
      */
-    public class Colors(list: List<Int>) : QualifiedList<Int>("color", list)
+    public class Colors(list: List<Int>) :
+        QualifiedList<Int>("color", list)
 
     /**
-     * Clickable spans.
+     * Text decorations.
      */
-    public class Clickables<out C>(list: List<C>) : QualifiedList<C>("clickable", list)
+    public class Decorations(list: List<TextDecoration>) :
+        QualifiedList<TextDecoration>("decoration", list)
+
+    /**
+     * Absolute sizes.
+     */
+    public class Sizes(list: List<TextSize>) :
+        QualifiedList<TextSize>("size", list)
 
     /**
      * Typeface style integers.
@@ -53,16 +67,7 @@ public interface Arguments<out C : ClickOwner> {
      * @see [android.graphics.Typeface.ITALIC]
      * @see [android.graphics.Typeface.BOLD_ITALIC]
      */
-    public class Styles(list: List<Int>) : QualifiedList<Int>("style", list)
-
-    /**
-     * Text decorations.
-     */
-    public class Decorations(list: List<TextDecoration>) : QualifiedList<TextDecoration>("decoration", list)
-
-    /**
-     * Absolute sizes.
-     */
-    public class Sizes(list: List<TextSize>) : QualifiedList<TextSize>("size", list)
+    public class Styles(list: List<Int>) :
+        QualifiedList<Int>("style", list)
 
 }

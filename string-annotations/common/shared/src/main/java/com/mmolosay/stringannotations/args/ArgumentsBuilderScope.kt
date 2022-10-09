@@ -26,35 +26,6 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public interface ArgumentsBuilderScope<C : ClickOwner> {
 
-    // region Colors
-
-    /**
-     * Adds specified [item] in [Arguments.colors] list.
-     */
-    public fun color(item: Int)
-
-    /**
-     * Executes [producer] and adds result to [Arguments.colors] list.
-     */
-    public fun color(producer: () -> Int)
-
-    /**
-     * Adds specified [items] in [Arguments.colors] list.
-     */
-    public fun colors(vararg items: Int)
-
-    /**
-     * Adds specified [items] in [Arguments.colors] list.
-     */
-    public fun colors(items: Collection<Int>)
-
-    /**
-     * Executes [block], scoped to [Adder] of [Arguments.colors] list.
-     */
-    public fun colors(block: Adder<Int>.() -> Unit)
-
-    // endregion
-
     // region Clickables
 
     /**
@@ -84,32 +55,32 @@ public interface ArgumentsBuilderScope<C : ClickOwner> {
 
     // endregion
 
-    // region Styles
+    // region Colors
 
     /**
-     * Adds specified [item] in [Arguments.styles] list.
+     * Adds specified [item] in [Arguments.colors] list.
      */
-    public fun style(item: Int)
+    public fun color(item: Int)
 
     /**
-     * Executes [producer] and adds result to [Arguments.styles] list.
+     * Executes [producer] and adds result to [Arguments.colors] list.
      */
-    public fun style(producer: () -> Int)
+    public fun color(producer: () -> Int)
 
     /**
-     * Adds specified [items] in [Arguments.styles] list.
+     * Adds specified [items] in [Arguments.colors] list.
      */
-    public fun styles(vararg items: Int)
+    public fun colors(vararg items: Int)
 
     /**
-     * Adds specified [items] in [Arguments.styles] list.
+     * Adds specified [items] in [Arguments.colors] list.
      */
-    public fun styles(items: Collection<Int>)
+    public fun colors(items: Collection<Int>)
 
     /**
-     * Executes [block], scoped to [Adder] of [Arguments.styles] list.
+     * Executes [block], scoped to [Adder] of [Arguments.colors] list.
      */
-    public fun styles(block: Adder<Int>.() -> Unit)
+    public fun colors(block: Adder<Int>.() -> Unit)
 
     // endregion
 
@@ -168,6 +139,35 @@ public interface ArgumentsBuilderScope<C : ClickOwner> {
      * Executes [block], scoped to [Adder] of [Arguments.sizes] list.
      */
     public fun sizes(block: Adder<TextSize>.() -> Unit)
+
+    // endregion
+
+    // region Styles
+
+    /**
+     * Adds specified [item] in [Arguments.styles] list.
+     */
+    public fun style(item: Int)
+
+    /**
+     * Executes [producer] and adds result to [Arguments.styles] list.
+     */
+    public fun style(producer: () -> Int)
+
+    /**
+     * Adds specified [items] in [Arguments.styles] list.
+     */
+    public fun styles(vararg items: Int)
+
+    /**
+     * Adds specified [items] in [Arguments.styles] list.
+     */
+    public fun styles(items: Collection<Int>)
+
+    /**
+     * Executes [block], scoped to [Adder] of [Arguments.styles] list.
+     */
+    public fun styles(block: Adder<Int>.() -> Unit)
 
     // endregion
 

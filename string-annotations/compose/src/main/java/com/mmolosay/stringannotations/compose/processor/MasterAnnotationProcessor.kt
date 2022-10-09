@@ -32,18 +32,18 @@ public open class MasterAnnotationProcessor :
     override fun createBackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
         BackgroundColorAnnotationProcessor()
 
+    override fun createClickableAnnotationProcessor(): ComposeAnnotationProcessor =
+        ClickableAnnotationProcessor()
+
     override fun createForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
         ForegroundColorAnnotationProcessor()
-
-    override fun createStyleAnnotationProcessor(): ComposeAnnotationProcessor =
-        StyleAnnotationProcessor()
 
     override fun createDecorationAnnotationProcessor(): ComposeAnnotationProcessor =
         DecorationAnnotationProcessor()
 
-    override fun createClickableAnnotationProcessor(): ComposeAnnotationProcessor =
-        ClickableAnnotationProcessor()
-
     override fun createSizeAnnotationProcessor(): ComposeAnnotationProcessor =
         SizeAnnotationProcessor()
+
+    override fun createStyleAnnotationProcessor(): ComposeAnnotationProcessor =
+        StyleAnnotationProcessor()
 }

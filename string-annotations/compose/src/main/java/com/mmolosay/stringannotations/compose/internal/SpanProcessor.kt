@@ -7,7 +7,7 @@ import com.mmolosay.stringannotations.compose.args.Clickable
 import com.mmolosay.stringannotations.compose.processor.ComposeSpan
 
 /**
- * Processes spans (as [SpanStyle]).
+ * Processes [ComposeSpan]s.
  */
 internal object SpanProcessor {
 
