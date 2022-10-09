@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.internal.args
 
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
@@ -27,11 +28,13 @@ internal fun <C : ClickOwner> Arguments(
     colors: List<Int>,
     clickables: List<C>,
     styles: List<Int>,
+    decorations: List<TextDecoration>,
     sizes: List<TextSize>,
 ): Arguments<C> =
     object : Arguments<C> {
         override val colors = Arguments.Colors(colors)
         override val clickables = Arguments.Clickables(clickables)
         override val styles = Arguments.Styles(styles)
+        override val decorations = Arguments.Decorations(decorations)
         override val sizes = Arguments.Sizes(sizes)
     }

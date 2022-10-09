@@ -92,7 +92,7 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
             when (token) {
                 Tokens.underline -> TextDecoration.Underline
                 Tokens.strikethrough -> TextDecoration.Striketrhough
-                else -> null
+                else -> super.parseValue(token, arguments)
             }
 
         override fun A.getValues(): QualifiedList<TextDecoration> =

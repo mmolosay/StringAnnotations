@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.mmolosay.sample.compose.custom.CustomArguments
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.compose.annotatedStringResource
 import com.mmolosay.stringannotations.compose.args.Arguments
 import com.mmolosay.stringannotations.compose.args.Clickable
@@ -160,12 +161,15 @@ private fun Demo4() {
 
 /**
  * Demo for [R.string.demo5].
- * Demonstrates decoration annotations: underline and strikethrough.
+ * Demonstrates decoration annotations: `underline` and `strikethrough` as inline and using arguments.
  */
 @Composable
 private fun Demo5() {
+    val args = Arguments {
+        decoration(TextDecoration.Striketrhough)
+    }
     Text(
-        text = annotatedStringResource(R.string.demo5)
+        text = annotatedStringResource(R.string.demo5, args)
     )
 }
 

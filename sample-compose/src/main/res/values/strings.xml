@@ -12,7 +12,7 @@
 
     <string name="demo4">Demo #4: text <annotation style="$arg$style$0">with</annotation> <annotation style="$arg$style$1">typeface</annotation> <annotation style="$arg$style$2">styles</annotation></string>
 
-    <string name="demo5">Demo #5: <annotation decoration="strikethrough">crossed out</annotation> and <annotation decoration="underline">underlined</annotation> text</string>
+    <string name="demo5">Demo #5: <annotation decoration="strikethrough">crossed out</annotation>, <annotation decoration="underline">underlined</annotation> and <annotation decoration="$arg$decoration$0">decorated</annotation> text</string>
 
     <string name="demo6">Demo #6: text with absolute size in <annotation size="$arg$size$0">SPs</annotation></string>
 

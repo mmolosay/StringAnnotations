@@ -46,7 +46,7 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
      * it from end user.
      */
     public fun build(): Arguments<C> =
-        Arguments(colors, clickables, styles, sizes)
+        Arguments(colors, clickables, styles, decorations, sizes)
 
     // region Colors
 
