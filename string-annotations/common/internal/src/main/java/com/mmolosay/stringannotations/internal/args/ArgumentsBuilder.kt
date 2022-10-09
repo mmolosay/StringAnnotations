@@ -3,6 +3,7 @@ package com.mmolosay.stringannotations.internal.args
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.ArgumentsBuilderScope
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
@@ -30,11 +31,13 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
     private val colors: MutableList<Int> = mutableListOf()
     private val clickables: MutableList<C> = mutableListOf()
     private val styles: MutableList<Int> = mutableListOf()
+    private val decorations: MutableList<TextDecoration> = mutableListOf()
     private val sizes: MutableList<TextSize> = mutableListOf()
 
     private val colorsAdder = ArgumentsBuilderScope.Adder(colors)
     private val clickablesAdder = ArgumentsBuilderScope.Adder(clickables)
     private val stylesAdder = ArgumentsBuilderScope.Adder(styles)
+    private val decorationsAdder = ArgumentsBuilderScope.Adder(decorations)
     private val sizesAdder = ArgumentsBuilderScope.Adder(sizes)
 
     /**
@@ -113,6 +116,30 @@ public class ArgumentsBuilder<C : ClickOwner> : ArgumentsBuilderScope<C> {
 
     override fun styles(block: ArgumentsBuilderScope.Adder<Int>.() -> Unit) {
         add(block, stylesAdder)
+    }
+
+    // endregion
+
+    // region Decorations
+
+    override fun decoration(item: TextDecoration) {
+        add(item, decorations)
+    }
+
+    override fun decoration(producer: () -> TextDecoration) {
+        add(producer, decorations)
+    }
+
+    override fun decorations(vararg items: TextDecoration) {
+        add(items, decorations)
+    }
+
+    override fun decorations(items: Collection<TextDecoration>) {
+        add(items, decorations)
+    }
+
+    override fun decorations(block: ArgumentsBuilderScope.Adder<TextDecoration>.() -> Unit) {
+        add(block, decorationsAdder)
     }
 
     // endregion

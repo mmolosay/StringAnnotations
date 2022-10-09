@@ -9,6 +9,7 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseColorAnnotationProcessor
 import com.mmolosay.stringannotations.internal.processor.BaseDecorationAnnotationProcessor
@@ -104,10 +105,13 @@ internal fun StyleAnnotationProcessor(): ViewsAnnotationProcessor =
  * Implementation of [BaseDecorationAnnotationProcessor] for Android Views UI.
  */
 internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseDecorationAnnotationProcessor(
-        underlineSpansFactory = { UnderlineSpan() },
-        strikethroughSpansFactory = { StrikethroughSpan() },
-    )
+    BaseDecorationAnnotationProcessor {
+        when (it) {
+            TextDecoration.Underline -> UnderlineSpan()
+            TextDecoration.Striketrhough -> StrikethroughSpan()
+            else -> null as ViewsSpan? // wtf
+        }
+    }
 
 /**
  * Implementation of [BaseSizeAnnotationProcessor] for Android Views UI.

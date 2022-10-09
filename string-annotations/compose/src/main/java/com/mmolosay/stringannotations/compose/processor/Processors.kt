@@ -7,11 +7,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.compose.ComposeAnnotationProcessor
 import com.mmolosay.stringannotations.compose.ComposeArguments
 import com.mmolosay.stringannotations.internal.processor.BaseClickableAnnotationProcessor
@@ -25,6 +25,7 @@ import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -113,14 +114,13 @@ internal fun StyleAnnotationProcessor(): ComposeAnnotationProcessor =
  * Implementation of [BaseDecorationAnnotationProcessor] for Compose UI.
  */
 internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
-    BaseDecorationAnnotationProcessor(
-        underlineSpansFactory = {
-            ComposeSpan.of(SpanStyle(textDecoration = TextDecoration.Underline))
-        },
-        strikethroughSpansFactory = {
-            ComposeSpan.of(SpanStyle(textDecoration = TextDecoration.LineThrough))
-        },
-    )
+    BaseDecorationAnnotationProcessor {
+        when (it) {
+            TextDecoration.Underline -> SpanStyle(textDecoration = ComposeTextDecoration.Underline)
+            TextDecoration.Striketrhough -> SpanStyle(textDecoration = ComposeTextDecoration.LineThrough)
+            else -> null
+        }?.let { style -> ComposeSpan.of(style) }
+    }
 
 /**
  * Implementation of [BaseSizeAnnotationProcessor] for Compose UI.

@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.args
 
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
@@ -109,6 +110,35 @@ public interface ArgumentsBuilderScope<C : ClickOwner> {
      * Executes [block], scoped to [Adder] of [Arguments.styles] list.
      */
     public fun styles(block: Adder<Int>.() -> Unit)
+
+    // endregion
+
+    // region Decorations
+
+    /**
+     * Adds specified [item] in [Arguments.decorations] list.
+     */
+    public fun decoration(item: TextDecoration)
+
+    /**
+     * Executes [producer] and adds result to [Arguments.decorations] list.
+     */
+    public fun decoration(producer: () -> TextDecoration)
+
+    /**
+     * Adds specified [items] in [Arguments.decorations] list.
+     */
+    public fun decorations(vararg items: TextDecoration)
+
+    /**
+     * Adds specified [items] in [Arguments.decorations] list.
+     */
+    public fun decorations(items: Collection<TextDecoration>)
+
+    /**
+     * Executes [block], scoped to [Adder] of [Arguments.decorations] list.
+     */
+    public fun decorations(block: Adder<TextDecoration>.() -> Unit)
 
     // endregion
 

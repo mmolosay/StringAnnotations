@@ -2,6 +2,7 @@ package com.mmolosay.stringannotations.args
 
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
@@ -26,9 +27,11 @@ import com.mmolosay.stringannotations.args.types.TextSize
  */
 public interface Arguments<out C : ClickOwner> {
 
+    // TODO: rearrange in alphabetical order, here and in associated components
     public val colors: Colors
     public val clickables: Clickables<C>
     public val styles: Styles
+    public val decorations: Decorations
     public val sizes: Sizes
 
     /**
@@ -51,6 +54,11 @@ public interface Arguments<out C : ClickOwner> {
      * @see [android.graphics.Typeface.BOLD_ITALIC]
      */
     public class Styles(list: List<Int>) : QualifiedList<Int>("style", list)
+
+    /**
+     * Text decorations.
+     */
+    public class Decorations(list: List<TextDecoration>) : QualifiedList<TextDecoration>("decoration", list)
 
     /**
      * Absolute sizes.

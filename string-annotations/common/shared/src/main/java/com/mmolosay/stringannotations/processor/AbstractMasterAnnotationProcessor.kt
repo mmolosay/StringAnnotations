@@ -95,13 +95,14 @@ import android.text.Annotation
  *
  * __Annotation attribute: `decoration`__
  *
- * __Arguments qualifier: —__ TODO: declare once ready
+ * __Arguments qualifier: `decoration`__
  *
- * __Inline values: `underline, strikethrough`__
+ * __Inline values: `underline`, `strikethrough`__
  *
  * ```
  * <annotation decoration="underline">underlined text</annotation>
  * <annotation decoration="strikethrough">crossed out text</annotation>
+ * <annotation decoration="$arg$decoration$0">decorated text</annotation>
  * ```
  *
  * ### Absolute size

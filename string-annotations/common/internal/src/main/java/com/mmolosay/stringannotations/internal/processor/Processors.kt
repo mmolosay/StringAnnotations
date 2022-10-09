@@ -5,6 +5,7 @@ package com.mmolosay.stringannotations.internal.processor
 import com.mmolosay.stringannotations.args.Arguments
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
 import com.mmolosay.stringannotations.args.types.TextSize
 import com.mmolosay.stringannotations.processor.AbstractAnnotationProcessor
 import com.mmolosay.stringannotations.processor.AbstractMasterAnnotationProcessor.AnnotationTypes
@@ -80,26 +81,25 @@ public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
  * `AnnotationProcessor` for [AnnotationTypes.decoration] annotation type.
  */
 public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
-    underlineSpansFactory: () -> S?,
-    strikethroughSpansFactory: () -> S?,
+    factory: (value: TextDecoration) -> S?,
 ): AnnotationProcessor<A, S> =
-    object : AbstractAnnotationProcessor<Token, A, S>() {
+    object : AbstractAnnotationProcessor<TextDecoration, A, S>() {
 
         override val tokenizer: Tokenizer = Tokenizer.Solid()
-        override val conflator: ValuesConfaltor<Token> = StrategyConflator.First()
+        override val conflator: ValuesConfaltor<TextDecoration> = StrategyConflator.First()
 
-        override fun parseValue(token: Token, arguments: A?): Token =
-            token // since requires value of type Token, we just pass it
-
-        override fun A.getValues(): QualifiedList<Token>? =
-            null // TODO: update once added to Arguments
-
-        override fun makeSpan(value: Token): S? =
-            when (value) {
-                Tokens.underline -> underlineSpansFactory()
-                Tokens.strikethrough -> strikethroughSpansFactory()
+        override fun parseValue(token: Token, arguments: A?): TextDecoration? =
+            when (token) {
+                Tokens.underline -> TextDecoration.Underline
+                Tokens.strikethrough -> TextDecoration.Striketrhough
                 else -> null
             }
+
+        override fun A.getValues(): QualifiedList<TextDecoration> =
+            decorations
+
+        override fun makeSpan(value: TextDecoration): S? =
+            factory(value)
     }
 
 /**
