@@ -53,7 +53,7 @@ Well, no more :)
 Reasons to use
 =======
 
-1. Annotates string resources in your *strings.xml*, preserving ability for localisation.
+1. Annotates string resources in your *strings.xml*, preserving ability for localization.
 2. Works with `Android Views` system and `Jetpack Compose` UI — choose what you need.
 3. Provides neat API for use in the `Activity`, `Fragment` and `@Composable` scopes.
 4. Extendable and customizable: add your own annotation types and arguments for them.
