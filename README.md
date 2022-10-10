@@ -235,19 +235,19 @@ Absolute size
 
 ![image](https://user-images.githubusercontent.com/32337243/186401072-af503ada-80dd-4dc1-a5b9-c0b05ebbf89c.png)
 
-Uses attribute `size-absolute`.
+Uses attribute `size`.
 
-Attribute value is a decimal/integer value, followed by either one of `px`(optional), `dp` or `sp` unit label or value attribute of type `size-absolute` in pixels.
+Attribute value is a decimal/integer value, followed by either one of `px`(optional), `dp` or `sp` unit label or value attribute of type `size` in pixels.
 
 Examples:
  * Pixels, a.k.a `px` (can be omitted):
- `<annotation size-absolute="20.5px">text of 20.5 PXs size</annotation>`
+ `<annotation size="20.5px">text of 20.5 PXs size</annotation>`
  * Density-independent Pixels, a.k.a. `dp`:
- `<annotation size-absolute="20.5dp">text of 20.5 DPs size</annotation>`
+ `<annotation size="20.5dp">text of 20.5 DPs size</annotation>`
  * Scalable Pixels, a.k.a. `sp`:
- `<annotation size-absolute="20.5sp">text of 20.5 SPs size</annotation>`
+ `<annotation size="20.5sp">text of 20.5 SPs size</annotation>`
  * Value argument:
- `<annotation size-absolute="$arg$size-absolute$0">text of some size</annotation>`
+ `<annotation size="$arg$size$0">text of some size</annotation>`
 
 Annotation Arguments
 ======
