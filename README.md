@@ -55,7 +55,7 @@ Reasons to use
 
 1. Annotates string resources in your *strings.xml*, preserving ability for localization.
 2. Works with `Android Views` system and `Jetpack Compose` UI — choose what you need.
-3. Provides neat API for use in the `Activity`, `Fragment` and `@Composable` scopes.
+3. Provides neat API to use in the `Activity`, `Fragment` and `@Composable` scopes.
 4. Extendable and customizable: add your own annotation types and arguments for them.
 5. 100% documented.
 
