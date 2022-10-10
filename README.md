@@ -9,6 +9,9 @@ Table of contents
 
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
+* [Artifacts](#artifacts)
+    * [string-annotations:views](#string-annotations-views)
+    * [string-annotations:compose](#string-annotations-compose)
 * [Installation](#installation)
 * [Configuration](#configuration)
     * [AnnotationProcessor](#annotationprocessor)
@@ -50,11 +53,20 @@ Well, no more :)
 Reasons to use
 =======
 
-1. Concept is old and well-known.
-2. Library is pleasant to use: it's extendable, customizable and has a lot out-of-the-box features.
-3. Has extensions for regular Android components, like `Activity` and `Fragment`.
-4. Small source code size.
+1. Annotates string resources in your *strings.xml*, preserving ability for localisation.
+2. Works with `Android Views` system and `Jetpack Compose` UI — choose what you need.
+3. Provides neat API for use in the `Activity`, `Fragment` and `@Composable` scopes.
+4. Extendable and customizable: add your own annotation types and arguments for them.
 5. 100% documented.
+
+Artifacts
+=======
+
+string-annotations:views
+-------
+
+string-annotations:compose
+-------
 
 Installation
 =======
@@ -70,11 +82,13 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.mmolosay:stringannotations:VERSION")
+    implementation("com.github.mmolosay:stringannotations:ARTIFACT:VERSION")
 }
 ```
 
-Where `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
+Where:
+ - `ARTIFACT` is an implementation for desired UI system. See [Artifacts](#artifacts) section for more details.
+ - `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
 
 Configuration
