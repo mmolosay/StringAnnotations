@@ -16,9 +16,3 @@ android {
         }
     }
 }
-
-dependencies {
-
-    // Dependencies
-    implementation("androidx.annotation:annotation:1.5.0") // @ColorInt and others
-}
