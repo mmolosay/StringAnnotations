@@ -10,8 +10,8 @@ Table of contents
 * [Problem to solve](#problem-to-solve)
 * [Reasons to use](#reasons-to-use)
 * [Artifacts](#artifacts)
-    * [string-annotations:views](#string-annotations-views)
-    * [string-annotations:compose](#string-annotations-compose)
+    * [Android Views](#android-views)
+    * [Jetpack Compose](#jetpack-compose)
 * [Installation](#installation)
 * [Configuration](#configuration)
     * [AnnotationProcessor](#annotationprocessor)
@@ -62,10 +62,10 @@ Reasons to use
 Artifacts
 =======
 
-string-annotations:views
+Android Views
 -------
 
-string-annotations:compose
+Jetpack Compose
 -------
 
 Installation
