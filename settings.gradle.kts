@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "StringAnnotations"
 include(
+    "string-annotations:common:lint-rules",
     ":string-annotations:common:service",
     ":string-annotations:common:shared",
     ":string-annotations:common:internal",

@@ -21,7 +21,9 @@ android {
             withSourcesJar()
         }
     }
-
+    lint {
+        checkDependencies = true
+    }
     buildFeatures {
         compose = true
     }
@@ -31,6 +33,10 @@ android {
 }
 
 dependencies {
+
+    // TODO: try move to ':shared'
+    implementation(project(":string-annotations:common:lint-rules"))
+    lintPublish(project(":string-annotations:common:lint-rules"))
 
     // Modules
     api(project(":string-annotations:common:shared"))
