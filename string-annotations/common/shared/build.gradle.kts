@@ -4,7 +4,7 @@ plugins {
 
 android {
 
-    namespace = Project.GROUP_ID
+    namespace = Project.SUPPORT_SHARED_NAMESPACE
 
     buildTypes {
         getByName("release") {
@@ -18,6 +18,9 @@ android {
 }
 
 dependencies {
+
+    // Modules
+    implementation(project(":string-annotations:common:service"))
 
     // Dependencies
     implementation("androidx.annotation:annotation:1.5.0") // @ColorInt and others

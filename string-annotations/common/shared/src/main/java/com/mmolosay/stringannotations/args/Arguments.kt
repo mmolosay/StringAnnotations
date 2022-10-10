@@ -1,6 +1,9 @@
 package com.mmolosay.stringannotations.args
 
-import com.mmolosay.stringannotations.utils.Qualified
+import com.mmolosay.stringannotations.args.qualified.QualifiedList
+import com.mmolosay.stringannotations.args.types.ClickOwner
+import com.mmolosay.stringannotations.args.types.TextDecoration
+import com.mmolosay.stringannotations.args.types.TextSize
 
 /*
  * Copyright 2022 Mikhail Malasai
@@ -19,15 +22,52 @@ import com.mmolosay.stringannotations.utils.Qualified
  */
 
 /**
- * Collection of runtime values of some annotated string.
- *
- * `Arguments` is a great way to use values, which are tough (or completely impossible)
- * to parse from string, like click actions or dynamically computing values.
+ * Immutable set of [QualifiedList]s with values, destined for some annotated string.
+ * Contains values for all annotation types, supported out-of-the-box.
  */
-public open class Arguments<E>(
-    override val qualifier: String,
-    private val list: List<E>
-) : List<E> by list, Qualified {
+public interface Arguments<out C : ClickOwner> {
 
-    public constructor(qualifier: String, vararg args: E) : this(qualifier, args.asList())
+    // please, preserve alphabetical order
+    public val clickables: Clickables<C>
+    public val colors: Colors
+    public val decorations: Decorations
+    public val sizes: Sizes
+    public val styles: Styles
+
+    /**
+     * Clickable spans.
+     */
+    public class Clickables<out C>(list: List<C>) :
+        QualifiedList<C>("clickable", list)
+
+    /**
+     * Color integers.
+     *
+     * @see [androidx.annotation.ColorInt]
+     */
+    public class Colors(list: List<Int>) :
+        QualifiedList<Int>("color", list)
+
+    /**
+     * Text decorations.
+     */
+    public class Decorations(list: List<TextDecoration>) :
+        QualifiedList<TextDecoration>("decoration", list)
+
+    /**
+     * Absolute sizes.
+     */
+    public class Sizes(list: List<TextSize>) :
+        QualifiedList<TextSize>("size", list)
+
+    /**
+     * Typeface style integers.
+     *
+     * @see [android.graphics.Typeface.BOLD]
+     * @see [android.graphics.Typeface.ITALIC]
+     * @see [android.graphics.Typeface.BOLD_ITALIC]
+     */
+    public class Styles(list: List<Int>) :
+        QualifiedList<Int>("style", list)
+
 }

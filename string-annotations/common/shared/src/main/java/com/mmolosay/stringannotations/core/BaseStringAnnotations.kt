@@ -1,5 +1,7 @@
 package com.mmolosay.stringannotations.core
 
+import com.mmolosay.stringannotations.processor.AnnotationProcessor
+
 /*
  * Copyright 2022 Mikhail Malasai
  *
@@ -19,7 +21,8 @@ package com.mmolosay.stringannotations.core
 /**
  * Base implementaiton of [StringAnnotations] with dependencies initialization logic.
  */
-public abstract class BaseStringAnnotations<D> : StringAnnotations<D> {
+public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependencies> :
+    StringAnnotations<D> {
 
     /**
      * Current dependencies of the library.
@@ -63,4 +66,19 @@ public abstract class BaseStringAnnotations<D> : StringAnnotations<D> {
     }
 
     // endregion
+
+    /**
+     * Dependencies of the library.
+     */
+    public abstract class Dependencies {
+        public abstract val processor: AnnotationProcessor<*, *>
+    }
+
+    /**
+     * [Dependencies] builder.
+     */
+    protected interface DependenciesBuilder<P : AnnotationProcessor<*, *>> {
+        public fun annotationProcessor(instance: P): DependenciesBuilder<P>
+        public fun build(): Dependencies
+    }
 }

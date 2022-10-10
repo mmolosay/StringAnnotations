@@ -1,6 +1,5 @@
 package com.mmolosay.stringannotations.processor
 
-import android.content.Context
 import android.text.Annotation
 
 /*
@@ -21,23 +20,21 @@ import android.text.Annotation
 
 /**
  * Parses [Annotation] of some [android.text.Spanned] string into span of [S] type.
- * Works with value arguments of [A] type.
+ * Values for spans will be obtained from annotation arguments of type [A].
  *
- * One should implement it in order to parse custom annotation type.
+ * It can be used both as processor for single annotation type or for all of them.
  */
-public interface AnnotationProcessor<A, S> {
+public fun interface AnnotationProcessor<A, S> {
 
     /**
      * Parses specified [annotation] into span of [S] type.
      *
-     * @param context caller context.
      * @param annotation annotation to be parsed.
-     * @param arguments annotation runtime arguments to be substituted instead of placeholders.
+     * @param arguments annotation arguments to be substituted instead of placeholders.
      *
-     * @return parsed span of [S] type, or `null`, if annotation can not be parsed.
+     * @return span of [S] type, or `null`, if annotation can not be parsed.
      */
     public fun parseAnnotation(
-        context: Context,
         annotation: Annotation,
         arguments: A?
     ): S?
