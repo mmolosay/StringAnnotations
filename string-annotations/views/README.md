@@ -28,4 +28,4 @@ Example:
 </style>
 ```
 > **Note**
-> Specified `clickableTextAppearance` can be obtained in code via [ClicableTextAppearance.Companion.from(…)](/src/main/java/com/mmolosay/stringannotations/views/span/clickable/ClickableSpanExt.kt#L17) extension function.
+> Specified `clickableTextAppearance` can be obtained in code via [ClicableTextAppearance.Companion.from(…)](/string-annotations/views/src/main/java/com/mmolosay/stringannotations/views/span/clickable/ClickableSpanExt.kt#L17) extension function.
