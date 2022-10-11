@@ -15,7 +15,6 @@ Table of contents
 * [Installation](#installation)
 * [General configuration](#general-configuration)
     * [AnnotationProcessor](#annotationprocessor)
-    * [ClickableTextAppearance](#clickabletextappearance)
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
@@ -112,30 +111,12 @@ For examples of library customization check out [samples](#samples) section.
 
 AnnotationProcessor
 -----
-If no custom [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) is defined, [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) will be used by default.
+[AnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is a centerpiece of the `StringAnnotations` library.
+It parses passed annotation of some annotated string, along with its arguments, into span.
 
-*Note: Although [AnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/AnnotationProcessor.kt) may be directly implemented, author recommends to use [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) along with [BaseAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/BaseAnnotationProcessor.kt), since it incapsulates a lot of annotation parsing functionality.*
-
-ClickableTextAppearance
------
-You should define default appearance of your [Clickable](#clickable) annotations text.
-
-1. (optional) Define your own style for clickable text appearance. You can use [Base.ClickableTextAppearance](/string-annotations/src/main/res/values/styles.xml#L12) style as a `parent`.
-2. Specify default clickable text appearance style in your application theme via `clickableTextAppearance` attribute.
-
-Example:
-```xml
-<style name="YourApplicationTheme" parent="…">
-   <!-- other theme attributes -->
-   <item name="clickableTextAppearance">@style/TextAppearance.ClickableTextAppearance</item>
-</style>
-
-<style name="TextAppearance.ClickableTextAppearance" parent="Base.ClickableTextAppearance">
-    <item name="android:textColor">#21834B</item> <!-- let clickable text be green by default -->
-</style>
-```
-
-*Note: Specified `ClickableTextAppearance` instance can be obtained via [ClicableTextAppearance.from(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/ClickableTextAppearance.kt#L49) extension function.*
+> **Note**
+> Note: Although `AnnotationProcessor` may be implemented directly, author recommends to use either
+[AbstractAnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AbstractAnnotationProcessor.kt) or one of the artifact-oriented builder functions (like [ComposeAnnotationProcessor](string-annotations/compose/src/main/java/com/mmolosay/stringannotations/compose/processor/Processors.kt#L57) for Compose UI), since they incapsulate a lot of annotation parsing logic and make implementing custom annnotation types easier.
 
 Annotations
 =======
