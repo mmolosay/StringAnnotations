@@ -34,7 +34,7 @@ import android.text.Annotation
  *
  * __Annotation attribute: `background`__
  *
- * __Arguments qualifier: `background`__
+ * __Arguments qualifier: `color`__
  *
  * __Inline values: —__
  *
