@@ -13,7 +13,7 @@ Table of contents
     * [Android Views](#android-views)
     * [Jetpack Compose](#jetpack-compose)
 * [Installation](#installation)
-* [Configuration](#configuration)
+* [General configuration](#general-configuration)
     * [AnnotationProcessor](#annotationprocessor)
     * [ClickableTextAppearance](#clickabletextappearance)
 * [Annotations](#annotations)
@@ -64,9 +64,19 @@ Artifacts
 
 Android Views
 -------
+`com.github.mmolosay:stringannotations:views:VERSION`
+
+Artifact to be used with Android Views system.
+
+See [string-annotations:views README.md](/string-annotations/views/README.md) for more information.
 
 Jetpack Compose
 -------
+`com.github.mmolosay:stringannotations:compose:VERSION`
+
+Artifact to be used with [Jetpack Compose](https://developer.android.com/jetpack/compose) UI.
+
+See [string-annotations:compose README.md](/string-annotations/compose/README.md) for more information.
 
 Installation
 =======
@@ -91,13 +101,14 @@ Where:
  - `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
 Latest release version is stated at the top of this document in JitPack badge.
 
-Configuration
+General configuration
 =======
 
 Library will be configured with default dependencies at the moment you interact with it in the very first time.
 
-In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/src/main/java/com/mmolosay/stringannotations/StringAnnotations.kt#L59) method and provide custom dependencies. 
-There's **no need** to call the method, if you want to use library in its default configuration (which more than enough in majority of cases).
+In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L42) method and provide custom dependencies. 
+
+> :information_source: There's **no need** to call the method, if you want to use library in its default configuration (which more than enough in majority of cases).
 
 There's an example of customizing library's configuration in your `Application` class:
 
