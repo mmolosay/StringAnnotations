@@ -32,10 +32,10 @@ Problem to solve
 
 Take a look at a picture above. Think about how you would implement this design in terms of Android.
 
-Yes, with different colors of text in same view.
-Oh, highlighted parts should open different screen on click.
+Yes, with different colors in the same text.
+Oh, highlighted parts should perform some action on click as well.
 
-Aren't frightened yet? Well, make it use wildcards and placeholders (e.g. "group by: &#95;, sort by: &#95;").
+Aren't frightened yet? Well, make it use wildcards and placeholders (e.g. "*group by: &#95;, sort by: &#95;*").
 And don't forget about localization.
 
 *B r e a t h e   o u t.*
