@@ -48,7 +48,7 @@ For my personal surprise, I've never found industry-standard solution, like ones
 
 Well, no more :)
 
-**String Annotations** is a library that absorbed all best from old good familiar solutions, and enhanced it with great customization, extendability and convenience of use.
+**StringAnnotations** is a library that absorbed all best from old good familiar solutions, and enhanced it with great customization, extendability and convenience of use.
 
 Reasons to use
 =======
