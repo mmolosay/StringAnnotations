@@ -30,6 +30,19 @@ android {
     }
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                from(components["release"])
+                groupId = Project.GROUP_ID
+                artifactId = Project.ARTIFACT_COMPOSE_ID
+                version = Project.VERSION
+            }
+        }
+    }
+}
+
 dependencies {
 
     // Modules
