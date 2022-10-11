@@ -242,7 +242,7 @@ In your code:
 ```kotlin
 val color1 = ContextCompat.getColor(this, R.color.red)
 val color2 = ContextCompat.getColor(this, R.color.green)
-val args = ArgumentsSet {
+val args = Arguments {
     colors(color1, color2)
 }
 yourTextView.text = getAnnotatedString(R.string.demo, args)
