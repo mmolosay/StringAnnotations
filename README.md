@@ -154,7 +154,7 @@ Background color
 - Arguments qualifier: `color`
 - Inline values: *none*
 
-`<annotation color="$arg$color$0">colored text</annotation>`
+`<annotation background="$arg$color$0">text with background color</annotation>`
 
 Foreground color
 -----
@@ -162,17 +162,11 @@ Foreground color
 
 ![image](https://user-images.githubusercontent.com/32337243/183247974-99b8f693-87bf-4758-9f7d-025a84bb762c.png)
 
-Uses attribute `color`.
+- Annotation attribute: `color`
+- Arguments qualifier: `color`
+- Inline values: *none*
 
-Attribute value can be either HEX color, generic color name or value argument of type `color`.
-
-Examples:
- * HEX color:
- ` <annotation color="#ff0000">red text</annotation>`
- *  Generic color name:
- `<annotation color="green">green text</annotation>`
- * Value argument:
- `<annotation color="$arg$color$0">colored text</annotation>`
+`<annotation color="$arg$color$0">colored text</annotation>`
 
 Clickable
 -----
@@ -180,54 +174,26 @@ Clickable
 
 ![image](https://user-images.githubusercontent.com/32337243/183248366-d05200a7-c291-480e-a710-f3442d056a39.png)
 
-Uses attribute `clickable`.
+- Annotation attribute: `clickable`
+- Arguments qualifier: `clickable`
+- Inline values: *none*
 
-Attribute value is a value argument of type `clickable`.
+`<annotation clickable="$arg$clickable$0">clcik me</annotation>`
 
-Example:
- *  `<annotation clickable="$arg$clickable$0">clcik me</annotation> and <annotation clickable="$arg$clickable$1">me as well</annotation>`
-
-Typeface style
+Decoration
 -----
-> Specifies typeface style of its body.
-
-![image](https://user-images.githubusercontent.com/32337243/183248716-5ca79fb4-a27f-4155-b75a-07ee28cbd203.png)
-
-Uses attribute `style`.
-
-Attribute value can be either `normal`, `bold`, `italic`, `bold|italic` or value argument of type `style`.
-
-Examples:
- * Bold text:
- `<annotation style="bold">bold text</annotation>`
- * Italic text:
- `<annotation style="italic">italic text</annotation>`
- * Bold and italic text:
- `<annotation style="bold|italic">bold and italic text</annotation>`
- * Value argument:
- `<annotation style="$arg$style$0">styled text</annotation>`
-
-Strikethrough style
------
-> Crosses out its body.
-
-![image](https://user-images.githubusercontent.com/32337243/183249071-efe2a8f7-e2a6-4396-a78b-63ea20901b4c.png)
-
-Uses attribute `style` and value `strikethrough`.
-
-Example:
- * `<annotation style="strikethrough">crossed out text</annotation>`
-
-Underline style
------
-> Underlines its body.
+> Specifies trivial graphic, e.g. line.
 
 ![image](https://user-images.githubusercontent.com/32337243/183249199-4ee9923a-9cfb-4731-a6a6-a91693c6410d.png)
+![image](https://user-images.githubusercontent.com/32337243/183249071-efe2a8f7-e2a6-4396-a78b-63ea20901b4c.png)
 
-Uses attribute `style` and value `underline`.
+- Annotation attribute: `decoration`
+- Arguments qualifier: `decoration`
+- Inline values: `underline`, `strikethrough`
 
-Example:
- * `<annotation style="underline">underlined text</annotation>`
+`<annotation decoration="underline">underlined text</annotation>`
+`<annotation decoration="strikethrough">crossed out text</annotation>`
+`<annotation decoration="$arg$decoration$0">decorated text</annotation>`
  
 Absolute size
 -----
@@ -235,39 +201,41 @@ Absolute size
 
 ![image](https://user-images.githubusercontent.com/32337243/186401072-af503ada-80dd-4dc1-a5b9-c0b05ebbf89c.png)
 
-Uses attribute `size`.
+- Annotation attribute: `size`
+- Arguments qualifier: `size`
+- Inline values: *none*
 
-Attribute value is a decimal/integer value, followed by either one of `px`(optional), `dp` or `sp` unit label or value attribute of type `size` in pixels.
+`<annotation size="$arg$size$0">text of some size</annotation>`
 
-Examples:
- * Pixels, a.k.a `px` (can be omitted):
- `<annotation size="20.5px">text of 20.5 PXs size</annotation>`
- * Density-independent Pixels, a.k.a. `dp`:
- `<annotation size="20.5dp">text of 20.5 DPs size</annotation>`
- * Scalable Pixels, a.k.a. `sp`:
- `<annotation size="20.5sp">text of 20.5 SPs size</annotation>`
- * Value argument:
- `<annotation size="$arg$size$0">text of some size</annotation>`
+Typeface style
+-----
+> Specifies typeface style of its body.
 
-Annotation Arguments
+![image](https://user-images.githubusercontent.com/32337243/183248716-5ca79fb4-a27f-4155-b75a-07ee28cbd203.png)
+
+- Annotation attribute: `style`
+- Arguments qualifier: `style`
+- Inline values: *none*
+
+`<annotation style="$arg$style$0">styled text</annotation>`
+
+Arguments
 ======
-**Annotation Arguments** is a concept of runtime values, which are used insead of placeholders in
-annotation values.
-They make it possible to define `onClick` action for `ClickalbeSpan` or use color obtained from resources in runtime.
+`Arguments` provide values for your annotations. 
+You should pass `Arguments` instance, containing all declared values, when obtaining annotated string.
 
-Default implementation [ArgumentsSet](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/ArgumentsSet.kt) supports [Arguments](/string-annotations/src/main/java/com/mmolosay/stringannotations/args/Arguments.kt) for all
-types of [MasterAnnotationProcessor](/string-annotations/src/main/java/com/mmolosay/stringannotations/core/MasterAnnotationProcessor.kt) annotations.
+Default [Arguments](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/args/Arguments.kt) implementation provides values for all out-of-the-box annotation types.
 
-Since default implementations of `AnnotationProcessor` use [DefaultAnnotationArgumentParser](/string-annotations/src/main/java/com/mmolosay/stringannotations/processor/parser/arg/DefaultAnnotationArgumentParser.kt) to parse arguments, default placeholders' format is `$arg${QUALIFIER}${INDEX}`, where `QUALIFIER` 
-should match to `qualifier` of appropriate `Arguments` object and `INDEX` specifies index of desired
-argument.
+Since default implementations of `AnnotationProcessor` use [DefaultValuesParser](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/parser/DefaultValuesParser.kt) to parse arguments, default placeholders' format is `$arg${QUALIFIER}${INDEX}`, where `QUALIFIER` 
+should match the `qualifier` of corresponding annotation type and `INDEX` specifies index of desired
+value.
 
-Below you can see **simplified** example, how Value Arguments can be used.
-For more examples, check [sample application](/sample).
+Below you can see **simplified** example, how `Arguments` can be used.
+For more examples, view [samples](#samples).
 
 In your *strings.xml*:
 ```xml
-<string name="demo">Text with <annotation color="$arg$color$0">different</annotation> <annotation color="$arg$color$1">runtime</annotation> colors</string>
+<string name="demo">Text with <annotation color="$arg$color$0">multiple</annotation> <annotation color="$arg$color$1">colors</annotation></string>
 ```
 
 In your code:
@@ -275,10 +243,7 @@ In your code:
 val color1 = ContextCompat.getColor(this, R.color.red)
 val color2 = ContextCompat.getColor(this, R.color.green)
 val args = ArgumentsSet {
-    colors {
-        add(color1)
-        add(color2)
-    }
+    colors(color1, color2)
 }
 yourTextView.text = getAnnotatedString(R.string.demo, args)
 ```
@@ -286,7 +251,7 @@ yourTextView.text = getAnnotatedString(R.string.demo, args)
 Samples
 ======
 
-Demonstration sample can be found in [sample](/sample) module.
+Check out [Android Views](/sample-views) and [Jetpack Compose](/sample-compose) samples.
 
 License
 =======
