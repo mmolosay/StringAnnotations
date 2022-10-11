@@ -20,11 +20,10 @@ Table of contents
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
     * [Clickable](#clickable)
-    * [Typeface style](#typeface-style)
-    * [Strikethrough style](#strikethrough-style)
-    * [Underline style](#underline-style)
+    * [Decoration](#decoration)
     * [Absolute size](#absolute-size)
-* [Annotation Arguments](#annotation-arguments)
+    * [Typeface style](#typeface-style)
+* [Arguments](#arguments)
 * [Samples](#samples)
 * [License](#license)
 
@@ -48,7 +47,7 @@ For my personal surprise, I've never found industry-standard solution, like ones
 
 Well, no more :)
 
-**String Annotations** is a library that absorbed all best from old good familiar solutions, and enhanced it with great customization, extendability and convenience of use.
+**StringAnnotations** is a library that absorbed all best from old good familiar solutions, and enhanced it with great customization, extendability and convenience of use.
 
 Reasons to use
 =======
@@ -191,9 +190,9 @@ Decoration
 - Arguments qualifier: `decoration`
 - Inline values: `underline`, `strikethrough`
 
-`<annotation decoration="underline">underlined text</annotation>`
-`<annotation decoration="strikethrough">crossed out text</annotation>`
-`<annotation decoration="$arg$decoration$0">decorated text</annotation>`
+* `<annotation decoration="underline">underlined text</annotation>`
+* `<annotation decoration="strikethrough">crossed out text</annotation>`
+* `<annotation decoration="$arg$decoration$0">decorated text</annotation>`
  
 Absolute size
 -----
@@ -242,7 +241,7 @@ In your code:
 ```kotlin
 val color1 = ContextCompat.getColor(this, R.color.red)
 val color2 = ContextCompat.getColor(this, R.color.green)
-val args = ArgumentsSet {
+val args = Arguments {
     colors(color1, color2)
 }
 yourTextView.text = getAnnotatedString(R.string.demo, args)
