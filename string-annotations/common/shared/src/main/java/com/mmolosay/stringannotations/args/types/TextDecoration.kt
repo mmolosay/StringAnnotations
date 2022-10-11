@@ -2,6 +2,8 @@ package com.mmolosay.stringannotations.args.types
 
 /**
  * Represents some trivial graphic-wise text decoration, e.g. line.
+ *
+ * Default instances are [Underline] and [Striketrhough].
  */
 public class TextDecoration internal constructor(public val id: Int) {
 

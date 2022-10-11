@@ -17,7 +17,7 @@ package com.mmolosay.stringannotations.processor.token
  */
 
 /**
- * Providis convenient functionality for assembling complex [Tokenizer].
+ * Providis convenient functionality for assembling complex [Tokenizer]s.
  */
 public open class TokenizerBuilder(private val tokenizer: Tokenizer) : Tokenizer {
 

@@ -50,12 +50,16 @@ public interface Arguments<out C : ClickOwner> {
 
     /**
      * Text decorations.
+     *
+     * @see [TextDecoration]
      */
     public class Decorations(list: List<TextDecoration>) :
         QualifiedList<TextDecoration>("decoration", list)
 
     /**
-     * Absolute sizes.
+     * Absolute text sizes.
+     *
+     * @see [TextSize]
      */
     public class Sizes(list: List<TextSize>) :
         QualifiedList<TextSize>("size", list)

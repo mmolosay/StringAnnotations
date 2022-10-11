@@ -22,7 +22,7 @@ import com.mmolosay.stringannotations.processor.token.Token
 
 /**
  * Default implementation of [ValuesParser].
- * Accepts placeholders of `"$arg${TYPE}${INDEX}"` format.
+ * Accepts placeholders of `"$arg${QUALIFIER}${INDEX}"` format.
  */
 public object DefaultValuesParser : ValuesParser {
 

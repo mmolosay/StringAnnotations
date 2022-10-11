@@ -32,8 +32,7 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * Builder for [AnnotationProcessor] implementations for single annotation type.
  * Employs [AbstractAnnotationProcessor] inside.
  *
- * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
- * implemented in [AbstractAnnotationProcessor].
+ * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V, A, S> AnnotationProcessor(
     tokenizer: Tokenizer,

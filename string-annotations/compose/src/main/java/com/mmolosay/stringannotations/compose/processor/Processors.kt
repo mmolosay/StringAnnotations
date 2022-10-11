@@ -51,8 +51,7 @@ import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
  * Builder for [AnnotationProcessor] implementations for single annotation type for Compose UI.
  * Employs [AbstractAnnotationProcessor] inside.
  *
- * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
- * implemented in [AbstractAnnotationProcessor].
+ * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V> ComposeAnnotationProcessor(
     tokenizer: Tokenizer,

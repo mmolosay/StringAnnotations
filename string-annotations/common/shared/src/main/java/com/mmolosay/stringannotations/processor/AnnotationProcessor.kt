@@ -24,7 +24,7 @@ import android.text.Annotation
  * `AnnotationProcessor` parses [Annotation] of some annotated string into span of [S] type.
  * Values for spans will be obtained from annotation arguments of type [A].
  *
- * It can be used both as processor for single annotation type or for all of them.
+ * It can be used either as a processor for a single annotation type or for all of them.
  */
 public fun interface AnnotationProcessor<A, S> {
 

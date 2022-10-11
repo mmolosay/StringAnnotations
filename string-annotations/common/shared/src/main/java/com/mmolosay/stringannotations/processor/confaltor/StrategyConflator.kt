@@ -17,7 +17,8 @@ package com.mmolosay.stringannotations.processor.confaltor
  */
 
 /**
- * Implementation of [ValuesConfaltor].
+ * Implementation of [ValuesConfaltor] with separated picking and reducing logic.
+ *
  * Utilizes [pickingStrategy] to pick desired values and
  * [reducingStrategy] to conflate them into final result.
  */
@@ -35,13 +36,34 @@ public class StrategyConflator<V>(
             .let { pickingStrategy.on(it) }
             .let { reducingStrategy.on(it) }
 
+    public companion object {
+
+        /**
+         * Picks and uses very first value.
+         */
+        public fun <V> First(): StrategyConflator<V> =
+            StrategyConflator(
+                pickingStrategy = PickingStrategy.First(),
+                reducingStrategy = ReducingStrategy.Single()
+            )
+
+        /**
+         * Picks all values and reduces them with specified [reducer].
+         */
+        public fun <V> All(reducer: (values: Collection<V>) -> V?): StrategyConflator<V> =
+            StrategyConflator(
+                pickingStrategy = PickingStrategy.All(),
+                reducingStrategy = ReducingStrategy.Multiple(reducer)
+            )
+    }
+
     /**
      * Specifies a way of selecting specific values.
      */
     public fun interface PickingStrategy<V> {
 
         /**
-         * Applies this strategy on [values], returning list of selected ones.
+         * Applies this strategy on [values], returning collection of selected ones.
          */
         public fun on(values: Sequence<V>): Collection<V>
 
@@ -74,7 +96,7 @@ public class StrategyConflator<V>(
     }
 
     /**
-     * Specifies a way of conflating values of type [V] into result of the same type.
+     * Specifies a way of reducing values of type [V] into single result of the same type.
      */
     public fun interface ReducingStrategy<V> {
 
@@ -99,26 +121,5 @@ public class StrategyConflator<V>(
             public fun <V> Multiple(reducer: (values: Collection<V>) -> V?): ReducingStrategy<V> =
                 ReducingStrategy(reducer)
         }
-    }
-
-    public companion object {
-
-        /**
-         * Picks and uses very first value.
-         */
-        public fun <V> First(): StrategyConflator<V> =
-            StrategyConflator(
-                pickingStrategy = PickingStrategy.First(),
-                reducingStrategy = ReducingStrategy.Single()
-            )
-
-        /**
-         * Picks all values and reduces them with specified [reducer].
-         */
-        public fun <V> All(reducer: (values: Collection<V>) -> V?): StrategyConflator<V> =
-            StrategyConflator(
-                pickingStrategy = PickingStrategy.All(),
-                reducingStrategy = ReducingStrategy.Multiple(reducer)
-            )
     }
 }

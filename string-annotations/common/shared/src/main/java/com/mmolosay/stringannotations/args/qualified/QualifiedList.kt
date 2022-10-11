@@ -17,7 +17,7 @@ package com.mmolosay.stringannotations.args.qualified
  */
 
 /**
- * Qualified list of elements [E].
+ * Implementation of qualified list of elements [E].
  */
 public open class QualifiedList<out E>(
     override val qualifier: String,

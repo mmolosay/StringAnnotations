@@ -47,12 +47,10 @@ import com.mmolosay.stringannotations.views.span.clickable.CustomizableClickable
  */
 
 /**
- * Builder for [AnnotationProcessor] implementations for single annotation type for Android Views
- * system.
+ * Builder for [AnnotationProcessor] implementations for single annotation type for Android Views UI.
  * Employs [AbstractAnnotationProcessor] inside.
  *
- * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method,
- * implemented in [AbstractAnnotationProcessor].
+ * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V> ViewsAnnotationProcessor(
     tokenizer: Tokenizer,

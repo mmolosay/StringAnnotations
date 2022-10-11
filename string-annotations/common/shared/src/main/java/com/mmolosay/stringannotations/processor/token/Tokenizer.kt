@@ -17,8 +17,7 @@ package com.mmolosay.stringannotations.processor.token
  */
 
 /**
- * Specifies a way of parsing string annotation's tag value into some individual, atomic tokens,
- * being used to determine appropriate span values.
+ * Disassembles annotation's tag value into sequence of [Token]s.
  */
 public fun interface Tokenizer {
 
@@ -27,7 +26,7 @@ public fun interface Tokenizer {
     public companion object {
 
         /**
-         * Employs value as single token.
+         * Employs whole value as single token.
          */
         public fun Solid(): TokenizerBuilder =
             TokenizerBuilder { value ->

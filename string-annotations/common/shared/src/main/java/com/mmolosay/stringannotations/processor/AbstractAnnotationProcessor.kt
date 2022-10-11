@@ -1,6 +1,7 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
+import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
@@ -41,12 +42,16 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
     override fun parseAnnotation(
         annotation: Annotation,
         arguments: A?
-    ): S? {
-        val tokens = tokenizer.tokenize(annotation.value)
-        val values = tokens.mapNotNull { token -> parseValue(token, arguments) }
-        val value = conflator.conflate(values) ?: return null
-        return makeSpan(value)
-    }
+    ): S? =
+        try {
+            val tokens = tokenizer.tokenize(annotation.value)
+            val values = tokens.mapNotNull { token -> parseValue(token, arguments) }
+            val value = requireNotNull(conflator.conflate(values))
+            requireNotNull(makeSpan(value))
+        } catch (e: Exception) {
+            Logger.logUnableToParse(annotation)
+            null
+        }
 
     /**
      * Specifies the way of parsing [token] into some value of type [V].

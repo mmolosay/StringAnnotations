@@ -26,9 +26,8 @@ import com.mmolosay.stringannotations.views.args.Clickable
  */
 
 /**
- * Creates new instance of [ClickOwner] with specified click [action] and appearance.
- *
- * Appearance [builder] will be scoped to [ClickOwner.Appearance], set in your [theme].
+ * Creates new instance of [Clickable] with specified click [action] and appearance.
+ * Appearance [builder] will be scoped to [Clickable.Appearance], obtained from [theme].
  */
 public fun Clickable(
     theme: Resources.Theme,
@@ -44,9 +43,7 @@ public fun Clickable(
 }
 
 /**
- * More sophisticated version, which pulls theme out of [context].
- *
- * @see [com.mmolosay.stringannotations.view.span.clickable.ClickableSpan]
+ * More sophisticated version of builder, which pulls theme out of [context].
  */
 public fun Clickable(
     context: Context,
@@ -62,8 +59,8 @@ public fun Clickable(
 }
 
 /**
- * Creates new instance of [ClickOwner] with specified click [action].
- * The [appearance]'s default value will be retrieved from [theme].
+ * Creates new instance of [Clickable] with specified click [action].
+ * The [appearance] will be obrained from [theme].
  */
 public fun Clickable(
     theme: Resources.Theme,

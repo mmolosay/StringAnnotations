@@ -25,7 +25,7 @@ import com.mmolosay.stringannotations.args.types.TextSize
 public class SpSize(override val value: Float) : TextSize {
 
     /**
-     * Builder for [TextSize] in declarative style.
+     * Constructor in declarative style.
      */
     public constructor(computation: () -> Float) : this(computation())
 }

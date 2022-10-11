@@ -35,12 +35,14 @@ import com.mmolosay.stringannotations.processor.token.Tokenizer
  * `AnnotationProcessor` builders.
  */
 
+/**
+ * Typealias for [Arguments], when generic types don't matter.
+ */
 private typealias AnyArguments = Arguments<*>
 
 /**
  * `AnnotationProcessor` for [AnnotationTypes.clickable] annotation type.
  */
-@Suppress("UNCHECKED_CAST") // price for not including actual AnnotationValues type in generic
 public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcessor(
     factory: (value: C) -> S?
 ): AnnotationProcessor<A, S> =
