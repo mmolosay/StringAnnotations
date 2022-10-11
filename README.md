@@ -62,16 +62,16 @@ Reasons to use
 Artifacts
 =======
 
-Android Views
--------
+### Android Views
+
 `com.github.mmolosay:stringannotations:views:VERSION`
 
 Artifact to be used with Android Views system.
 
 See [string-annotations:views README.md](/string-annotations/views/README.md) for more information.
 
-Jetpack Compose
--------
+### Jetpack Compose
+
 `com.github.mmolosay:stringannotations:compose:VERSION`
 
 Artifact to be used with [Jetpack Compose](https://developer.android.com/jetpack/compose) UI.
