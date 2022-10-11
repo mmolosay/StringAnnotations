@@ -19,7 +19,9 @@ import android.text.Annotation
  */
 
 /**
- * Parses [Annotation] of some [android.text.Spanned] string into span of [S] type.
+ * Centerpiece of `StringAnnotations` library.
+ *
+ * `AnnotationProcessor` parses [Annotation] of some annotated string into span of [S] type.
  * Values for spans will be obtained from annotation arguments of type [A].
  *
  * It can be used both as processor for single annotation type or for all of them.
