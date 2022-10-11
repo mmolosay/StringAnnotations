@@ -39,7 +39,7 @@ import android.text.Annotation
  * __Inline values: —__
  *
  * ```
- * <annotation background="$arg$background$0">text with background</annotation>
+ * <annotation background="$arg$color$0">text with background</annotation>
  * ```
  *
  * ### Foreground color
