@@ -4,14 +4,21 @@ object Project {
     const val ARTIFACT_ID = "stringannotations" // repo name
     const val VERSION = "1.6.0" // TODO: update
 
-    private const val APPLICATION_ID = "com.mmolosay.sample"
+    private const val SAMPLE_NAMESPACE = "com.mmolosay.sample"
+    private const val SAMPLE_APPLICATION_ID = "com.mmolosay.sample"
 
     // samples
-    const val SAMPLE_VIEWS_ID = "$APPLICATION_ID.views"
-    const val SAMPLE_COMPOSE_ID = "$APPLICATION_ID.compose"
+    const val SAMPLE_VIEWS_NAMESPACE = "$SAMPLE_NAMESPACE.views"
+    const val SAMPLE_VIEWS_ID = "$SAMPLE_APPLICATION_ID.views"
+
+    const val SAMPLE_COMPOSE_NAMESPACE = "$SAMPLE_NAMESPACE.compose"
+    const val SAMPLE_COMPOSE_ID = "$SAMPLE_APPLICATION_ID.compose"
 
     // artifacts
+    const val ARTIFACT_VIEWS_ID = "views"
     const val ARTIFACT_VIEWS_NAMESPACE = "${GROUP_ID}.views"
+
+    const val ARTIFACT_COMPOSE_ID = "compose"
     const val ARTIFACT_COMPOSE_NAMESPACE = "${GROUP_ID}.compose"
 
     // support

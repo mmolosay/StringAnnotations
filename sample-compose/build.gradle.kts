@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+
+    namespace = Project.SAMPLE_COMPOSE_NAMESPACE
+
     defaultConfig {
         applicationId = Project.SAMPLE_COMPOSE_ID
     }
