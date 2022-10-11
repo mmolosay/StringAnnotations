@@ -191,9 +191,9 @@ Decoration
 - Arguments qualifier: `decoration`
 - Inline values: `underline`, `strikethrough`
 
-`<annotation decoration="underline">underlined text</annotation>`
-`<annotation decoration="strikethrough">crossed out text</annotation>`
-`<annotation decoration="$arg$decoration$0">decorated text</annotation>`
+* `<annotation decoration="underline">underlined text</annotation>`
+* `<annotation decoration="strikethrough">crossed out text</annotation>`
+* `<annotation decoration="$arg$decoration$0">decorated text</annotation>`
  
 Absolute size
 -----
