@@ -25,7 +25,7 @@ Table of contents
     * [Underline style](#underline-style)
     * [Absolute size](#absolute-size)
 * [Annotation Arguments](#annotation-arguments)
-* [Examples of usage](#examples-of-usage)
+* [Samples](#samples)
 * [License](#license)
 
 Problem to solve
@@ -104,31 +104,12 @@ Latest release version is stated at the top of this document in JitPack badge.
 General configuration
 =======
 
-Library will be configured with default dependencies at the moment you interact with it in the very first time.
+In order to alter default behaviour, you should call [StringAnnotations.configure(…)](/string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L42) method and provide custom dependencies. 
 
-In order to alter default behaviour, you can call [StringAnnotations.configure(…)](/string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L42) method and provide custom dependencies. 
+> **Note**
+> There's **no need** to call the method, if you want to use library in its default configuration (which is enough in majority of cases).
 
-> :information_source: There's **no need** to call the method, if you want to use library in its default configuration (which more than enough in majority of cases).
-
-There's an example of customizing library's configuration in your `Application` class:
-
-```kotlin
-class YourApplication : Application() {
-
-    override fun onCreate() {
-        // irrelevant code is omitted
-        configureStringAnnotations()
-    }
-
-    private fun configureStringAnnotations() {
-        val processor = YourCustomAnnotationProcessor()
-        val dependencies = StringAnnotations.Dependencies.Builder()
-            .annotationProcessor(processor)
-            .build()
-        StringAnnotations.configure(dependencies)
-    }
-}
-```
+For examples of library customization check out [samples](#samples) section.
 
 AnnotationProcessor
 -----
@@ -308,7 +289,7 @@ val args = ArgumentsSet {
 yourTextView.text = getAnnotatedString(R.string.demo, args)
 ```
 
-Examples of usage
+Samples
 ======
 
 Demonstration sample can be found in [sample](/sample) module.
