@@ -51,11 +51,11 @@ Well, no more :)
 Reasons to use
 =======
 
-1. Annotates string resources in your *strings.xml*, preserving ability for localization.
-2. Works with `Android Views` system and `Jetpack Compose` UI — choose what you need.
-3. Provides neat API to use in the `Activity`, `Fragment` and `@Composable` scopes.
-4. Extendable and customizable: add your own annotation types and arguments for them.
-5. 100% documented.
+- [X] Annotates string resources in your *strings.xml*, preserving ability for localization.
+- [X] Works with `Android Views` system and `Jetpack Compose` UI — choose what you need.
+- [X] Provides neat API to use inside `Activity`, `Fragment` and `@Composable` scopes.
+- [X] Extendable and customizable: add your own annotation types and arguments for them.
+- [X] 100% documented.
 
 Artifacts
 =======
