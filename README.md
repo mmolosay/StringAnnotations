@@ -150,17 +150,11 @@ Background color
 
 ![image](https://user-images.githubusercontent.com/32337243/183247809-3d087191-aa14-4d93-bcff-f69018b68ec7.png)
 
-Uses attribute `background`.
+- Annotation attribute: `background`
+- Arguments qualifier: `color`
+- Inline values: *none*
 
-Attribute value can be either HEX color, generic color name or value argument of type `color`.
-
-Examples:
- * HEX color:
- ` <annotation background="#ff0000">text with red background</annotation>`
- *  Generic color name:
- `<annotation background="green">text with green background</annotation>`
- * Value argument:
- `<annotation color="$arg$color$0">colored text</annotation>`
+`<annotation color="$arg$color$0">colored text</annotation>`
 
 Foreground color
 -----
