@@ -27,10 +27,11 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                from(components["release"])
                 groupId = Project.GROUP_ID
                 artifactId = Project.ARTIFACT_VIEWS_ID
                 version = Project.VERSION
+
+                from(components["release"])
             }
         }
     }
