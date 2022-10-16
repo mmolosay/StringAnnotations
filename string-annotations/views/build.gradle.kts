@@ -38,6 +38,7 @@ afterEvaluate {
 }
 
 dependencies {
+    // https://issuetracker.google.com/issues/62121508
 
     // Modules
     api(project(":string-annotations:common:shared"))
