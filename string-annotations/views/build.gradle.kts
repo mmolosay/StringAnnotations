@@ -40,8 +40,8 @@ afterEvaluate {
 dependencies {
 
     // Modules
-    api(project(":string-annotations:common:shared"))
-    implementation(project(":string-annotations:common:internal"))
+    api(Project.SUPPORT_SHARED_DEPENDENCY)
+    implementation(Project.SUPPORT_INTERNAL_DEPENDENCY)
 
     implementation("androidx.fragment:fragment-ktx:1.5.3") // for fragment extensions
 }
