@@ -1,5 +1,5 @@
 plugins {
-    id("android-library-conventions")
+    id("android-artifact-library-conventions")
 }
 
 android {
@@ -15,12 +15,32 @@ android {
             )
         }
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = Project.GROUP_ID
+                artifactId = Project.SUPPORT_SHARED_ID
+                version = Project.VERSION
+
+                from(components["release"])
+            }
+        }
+    }
 }
 
 dependencies {
 
     // Modules
-    implementation(project(":string-annotations:common:service"))
+    implementation(Project.SUPPORT_SERVICE_DEPENDENCY)
 
     // Dependencies
     implementation("androidx.annotation:annotation:1.5.0") // @ColorInt and others

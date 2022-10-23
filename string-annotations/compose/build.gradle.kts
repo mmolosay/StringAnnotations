@@ -34,10 +34,11 @@ afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                from(components["release"])
                 groupId = Project.GROUP_ID
                 artifactId = Project.ARTIFACT_COMPOSE_ID
                 version = Project.VERSION
+
+                from(components["release"])
             }
         }
     }
@@ -46,11 +47,9 @@ afterEvaluate {
 dependencies {
 
     // Modules
-    api(project(":string-annotations:common:shared"))
-    implementation(project(":string-annotations:common:internal"))
+    api(Project.SUPPORT_SHARED_DEPENDENCY)
+    implementation(Project.SUPPORT_INTERNAL_DEPENDENCY)
 
     // Compose
     implementation("androidx.compose.ui:ui:1.2.1")
-//    implementation("androidx.compose.ui:ui-tooling:1.2.1")
-//    implementation("androidx.compose.foundation:foundation:1.2.1")
 }

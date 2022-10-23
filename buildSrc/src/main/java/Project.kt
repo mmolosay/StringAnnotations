@@ -15,13 +15,23 @@ object Project {
 
     // artifacts
     const val ARTIFACT_VIEWS_ID = "views"
-    const val ARTIFACT_VIEWS_NAMESPACE = "${GROUP_ID}.views"
+    const val ARTIFACT_VIEWS_NAMESPACE = "$GROUP_ID.views"
 
     const val ARTIFACT_COMPOSE_ID = "compose"
-    const val ARTIFACT_COMPOSE_NAMESPACE = "${GROUP_ID}.compose"
+    const val ARTIFACT_COMPOSE_NAMESPACE = "$GROUP_ID.compose"
 
     // support
-    const val SUPPORT_SERVICE_NAMESPACE = "${GROUP_ID}.service"
+    private const val SUPPORT_DEPENDENCY_GROUP = "com.github.mmolosay:stringannotations"
+
+    const val SUPPORT_SERVICE_ID = "service"
+    const val SUPPORT_SERVICE_NAMESPACE = "$GROUP_ID.$SUPPORT_SERVICE_ID"
+    const val SUPPORT_SERVICE_DEPENDENCY = "$SUPPORT_DEPENDENCY_GROUP:$SUPPORT_SERVICE_ID:$VERSION"
+
+    const val SUPPORT_SHARED_ID = "shared"
     const val SUPPORT_SHARED_NAMESPACE = GROUP_ID
-    const val SUPPORT_INTERNAL_NAMESPACE = "${GROUP_ID}.internal"
+    const val SUPPORT_SHARED_DEPENDENCY = "$SUPPORT_DEPENDENCY_GROUP:$SUPPORT_SHARED_ID:$VERSION"
+
+    const val SUPPORT_INTERNAL_ID = "internal"
+    const val SUPPORT_INTERNAL_NAMESPACE = "$GROUP_ID.$SUPPORT_INTERNAL_ID"
+    const val SUPPORT_INTERNAL_DEPENDENCY = "$SUPPORT_DEPENDENCY_GROUP:$SUPPORT_INTERNAL_ID:$VERSION"
 }
