@@ -116,7 +116,7 @@ It parses passed annotation of some annotated string, along with its arguments, 
 
 > **Note**
 > Note: Although `AnnotationProcessor` may be implemented directly, author recommends to use either
-[AbstractAnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AbstractAnnotationProcessor.kt) or one of the artifact-oriented builder functions (like [ComposeAnnotationProcessor](string-annotations/compose/src/main/java/com/mmolosay/stringannotations/compose/processor/Processors.kt#L57) for Compose UI), since they incapsulate a lot of annotation parsing logic and make implementing custom annnotation types easier.
+[AbstractAnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AbstractAnnotationProcessor.kt) or one of the artifact-oriented builder functions (like [ComposeAnnotationProcessor](string-annotations/compose/src/main/java/com/mmolosay/stringannotations/compose/processor/Processors.kt#L56) for Compose UI), since they incapsulate a lot of annotation parsing logic and make implementing custom annnotation types easier.
 
 Annotations
 =======
