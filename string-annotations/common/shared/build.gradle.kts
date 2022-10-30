@@ -40,7 +40,7 @@ afterEvaluate {
 dependencies {
 
     // Modules
-    implementation(Project.SUPPORT_SERVICE_DEPENDENCY)
+    implementation(project(":string-annotations:common:service"))
 
     // Dependencies
     implementation("androidx.annotation:annotation:1.5.0") // @ColorInt and others

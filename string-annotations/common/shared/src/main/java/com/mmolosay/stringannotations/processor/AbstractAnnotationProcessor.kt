@@ -1,13 +1,13 @@
 package com.mmolosay.stringannotations.processor
 
 import android.text.Annotation
-import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.confaltor.ValuesConfaltor
 import com.mmolosay.stringannotations.processor.parser.DefaultValuesParser
 import com.mmolosay.stringannotations.processor.parser.ValuesParser
 import com.mmolosay.stringannotations.processor.token.Token
 import com.mmolosay.stringannotations.processor.token.Tokenizer
+import com.mmolosay.stringannotations.service.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
