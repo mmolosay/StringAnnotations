@@ -1,7 +1,7 @@
 object Project {
 
     const val GROUP_ID = "com.mmolosay.stringannotations"
-    const val VERSION = "1.7.1" // TODO: update
+    const val VERSION = "1.8.0" // TODO: update
     private const val DEPENDENCY_VERSION = "1.7.0" // always = (VERSION - 1)
 
     private const val SAMPLE_NAMESPACE = "com.mmolosay.sample"
