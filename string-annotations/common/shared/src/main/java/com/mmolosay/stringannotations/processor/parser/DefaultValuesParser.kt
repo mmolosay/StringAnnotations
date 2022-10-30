@@ -1,8 +1,8 @@
 package com.mmolosay.stringannotations.processor.parser
 
-import com.mmolosay.shared.service.Logger
 import com.mmolosay.stringannotations.args.qualified.QualifiedList
 import com.mmolosay.stringannotations.processor.token.Token
+import com.mmolosay.stringannotations.service.Logger
 
 /*
  * Copyright 2022 Mikhail Malasai
