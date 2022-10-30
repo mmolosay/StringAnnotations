@@ -40,6 +40,6 @@ afterEvaluate {
 dependencies {
 
     // Modules
-    implementation(Project.SUPPORT_SHARED_DEPENDENCY)
-    implementation(Project.SUPPORT_SERVICE_DEPENDENCY)
+    implementation(project(":string-annotations:common:shared"))
+    implementation(project(":string-annotations:common:service"))
 }

@@ -47,8 +47,8 @@ afterEvaluate {
 dependencies {
 
     // Modules
-    api(Project.SUPPORT_SHARED_DEPENDENCY)
-    implementation(Project.SUPPORT_INTERNAL_DEPENDENCY)
+    api(project(":string-annotations:common:shared"))
+    implementation(project(":string-annotations:common:internal"))
 
     // Compose
     implementation("androidx.compose.ui:ui:1.3.0")
