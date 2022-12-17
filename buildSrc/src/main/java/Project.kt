@@ -1,7 +1,8 @@
 object Project {
 
     const val GROUP_ID = "com.mmolosay.stringannotations"
-    const val VERSION = "1.7.0" // TODO: update
+    const val VERSION = "1.8.0" // TODO: update
+    private const val DEPENDENCY_VERSION = "1.7.0" // always = (VERSION - 1)
 
     private const val SAMPLE_NAMESPACE = "com.mmolosay.sample"
     private const val SAMPLE_APPLICATION_ID = "com.mmolosay.sample"
@@ -25,13 +26,13 @@ object Project {
 
     const val SUPPORT_SERVICE_ID = "service"
     const val SUPPORT_SERVICE_NAMESPACE = "$GROUP_ID.$SUPPORT_SERVICE_ID"
-    const val SUPPORT_SERVICE_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_SERVICE_ID:$VERSION"
+    const val SUPPORT_SERVICE_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_SERVICE_ID:$DEPENDENCY_VERSION"
 
     const val SUPPORT_SHARED_ID = "shared"
     const val SUPPORT_SHARED_NAMESPACE = GROUP_ID
-    const val SUPPORT_SHARED_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_SHARED_ID:$VERSION"
+    const val SUPPORT_SHARED_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_SHARED_ID:$DEPENDENCY_VERSION"
 
     const val SUPPORT_INTERNAL_ID = "internal"
     const val SUPPORT_INTERNAL_NAMESPACE = "$GROUP_ID.$SUPPORT_INTERNAL_ID"
-    const val SUPPORT_INTERNAL_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_INTERNAL_ID:$VERSION"
+    const val SUPPORT_INTERNAL_DEPENDENCY = "$DEPENDENCY_GROUP:$SUPPORT_INTERNAL_ID:$DEPENDENCY_VERSION"
 }
