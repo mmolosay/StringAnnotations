@@ -2,7 +2,7 @@
 [![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
 
 # String Annotations
-Ultimate annotations in your *strings.xml*.
+Rich text in your *strings.xml*.
 
 Table of contents
 =======
@@ -15,6 +15,7 @@ Table of contents
 * [Installation](#installation)
 * [General configuration](#general-configuration)
     * [AnnotationProcessor](#annotationprocessor)
+* [Arguments](#arguments)
 * [Annotations](#annotations)
     * [Background color](#background-color)
     * [Foreground color](#foreground-color)
@@ -22,7 +23,6 @@ Table of contents
     * [Decoration](#decoration)
     * [Absolute size](#absolute-size)
     * [Typeface style](#typeface-style)
-* [Arguments](#arguments)
 * [Samples](#samples)
 * [License](#license)
 
@@ -118,6 +118,35 @@ It parses passed annotation of some annotated string, along with its arguments, 
 > Although `AnnotationProcessor` may be implemented directly, author recommends to use either
 [AbstractAnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AbstractAnnotationProcessor.kt) or one of the artifact-oriented builder functions (like [ComposeAnnotationProcessor](string-annotations/compose/src/main/java/com/mmolosay/stringannotations/compose/processor/Processors.kt#L56) for Compose UI), since they incapsulate a lot of annotation parsing logic and make implementing custom annnotation types easier.
 
+Arguments
+======
+`Arguments` provide values for your annotations. 
+You should pass `Arguments` instance, containing all declared values, when obtaining annotated string.
+
+Default [Arguments](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/args/Arguments.kt) implementation provides values for all out-of-the-box annotation types.
+
+Since default implementations of `AnnotationProcessor` use [DefaultValuesParser](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/parser/DefaultValuesParser.kt) to parse arguments, default placeholders' format is `$arg${QUALIFIER}${INDEX}`, where `QUALIFIER` 
+should match the `qualifier` of corresponding annotation type and `INDEX` specifies index of desired
+value.
+
+Below you can see **simplified** example, how `Arguments` can be used.
+For more examples, view [samples](#samples).
+
+In your *strings.xml*:
+```xml
+<string name="demo">Text with <annotation color="$arg$color$0">multiple</annotation> <annotation color="$arg$color$1">colors</annotation></string>
+```
+
+In your code:
+```kotlin
+val color1 = ContextCompat.getColor(this, R.color.red)
+val color2 = ContextCompat.getColor(this, R.color.green)
+val args = Arguments {
+    colors(color1, color2)
+}
+yourTextView.text = getAnnotatedString(R.string.demo, args)
+```
+
 Annotations
 =======
 
@@ -198,35 +227,6 @@ Typeface style
 - Inline values: *none*
 
 `<annotation style="$arg$style$0">styled text</annotation>`
-
-Arguments
-======
-`Arguments` provide values for your annotations. 
-You should pass `Arguments` instance, containing all declared values, when obtaining annotated string.
-
-Default [Arguments](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/args/Arguments.kt) implementation provides values for all out-of-the-box annotation types.
-
-Since default implementations of `AnnotationProcessor` use [DefaultValuesParser](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/parser/DefaultValuesParser.kt) to parse arguments, default placeholders' format is `$arg${QUALIFIER}${INDEX}`, where `QUALIFIER` 
-should match the `qualifier` of corresponding annotation type and `INDEX` specifies index of desired
-value.
-
-Below you can see **simplified** example, how `Arguments` can be used.
-For more examples, view [samples](#samples).
-
-In your *strings.xml*:
-```xml
-<string name="demo">Text with <annotation color="$arg$color$0">multiple</annotation> <annotation color="$arg$color$1">colors</annotation></string>
-```
-
-In your code:
-```kotlin
-val color1 = ContextCompat.getColor(this, R.color.red)
-val color2 = ContextCompat.getColor(this, R.color.green)
-val args = Arguments {
-    colors(color1, color2)
-}
-yourTextView.text = getAnnotatedString(R.string.demo, args)
-```
 
 Samples
 ======
