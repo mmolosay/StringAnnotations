@@ -3,7 +3,6 @@ plugins {
 }
 
 android {
-
     namespace = Project.SAMPLE_VIEWS_NAMESPACE
 
     defaultConfig {
