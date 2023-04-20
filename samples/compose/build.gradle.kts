@@ -3,7 +3,6 @@ plugins {
 }
 
 android {
-
     namespace = Project.SAMPLE_COMPOSE_NAMESPACE
 
     defaultConfig {

@@ -5,9 +5,6 @@ plugins {
     id("kotlin-android")
 }
 
-group = Project.GROUP_ID
-version = Project.VERSION
-
 configure<BaseExtension> {
 
     compileSdkVersion(33)

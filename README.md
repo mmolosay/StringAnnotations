@@ -231,7 +231,7 @@ Typeface style
 Samples
 ======
 
-Check out [Android Views](/sample-views) and [Jetpack Compose](/sample-compose) samples.
+Check out [Android Views](/samples/views) and [Jetpack Compose](/samples/compose) samples.
 
 License
 =======
