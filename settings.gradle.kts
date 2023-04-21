@@ -16,16 +16,19 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven("https://jitpack.io")
     }
 }
 rootProject.name = "StringAnnotations"
-include(
-    ":string-annotations:common:service",
-    ":string-annotations:common:shared",
-    ":string-annotations:common:internal",
-    ":string-annotations:views",
-    ":string-annotations:compose",
-    ":samples:views",
-    ":samples:compose"
-)
+
+// Sub-modules
+include(":string-annotations:common:service")
+include(":string-annotations:common:shared")
+include(":string-annotations:common:internal")
+
+// Artifacts
+include(":string-annotations:views")
+include(":string-annotations:compose")
+
+// Samples
+include(":samples:views")
+include(":samples:compose")

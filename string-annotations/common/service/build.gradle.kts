@@ -1,7 +1,13 @@
 plugins {
-    id("android-library-conventions")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = Project.SUPPORT_SERVICE_NAMESPACE
+    compileSdk = 33
+    namespace = "io.github.mmolosays.stringannotations.service"
+
+    kotlinOptions {
+        freeCompilerArgs += "-Xexplicit-api=strict"
+    }
 }

@@ -1,9 +1,15 @@
 plugins {
-    id("android-library-conventions")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = Project.ARTIFACT_VIEWS_NAMESPACE
+    compileSdk = 33
+    namespace = "io.github.mmolosays.stringannotations.views"
+
+    kotlinOptions {
+        freeCompilerArgs += "-Xexplicit-api=strict"
+    }
 }
 
 dependencies {
