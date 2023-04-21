@@ -17,21 +17,21 @@ package io.github.mmolosays.stringannotations.processor.confaltor
  */
 
 /**
- * Implementation of [ValuesConfaltor] with separated picking and reducing logic.
+ * Implementation of [ValuesReducer] with separated picking and reducing logic.
  *
  * Utilizes [pickingStrategy] to pick desired values and
  * [reducingStrategy] to conflate them into final result.
  */
-public class StrategyConflator<V>(
+public class StrategyReducer<V>(
     private val pickingStrategy: PickingStrategy<V>,
     private val reducingStrategy: ReducingStrategy<V>,
-) : ValuesConfaltor<V> {
+) : ValuesReducer<V> {
 
     /**
      * Picks desired values, using [pickingStrategy] and then reduces them
      * to one final result, using [reducingStrategy].
      */
-    override fun conflate(values: Sequence<V>): V? =
+    override fun reduce(values: List<V>): V? =
         values
             .let { pickingStrategy.on(it) }
             .let { reducingStrategy.on(it) }
@@ -41,8 +41,8 @@ public class StrategyConflator<V>(
         /**
          * Picks and uses very first value.
          */
-        public fun <V> First(): StrategyConflator<V> =
-            StrategyConflator(
+        public fun <V> First(): StrategyReducer<V> =
+            StrategyReducer(
                 pickingStrategy = PickingStrategy.First(),
                 reducingStrategy = ReducingStrategy.Single(),
             )
@@ -50,8 +50,8 @@ public class StrategyConflator<V>(
         /**
          * Picks all values and reduces them with specified [reducer].
          */
-        public fun <V> All(reducer: (values: Collection<V>) -> V?): StrategyConflator<V> =
-            StrategyConflator(
+        public fun <V> All(reducer: (values: List<V>) -> V?): StrategyReducer<V> =
+            StrategyReducer(
                 pickingStrategy = PickingStrategy.All(),
                 reducingStrategy = ReducingStrategy.Multiple(reducer),
             )
@@ -65,7 +65,7 @@ public class StrategyConflator<V>(
         /**
          * Applies this strategy on [values], returning collection of selected ones.
          */
-        public fun on(values: Sequence<V>): Collection<V>
+        public fun on(values: List<V>): List<V>
 
         public companion object {
 
@@ -84,14 +84,6 @@ public class StrategyConflator<V>(
                 PickingStrategy { values ->
                     values.toList()
                 }
-
-            /**
-             * Picks values, matching specified [predicate].
-             */
-            public fun <V> Selectively(predicate: (value: V) -> Boolean): PickingStrategy<V> =
-                PickingStrategy { values ->
-                    values.filter(predicate).toList()
-                }
         }
     }
 
@@ -103,7 +95,7 @@ public class StrategyConflator<V>(
         /**
          * Applies this strategy on [values], returning result of reducing.
          */
-        public fun on(values: Collection<V>): V?
+        public fun on(values: List<V>): V?
 
         public companion object {
 
@@ -118,7 +110,7 @@ public class StrategyConflator<V>(
             /**
              * Picks all values and reduces them with specified [reducer].
              */
-            public fun <V> Multiple(reducer: (values: Collection<V>) -> V?): ReducingStrategy<V> =
+            public fun <V> Multiple(reducer: (values: List<V>) -> V?): ReducingStrategy<V> =
                 ReducingStrategy(reducer)
         }
     }

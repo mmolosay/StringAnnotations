@@ -21,7 +21,7 @@ import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
+import io.github.mmolosays.stringannotations.processor.confaltor.ValuesReducer
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
 import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
 import io.github.mmolosays.stringannotations.processor.token.Tokenizer
@@ -55,14 +55,14 @@ import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
  */
 public fun <V> ComposeAnnotationProcessor(
     tokenizer: Tokenizer,
-    conflator: ValuesConfaltor<V>,
+    reducer: ValuesReducer<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: ComposeArguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ComposeSpan?,
 ): ComposeAnnotationProcessor =
     AnnotationProcessor(
         tokenizer = tokenizer,
-        conflator = conflator,
+        reducer = reducer,
         parser = parser,
         values = values,
         factory = factory,

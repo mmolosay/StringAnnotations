@@ -21,7 +21,7 @@ package io.github.mmolosays.stringannotations.processor.token
  */
 public fun interface Tokenizer {
 
-    public fun tokenize(value: String): Sequence<Token>
+    public fun tokenize(value: String): List<Token>
 
     public companion object {
 
@@ -30,7 +30,7 @@ public fun interface Tokenizer {
          */
         public fun Solid(): TokenizerBuilder =
             TokenizerBuilder { value ->
-                sequenceOf(Token(value))
+                listOf(Token(value))
             }
 
         /**
@@ -41,7 +41,6 @@ public fun interface Tokenizer {
                 value
                     .split(delimiter)
                     .map { Token(it) }
-                    .asSequence()
             }
     }
 }

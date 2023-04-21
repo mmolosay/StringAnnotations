@@ -17,9 +17,8 @@ package io.github.mmolosays.stringannotations.processor.confaltor
  */
 
 /**
- * Combines set of values of type [V] into single result of the same type.
+ * Defines an algorith of how to select (or combine) single value of type [V] from a list.
  */
-// TODO: reducer
-public interface ValuesConfaltor<V> {
-    public fun conflate(values: Sequence<V>): V?
+public interface ValuesReducer<V> {
+    public fun reduce(values: List<V>): V?
 }

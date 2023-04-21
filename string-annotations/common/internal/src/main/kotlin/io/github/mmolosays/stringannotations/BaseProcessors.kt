@@ -7,8 +7,8 @@ import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
 import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.confaltor.StrategyConflator
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
+import io.github.mmolosays.stringannotations.processor.confaltor.StrategyReducer
+import io.github.mmolosays.stringannotations.processor.confaltor.ValuesReducer
 import io.github.mmolosays.stringannotations.processor.token.Token
 import io.github.mmolosays.stringannotations.processor.token.Tokenizer
 
@@ -45,7 +45,7 @@ public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcesso
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
-        conflator = StrategyConflator.First(),
+        reducer = StrategyReducer.First(),
         values = { clickables },
         factory = factory,
     )
@@ -58,7 +58,7 @@ public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.First(),
+        reducer = StrategyReducer.First(),
         values = { colors },
         factory = factory,
     )
@@ -72,7 +72,7 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
     object : AbstractAnnotationProcessor<TextDecoration, A, S>() {
 
         override val tokenizer: Tokenizer = Tokenizer.Solid()
-        override val conflator: ValuesConfaltor<TextDecoration> = StrategyConflator.First()
+        override val reducer: ValuesReducer<TextDecoration> = StrategyReducer.First()
 
         override fun parseValue(token: Token, arguments: A?): TextDecoration? =
             when (token) {
@@ -98,7 +98,7 @@ public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.First(),
+        reducer = StrategyReducer.First(),
         values = { sizes },
         factory = factory,
     )
@@ -111,7 +111,7 @@ public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
-        conflator = StrategyConflator.First(),
+        reducer = StrategyReducer.First(),
         values = { styles },
         factory = factory,
     )

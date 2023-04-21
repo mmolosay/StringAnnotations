@@ -3,7 +3,7 @@ package io.github.mmolosays.stringannotations.processor
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
+import io.github.mmolosays.stringannotations.processor.confaltor.ValuesReducer
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
 import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
 import io.github.mmolosays.stringannotations.processor.token.Token
@@ -36,7 +36,7 @@ import io.github.mmolosays.stringannotations.processor.token.Tokenizer
 public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor<A, S> {
 
     protected abstract val tokenizer: Tokenizer
-    protected abstract val conflator: ValuesConfaltor<V>
+    protected abstract val reducer: ValuesReducer<V>
 
     protected open val parser: ValuesParser = DefaultValuesParser
 
@@ -47,7 +47,7 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
         try {
             val tokens = tokenizer.tokenize(annotation.value)
             val values = tokens.mapNotNull { token -> parseValue(token, arguments) }
-            val value = requireNotNull(conflator.conflate(values))
+            val value = requireNotNull(reducer.reduce(values))
             requireNotNull(makeSpan(value))
         } catch (e: Exception) {
             Logger.logUnableToParse(annotation)
