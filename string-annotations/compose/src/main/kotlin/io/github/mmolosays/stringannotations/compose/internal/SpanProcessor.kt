@@ -20,7 +20,7 @@ internal object SpanProcessor {
     fun applySpans(
         text: CharSequence,
         spans: List<ComposeSpan?>,
-        ranges: List<IntRange>
+        ranges: List<IntRange>,
     ): AnnotatedString {
         val builder = AnnotatedString.Builder(text.toString())
         for (i in spans.indices) {
@@ -37,7 +37,7 @@ internal object SpanProcessor {
     private fun applySpan(
         builder: AnnotatedString.Builder,
         span: ComposeSpan,
-        range: IntRange
+        range: IntRange,
     ) {
         val (style, paragraph, clickable) = span
         when {
@@ -50,7 +50,7 @@ internal object SpanProcessor {
     private fun applySpan(
         builder: AnnotatedString.Builder,
         span: SpanStyle,
-        range: IntRange
+        range: IntRange,
     ) {
         builder.addStyle(span, range.first, range.last)
     }
@@ -58,7 +58,7 @@ internal object SpanProcessor {
     private fun applySpan(
         builder: AnnotatedString.Builder,
         span: ParagraphStyle,
-        range: IntRange
+        range: IntRange,
     ) {
         builder.addStyle(span, range.first, range.last)
     }
@@ -66,7 +66,7 @@ internal object SpanProcessor {
     private fun applySpan(
         builder: AnnotatedString.Builder,
         span: Clickable,
-        range: IntRange
+        range: IntRange,
     ) {
         builder.addStringAnnotation(
             tag = ClickableTag,

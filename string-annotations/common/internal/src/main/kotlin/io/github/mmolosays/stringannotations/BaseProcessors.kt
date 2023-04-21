@@ -41,26 +41,26 @@ private typealias AnyArguments = Arguments<*>
  * `AnnotationProcessor` for `clickable` annotation type.
  */
 public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcessor(
-    factory: (value: C) -> S?
+    factory: (value: C) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Solid(),
         conflator = StrategyConflator.First(),
         values = { clickables },
-        factory = factory
+        factory = factory,
     )
 
 /**
  * `AnnotationProcessor` for any color annotation type.
  */
 public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
-    factory: (value: Int) -> S?
+    factory: (value: Int) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
         values = { colors },
-        factory = factory
+        factory = factory,
     )
 
 /**
@@ -94,26 +94,26 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
  * implementation.
  */
 public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
-    factory: (value: TextSize) -> S?
+    factory: (value: TextSize) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
         values = { sizes },
-        factory = factory
+        factory = factory,
     )
 
 /**
  * `AnnotationProcessor` for `style` annotation type.
  */
 public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
-    factory: (value: Int) -> S?
+    factory: (value: Int) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
         tokenizer = Tokenizer.Split().distinct(),
         conflator = StrategyConflator.First(),
         values = { styles },
-        factory = factory
+        factory = factory,
     )
 
 private object Tokens {

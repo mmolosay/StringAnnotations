@@ -26,7 +26,7 @@ internal data class StringAnnotation(
     val annotation: Annotation,
     val start: Int,
     val end: Int,
-    val index: Int
+    val index: Int,
 )
 
 /**

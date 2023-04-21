@@ -29,7 +29,7 @@ internal object AnnotationTreeBuilder {
      */
     fun buildAnnotationTree(
         string: Spanned,
-        annotations: Array<out Annotation>
+        annotations: Array<out Annotation>,
     ): AnnotationNode {
         val roots = buildAnnotationTreeRoots(string, annotations)
         return AnnotationNode(annotation = null, children = roots)
@@ -40,7 +40,7 @@ internal object AnnotationTreeBuilder {
      */
     private fun buildAnnotationTreeRoots(
         string: Spanned,
-        annotations: Array<out Annotation>
+        annotations: Array<out Annotation>,
     ): List<AnnotationNode> {
         val parsed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
         val roots = findRootAnnotations(parsed)
@@ -56,7 +56,7 @@ internal object AnnotationTreeBuilder {
      * @see groupByRoots
      */
     private fun buildAnnotationTreeRoot(
-        rootGroup: List<StringAnnotation>
+        rootGroup: List<StringAnnotation>,
     ): AnnotationNode {
         val root = rootGroup.first()
         return parseAnnotationNode(root, rootGroup)
@@ -64,7 +64,7 @@ internal object AnnotationTreeBuilder {
 
     private fun parseAnnotationNode(
         annotation: StringAnnotation,
-        group: List<StringAnnotation>
+        group: List<StringAnnotation>,
     ): AnnotationNode {
         val children = findDirectChildren(annotation, group).map { child ->
             parseAnnotationNode(child, group)
@@ -82,7 +82,7 @@ internal object AnnotationTreeBuilder {
      * Repeat.
      */
     private fun findRootAnnotations(
-        annotations: List<StringAnnotation>
+        annotations: List<StringAnnotation>,
     ): List<StringAnnotation> =
         mutableListOf<StringAnnotation>().apply {
             if (annotations.isEmpty()) return this
@@ -97,7 +97,7 @@ internal object AnnotationTreeBuilder {
 
     private fun findDirectChildren(
         parent: StringAnnotation,
-        group: List<StringAnnotation>
+        group: List<StringAnnotation>,
     ): List<StringAnnotation> {
         require(group.contains(parent)) { "this parent is not in annotations list" }
         val children = mutableListOf<StringAnnotation>()
@@ -114,7 +114,7 @@ internal object AnnotationTreeBuilder {
     private fun isAnnotationDirectChild(
         annotation: StringAnnotation,
         maybeParent: StringAnnotation,
-        annotations: List<StringAnnotation>
+        annotations: List<StringAnnotation>,
     ): Boolean {
         val parent = findAnnotationDirectParent(annotation, annotations)
         return (maybeParent === parent)
@@ -122,7 +122,7 @@ internal object AnnotationTreeBuilder {
 
     private fun findAnnotationDirectParent(
         annotation: StringAnnotation,
-        annotations: List<StringAnnotation>
+        annotations: List<StringAnnotation>,
     ): StringAnnotation? {
         val index = annotation.index
         if (index == 0) return null // first annotation is always root, thus no parent
@@ -142,9 +142,9 @@ internal object AnnotationTreeBuilder {
      * Sample:
      * ```
      * Tree of annotations:
-     *   __            <- second children
-     *  ___ _   __ __  <- first children
-     * _______ ______  <- root annotations
+     *   __            <- level-2 children
+     *  ___ _   __ __  <- level-1 children
+     * _______ ______  <- root (level-0) annotations
      *
      * After split:
      * [
@@ -155,7 +155,7 @@ internal object AnnotationTreeBuilder {
      */
     private fun groupByRoots(
         roots: List<StringAnnotation>,
-        annotations: List<StringAnnotation>
+        annotations: List<StringAnnotation>,
     ): List<List<StringAnnotation>> {
         if (roots.size == 1) return listOf(annotations)
         val groups = mutableListOf<List<StringAnnotation>>()

@@ -36,7 +36,7 @@ internal object AnnotationNodeProcessor {
      */
     fun findNodeNonAnnotationRanges(
         node: AnnotationNode,
-        string: Spanned
+        string: Spanned,
     ): List<IntRange> {
         val ranges = findAllNodeRanges(node, string)
         val nonAnnotationRanges = ranges.filterIndexed { index, _ ->
@@ -56,7 +56,7 @@ internal object AnnotationNodeProcessor {
      */
     private fun findAllNodeRanges(
         node: AnnotationNode,
-        string: Spanned
+        string: Spanned,
     ): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
         val nodeRange = AnnotationSpanProcessor.parseAnnotationRange(string, node.annotation)
@@ -90,7 +90,7 @@ internal object AnnotationNodeProcessor {
      * Filters out ranges of zero length (`start == end`).
      */
     private fun reduceZeroLengthRanges(
-        ranges: List<IntRange>
+        ranges: List<IntRange>,
     ): List<IntRange> =
         ranges.filter { range ->
             range.last - range.first != 0

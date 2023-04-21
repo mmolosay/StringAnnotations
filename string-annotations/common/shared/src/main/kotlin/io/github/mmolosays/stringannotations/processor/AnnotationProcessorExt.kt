@@ -39,7 +39,7 @@ public fun <V, A, S> AnnotationProcessor(
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: A.() -> QualifiedList<V>?,
-    factory: (value: V) -> S?
+    factory: (value: V) -> S?,
 ): AnnotationProcessor<A, S> =
     object : AbstractAnnotationProcessor<V, A, S>() {
 

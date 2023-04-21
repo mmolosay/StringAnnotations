@@ -31,7 +31,7 @@ internal object SpanProcessor {
     fun applySpans(
         spannable: Spannable,
         ranges: List<IntRange>,
-        spans: List<ViewsSpan?>
+        spans: List<ViewsSpan?>,
     ) {
         for (i in spans.indices) {
             // null element doesn't definitely mean the end of list, could be just skipped element
@@ -47,7 +47,7 @@ internal object SpanProcessor {
     private fun applySpan(
         spannable: Spannable,
         span: ViewsSpan,
-        range: IntRange
+        range: IntRange,
     ) {
         spannable.setSpan(span, range.first, range.last, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
     }

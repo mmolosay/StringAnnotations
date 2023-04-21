@@ -15,9 +15,11 @@ import io.github.mmolosays.stringannotations.BaseColorAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
+import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
+import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
@@ -55,15 +57,15 @@ public fun <V> ComposeAnnotationProcessor(
     tokenizer: Tokenizer,
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
-    values: ComposeArguments.() -> io.github.mmolosays.stringannotations.args.qualified.QualifiedList<V>?,
-    factory: (value: V) -> ComposeSpan?
+    values: ComposeArguments.() -> QualifiedList<V>?,
+    factory: (value: V) -> ComposeSpan?,
 ): ComposeAnnotationProcessor =
     AnnotationProcessor(
         tokenizer = tokenizer,
         conflator = conflator,
         parser = parser,
         values = values,
-        factory = factory
+        factory = factory,
     )
 
 /**
@@ -71,7 +73,7 @@ public fun <V> ComposeAnnotationProcessor(
  */
 internal fun ClickableAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseClickableAnnotationProcessor {
-        ComposeSpan.Companion.of(it)
+        ComposeSpan.of(it)
     }
 
 /**
@@ -97,11 +99,11 @@ internal fun DecorationAnnotationProcessor(): ComposeAnnotationProcessor =
     BaseDecorationAnnotationProcessor {
         when (it) {
             TextDecoration.Underline -> SpanStyle(
-                textDecoration = ComposeTextDecoration.Underline
+                textDecoration = ComposeTextDecoration.Underline,
             )
 
             TextDecoration.Striketrhough -> SpanStyle(
-                textDecoration = ComposeTextDecoration.LineThrough
+                textDecoration = ComposeTextDecoration.LineThrough,
             )
 
             else -> null
@@ -129,7 +131,7 @@ internal fun StyleAnnotationProcessor(): ComposeAnnotationProcessor =
             Typeface.BOLD_ITALIC ->
                 SpanStyle(
                     fontWeight = FontWeight.Bold,
-                    fontStyle = FontStyle.Italic
+                    fontStyle = FontStyle.Italic,
                 )
 
             else -> null

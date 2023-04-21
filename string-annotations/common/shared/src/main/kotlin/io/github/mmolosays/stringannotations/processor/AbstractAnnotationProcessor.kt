@@ -2,6 +2,7 @@ package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.Logger
+import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
 import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
@@ -41,7 +42,7 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
 
     override fun parseAnnotation(
         annotation: Annotation,
-        arguments: A?
+        arguments: A?,
     ): S? =
         try {
             val tokens = tokenizer.tokenize(annotation.value)
@@ -64,7 +65,7 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
      *
      * In order to use custom arguments, one should perform type check.
      */
-    protected abstract fun A.getValues(): io.github.mmolosays.stringannotations.args.qualified.QualifiedList<V>?
+    protected abstract fun A.getValues(): QualifiedList<V>?
 
     /**
      * Creates new span of type [S], corresponding to type of this annotation processor.

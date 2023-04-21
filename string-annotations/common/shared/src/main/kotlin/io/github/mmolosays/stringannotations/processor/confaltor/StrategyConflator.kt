@@ -24,7 +24,7 @@ package io.github.mmolosays.stringannotations.processor.confaltor
  */
 public class StrategyConflator<V>(
     private val pickingStrategy: PickingStrategy<V>,
-    private val reducingStrategy: ReducingStrategy<V>
+    private val reducingStrategy: ReducingStrategy<V>,
 ) : ValuesConfaltor<V> {
 
     /**
@@ -44,7 +44,7 @@ public class StrategyConflator<V>(
         public fun <V> First(): StrategyConflator<V> =
             StrategyConflator(
                 pickingStrategy = PickingStrategy.First(),
-                reducingStrategy = ReducingStrategy.Single()
+                reducingStrategy = ReducingStrategy.Single(),
             )
 
         /**
@@ -53,7 +53,7 @@ public class StrategyConflator<V>(
         public fun <V> All(reducer: (values: Collection<V>) -> V?): StrategyConflator<V> =
             StrategyConflator(
                 pickingStrategy = PickingStrategy.All(),
-                reducingStrategy = ReducingStrategy.Multiple(reducer)
+                reducingStrategy = ReducingStrategy.Multiple(reducer),
             )
     }
 

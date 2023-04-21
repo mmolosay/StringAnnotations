@@ -35,7 +35,7 @@ public object AnnotatedStringFormatter {
     public fun format(
         string: SpannedString,
         annotations: Array<out Annotation>,
-        vararg formatArgs: Any
+        vararg formatArgs: Any,
     ): Spannable {
         // 0. prepare dependencies
         val builder = SpannableStringBuilder(string)
@@ -80,7 +80,7 @@ public object AnnotatedStringFormatter {
     private fun format(
         builder: SpannableStringBuilder,
         node: AnnotationNode,
-        formatArgs: Array<out String>
+        formatArgs: Array<out String>,
     ) {
         node.children.forEach { child ->
             format(builder, child, formatArgs)
@@ -100,7 +100,7 @@ public object AnnotatedStringFormatter {
      * (see [java.lang.String.valueOf]).
      */
     private fun stringifyFormatArgs(
-        formatArgs: Array<out Any>
+        formatArgs: Array<out Any>,
     ): Array<out String> =
         Array<String>(formatArgs.size) { i ->
             java.lang.String.valueOf(formatArgs[i])

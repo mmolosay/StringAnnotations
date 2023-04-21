@@ -32,11 +32,9 @@ import android.text.Annotation
  *
  * Annotation, that specifies background color of its body.
  *
- * __Annotation attribute: `background`__
+ * Annotation attribute: `background`
  *
- * __Arguments qualifier: `color`__
- *
- * __Inline values: —__
+ * Arguments qualifier: `color`
  *
  * ```
  * <annotation background="$arg$color$0">text with background</annotation>
@@ -46,11 +44,9 @@ import android.text.Annotation
  *
  * Annotation, that specifies color of its body.
  *
- * __Annotation attribute: `color`__
+ * Annotation attribute: `color`
  *
- * __Arguments qualifier: `color`__
- *
- * __Inline values: —__
+ * Arguments qualifier: `color`
  *
  * ```
  * <annotation color="$arg$color$0">colored text</annotation>
@@ -63,11 +59,9 @@ import android.text.Annotation
  * You should also explicitly specify, that your `TextView` contains clickable text
  * by calling [android.widget.TextView.setMovementMethod].
  *
- * __Annotation attribute: `clickable`__
+ * Annotation attribute: `clickable`
  *
- * __Arguments qualifier: `clickable`__
- *
- * __Inline values: —__
+ * Arguments qualifier: `clickable`
  *
  * ```
  * <annotation clickable="$arg$clickable$0">clickable text</annotation>
@@ -77,15 +71,11 @@ import android.text.Annotation
  *
  * Annotation, that decorates its body.
  *
- * __Annotation attribute: `decoration`__
+ * Annotation attribute: `decoration`
  *
- * __Arguments qualifier: `decoration`__
- *
- * __Inline values: `underline`, `strikethrough`__
+ * Arguments qualifier: `decoration`
  *
  * ```
- * <annotation decoration="underline">underlined text</annotation>
- * <annotation decoration="strikethrough">crossed out text</annotation>
  * <annotation decoration="$arg$decoration$0">decorated text</annotation>
  * ```
  *
@@ -93,11 +83,9 @@ import android.text.Annotation
  *
  * Annotation, that specifies absolute size of its body (in pixels).
  *
- * __Annotation attribute: `size`__
+ * Annotation attribute: `size`
  *
- * __Arguments qualifier: `size`__
- *
- * __Inline values: —__
+ * Arguments qualifier: `size`
  *
  * ```
  * <annotation size="$arg$size$0">text of absolute size</annotation>
@@ -107,13 +95,9 @@ import android.text.Annotation
  *
  * Annotation, that specifies typeface style of its body.
  *
- * __Annotation attribute: `style`__
+ * Annotation attribute: `style`
  *
- * __Arguments qualifier: `style`__
- *
- * __Inline values: —__
- *
- * Value of attribute may be combination of "normal", 'bold" and "italic" styles.
+ * Arguments qualifier: `style`
  *
  * ```
  * <annotation style="$arg$style$0">text with typeface style</annotaiton>

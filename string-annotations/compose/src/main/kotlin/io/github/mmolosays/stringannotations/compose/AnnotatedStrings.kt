@@ -39,7 +39,7 @@ public object AnnotatedStrings {
     public fun process(
         string: SpannedString,
         arguments: ComposeArguments? = null,
-        vararg formatArgs: Any
+        vararg formatArgs: Any,
     ): AnnotatedString {
         // 0. prepare dependencies
         val processor = StringAnnotations.dependencies.processor

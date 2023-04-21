@@ -54,14 +54,14 @@ public fun <V> ViewsAnnotationProcessor(
     conflator: ValuesConfaltor<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: ViewsArguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> ViewsSpan?
+    factory: (value: V) -> ViewsSpan?,
 ): ViewsAnnotationProcessor =
     AnnotationProcessor(
         tokenizer = tokenizer,
         conflator = conflator,
         parser = parser,
         values = values,
-        factory = factory
+        factory = factory,
     )
 
 /**

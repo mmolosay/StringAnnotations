@@ -19,6 +19,7 @@ package io.github.mmolosays.stringannotations.processor.confaltor
 /**
  * Combines set of values of type [V] into single result of the same type.
  */
+// TODO: reducer
 public interface ValuesConfaltor<V> {
     public fun conflate(values: Sequence<V>): V?
 }
