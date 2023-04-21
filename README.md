@@ -161,7 +161,6 @@ Background color
 
 - Annotation attribute: `background`
 - Arguments qualifier: `color`
-- Inline values: *none*
 
 `<annotation background="$arg$color$0">text with background color</annotation>`
 
@@ -173,7 +172,6 @@ Foreground color
 
 - Annotation attribute: `color`
 - Arguments qualifier: `color`
-- Inline values: *none*
 
 `<annotation color="$arg$color$0">colored text</annotation>`
 
@@ -185,7 +183,6 @@ Clickable
 
 - Annotation attribute: `clickable`
 - Arguments qualifier: `clickable`
-- Inline values: *none*
 
 `<annotation clickable="$arg$clickable$0">clcik me</annotation>`
 
@@ -198,10 +195,7 @@ Decoration
 
 - Annotation attribute: `decoration`
 - Arguments qualifier: `decoration`
-- Inline values: `underline`, `strikethrough`
 
-* `<annotation decoration="underline">underlined text</annotation>`
-* `<annotation decoration="strikethrough">crossed out text</annotation>`
 * `<annotation decoration="$arg$decoration$0">decorated text</annotation>`
  
 Absolute size
@@ -212,7 +206,6 @@ Absolute size
 
 - Annotation attribute: `size`
 - Arguments qualifier: `size`
-- Inline values: *none*
 
 `<annotation size="$arg$size$0">text of some size</annotation>`
 
@@ -224,7 +217,6 @@ Typeface style
 
 - Annotation attribute: `style`
 - Arguments qualifier: `style`
-- Inline values: *none*
 
 `<annotation style="$arg$style$0">styled text</annotation>`
 
