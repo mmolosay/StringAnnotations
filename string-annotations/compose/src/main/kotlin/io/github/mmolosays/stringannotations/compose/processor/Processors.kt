@@ -21,8 +21,8 @@ import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
-import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
 
 /*
@@ -52,7 +52,7 @@ import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V> ComposeAnnotationProcessor(
-    parser: ValuesParser = DefaultValuesParser,
+    parser: ValueParser = DefaultValueParser,
     values: ComposeArguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ComposeSpan?,
 ): ComposeAnnotationProcessor =

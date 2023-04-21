@@ -3,9 +3,8 @@ package io.github.mmolosays.stringannotations.processor
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
-import io.github.mmolosays.stringannotations.processor.parser.Token
-import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -33,15 +32,14 @@ import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
  */
 public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor<A, S> {
 
-    protected open val parser: ValuesParser = DefaultValuesParser
+    protected open val parser: ValueParser = DefaultValueParser
 
     override fun parseAnnotation(
         annotation: Annotation,
         arguments: A?,
     ): S? =
         try {
-            val token = Token(annotation.value)
-            val value = parseValue(token, arguments)
+            val value = parseValue(annotation.value, arguments)
             if (value != null) makeSpan(value) else null
         } catch (e: Exception) {
             Logger.logUnableToParse(annotation)
@@ -49,17 +47,17 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
         }
 
     /**
-     * Specifies the way of parsing [token] into some value of type [V].
+     * Specifies the way of parsing [placeholder] into some value of type [V].
      */
-    protected open fun parseValue(token: Token, arguments: A?): V? =
-        arguments?.getValues()?.let { parser.parse(token, it) }
+    protected open fun parseValue(placeholder: String, arguments: A?): V? =
+        arguments?.values?.let { parser.parse(placeholder, it) }
 
     /**
      * Obtains list of values, appropiate for type of this annotation processor.
      *
      * In order to use custom arguments, one should perform type check.
      */
-    protected abstract fun A.getValues(): QualifiedList<V>?
+    protected abstract val A.values: QualifiedList<V>?
 
     /**
      * Creates new span of type [S], corresponding to type of this annotation processor.

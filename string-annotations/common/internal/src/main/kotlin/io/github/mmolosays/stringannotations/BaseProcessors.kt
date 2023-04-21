@@ -1,13 +1,10 @@
 package io.github.mmolosays.stringannotations
 
 import io.github.mmolosays.stringannotations.args.Arguments
-import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.args.types.ClickOwner
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
-import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.Token
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -62,21 +59,10 @@ public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
 public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
     factory: (value: TextDecoration) -> S?,
 ): AnnotationProcessor<A, S> =
-    object : AbstractAnnotationProcessor<TextDecoration, A, S>() {
-
-        override fun parseValue(token: Token, arguments: A?): TextDecoration? =
-            when (token) {
-                Tokens.underline -> TextDecoration.Underline
-                Tokens.strikethrough -> TextDecoration.Striketrhough
-                else -> super.parseValue(token, arguments)
-            }
-
-        override fun A.getValues(): QualifiedList<TextDecoration> =
-            decorations
-
-        override fun makeSpan(value: TextDecoration): S? =
-            factory(value)
-    }
+    AnnotationProcessor(
+        values = { decorations },
+        factory = factory,
+    )
 
 /**
  * `AnnotationProcessor` for `size` annotation type.
@@ -101,8 +87,3 @@ public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
         values = { styles },
         factory = factory,
     )
-
-private object Tokens {
-    val underline = Token("underline")
-    val strikethrough = Token("strikethrough")
-}

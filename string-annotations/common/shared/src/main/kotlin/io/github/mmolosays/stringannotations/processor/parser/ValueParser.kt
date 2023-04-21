@@ -22,10 +22,10 @@ import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
  * Specifies way of parsing placeholder into some actual value,
  * that will be used for span creation.
  */
-public interface ValuesParser {
+public interface ValueParser {
 
     /**
-     * Tries to parse [token] as argument placeholder and obtain its actual value from [values].
+     * Tries to parse [placeholder] as argument placeholder and obtain its actual value from [values].
      */
-    public fun <V> parse(token: Token, values: QualifiedList<V>): V?
+    public fun <V> parse(placeholder: String, values: QualifiedList<V>): V?
 }
