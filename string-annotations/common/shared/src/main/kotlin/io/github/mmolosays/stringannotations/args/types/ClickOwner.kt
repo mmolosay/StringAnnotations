@@ -21,9 +21,7 @@ package io.github.mmolosays.stringannotations.args.types
  */
 public interface ClickOwner {
 
-    public val action: ClickAction
+    public val onClick: ClickAction
 
-    public fun interface ClickAction {
-        public fun click()
-    }
+    public fun interface ClickAction : () -> Unit
 }

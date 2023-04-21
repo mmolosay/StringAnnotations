@@ -28,9 +28,8 @@ internal class CustomizableClickableSpan(
     private val clickable: Clickable,
 ) : ClickableSpan() {
 
-    override fun onClick(p0: View) {
-        clickable.action.click()
-    }
+    override fun onClick(p0: View) =
+        clickable.onClick()
 
     override fun updateDrawState(paint: TextPaint) {
         super.updateDrawState(paint)

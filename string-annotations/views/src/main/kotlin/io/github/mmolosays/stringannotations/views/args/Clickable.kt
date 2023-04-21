@@ -11,7 +11,7 @@ import io.github.mmolosays.stringannotations.args.types.ClickOwner
  */
 public data class Clickable(
     public val appearance: Appearance = Appearance(),
-    override val action: ClickOwner.ClickAction,
+    override val onClick: ClickOwner.ClickAction,
 ) : ClickOwner {
 
     /**

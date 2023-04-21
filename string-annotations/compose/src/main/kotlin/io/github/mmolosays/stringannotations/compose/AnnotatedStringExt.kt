@@ -77,7 +77,7 @@ public fun AnnotatedString.onClick(
     this.getClickableAnnotationAt(offset)?.let { annotation ->
         clickables
             .find { annotation.item == it.annotation }
-            ?.run { action.click() }
+            ?.run { onClick() }
     }
 }
 
