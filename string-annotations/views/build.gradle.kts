@@ -7,8 +7,21 @@ android {
     compileSdk = 33
     namespace = "io.github.mmolosays.stringannotations.views"
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdk = 24
+    }
+
     kotlinOptions {
         freeCompilerArgs += "-Xexplicit-api=strict"
+    }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
     }
 }
 
