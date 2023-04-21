@@ -3,11 +3,9 @@ package io.github.mmolosays.stringannotations.processor
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesReducer
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
+import io.github.mmolosays.stringannotations.processor.parser.Token
 import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
-import io.github.mmolosays.stringannotations.processor.token.Token
-import io.github.mmolosays.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -35,9 +33,6 @@ import io.github.mmolosays.stringannotations.processor.token.Tokenizer
  */
 public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor<A, S> {
 
-    protected abstract val tokenizer: Tokenizer
-    protected abstract val reducer: ValuesReducer<V>
-
     protected open val parser: ValuesParser = DefaultValuesParser
 
     override fun parseAnnotation(
@@ -45,10 +40,9 @@ public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor
         arguments: A?,
     ): S? =
         try {
-            val tokens = tokenizer.tokenize(annotation.value)
-            val values = tokens.mapNotNull { token -> parseValue(token, arguments) }
-            val value = requireNotNull(reducer.reduce(values))
-            requireNotNull(makeSpan(value))
+            val token = Token(annotation.value)
+            val value = parseValue(token, arguments)
+            if (value != null) makeSpan(value) else null
         } catch (e: Exception) {
             Logger.logUnableToParse(annotation)
             null

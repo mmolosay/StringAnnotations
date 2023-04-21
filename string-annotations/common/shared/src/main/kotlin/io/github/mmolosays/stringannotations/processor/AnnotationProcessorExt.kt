@@ -3,10 +3,8 @@
 package io.github.mmolosays.stringannotations.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesReducer
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
 import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
-import io.github.mmolosays.stringannotations.processor.token.Tokenizer
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -35,16 +33,11 @@ import io.github.mmolosays.stringannotations.processor.token.Tokenizer
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V, A, S> AnnotationProcessor(
-    tokenizer: Tokenizer,
-    reducer: ValuesReducer<V>,
     parser: ValuesParser = DefaultValuesParser,
     values: A.() -> QualifiedList<V>?,
     factory: (value: V) -> S?,
 ): AnnotationProcessor<A, S> =
     object : AbstractAnnotationProcessor<V, A, S>() {
-
-        override val tokenizer: Tokenizer = tokenizer
-        override val reducer: ValuesReducer<V> = reducer
 
         override val parser: ValuesParser = parser
 

@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations.processor.token
+package io.github.mmolosays.stringannotations.processor.parser
 
 /*
  * Copyright 2023 Mikhail Malasai
