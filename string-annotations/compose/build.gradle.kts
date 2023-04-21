@@ -1,15 +1,22 @@
 plugins {
-    id("android-library-conventions")
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = Project.ARTIFACT_COMPOSE_NAMESPACE
+    compileSdk = 33
+    namespace = "io.github.mmolosays.stringannotations.compose"
 
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.2"
+    }
+
+    kotlinOptions {
+        freeCompilerArgs += "-Xexplicit-api=strict"
     }
 }
 

@@ -1,16 +1,31 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("android-application-conventions")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = Project.SAMPLE_VIEWS_NAMESPACE
-
-    defaultConfig {
-        applicationId = Project.SAMPLE_VIEWS_ID
-    }
+    compileSdk = 33
+    namespace = "io.github.mmolosays.stringannotations.sample"
 
     buildFeatures {
         viewBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "io.github.mmolosays.stringannotations.sample.views"
+        minSdk = 23
+        targetSdk = 33
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
     }
 }
 
