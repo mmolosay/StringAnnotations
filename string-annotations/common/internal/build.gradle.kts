@@ -31,5 +31,5 @@ dependencies {
 
     // Modules
     implementation(project(":string-annotations:common:shared"))
-    implementation(project(":string-annotations:common:service"))
+    implementation(project(":string-annotations:common:utils"))
 }

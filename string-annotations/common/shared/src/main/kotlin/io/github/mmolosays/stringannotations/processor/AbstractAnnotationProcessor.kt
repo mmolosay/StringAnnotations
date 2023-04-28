@@ -1,10 +1,10 @@
 package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
-import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
+import io.github.mmolosays.stringannotations.utils.Logger
 
 /*
  * Copyright 2023 Mikhail Malasai

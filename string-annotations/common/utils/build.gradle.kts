@@ -7,7 +7,7 @@ plugins {
 
 android {
     compileSdk = 33
-    namespace = "io.github.mmolosays.stringannotations.service"
+    namespace = "io.github.mmolosays.stringannotations.utils"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

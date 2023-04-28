@@ -1,7 +1,7 @@
 package io.github.mmolosays.stringannotations.processor.parser
 
-import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
+import io.github.mmolosays.stringannotations.utils.Logger
 
 /*
  * Copyright 2023 Mikhail Malasai

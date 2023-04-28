@@ -21,9 +21,9 @@ dependencyResolutionManagement {
 rootProject.name = "StringAnnotations"
 
 // Sub-modules
-include(":string-annotations:common:service")
-include(":string-annotations:common:shared")
 include(":string-annotations:common:internal")
+include(":string-annotations:common:shared")
+include(":string-annotations:common:utils")
 
 // Artifacts
 include(":string-annotations:views")

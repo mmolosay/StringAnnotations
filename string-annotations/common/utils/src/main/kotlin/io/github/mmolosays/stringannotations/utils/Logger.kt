@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations
+package io.github.mmolosays.stringannotations.utils
 
 import android.text.Annotation
 import android.util.Log
