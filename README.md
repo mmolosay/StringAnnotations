@@ -79,25 +79,7 @@ See [string-annotations:compose README.md](/string-annotations/compose/README.md
 Installation
 =======
 
-Use [JitPack](https://www.jitpack.io) to add it as a dependency to your Kotlin project.
-Code snippet below shows way for adding it
-via [Gradle Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html):
-
-```kotlin
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io") // make sure to use jitpack repository
-}
-
-dependencies {
-    implementation("com.github.mmolosay:stringannotations:ARTIFACT:VERSION")
-}
-```
-
-Where:
- - `ARTIFACT` is an implementation for desired UI system. See [Artifacts](#artifacts) section for more details.
- - `VERSION` is the version of desired release. It can be obtained on [releases](https://github.com/mmolosay/StringAnnotations/releases) page. 
-Latest release version is stated at the top of this document in JitPack badge.
+The library has not been published yet.
 
 General configuration
 =======
