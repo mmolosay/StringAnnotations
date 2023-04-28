@@ -1,6 +1,6 @@
-package io.github.mmolosays.stringannotations.args
+package io.github.mmolosays.stringannotations.processor.parser
 
-import io.github.mmolosays.stringannotations.args.types.ClickOwner
+import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -18,12 +18,14 @@ import io.github.mmolosays.stringannotations.args.types.ClickOwner
  * limitations under the License.
  */
 
-/*
- * Utilities and extensions for `Arguments`.
- */
-
 /**
- * Returns instance of empty [Arguments].
+ * Specifies way of parsing placeholder into some actual value,
+ * that will be used for span creation.
  */
-public fun <C : ClickOwner> emptyArguments(): Arguments<C> =
-    EmptyArguments
+public interface ValueParser {
+
+    /**
+     * Tries to parse [placeholder] as argument placeholder and obtain its actual value from [values].
+     */
+    public fun <V> parse(placeholder: String, values: QualifiedList<V>): V?
+}

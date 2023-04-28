@@ -10,7 +10,7 @@ import io.github.mmolosays.stringannotations.compose.args.Clickable
 public class ComposeSpan private constructor(
     public val spanStyle: SpanStyle? = null,
     public val paragraphStyle: ParagraphStyle? = null,
-    public val clickable: Clickable? = null
+    public val clickable: Clickable? = null,
 ) {
 
     public operator fun component1(): SpanStyle? =

@@ -14,10 +14,8 @@ import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
-import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
-import io.github.mmolosays.stringannotations.processor.token.Tokenizer
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan
@@ -50,18 +48,14 @@ import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickab
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V> ViewsAnnotationProcessor(
-    tokenizer: Tokenizer,
-    conflator: ValuesConfaltor<V>,
-    parser: ValuesParser = DefaultValuesParser,
+    parser: ValueParser = DefaultValueParser,
     values: ViewsArguments.() -> QualifiedList<V>?,
-    factory: (value: V) -> ViewsSpan?
+    factory: (value: V) -> ViewsSpan?,
 ): ViewsAnnotationProcessor =
     AnnotationProcessor(
-        tokenizer = tokenizer,
-        conflator = conflator,
         parser = parser,
         values = values,
-        factory = factory
+        factory = factory,
     )
 
 /**

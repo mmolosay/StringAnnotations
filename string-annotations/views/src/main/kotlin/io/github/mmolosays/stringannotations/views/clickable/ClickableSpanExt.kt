@@ -29,10 +29,10 @@ private fun makeClickableSpanAppearance(typed: TypedArray) =
     Clickable.Appearance(
         underlineText = typed.getBoolean(
             R.styleable.ClickableTextAppearance_underlineText,
-            false
+            false,
         ),
         textColor = typed.getColor(
             R.styleable.ClickableTextAppearance_android_textColor,
-            Color.BLUE
-        )
+            Color.BLUE,
+        ),
     )

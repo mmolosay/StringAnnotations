@@ -19,12 +19,9 @@ package io.github.mmolosays.stringannotations.args.types
 /**
  * Owner of [ClickAction].
  */
-// TODO: abolish and just use ClickAction?
 public interface ClickOwner {
 
-    public val action: ClickAction
+    public val onClick: ClickAction
 
-    public fun interface ClickAction {
-        public fun click()
-    }
+    public fun interface ClickAction : () -> Unit
 }

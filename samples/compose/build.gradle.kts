@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId = "io.github.mmolosays.stringannotations.sample.compose"
-        minSdk = 23
+        minSdk = 24
         targetSdk = 33
     }
 

@@ -48,7 +48,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
 
         override fun build(): Dependencies =
             Dependencies(
-                processor = processor ?: MasterAnnotationProcessor()
+                processor = processor ?: MasterAnnotationProcessor(),
             )
     }
 }

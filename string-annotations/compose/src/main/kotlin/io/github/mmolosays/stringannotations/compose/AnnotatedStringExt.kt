@@ -43,12 +43,12 @@ import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
 public fun annotatedStringResource(
     @StringRes id: Int,
     arguments: ComposeArguments,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): AnnotatedString =
     AnnotatedStrings.process(
         string = spannedStringResource(id),
         arguments = arguments,
-        formatArgs = formatArgs
+        formatArgs = formatArgs,
     )
 
 /**
@@ -58,23 +58,26 @@ public fun annotatedStringResource(
 @ReadOnlyComposable
 public fun annotatedStringResource(
     @StringRes id: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): AnnotatedString =
     AnnotatedStrings.process(
         string = spannedStringResource(id),
         arguments = null,
-        formatArgs = formatArgs
+        formatArgs = formatArgs,
     )
 
 /**
  * Invoke click action of [Clickable] from [clickables] list,
  * that corresponds to [getClickableAnnotationAt] [offset].
  */
-public fun AnnotatedString.onClick(offset: Int, clickables: List<Clickable>) {
+public fun AnnotatedString.onClick(
+    offset: Int,
+    clickables: List<Clickable>,
+) {
     this.getClickableAnnotationAt(offset)?.let { annotation ->
         clickables
             .find { annotation.item == it.annotation }
-            ?.run { action.click() }
+            ?.run { onClick() }
     }
 }
 
@@ -90,7 +93,7 @@ public fun AnnotatedString.getClickableAnnotationAt(offset: Int): AnnotatedStrin
     this.getStringAnnotations(
         tag = SpanProcessor.ClickableTag,
         start = offset,
-        end = offset
+        end = offset,
     ).firstOrNull()
 
 /**

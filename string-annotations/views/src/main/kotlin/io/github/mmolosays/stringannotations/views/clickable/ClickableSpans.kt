@@ -38,7 +38,7 @@ public fun Clickable(
     val appearance = builder(themeAppearance)
     return Clickable(
         appearance = appearance,
-        action = action
+        onClick = action,
     )
 }
 
@@ -54,7 +54,7 @@ public fun Clickable(
     val appearance = builder(themeAppearance)
     return Clickable(
         appearance = appearance,
-        action = action
+        onClick = action,
     )
 }
 
@@ -69,5 +69,5 @@ public fun Clickable(
 ): Clickable =
     Clickable(
         appearance = appearance,
-        action = action
+        onClick = action,
     )

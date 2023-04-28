@@ -29,7 +29,7 @@ public object AnnotationSpanProcessor {
      */
     internal fun parseStringAnnotations(
         spanned: Spanned,
-        annotations: Array<out Annotation>
+        annotations: Array<out Annotation>,
     ): List<StringAnnotation> =
         annotations.mapIndexed { index, annotation ->
             val range = parseAnnotationRange(spanned, annotation)
@@ -46,7 +46,7 @@ public object AnnotationSpanProcessor {
      */
     internal fun parseAnnotationRange(
         spanned: Spanned,
-        annotation: Annotation?
+        annotation: Annotation?,
     ): IntRange {
         annotation ?: return 0..spanned.length
         val start = spanned.getSpanStart(annotation)
@@ -59,7 +59,7 @@ public object AnnotationSpanProcessor {
      */
     public fun parseAnnotationRanges(
         spanned: Spanned,
-        annotations: Array<out Annotation>
+        annotations: Array<out Annotation>,
     ): List<IntRange> =
         annotations.map { parseAnnotationRange(spanned, it) }
 }

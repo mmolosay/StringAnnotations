@@ -21,5 +21,5 @@ package io.github.mmolosays.stringannotations.args.qualified
  */
 public open class QualifiedList<out E>(
     override val qualifier: String,
-    list: List<E>
+    list: List<E>,
 ) : List<E> by list, Qualified

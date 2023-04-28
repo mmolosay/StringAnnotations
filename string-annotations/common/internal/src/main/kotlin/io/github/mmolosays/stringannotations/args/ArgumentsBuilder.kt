@@ -169,35 +169,35 @@ public class ArgumentsBuilder<C : ClickOwner> :
 
     private fun <T> add(
         element: T,
-        dest: MutableCollection<T>
+        dest: MutableCollection<T>,
     ) {
         dest.add(element)
     }
 
     private fun <T> add(
         elements: Array<out T>,
-        dest: MutableCollection<T>
+        dest: MutableCollection<T>,
     ) {
         dest.addAll(elements)
     }
 
     private fun <T> add(
         elements: Collection<T>,
-        dest: MutableCollection<T>
+        dest: MutableCollection<T>,
     ) {
         dest.addAll(elements)
     }
 
     private fun <T> add(
         producer: () -> T,
-        dest: MutableCollection<T>
+        dest: MutableCollection<T>,
     ) {
         dest.add(producer())
     }
 
     private fun <T> add(
         block: ArgumentsBuilderScope.Adder<T>.() -> Unit,
-        adder: ArgumentsBuilderScope.Adder<T>
+        adder: ArgumentsBuilderScope.Adder<T>,
     ) {
         block(adder)
     }

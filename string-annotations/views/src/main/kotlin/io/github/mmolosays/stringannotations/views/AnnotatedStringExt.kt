@@ -36,12 +36,12 @@ import androidx.fragment.app.Fragment
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
     arguments: ViewsArguments,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): Spanned =
     AnnotatedStrings.process(
         string = getSpannedString(id),
         formatArgs = formatArgs,
-        arguments = arguments
+        arguments = arguments,
     )
 
 /**
@@ -49,12 +49,12 @@ public fun Context.getAnnotatedString(
  */
 public fun Context.getAnnotatedString(
     @StringRes id: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): Spanned =
     AnnotatedStrings.process(
         string = getSpannedString(id),
         arguments = null,
-        formatArgs = formatArgs
+        formatArgs = formatArgs,
     )
 
 /**
@@ -71,12 +71,12 @@ public fun Context.getAnnotatedString(
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
     arguments: ViewsArguments,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): Spanned =
     requireContext().getAnnotatedString(
         id = id,
         formatArgs = formatArgs,
-        arguments = arguments
+        arguments = arguments,
     )
 
 /**
@@ -84,14 +84,12 @@ public fun Fragment.getAnnotatedString(
  */
 public fun Fragment.getAnnotatedString(
     @StringRes id: Int,
-    vararg formatArgs: Any
+    vararg formatArgs: Any,
 ): Spanned =
     requireContext().getAnnotatedString(
         id = id,
-        formatArgs = formatArgs
+        formatArgs = formatArgs,
     )
 
-private fun Context.getSpannedString(
-    @StringRes id: Int
-): SpannedString =
+private fun Context.getSpannedString(@StringRes id: Int): SpannedString =
     this.resources.getText(id) as SpannedString

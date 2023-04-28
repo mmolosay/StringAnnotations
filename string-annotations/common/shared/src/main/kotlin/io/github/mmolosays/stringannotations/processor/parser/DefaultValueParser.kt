@@ -2,7 +2,6 @@ package io.github.mmolosays.stringannotations.processor.parser
 
 import io.github.mmolosays.stringannotations.Logger
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.token.Token
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -21,13 +20,10 @@ import io.github.mmolosays.stringannotations.processor.token.Token
  */
 
 /**
- * Default implementation of [ValuesParser].
+ * Default implementation of [ValueParser].
  * Accepts placeholders of `"$arg${QUALIFIER}${INDEX}"` format.
  */
-public object DefaultValuesParser : ValuesParser {
-
-    override fun <V> parse(token: Token, values: QualifiedList<V>): V? =
-        parse(token.string, values)
+public object DefaultValueParser : ValueParser {
 
     /**
      * Tries to parse [placeholder] into some value from [values] list.
@@ -43,7 +39,7 @@ public object DefaultValuesParser : ValuesParser {
      *
      * @return argument from [values] at placeholder's parsed index.
      */
-    private fun <V> parse(placeholder: String, values: QualifiedList<V>): V? =
+    override fun <V> parse(placeholder: String, values: QualifiedList<V>): V? =
         try {
             require(placeholder.startsWith('$'))
             val tokens = placeholder.substring(1).split("$", limit = 4)

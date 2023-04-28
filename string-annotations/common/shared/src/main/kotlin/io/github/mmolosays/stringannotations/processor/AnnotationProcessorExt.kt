@@ -3,10 +3,8 @@
 package io.github.mmolosays.stringannotations.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.confaltor.ValuesConfaltor
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValuesParser
-import io.github.mmolosays.stringannotations.processor.parser.ValuesParser
-import io.github.mmolosays.stringannotations.processor.token.Tokenizer
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -35,21 +33,16 @@ import io.github.mmolosays.stringannotations.processor.token.Tokenizer
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V, A, S> AnnotationProcessor(
-    tokenizer: Tokenizer,
-    conflator: ValuesConfaltor<V>,
-    parser: ValuesParser = DefaultValuesParser,
+    parser: ValueParser = DefaultValueParser,
     values: A.() -> QualifiedList<V>?,
-    factory: (value: V) -> S?
+    factory: (value: V) -> S?,
 ): AnnotationProcessor<A, S> =
     object : AbstractAnnotationProcessor<V, A, S>() {
 
-        override val tokenizer: Tokenizer = tokenizer
-        override val conflator: ValuesConfaltor<V> = conflator
+        override val parser: ValueParser = parser
 
-        override val parser: ValuesParser = parser
-
-        override fun A.getValues(): QualifiedList<V>? =
-            this.values()
+        override val A.values: QualifiedList<V>?
+            get() = values()
 
         override fun makeSpan(value: V): S? =
             factory(value)

@@ -38,6 +38,6 @@ public fun interface AnnotationProcessor<A, S> {
      */
     public fun parseAnnotation(
         annotation: Annotation,
-        arguments: A?
+        arguments: A?,
     ): S?
 }

@@ -31,7 +31,7 @@ internal data class AnnotationNode(
     /**
      * Direct children of [annotation].
      */
-    val children: List<AnnotationNode>
+    val children: List<AnnotationNode>,
 )
 
 internal fun AnnotationNode.hasChildren(): Boolean =
