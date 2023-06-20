@@ -25,10 +25,11 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
+import io.github.mmolosays.stringannotations.args.types.TextSize
+import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.compose.annotatedStringResource
 import io.github.mmolosays.stringannotations.compose.args.Arguments
 import io.github.mmolosays.stringannotations.compose.args.Clickable
-import io.github.mmolosays.stringannotations.compose.args.SpSize
 import io.github.mmolosays.stringannotations.compose.onClick
 import io.github.mmolosays.stringannotations.custom.CustomArguments
 import io.github.mmolosays.stringannotations.sample.R
@@ -180,7 +181,7 @@ private fun Demo5() {
  */
 @Composable
 private fun Demo6() {
-    val size = SpSize(10.5f)
+    val size = TextSize(10.5f, SizeUnit.Sp)
     val args = Arguments {
         size(size)
     }
@@ -206,7 +207,7 @@ private fun CustomDemo() {
 
 @Composable
 fun Screen(
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) =
     Surface(
         modifier = Modifier

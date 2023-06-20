@@ -12,12 +12,14 @@ import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
+import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan
 import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickableSpan
+import kotlin.math.roundToInt
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -82,7 +84,14 @@ public open class MasterAnnotationProcessor(
         BaseSizeAnnotationProcessor(
             parser = defaultValueParser,
         ) {
-            AbsoluteSizeSpan(it.value.toInt())
+            when (it.unit) {
+                SizeUnit.Px -> AbsoluteSizeSpan(it.value.roundToInt())
+                SizeUnit.Sp -> throw IllegalArgumentException(
+                    "AbsoluteSizeSpan does not support SP sizes. " +
+                    "You can convert SP size in SizeUnit.Px on your own."
+                )
+                else -> null
+            }
         }
 
     override fun createStyleAnnotationProcessor(): ViewsAnnotationProcessor =

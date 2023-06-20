@@ -19,10 +19,60 @@ package io.github.mmolosays.stringannotations.args.types
 /**
  * Size of text, defined in some units.
  */
-public interface TextSize {
+public data class TextSize(
+    val value: Float,
+    val unit: SizeUnit,
+) {
 
-    /**
-     * Size of text. The concrete units will be determined in implementation.
-     */
-    public val value: Float
+    public class SizeUnit private constructor(public val id: Int) {
+
+        override fun toString(): String =
+            when (this) {
+                Px -> "Px"
+                Sp -> "Sp"
+                else -> "SizeUnit($id)"
+            }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other !is SizeUnit) return false
+            return (this.id == other.id)
+        }
+
+        override fun hashCode(): Int {
+            return id
+        }
+
+        public companion object {
+
+            /**
+             * Corresponds to actial pixels on the screen with 1:1 ratio.
+             */
+            public val Px: SizeUnit by lazy {
+                SizeUnit(0)
+            }
+
+            /**
+             * Scalable Pixels.
+             * Based on the density of the screen, and additionaly scaled by the user's font size preferences.
+             *
+             * This unit is recommended for the majority of [TextSize]s.
+             */
+            public val Sp: SizeUnit by lazy {
+                SizeUnit(1)
+            }
+
+            /**
+             * Creates [SizeUnit], based on specified [id].
+             *
+             * @return custom [SizeUnit], or one of predefined ones, if [id] matches.
+             */
+            public fun Custom(id: Int): SizeUnit =
+                when (id) {
+                    Px.id -> Px
+                    Sp.id -> Sp
+                    else -> SizeUnit(id)
+                }
+        }
+    }
 }

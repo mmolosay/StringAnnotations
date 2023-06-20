@@ -14,6 +14,7 @@ import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
 import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
+import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
@@ -91,7 +92,12 @@ public open class MasterAnnotationProcessor(
         BaseSizeAnnotationProcessor(
             parser = defaultValueParser,
         ) {
-            ComposeSpan.of(SpanStyle(fontSize = TextUnit(it.value, TextUnitType.Sp)))
+            when (it.unit) {
+                SizeUnit.Sp -> TextUnit(it.value, TextUnitType.Sp)
+                SizeUnit.Px -> throw IllegalArgumentException("Compose TextUnit does not support pixel sizes")
+                else -> null
+            }
+                ?.let { size -> ComposeSpan.of(SpanStyle(fontSize = size)) }
         }
 
     override fun createStyleAnnotationProcessor(): ComposeAnnotationProcessor =

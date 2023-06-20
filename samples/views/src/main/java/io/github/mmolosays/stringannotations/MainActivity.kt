@@ -8,11 +8,12 @@ import android.util.TypedValue
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
+import io.github.mmolosays.stringannotations.args.types.TextSize
+import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.sample.R
 import io.github.mmolosays.stringannotations.sample.databinding.MainScreenBinding
 import io.github.mmolosays.stringannotations.views.args.Arguments
 import io.github.mmolosays.stringannotations.views.args.Clickable
-import io.github.mmolosays.stringannotations.views.args.PixelSize
 import io.github.mmolosays.stringannotations.views.clickable.Clickable
 import io.github.mmolosays.stringannotations.views.clickable.from
 import io.github.mmolosays.stringannotations.views.getAnnotatedString
@@ -128,14 +129,20 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates absolute size annotations: in pixels, DIPs and SPs.
      */
     private fun setDemo6() {
-        val size = 24.5f
-        val size1 = PixelSize(size) // already pixels
-        val size2 = PixelSize {
-            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, resources.displayMetrics)
-        }
-        val size3 = PixelSize {
-            TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, resources.displayMetrics)
-        }
+        val value = 24.5f
+        val metrics = resources.displayMetrics
+        val size1 = TextSize(
+            value = value,
+            unit = SizeUnit.Px,
+        )
+        val size2 = TextSize(
+            value = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, metrics),
+            unit = SizeUnit.Px,
+        )
+        val size3 = TextSize(
+            value = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, metrics),
+            unit = SizeUnit.Px,
+        )
         val args = Arguments {
             sizes(size1, size2, size3)
         }
