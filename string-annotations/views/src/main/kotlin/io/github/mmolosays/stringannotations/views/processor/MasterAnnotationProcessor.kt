@@ -1,9 +1,23 @@
 package io.github.mmolosays.stringannotations.views.processor
 
+import android.text.style.AbsoluteSizeSpan
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
+import io.github.mmolosays.stringannotations.BaseClickableAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseColorAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
+import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan
+import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickableSpan
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -27,24 +41,54 @@ import io.github.mmolosays.stringannotations.views.ViewsSpan
  * One should inherit this class in order to extend out-of-the-box annotaiton types with
  * custom ones.
  */
-public open class MasterAnnotationProcessor :
+public open class MasterAnnotationProcessor(
+    override val defaultValueParser: ValueParser,
+) :
     AbstractMasterAnnotationProcessor<ViewsArguments, ViewsSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
-        BackgroundColorAnnotationProcessor()
+        BaseColorAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            BackgroundColorSpan(it)
+        }
 
     override fun createClickableAnnotationProcessor(): ViewsAnnotationProcessor =
-        ClickableAnnotationProcessor()
+        BaseClickableAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            CustomizableClickableSpan(it)
+        }
 
     override fun createForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
-        ForegroundColorAnnotationProcessor()
+        BaseColorAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            ForegroundColorSpan(it)
+        }
 
     override fun createDecorationAnnotationProcessor(): ViewsAnnotationProcessor =
-        DecorationAnnotationProcessor()
+        BaseDecorationAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            when (it) {
+                TextDecoration.Underline -> UnderlineSpan()
+                TextDecoration.Striketrhough -> StrikethroughSpan()
+                else -> null as ViewsSpan? // fails type infering without explicit cast
+            }
+        }
 
     override fun createSizeAnnotationProcessor(): ViewsAnnotationProcessor =
-        SizeAnnotationProcessor()
+        BaseSizeAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            AbsoluteSizeSpan(it.value.toInt())
+        }
 
     override fun createStyleAnnotationProcessor(): ViewsAnnotationProcessor =
-        StyleAnnotationProcessor()
+        BaseStyleAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            StyleSpan(it)
+        }
 }

@@ -37,9 +37,7 @@ public fun <V, A, S> AnnotationProcessor(
     values: A.() -> QualifiedList<V>?,
     factory: (value: V) -> S?,
 ): AnnotationProcessor<A, S> =
-    object : AbstractAnnotationProcessor<V, A, S>() {
-
-        override val parser: ValueParser = parser
+    object : AbstractAnnotationProcessor<V, A, S>(parser) {
 
         override val A.values: QualifiedList<V>?
             get() = values()

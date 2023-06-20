@@ -1,8 +1,24 @@
 package io.github.mmolosays.stringannotations.compose.processor
 
+import android.graphics.Typeface
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.ExperimentalUnitApi
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
+import io.github.mmolosays.stringannotations.BaseClickableAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseColorAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
+import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
+import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
+import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -26,24 +42,73 @@ import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationP
  * One should inherit this class in order to extend out-of-the-box annotaiton types with
  * custom ones.
  */
-public open class MasterAnnotationProcessor :
+@OptIn(ExperimentalUnitApi::class) // TextUnit
+public open class MasterAnnotationProcessor(
+    override val defaultValueParser: ValueParser,
+) :
     AbstractMasterAnnotationProcessor<ComposeArguments, ComposeSpan>() {
 
     override fun createBackgroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
-        BackgroundColorAnnotationProcessor()
+        BaseColorAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            ComposeSpan.of(SpanStyle(background = Color(it)))
+        }
 
     override fun createClickableAnnotationProcessor(): ComposeAnnotationProcessor =
-        ClickableAnnotationProcessor()
+        BaseClickableAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            ComposeSpan.of(it)
+        }
 
     override fun createForegroundColorAnnotationProcessor(): ComposeAnnotationProcessor =
-        ForegroundColorAnnotationProcessor()
+        BaseColorAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            ComposeSpan.of(SpanStyle(color = Color(it)))
+        }
 
     override fun createDecorationAnnotationProcessor(): ComposeAnnotationProcessor =
-        DecorationAnnotationProcessor()
+        BaseDecorationAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            when (it) {
+                TextDecoration.Underline -> SpanStyle(
+                    textDecoration = ComposeTextDecoration.Underline,
+                )
+
+                TextDecoration.Striketrhough -> SpanStyle(
+                    textDecoration = ComposeTextDecoration.LineThrough,
+                )
+
+                else -> null
+            }
+                ?.let { style -> ComposeSpan.of(style) }
+        }
 
     override fun createSizeAnnotationProcessor(): ComposeAnnotationProcessor =
-        SizeAnnotationProcessor()
+        BaseSizeAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            ComposeSpan.of(SpanStyle(fontSize = TextUnit(it.value, TextUnitType.Sp)))
+        }
 
     override fun createStyleAnnotationProcessor(): ComposeAnnotationProcessor =
-        StyleAnnotationProcessor()
+        BaseStyleAnnotationProcessor(
+            parser = defaultValueParser,
+        ) {
+            when (it) {
+                Typeface.BOLD -> SpanStyle(fontWeight = FontWeight.Bold)
+                Typeface.ITALIC -> SpanStyle(fontStyle = FontStyle.Italic)
+                Typeface.BOLD_ITALIC ->
+                    SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Italic,
+                    )
+
+                else -> null
+            }
+                ?.let { style -> ComposeSpan.of(style) }
+        }
 }

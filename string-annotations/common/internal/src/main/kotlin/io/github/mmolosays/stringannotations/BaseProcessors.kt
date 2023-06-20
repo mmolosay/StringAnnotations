@@ -5,6 +5,7 @@ import io.github.mmolosays.stringannotations.args.types.ClickOwner
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -35,9 +36,11 @@ private typealias AnyArguments = Arguments<*>
  * `AnnotationProcessor` for `clickable` annotation type.
  */
 public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcessor(
+    parser: ValueParser,
     factory: (value: C) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
+        parser = parser,
         values = { clickables },
         factory = factory,
     )
@@ -46,9 +49,11 @@ public fun <C : ClickOwner, A : Arguments<C>, S> BaseClickableAnnotationProcesso
  * `AnnotationProcessor` for any color annotation type.
  */
 public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
+    parser: ValueParser,
     factory: (value: Int) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
+        parser = parser,
         values = { colors },
         factory = factory,
     )
@@ -57,9 +62,11 @@ public fun <A : AnyArguments, S> BaseColorAnnotationProcessor(
  * `AnnotationProcessor` for `decoration` annotation type.
  */
 public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
+    parser: ValueParser,
     factory: (value: TextDecoration) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
+        parser = parser,
         values = { decorations },
         factory = factory,
     )
@@ -70,9 +77,11 @@ public fun <A : AnyArguments, S> BaseDecorationAnnotationProcessor(
  * implementation.
  */
 public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
+    parser: ValueParser,
     factory: (value: TextSize) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
+        parser = parser,
         values = { sizes },
         factory = factory,
     )
@@ -81,9 +90,11 @@ public fun <A : AnyArguments, S> BaseSizeAnnotationProcessor(
  * `AnnotationProcessor` for `style` annotation type.
  */
 public fun <A : AnyArguments, S> BaseStyleAnnotationProcessor(
+    parser: ValueParser,
     factory: (value: Int) -> S?,
 ): AnnotationProcessor<A, S> =
     AnnotationProcessor(
+        parser = parser,
         values = { styles },
         factory = factory,
     )

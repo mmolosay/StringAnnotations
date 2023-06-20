@@ -20,7 +20,7 @@ import io.github.mmolosays.stringannotations.utils.Logger
  */
 
 /**
- * Default implementation of [ValueParser].
+ * Out-of-the-box implementation of [ValueParser].
  * Accepts placeholders of `"$arg${QUALIFIER}${INDEX}"` format.
  */
 public object DefaultValueParser : ValueParser {

@@ -5,11 +5,14 @@ import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.processor.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 
 /**
  * Overload of [MasterAnnotationProcessor] with custom "letter-spacing" annotation type.
  */
-class CustomMasterAnnotationProcessor : MasterAnnotationProcessor() {
+class CustomMasterAnnotationProcessor : MasterAnnotationProcessor(
+    defaultValueParser = DefaultValueParser,
+) {
 
     override fun createAnnotationProcessor(type: String): ComposeAnnotationProcessor? =
         when (type) {
@@ -19,7 +22,8 @@ class CustomMasterAnnotationProcessor : MasterAnnotationProcessor() {
 
     private fun createLetterSpacingAnnotationProcessor(): ComposeAnnotationProcessor =
         ComposeAnnotationProcessor(
-            values = { (this as? CustomArguments)?.letterSpacings }
+            parser = defaultValueParser,
+            values = { (this as? CustomArguments)?.letterSpacings },
         ) {
             ComposeSpan.of(SpanStyle(letterSpacing = it))
         }

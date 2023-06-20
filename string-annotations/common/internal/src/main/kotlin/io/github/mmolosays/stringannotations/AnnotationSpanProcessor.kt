@@ -25,18 +25,18 @@ import android.text.Spanned
 public object AnnotationSpanProcessor {
 
     /**
-     * Parses specified [annotations] of [spanned] into list of [StringAnnotation].
+     * Parses specified [annotations] of [spanned] into list of [PlacedAnnotation].
      */
     internal fun parseStringAnnotations(
         spanned: Spanned,
         annotations: Array<out Annotation>,
-    ): List<StringAnnotation> =
+    ): List<PlacedAnnotation> =
         annotations.mapIndexed { index, annotation ->
             val range = parseAnnotationRange(spanned, annotation)
             if (range.first == -1 || range.last == -1) {
                 throw IllegalArgumentException("annotation doesn\'t belong to this string")
             }
-            StringAnnotation(annotation, range.first, range.last, index)
+            PlacedAnnotation(annotation, range.first, range.last, index)
         }
 
     /**

@@ -3,7 +3,7 @@ package io.github.mmolosays.stringannotations.tree
 import android.text.Annotation
 import android.text.Spanned
 import io.github.mmolosays.stringannotations.AnnotationSpanProcessor
-import io.github.mmolosays.stringannotations.StringAnnotation
+import io.github.mmolosays.stringannotations.PlacedAnnotation
 import io.github.mmolosays.stringannotations.has
 
 /*
@@ -56,15 +56,15 @@ internal object AnnotationTreeBuilder {
      * @see groupByRoots
      */
     private fun buildAnnotationTreeRoot(
-        rootGroup: List<StringAnnotation>,
+        rootGroup: List<PlacedAnnotation>,
     ): AnnotationNode {
         val root = rootGroup.first()
         return parseAnnotationNode(root, rootGroup)
     }
 
     private fun parseAnnotationNode(
-        annotation: StringAnnotation,
-        group: List<StringAnnotation>,
+        annotation: PlacedAnnotation,
+        group: List<PlacedAnnotation>,
     ): AnnotationNode {
         val children = findDirectChildren(annotation, group).map { child ->
             parseAnnotationNode(child, group)
@@ -82,11 +82,11 @@ internal object AnnotationTreeBuilder {
      * Repeat.
      */
     private fun findRootAnnotations(
-        annotations: List<StringAnnotation>,
-    ): List<StringAnnotation> =
-        mutableListOf<StringAnnotation>().apply {
+        annotations: List<PlacedAnnotation>,
+    ): List<PlacedAnnotation> =
+        mutableListOf<PlacedAnnotation>().apply {
             if (annotations.isEmpty()) return this
-            var lastRoot: StringAnnotation? = null // first annotation is always a root
+            var lastRoot: PlacedAnnotation? = null // first annotation is always a root
             for (annotation in annotations) {
                 if (lastRoot?.has(annotation) != true) {
                     lastRoot = annotation
@@ -96,11 +96,11 @@ internal object AnnotationTreeBuilder {
         }
 
     private fun findDirectChildren(
-        parent: StringAnnotation,
-        group: List<StringAnnotation>,
-    ): List<StringAnnotation> {
+        parent: PlacedAnnotation,
+        group: List<PlacedAnnotation>,
+    ): List<PlacedAnnotation> {
         require(group.contains(parent)) { "this parent is not in annotations list" }
-        val children = mutableListOf<StringAnnotation>()
+        val children = mutableListOf<PlacedAnnotation>()
         if (parent.index == group.lastIndex) return children // last annotation never has children
         for (i in parent.index + 1 until group.size) {
             val maybeChild = group[i]
@@ -112,18 +112,18 @@ internal object AnnotationTreeBuilder {
     }
 
     private fun isAnnotationDirectChild(
-        annotation: StringAnnotation,
-        maybeParent: StringAnnotation,
-        annotations: List<StringAnnotation>,
+        annotation: PlacedAnnotation,
+        maybeParent: PlacedAnnotation,
+        annotations: List<PlacedAnnotation>,
     ): Boolean {
         val parent = findAnnotationDirectParent(annotation, annotations)
         return (maybeParent === parent)
     }
 
     private fun findAnnotationDirectParent(
-        annotation: StringAnnotation,
-        annotations: List<StringAnnotation>,
-    ): StringAnnotation? {
+        annotation: PlacedAnnotation,
+        annotations: List<PlacedAnnotation>,
+    ): PlacedAnnotation? {
         val index = annotation.index
         if (index == 0) return null // first annotation is always root, thus no parent
         var i = index - 1
@@ -154,11 +154,11 @@ internal object AnnotationTreeBuilder {
      * ```
      */
     private fun groupByRoots(
-        roots: List<StringAnnotation>,
-        annotations: List<StringAnnotation>,
-    ): List<List<StringAnnotation>> {
+        roots: List<PlacedAnnotation>,
+        annotations: List<PlacedAnnotation>,
+    ): List<List<PlacedAnnotation>> {
         if (roots.size == 1) return listOf(annotations)
-        val groups = mutableListOf<List<StringAnnotation>>()
+        val groups = mutableListOf<List<PlacedAnnotation>>()
         for (i in roots.indices) {
             val from = roots[i].index
             val to = roots.getOrNull(i + 1)?.index ?: annotations.size

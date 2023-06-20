@@ -1,25 +1,11 @@
 package io.github.mmolosays.stringannotations.views.processor
 
-import android.text.style.AbsoluteSizeSpan
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.StrikethroughSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
-import io.github.mmolosays.stringannotations.BaseClickableAnnotationProcessor
-import io.github.mmolosays.stringannotations.BaseColorAnnotationProcessor
-import io.github.mmolosays.stringannotations.BaseDecorationAnnotationProcessor
-import io.github.mmolosays.stringannotations.BaseSizeAnnotationProcessor
-import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan
-import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickableSpan
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -48,7 +34,7 @@ import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickab
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V> ViewsAnnotationProcessor(
-    parser: ValueParser = DefaultValueParser,
+    parser: ValueParser,
     values: ViewsArguments.() -> QualifiedList<V>?,
     factory: (value: V) -> ViewsSpan?,
 ): ViewsAnnotationProcessor =
@@ -57,56 +43,3 @@ public fun <V> ViewsAnnotationProcessor(
         values = values,
         factory = factory,
     )
-
-/**
- * Implementation of [BaseColorAnnotationProcessor] for Android Views UI.
- */
-internal fun BackgroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseColorAnnotationProcessor {
-        BackgroundColorSpan(it)
-    }
-
-/**
- * Implementation of [BaseColorAnnotationProcessor] for Android Views UI.
- */
-internal fun ForegroundColorAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseColorAnnotationProcessor {
-        ForegroundColorSpan(it)
-    }
-
-/**
- * Implementation of [CustomizableClickableSpan] for Android Views UI.
- */
-internal fun ClickableAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseClickableAnnotationProcessor {
-        CustomizableClickableSpan(it)
-    }
-
-/**
- * Implementation of [BaseStyleAnnotationProcessor] for Android Views UI.
- */
-internal fun StyleAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseStyleAnnotationProcessor {
-        StyleSpan(it)
-    }
-
-/**
- * Implementation of [BaseDecorationAnnotationProcessor] for Android Views UI.
- */
-internal fun DecorationAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseDecorationAnnotationProcessor {
-        when (it) {
-            TextDecoration.Underline -> UnderlineSpan()
-            TextDecoration.Striketrhough -> StrikethroughSpan()
-            else -> null as ViewsSpan? // fails type infering without explicit cast
-        }
-    }
-
-/**
- * Implementation of [BaseSizeAnnotationProcessor] for Android Views UI.
- * Expects `TextSize.value` to be `pixels` units.
- */
-internal fun SizeAnnotationProcessor(): ViewsAnnotationProcessor =
-    BaseSizeAnnotationProcessor {
-        AbsoluteSizeSpan(it.value.toInt())
-    }

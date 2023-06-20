@@ -1,6 +1,7 @@
 package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
+import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -105,18 +106,27 @@ import android.text.Annotation
  */
 public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProcessor<A, S> {
 
+    /**
+     * [ValueParser] that can be used by default when creating instances of [AnnotationProcessor].
+     */
+    protected abstract val defaultValueParser: ValueParser?
+
     private val processors: MutableMap<String, AnnotationProcessor<A, S>> =
         mutableMapOf()
 
     public final override fun parseAnnotation(
         annotation: Annotation,
-        arguments: A?
+        arguments: A?,
     ): S? {
         val type = annotation.key
         val processor = getOrCreateAnnotationProcessor(type) ?: return null
         return processor.parseAnnotation(annotation, arguments)
     }
 
+    /**
+     * Obtains earlier created [AnnotationProcessor] for specified annotation [type].
+     * If there's no such, creates a new one and memoizes it.
+     */
     private fun getOrCreateAnnotationProcessor(type: String): AnnotationProcessor<A, S>? =
         processors[type] ?: createAnnotationProcessor(type)?.also { processors[type] = it }
 

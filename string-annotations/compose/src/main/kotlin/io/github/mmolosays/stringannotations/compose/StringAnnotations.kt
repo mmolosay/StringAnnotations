@@ -2,6 +2,7 @@ package io.github.mmolosays.stringannotations.compose
 
 import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
 import io.github.mmolosays.stringannotations.core.BaseStringAnnotations
+import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -33,7 +34,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
         DependenciesBuilder().build()
 
     public data class Dependencies(
-        override val processor: ComposeAnnotationProcessor
+        override val processor: ComposeAnnotationProcessor,
     ) : BaseStringAnnotations.Dependencies()
 
     public class DependenciesBuilder :
@@ -48,7 +49,12 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
 
         override fun build(): Dependencies =
             Dependencies(
-                processor = processor ?: MasterAnnotationProcessor(),
+                processor = processor ?: makeDefaultAnnotationProcessor(),
+            )
+
+        private fun makeDefaultAnnotationProcessor(): ComposeAnnotationProcessor =
+            MasterAnnotationProcessor(
+                defaultValueParser = DefaultValueParser,
             )
     }
 }

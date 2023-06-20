@@ -2,7 +2,6 @@ package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.utils.Logger
 
@@ -30,9 +29,9 @@ import io.github.mmolosays.stringannotations.utils.Logger
  * @param A type of annotation arguments to obtain values from.
  * @param S type of spans to be produced.
  */
-public abstract class AbstractAnnotationProcessor<V, A, S> : AnnotationProcessor<A, S> {
-
-    protected open val parser: ValueParser = DefaultValueParser
+public abstract class AbstractAnnotationProcessor<V, A, S>(
+    protected val parser: ValueParser,
+) : AnnotationProcessor<A, S> {
 
     override fun parseAnnotation(
         annotation: Annotation,
