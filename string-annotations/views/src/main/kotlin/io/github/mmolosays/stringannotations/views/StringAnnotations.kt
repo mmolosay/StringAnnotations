@@ -35,7 +35,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
 
     public data class Dependencies(
         override val processor: ViewsAnnotationProcessor,
-    ) : BaseStringAnnotations.Dependencies()
+    ) : BaseStringAnnotations.Dependencies
 
     public class DependenciesBuilder :
         BaseStringAnnotations.DependenciesBuilder<ViewsAnnotationProcessor> {

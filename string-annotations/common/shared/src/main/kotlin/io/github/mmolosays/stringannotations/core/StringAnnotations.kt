@@ -28,6 +28,7 @@ internal interface StringAnnotations<D> {
 
     /**
      * Whether the library is configured or not.
+     * Returns `true` after [configure] and `false` after [dispose].
      */
     val isConfigured: Boolean
 

@@ -70,8 +70,8 @@ public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependenci
     /**
      * Dependencies of the library.
      */
-    public abstract class Dependencies {
-        public abstract val processor: AnnotationProcessor<*, *>
+    public interface Dependencies {
+        public val processor: AnnotationProcessor<*, *>
     }
 
     /**
