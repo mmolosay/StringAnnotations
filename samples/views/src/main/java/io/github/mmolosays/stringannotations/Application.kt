@@ -22,9 +22,9 @@ class Application : Application() {
         val processor = MasterAnnotationProcessor(
             defaultValueParser = DefaultValueParser,
         )
-        val dependencies = StringAnnotations.DependenciesBuilder()
-            .annotationProcessor(processor)
-            .build()
+        val dependencies = StringAnnotations.Dependencies(
+            processor = processor,
+        )
         StringAnnotations.configure(dependencies)
     }
 }

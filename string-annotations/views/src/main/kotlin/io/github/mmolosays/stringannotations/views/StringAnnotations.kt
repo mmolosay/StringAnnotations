@@ -31,30 +31,11 @@ import io.github.mmolosays.stringannotations.views.processor.MasterAnnotationPro
 public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependencies>() {
 
     override fun makeDefaultDependencies(): Dependencies =
-        DependenciesBuilder().build()
+        Dependencies(
+            processor = MasterAnnotationProcessor(defaultValueParser = DefaultValueParser),
+        )
 
     public data class Dependencies(
         override val processor: ViewsAnnotationProcessor,
     ) : BaseStringAnnotations.Dependencies
-
-    public class DependenciesBuilder :
-        BaseStringAnnotations.DependenciesBuilder<ViewsAnnotationProcessor> {
-
-        private var processor: ViewsAnnotationProcessor? = null
-
-        override fun annotationProcessor(instance: ViewsAnnotationProcessor): DependenciesBuilder =
-            apply {
-                this.processor = instance
-            }
-
-        override fun build(): Dependencies =
-            Dependencies(
-                processor = processor ?: makeDefaultAnnotationProcessor(),
-            )
-
-        private fun makeDefaultAnnotationProcessor(): ViewsAnnotationProcessor =
-            MasterAnnotationProcessor(
-                defaultValueParser = DefaultValueParser,
-            )
-    }
 }

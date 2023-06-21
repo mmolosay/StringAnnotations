@@ -31,30 +31,11 @@ import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
 public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Dependencies>() {
 
     override fun makeDefaultDependencies(): Dependencies =
-        DependenciesBuilder().build()
+        Dependencies(
+            processor = MasterAnnotationProcessor(defaultValueParser = DefaultValueParser),
+        )
 
     public data class Dependencies(
         override val processor: ComposeAnnotationProcessor,
     ) : BaseStringAnnotations.Dependencies
-
-    public class DependenciesBuilder :
-        BaseStringAnnotations.DependenciesBuilder<ComposeAnnotationProcessor> {
-
-        private var processor: ComposeAnnotationProcessor? = null
-
-        override fun annotationProcessor(instance: ComposeAnnotationProcessor): DependenciesBuilder =
-            apply {
-                this.processor = instance
-            }
-
-        override fun build(): Dependencies =
-            Dependencies(
-                processor = processor ?: makeDefaultAnnotationProcessor(),
-            )
-
-        private fun makeDefaultAnnotationProcessor(): ComposeAnnotationProcessor =
-            MasterAnnotationProcessor(
-                defaultValueParser = DefaultValueParser,
-            )
-    }
 }

@@ -73,12 +73,4 @@ public abstract class BaseStringAnnotations<D : BaseStringAnnotations.Dependenci
     public interface Dependencies {
         public val processor: AnnotationProcessor<*, *>
     }
-
-    /**
-     * [Dependencies] builder.
-     */
-    protected interface DependenciesBuilder<P : AnnotationProcessor<*, *>> {
-        public fun annotationProcessor(instance: P): DependenciesBuilder<P>
-        public fun build(): Dependencies
-    }
 }

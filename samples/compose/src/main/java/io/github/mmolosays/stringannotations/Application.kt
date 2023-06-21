@@ -19,9 +19,9 @@ class Application : Application() {
      */
     private fun configureStringAnnotations() {
         val processor = CustomMasterAnnotationProcessor()
-        val dependencies = StringAnnotations.DependenciesBuilder()
-            .annotationProcessor(processor)
-            .build()
+        val dependencies = StringAnnotations.Dependencies(
+            processor = processor,
+        )
         StringAnnotations.configure(dependencies)
     }
 }
