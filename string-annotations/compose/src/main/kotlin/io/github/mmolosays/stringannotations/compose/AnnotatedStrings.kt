@@ -1,11 +1,10 @@
 package io.github.mmolosays.stringannotations.compose
 
-import android.text.SpannedString
+import android.text.Spannable
 import androidx.compose.ui.text.AnnotatedString
-import io.github.mmolosays.stringannotations.AnnotatedStringFormatter
-import io.github.mmolosays.stringannotations.AnnotationSpanProcessor
-import io.github.mmolosays.stringannotations.SpannedProcessor
+import io.github.mmolosays.stringannotations.AbstractAnnotatedStrings
 import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
+import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -24,39 +23,18 @@ import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
  */
 
 /**
- * Processes annotated string for Compose UI.
+ * Implementation of [AbstractAnnotatedStrings] for Compose UI.
  */
-public object AnnotatedStrings {
+public object NewAnnotatedStrings :
+    AbstractAnnotatedStrings<ComposeArguments, ComposeSpan, ComposeAnnotationProcessor, AnnotatedString>() {
 
-    /**
-     * One should prefer using higher level extension functions.
-     *
-     * 1. Formats specified [string] with [formatArgs] (see [String.format]),
-     * preserving `<annotation>` spans.
-     * 2. Parses `<annotation>`s into spans.
-     * 3. Applies spans to the [string].
-     */
-    public fun process(
-        string: SpannedString,
-        arguments: ComposeArguments? = null,
-        vararg formatArgs: Any,
-    ): AnnotatedString {
-        // 0. prepare dependencies
-        val processor = StringAnnotations.dependencies.processor
-        val annotations = SpannedProcessor.getAnnotationSpans(string)
+    override fun getAnnotationProcessor(): ComposeAnnotationProcessor =
+        StringAnnotations.dependencies.processor
 
-        // 1. format, preserving annotation spans
-        val spannable = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
-
-        // 2. parse annotation ranges
-        val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
-
-        // 3. parse Annotation-s into spans of SpanStyle type
-        val spans = annotations.map { annotation ->
-            processor.parseAnnotation(annotation, arguments)
-        }
-
-        // 4. apply spans and return result AnnotatedString
-        return SpanProcessor.applySpans(spannable, spans, ranges)
-    }
+    override fun applySpans(
+        spannable: Spannable,
+        spans: List<ComposeSpan?>,
+        ranges: List<IntRange>,
+    ): AnnotatedString =
+        SpanProcessor.applySpans(spannable, spans, ranges)
 }

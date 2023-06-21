@@ -30,8 +30,8 @@ internal object SpanProcessor {
      */
     fun applySpans(
         spannable: Spannable,
-        ranges: List<IntRange>,
         spans: List<ViewsSpan?>,
+        ranges: List<IntRange>,
     ): Spannable {
         for (i in spans.indices) {
             // null element doesn't definitely mean the end of list, could be just skipped element

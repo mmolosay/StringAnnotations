@@ -1,10 +1,8 @@
 package io.github.mmolosays.stringannotations.views
 
+import android.text.Spannable
 import android.text.Spanned
-import android.text.SpannedString
-import io.github.mmolosays.stringannotations.AnnotatedStringFormatter
-import io.github.mmolosays.stringannotations.AnnotationSpanProcessor
-import io.github.mmolosays.stringannotations.SpannedProcessor
+import io.github.mmolosays.stringannotations.AbstractAnnotatedStrings
 import io.github.mmolosays.stringannotations.views.internal.SpanProcessor
 
 /*
@@ -24,39 +22,18 @@ import io.github.mmolosays.stringannotations.views.internal.SpanProcessor
  */
 
 /**
- * Processes annotated string for Android Views UI.
+ * Implementation of [AbstractAnnotatedStrings] for Android Views UI.
  */
-public object AnnotatedStrings {
+public object NewAnnotatedStrings :
+    AbstractAnnotatedStrings<ViewsArguments, ViewsSpan, ViewsAnnotationProcessor, Spanned>() {
 
-    /**
-     * One should prefer using higher level extension functions.
-     *
-     * 1. Formats specified [string] with [formatArgs] (see [String.format]),
-     * preserving `<annotation>` spans.
-     * 2. Parses `<annotation>`s into spans.
-     * 3. Applies spans to the [string].
-     */
-    public fun process(
-        string: SpannedString,
-        arguments: ViewsArguments? = null,
-        vararg formatArgs: Any,
-    ): Spanned {
-        // 0. prepare dependencies
-        val processor = StringAnnotations.dependencies.processor
-        val annotations = SpannedProcessor.getAnnotationSpans(string)
+    override fun getAnnotationProcessor(): ViewsAnnotationProcessor =
+        StringAnnotations.dependencies.processor
 
-        // 1. format, preserving annotation spans
-        val spannable = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
-
-        // 2. parse annotation ranges
-        val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
-
-        // 3. parse Annotation-s into spans of CharacterStyle type
-        val spans = annotations.map { annotation ->
-            processor.parseAnnotation(annotation, arguments)
-        }
-
-        // 4. apply spans and return result Spannable
-        return SpanProcessor.applySpans(spannable, ranges, spans)
-    }
+    override fun applySpans(
+        spannable: Spannable,
+        spans: List<ViewsSpan?>,
+        ranges: List<IntRange>,
+    ): Spanned =
+        SpanProcessor.applySpans(spannable, spans, ranges)
 }
