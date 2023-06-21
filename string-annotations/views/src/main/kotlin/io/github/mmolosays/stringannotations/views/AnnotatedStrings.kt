@@ -56,9 +56,7 @@ public object AnnotatedStrings {
             processor.parseAnnotation(annotation, arguments)
         }
 
-        // 4. apply spans to string
-        SpanProcessor.applySpans(spannable, ranges, spans)
-
-        return spannable
+        // 4. apply spans and return result Spannable
+        return SpanProcessor.applySpans(spannable, ranges, spans)
     }
 }

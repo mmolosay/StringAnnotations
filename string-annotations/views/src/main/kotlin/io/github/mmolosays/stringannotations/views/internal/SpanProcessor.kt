@@ -32,13 +32,14 @@ internal object SpanProcessor {
         spannable: Spannable,
         ranges: List<IntRange>,
         spans: List<ViewsSpan?>,
-    ) {
+    ): Spannable {
         for (i in spans.indices) {
             // null element doesn't definitely mean the end of list, could be just skipped element
             val span = spans.getOrNull(i) ?: continue
             val range = ranges.getOrNull(i) ?: continue
             applySpan(spannable, span, range)
         }
+        return spannable
     }
 
     /**
