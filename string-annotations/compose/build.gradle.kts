@@ -19,7 +19,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
 
     defaultConfig {
@@ -41,6 +41,6 @@ dependencies {
     api(project(":string-annotations:common:shared"))
     implementation(project(":string-annotations:common:internal"))
 
-    // Compose
-    implementation("androidx.compose.ui:ui:1.3.0")
+    // Dependencies
+    implementation("androidx.compose.ui:ui:1.4.3")
 }
