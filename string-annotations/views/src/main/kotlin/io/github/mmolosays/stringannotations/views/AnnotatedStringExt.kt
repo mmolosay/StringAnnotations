@@ -45,19 +45,6 @@ public fun Context.getAnnotatedString(
     )
 
 /**
- * Simplified variant of [Context.getAnnotatedString] for cases, when there is no annotation arguments.
- */
-public fun Context.getAnnotatedString(
-    @StringRes id: Int,
-    vararg formatArgs: Any,
-): Spanned =
-    AnnotatedStrings.process(
-        string = getSpannedString(id),
-        arguments = null,
-        formatArgs = formatArgs,
-    )
-
-/**
  * Returns [Spanned] string, associated with a specified string resource [id] with `<annotation>`s.
  *
  * Receiver [Fragment] must be attached to context, otherwise [IllegalStateException] will be thrown.
@@ -77,18 +64,6 @@ public fun Fragment.getAnnotatedString(
         id = id,
         formatArgs = formatArgs,
         arguments = arguments,
-    )
-
-/**
- * Simplified variant of [Fragment.getAnnotatedString] for cases, when there is no annotation arguments.
- */
-public fun Fragment.getAnnotatedString(
-    @StringRes id: Int,
-    vararg formatArgs: Any,
-): Spanned =
-    requireContext().getAnnotatedString(
-        id = id,
-        formatArgs = formatArgs,
     )
 
 private fun Context.getSpannedString(@StringRes id: Int): SpannedString =

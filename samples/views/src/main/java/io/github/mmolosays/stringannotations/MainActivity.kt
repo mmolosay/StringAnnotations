@@ -8,6 +8,7 @@ import android.util.TypedValue
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
+import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
 import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.sample.R
@@ -121,7 +122,11 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Demonstrates decoration annotations: underline and strikethrough.
      */
     private fun setDemo5() {
-        binding.demo5.text = getAnnotatedString(R.string.demo5)
+        val args = Arguments {
+            decoration(TextDecoration.Striketrhough)
+            decoration(TextDecoration.Underline)
+        }
+        binding.demo5.text = getAnnotatedString(R.string.demo5, args)
     }
 
     /**
