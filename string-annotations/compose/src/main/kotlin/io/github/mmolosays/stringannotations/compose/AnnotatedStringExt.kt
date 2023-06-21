@@ -68,7 +68,7 @@ public fun annotatedStringResource(
 
 /**
  * Invoke click action of [Clickable] from [clickables] list,
- * that corresponds to [getClickableAnnotationAt] [offset].
+ * that corresponds to [getClickableAnnotationAt] specified [offset].
  */
 public fun AnnotatedString.onClick(
     offset: Int,
