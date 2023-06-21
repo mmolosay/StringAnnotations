@@ -24,7 +24,7 @@ import io.github.mmolosays.stringannotations.views.internal.SpanProcessor
 /**
  * Implementation of [AbstractAnnotatedStrings] for Android Views UI.
  */
-public object NewAnnotatedStrings :
+public object AnnotatedStrings :
     AbstractAnnotatedStrings<ViewsArguments, ViewsSpan, ViewsAnnotationProcessor, Spanned>() {
 
     override fun getAnnotationProcessor(): ViewsAnnotationProcessor =

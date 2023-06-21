@@ -25,7 +25,7 @@ import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 /**
  * Implementation of [AbstractAnnotatedStrings] for Compose UI.
  */
-public object NewAnnotatedStrings :
+public object AnnotatedStrings :
     AbstractAnnotatedStrings<ComposeArguments, ComposeSpan, ComposeAnnotationProcessor, AnnotatedString>() {
 
     override fun getAnnotationProcessor(): ComposeAnnotationProcessor =

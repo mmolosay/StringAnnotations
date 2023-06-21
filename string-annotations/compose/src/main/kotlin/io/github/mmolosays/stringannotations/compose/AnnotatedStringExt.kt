@@ -45,7 +45,7 @@ public fun annotatedStringResource(
     arguments: ComposeArguments,
     vararg formatArgs: Any,
 ): AnnotatedString =
-    NewAnnotatedStrings.process(
+    AnnotatedStrings.process(
         string = spannedStringResource(id),
         arguments = arguments,
         formatArgs = formatArgs,
@@ -60,7 +60,7 @@ public fun annotatedStringResource(
     @StringRes id: Int,
     vararg formatArgs: Any,
 ): AnnotatedString =
-    NewAnnotatedStrings.process(
+    AnnotatedStrings.process(
         string = spannedStringResource(id),
         arguments = null,
         formatArgs = formatArgs,

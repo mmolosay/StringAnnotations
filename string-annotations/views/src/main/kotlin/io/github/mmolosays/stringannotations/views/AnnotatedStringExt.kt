@@ -38,7 +38,7 @@ public fun Context.getAnnotatedString(
     arguments: ViewsArguments,
     vararg formatArgs: Any,
 ): Spanned =
-    NewAnnotatedStrings.process(
+    AnnotatedStrings.process(
         string = getSpannedString(id),
         formatArgs = formatArgs,
         arguments = arguments,
@@ -51,7 +51,7 @@ public fun Context.getAnnotatedString(
     @StringRes id: Int,
     vararg formatArgs: Any,
 ): Spanned =
-    NewAnnotatedStrings.process(
+    AnnotatedStrings.process(
         string = getSpannedString(id),
         arguments = null,
         formatArgs = formatArgs,
