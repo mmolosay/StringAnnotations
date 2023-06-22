@@ -42,10 +42,10 @@ public object AnnotatedStringFormatter {
         val stringArgs = stringifyFormatArgs(formatArgs)
 
         // 1. build annotation tree
-        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
+        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
 
         // 2. replace wildcards, preserving annotation spans
-        format(builder, tree, stringArgs)
+        trees.forEach { root -> format(builder, root, stringArgs) }
 
         return builder
     }

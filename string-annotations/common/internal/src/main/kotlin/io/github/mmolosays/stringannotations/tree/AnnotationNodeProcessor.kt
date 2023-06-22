@@ -60,7 +60,7 @@ internal object AnnotationNodeProcessor {
     ): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
         val nodeRange = string rangeOf node.annotation
-        if (!node.hasChildren()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
+        if (node.children.isEmpty()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
         val childrenRanges = node.children.map { child ->
             string rangeOf child.annotation
         }

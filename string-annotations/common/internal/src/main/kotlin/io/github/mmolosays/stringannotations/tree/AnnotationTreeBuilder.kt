@@ -27,144 +27,100 @@ internal object AnnotationTreeBuilder {
     /**
      * Assembles annotation tree out of [Annotation]s of specified [string].
      */
-    fun buildAnnotationTree(
-        string: Spanned,
-        annotations: Array<out Annotation>,
-    ): AnnotationNode {
-        val roots = buildAnnotationTreeRoots(string, annotations)
-        return AnnotationNode(annotation = null, children = roots)
-    }
-
-    /**
-     * Assembles roots of annotation tree of specified [string] and its [annotations].
-     */
-    private fun buildAnnotationTreeRoots(
+    fun buildAnnotationTrees(
         string: Spanned,
         annotations: Array<out Annotation>,
     ): List<AnnotationNode> {
-        val parsed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
-        val roots = findRootAnnotations(parsed)
-        val groups = groupByRoots(roots, parsed)
-        return groups.map { rootGroup ->
-            buildAnnotationTreeRoot(rootGroup)
+        val placed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
+        val groups = placed.groupInRoot()
+        return groups.map { group ->
+            val root = group.first() // due to impl of groupInRoot()
+            parseAnnotationNode(root, group)
         }
     }
 
     /**
-     * Assembles root of annotation tree of specified [rootGroup].
-     *
-     * @see groupByRoots
+     * Creates new [AnnotationNode] with specified [annotation].
+     * [AnnotationNode.children] will be sought in [group].
      */
-    private fun buildAnnotationTreeRoot(
-        rootGroup: List<PlacedAnnotation>,
-    ): AnnotationNode {
-        val root = rootGroup.first()
-        return parseAnnotationNode(root, rootGroup)
-    }
-
     private fun parseAnnotationNode(
         annotation: PlacedAnnotation,
         group: List<PlacedAnnotation>,
     ): AnnotationNode {
-        val children = findDirectChildren(annotation, group).map { child ->
+        val children = annotation.findDirectChildrenIn(group).map { child ->
             parseAnnotationNode(child, group)
         }
         return AnnotationNode(annotation.annotation, children)
     }
 
     /**
-     * Finds root annotations and returns their indices in [annotations] list.
-     *
-     * Traveres throug [annotations], remembering last found root.
-     * First annotation is always a root, since it has no parent (it's a very first).
-     * Current annotation is being checked, whether last root has it as direct or indirect child.
-     * If it is not, then current annotation is a next root and being added into return list.
-     * Repeat.
+     * Finds direct children in [annotations] list for the receiver parent annotation.
      */
-    private fun findRootAnnotations(
+    private infix fun PlacedAnnotation.findDirectChildrenIn(
         annotations: List<PlacedAnnotation>,
-    ): List<PlacedAnnotation> =
-        mutableListOf<PlacedAnnotation>().apply {
-            if (annotations.isEmpty()) return this
-            var lastRoot: PlacedAnnotation? = null // first annotation is always a root
-            for (annotation in annotations) {
-                if (lastRoot?.has(annotation) != true) {
-                    lastRoot = annotation
-                    add(annotation)
-                }
-            }
-        }
-
-    private fun findDirectChildren(
-        parent: PlacedAnnotation,
-        group: List<PlacedAnnotation>,
     ): List<PlacedAnnotation> {
-        require(group.contains(parent)) { "this parent is not in annotations list" }
+        require(annotations.contains(this)) { "this parent is not in annotations list" }
+        val index = annotations.indexOf(this)
+        if (index == annotations.lastIndex) return emptyList() // last annotation can't have children
         val children = mutableListOf<PlacedAnnotation>()
-        if (parent.index == group.lastIndex) return children // last annotation never has children
-        for (i in parent.index + 1 until group.size) {
-            val maybeChild = group[i]
-            if (isAnnotationDirectChild(maybeChild, parent, group)) {
+        for (i in index + 1 until annotations.size) { // prior annotation can't be a child
+            val maybeChild = annotations[i]
+            val parent = maybeChild findDirectParentIn annotations
+            if (this === parent) {
                 children.add(maybeChild)
             }
         }
         return children
     }
 
-    private fun isAnnotationDirectChild(
-        annotation: PlacedAnnotation,
-        maybeParent: PlacedAnnotation,
-        annotations: List<PlacedAnnotation>,
-    ): Boolean {
-        val parent = findAnnotationDirectParent(annotation, annotations)
-        return (maybeParent === parent)
-    }
-
-    private fun findAnnotationDirectParent(
-        annotation: PlacedAnnotation,
+    /**
+     * Finds direct parent in [annotations] list for the receiver child annotation.
+     */
+    private infix fun PlacedAnnotation.findDirectParentIn(
         annotations: List<PlacedAnnotation>,
     ): PlacedAnnotation? {
-        val index = annotation.index
+        val index = annotations.indexOf(this)
         if (index == 0) return null // first annotation is always root, thus no parent
         var i = index - 1
         while (i >= 0) {
             val maybeParent = annotations[i]
-            if (maybeParent.has(annotation)) return maybeParent
+            if (maybeParent.has(this)) return maybeParent
             i--
         }
         return null // this annotation is a root
     }
 
     /**
-     * Splits [annotations] into sublists (groups), in which first element is a root annotation,
-     * and all other are its direct and indirect children.
+     * Groups receiver annotations in a groups (lists), where first element is a root annotations,
+     * and all other are its children (direct and inderect).
      *
      * Sample:
      * ```
      * Tree of annotations:
-     *   __            <- level-2 children
-     *  ___ _   __ __  <- level-1 children
-     * _______ ______  <- root (level-0) annotations
+     *   to            <- level-2 children
+     *  duo a   so be  <- level-1 children
+     * numbers silver  <- root (level-0) annotations
      *
      * After split:
      * [
-     *     [_______, ___, __, _],
-     *     [______, __, __]
+     *     [numbers, duo, to, a],
+     *     [silver, so, be]
      * ]
-     * ```
      */
-    private fun groupByRoots(
-        roots: List<PlacedAnnotation>,
-        annotations: List<PlacedAnnotation>,
-    ): List<List<PlacedAnnotation>> {
-        if (roots.size == 1) return listOf(annotations)
+    private fun List<PlacedAnnotation>.groupInRoot(): List<List<PlacedAnnotation>> {
+        if (size == 1) return listOf(this)
         val groups = mutableListOf<List<PlacedAnnotation>>()
-        for (i in roots.indices) {
-            val from = roots[i].index
-            val to = roots.getOrNull(i + 1)?.index ?: annotations.size
-            val group = annotations.subList(from, to)
-            groups.add(group)
+        var lastRootIndex = 0
+        val lastRoot = { get(lastRootIndex) }
+        for (i in 1 until size) {
+            val annotation = get(i)
+            if (!lastRoot().has(annotation)) { // if annotation is a root itself
+                groups += slice(lastRootIndex until i)
+                lastRootIndex = i
+            }
         }
+        // last is unadded yet
+        groups += slice(lastRootIndex..lastIndex)
         return groups
     }
 }
