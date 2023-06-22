@@ -12,7 +12,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 internal class AnnotationSpanProcessorTests {
 
-    // region parseAnnotationRange
+    // region rangeOf
 
     @Test
     fun `rangeOf() returns valid range when annotation is attached`() {
