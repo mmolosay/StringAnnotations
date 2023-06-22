@@ -38,7 +38,7 @@ internal object AnnotationSpanProcessor {
     }
 
     /**
-     * Parses specified [annotations] of [string] into list of [PlacedAnnotation].
+     * Parses [annotations] of [string] into the list of [PlacedAnnotation].
      */
     fun parseStringAnnotations(
         string: Spanned,
