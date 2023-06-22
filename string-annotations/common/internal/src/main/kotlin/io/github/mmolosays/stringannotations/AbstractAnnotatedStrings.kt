@@ -2,6 +2,7 @@ package io.github.mmolosays.stringannotations
 
 import android.text.Spannable
 import android.text.SpannedString
+import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 import io.github.mmolosays.stringannotations.args.Arguments
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
 
@@ -52,7 +53,9 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
         val spannable = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
 
         // 2. parse annotation ranges
-        val ranges = AnnotationSpanProcessor.parseAnnotationRanges(spannable, annotations)
+        val ranges = annotations.map { annotation ->
+            spannable rangeOf annotation
+        }
 
         // 3. parse Annotation-s into spans of SpanStyle type
         val spans = annotations.map { annotation ->

@@ -2,6 +2,7 @@ package io.github.mmolosays.stringannotations
 
 import android.text.Annotation
 import android.text.SpannableString
+import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -14,7 +15,7 @@ internal class AnnotationSpanProcessorTests {
     // region parseAnnotationRange
 
     @Test
-    fun `parseAnnotationRange returns valid range when annotation is attached`() {
+    fun `rangeOf() returns valid range when annotation is attached`() {
         val expectedRange = 6..12
         val annotation = Annotation("key", "value")
         val string = SpannableString("first second third").apply {
@@ -26,19 +27,19 @@ internal class AnnotationSpanProcessorTests {
             )
         }
 
-        val range = AnnotationSpanProcessor.parseAnnotationRange(string, annotation)
+        val range = string rangeOf annotation
 
         range shouldBe expectedRange
     }
 
     @Test
-    fun `parseAnnotationRange throws exception when annotation is not attached`() {
+    fun `rangeOf() throws exception when annotation is not attached`() {
         val annotation = Annotation("key", "value")
         val string = SpannableString("first second third")
         // setSpan is skipped, annotation is not attached
 
         shouldThrowAny {
-            AnnotationSpanProcessor.parseAnnotationRange(string, annotation)
+            string rangeOf annotation
         }
     }
 

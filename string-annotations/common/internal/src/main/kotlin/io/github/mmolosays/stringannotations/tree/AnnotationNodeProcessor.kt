@@ -1,7 +1,7 @@
 package io.github.mmolosays.stringannotations.tree
 
 import android.text.Spanned
-import io.github.mmolosays.stringannotations.AnnotationSpanProcessor
+import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -59,10 +59,10 @@ internal object AnnotationNodeProcessor {
         string: Spanned,
     ): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
-        val nodeRange = AnnotationSpanProcessor.parseAnnotationRange(string, node.annotation)
+        val nodeRange = string rangeOf node.annotation
         if (!node.hasChildren()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
         val childrenRanges = node.children.map { child ->
-            AnnotationSpanProcessor.parseAnnotationRange(string, child.annotation)
+            string rangeOf child.annotation
         }
         val childrenCount = node.children.size
         val spaceCount = childrenCount + 1 // __-___--_ 3 spaces for 2 children, 5 total ranges

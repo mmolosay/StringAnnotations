@@ -25,29 +25,17 @@ import android.text.Spanned
 internal object AnnotationSpanProcessor {
 
     /**
-     * Retrieves [annotation]'s start and end positions in terms of specified [string].
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full [string]
-     * range.
+     * Retrieves [annotation]'s start and end positions in terms of receiver [Spanned] object.
+     * If [annotation] is `null`, then we assume that is a top-most root, and return full range
+     * of this [Spanned] object.
      */
-    fun parseAnnotationRange(
-        string: Spanned,
-        annotation: Annotation?,
-    ): IntRange {
-        annotation ?: return 0..string.length
-        val start = string.getSpanStart(annotation)
-        val end = string.getSpanEnd(annotation)
+    infix fun Spanned.rangeOf(annotation: Annotation?): IntRange {
+        annotation ?: return 0..length
+        val start = getSpanStart(annotation)
+        val end = getSpanEnd(annotation)
         require(start != -1 && end != -1) { "Specified annotation is not attached to this Spanned" }
         return (start..end)
     }
-
-    /**
-     * Variant of [parseAnnotationRange] that works with [annotations] array.
-     */
-    fun parseAnnotationRanges(
-        string: Spanned,
-        annotations: Array<out Annotation>,
-    ): List<IntRange> =
-        annotations.map { parseAnnotationRange(string, it) }
 
     /**
      * Parses specified [annotations] of [string] into list of [PlacedAnnotation].
@@ -57,10 +45,7 @@ internal object AnnotationSpanProcessor {
         annotations: Array<out Annotation>,
     ): List<PlacedAnnotation> =
         annotations.mapIndexed { index, annotation ->
-            val range = parseAnnotationRange(string, annotation)
-            if (range.first == -1 || range.last == -1) {
-                throw IllegalArgumentException("annotation doesn\'t belong to this string")
-            }
+            val range = string rangeOf annotation
             PlacedAnnotation(annotation, range.first, range.last, index)
         }
 }
