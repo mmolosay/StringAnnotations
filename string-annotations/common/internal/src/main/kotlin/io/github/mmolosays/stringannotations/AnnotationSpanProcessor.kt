@@ -22,44 +22,45 @@ import android.text.Spanned
 /**
  * Processes [Annotation]s.
  */
-public object AnnotationSpanProcessor {
+internal object AnnotationSpanProcessor {
 
     /**
-     * Parses specified [annotations] of [spanned] into list of [PlacedAnnotation].
-     */
-    internal fun parseStringAnnotations(
-        spanned: Spanned,
-        annotations: Array<out Annotation>,
-    ): List<PlacedAnnotation> =
-        annotations.mapIndexed { index, annotation ->
-            val range = parseAnnotationRange(spanned, annotation)
-            if (range.first == -1 || range.last == -1) {
-                throw IllegalArgumentException("annotation doesn\'t belong to this string")
-            }
-            PlacedAnnotation(annotation, range.first, range.last, index)
-        }
-
-    /**
-     * Retrieves [annotation]'s start and end positions in terms of specified [spanned].
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full [spanned]
+     * Retrieves [annotation]'s start and end positions in terms of specified [string].
+     * If [annotation] is `null`, then we assume that is a top-most root, and return full [string]
      * range.
      */
-    internal fun parseAnnotationRange(
-        spanned: Spanned,
+    fun parseAnnotationRange(
+        string: Spanned,
         annotation: Annotation?,
     ): IntRange {
-        annotation ?: return 0..spanned.length
-        val start = spanned.getSpanStart(annotation)
-        val end = spanned.getSpanEnd(annotation)
-        return start..end
+        annotation ?: return 0..string.length
+        val start = string.getSpanStart(annotation)
+        val end = string.getSpanEnd(annotation)
+        require(start != -1 && end != -1) { "Specified annotation is not attached to this Spanned" }
+        return (start..end)
     }
 
     /**
      * Variant of [parseAnnotationRange] that works with [annotations] array.
      */
-    public fun parseAnnotationRanges(
-        spanned: Spanned,
+    fun parseAnnotationRanges(
+        string: Spanned,
         annotations: Array<out Annotation>,
     ): List<IntRange> =
-        annotations.map { parseAnnotationRange(spanned, it) }
+        annotations.map { parseAnnotationRange(string, it) }
+
+    /**
+     * Parses specified [annotations] of [string] into list of [PlacedAnnotation].
+     */
+    fun parseStringAnnotations(
+        string: Spanned,
+        annotations: Array<out Annotation>,
+    ): List<PlacedAnnotation> =
+        annotations.mapIndexed { index, annotation ->
+            val range = parseAnnotationRange(string, annotation)
+            if (range.first == -1 || range.last == -1) {
+                throw IllegalArgumentException("annotation doesn\'t belong to this string")
+            }
+            PlacedAnnotation(annotation, range.first, range.last, index)
+        }
 }
