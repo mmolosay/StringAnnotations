@@ -13,13 +13,133 @@ import org.robolectric.RobolectricTestRunner
 internal class AnnotationTreeBuilderTests {
 
     /**
+     *                            ___________
+     * "a string with quite a few annotations"
+     */
+    @Test
+    fun `buildAnnotationTrees #1`() {
+        val annotations = arrayOf(
+            Annotation("index", "0"),
+        )
+        val string = SpannableString("a string with quite a few annotations").apply {
+            setSpan(annotations[0], 26, 37, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
+
+        val expected = listOf(
+            AnnotationNode(
+                annotation = annotations[0],
+                children = emptyList(),
+            )
+        )
+
+        trees shouldBe expected
+    }
+
+    /**
+     *           ________________
+     * "a string with quite a few annotations"
+     */
+    @Test
+    fun `buildAnnotationTrees #2`() {
+        val annotations = arrayOf(
+            Annotation("index", "0"),
+        )
+        val string = SpannableString("a string with quite a few annotations").apply {
+            setSpan(annotations[0], 9, 25, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
+
+        val expected = listOf(
+            AnnotationNode(
+                annotation = annotations[0],
+                children = emptyList(),
+            )
+        )
+
+        trees shouldBe expected
+    }
+
+    /**
+     *           __________   _______________
+     * "a string with quite a few annotations"
+     */
+    @Test
+    fun `buildAnnotationTrees #3`() {
+        val annotations = arrayOf(
+            Annotation("index", "0"),
+            Annotation("index", "1"),
+        )
+        val string = SpannableString("a string with quite a few annotations").apply {
+            setSpan(annotations[0], 9, 19, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(annotations[1], 22, 37, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
+
+        val expected = listOf(
+            AnnotationNode(
+                annotation = annotations[0],
+                children = emptyList(),
+            ),
+            AnnotationNode(
+                annotation = annotations[1],
+                children = emptyList(),
+            ),
+        )
+
+        trees shouldBe expected
+    }
+
+    /**
+     *           ____
+     *           __________   ___
+     * "a string with quite a few annotations"
+     */
+    @Test
+    fun `buildAnnotationTrees #4`() {
+        val annotations = arrayOf(
+            Annotation("index", "0"),
+            Annotation("index", "1"),
+            Annotation("index", "2"),
+        )
+        val string = SpannableString("a string with quite a few annotations").apply {
+            setSpan(annotations[0], 9, 19, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(annotations[1], 9, 13, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(annotations[2], 22, 25, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
+
+        val expected = listOf(
+            AnnotationNode(
+                annotation = annotations[0],
+                children = listOf(
+                    AnnotationNode(
+                        annotation = annotations[1],
+                        children = emptyList(),
+                    ),
+                ),
+            ),
+            AnnotationNode(
+                annotation = annotations[2],
+                children = emptyList(),
+            ),
+        )
+
+        trees shouldBe expected
+    }
+
+    /**
      *                _____
      *    ______ ___________        _________
      *    ___________________     ___________
      * "a string with quite a few annotations"
      */
     @Test
-    fun `buildAnnotationTrees #1`() {
+    fun `buildAnnotationTrees #5`() {
         val annotations = arrayOf(
             Annotation("index", "0"),
             Annotation("index", "1"),
@@ -78,7 +198,7 @@ internal class AnnotationTreeBuilderTests {
      * "a string with quite a few annotations"
      */
     @Test
-    fun `buildAnnotationTrees #2`() {
+    fun `buildAnnotationTrees #6`() {
         val annotations = arrayOf(
             Annotation("index", "0"),
             Annotation("index", "1"),
@@ -140,7 +260,7 @@ internal class AnnotationTreeBuilderTests {
      * "a string with quite a few annotations"
      */
     @Test
-    fun `buildAnnotationTrees #3`() {
+    fun `buildAnnotationTrees #7`() {
         val annotations = arrayOf(
             Annotation("index", "0"),
         )
@@ -167,7 +287,7 @@ internal class AnnotationTreeBuilderTests {
      * "a string with quite a few annotations"
      */
     @Test
-    fun `buildAnnotationTrees #4`() {
+    fun `buildAnnotationTrees #8`() {
         val annotations = arrayOf(
             Annotation("index", "0"),
             Annotation("index", "1"),
@@ -222,7 +342,7 @@ internal class AnnotationTreeBuilderTests {
      * "a string with quite a few annotations"
      */
     @Test
-    fun `buildAnnotationTrees #5`() {
+    fun `buildAnnotationTrees #9`() {
         val annotations = arrayOf(
             Annotation("index", "0"),
             Annotation("index", "1"),
