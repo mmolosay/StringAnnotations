@@ -27,16 +27,17 @@ internal object AnnotationTreeBuilder {
     /**
      * Assembles annotation tree out of [Annotation]s of specified [string].
      */
-    fun buildAnnotationTrees(
+    fun buildAnnotationTree(
         string: Spanned,
         annotations: Array<out Annotation>,
-    ): List<AnnotationNode> {
+    ): AnnotationNode {
         val placed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
         val groups = placed.groupInRoot()
-        return groups.map { group ->
+        val topmost = groups.map { group ->
             val root = group.first() // due to impl of groupInRoot()
             parseAnnotationNode(root, group)
         }
+        return AnnotationNode(annotation = null, children = topmost)
     }
 
     /**

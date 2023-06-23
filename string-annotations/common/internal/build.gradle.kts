@@ -40,7 +40,8 @@ dependencies {
     implementation(project(":string-annotations:common:utils"))
 
     // Testing
-    testImplementation("io.kotest:kotest-assertions-core:5.5.5")
     testImplementation("junit:junit:4.13.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.5")
+    testImplementation("io.mockk:mockk:1.13.5")
     testImplementation("org.robolectric:robolectric:4.10.3")
 }

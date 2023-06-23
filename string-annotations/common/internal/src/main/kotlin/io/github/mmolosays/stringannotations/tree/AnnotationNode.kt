@@ -25,8 +25,9 @@ import android.text.Annotation
 internal data class AnnotationNode(
     /**
      * The [Annotation] object instance itself.
+     * If it's `null`, then this [AnnotationNode] is a top-most node holding the whole string.
      */
-    val annotation: Annotation,
+    val annotation: Annotation?,
 
     /**
      * Direct children of [annotation].

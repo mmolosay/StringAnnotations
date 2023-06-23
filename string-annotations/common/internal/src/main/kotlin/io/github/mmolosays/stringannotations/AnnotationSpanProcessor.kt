@@ -26,11 +26,8 @@ internal object AnnotationSpanProcessor {
 
     /**
      * Retrieves [annotation]'s start and end positions in terms of receiver [Spanned] object.
-     * If [annotation] is `null`, then we assume that is a top-most root, and return full range
-     * of this [Spanned] object.
      */
-    infix fun Spanned.rangeOf(annotation: Annotation?): IntRange {
-        annotation ?: return 0..length
+    infix fun Spanned.rangeOf(annotation: Annotation): IntRange {
         val start = getSpanStart(annotation)
         val end = getSpanEnd(annotation)
         require(start != -1 && end != -1) { "Specified annotation is not attached to this Spanned" }

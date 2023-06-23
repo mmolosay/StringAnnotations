@@ -39,12 +39,12 @@ internal object AnnotationNodeProcessor {
         node: AnnotationNode,
         string: Spanned,
     ): List<IntRange> {
-        val nodeRange = string rangeOf node.annotation
+        val nodeRange = node.annotation?.let { string rangeOf it } ?: 0..string.length
         if (node.children.isEmpty()) return listOf(nodeRange) // leaf nodes contain one range – itself
 
         val ranges = mutableListOf<IntRange>()
         val childrenRanges = node.children.map { child ->
-            string rangeOf child.annotation
+            string rangeOf requireNotNull(child.annotation)
         }
 
         for (i in childrenRanges.indices) {

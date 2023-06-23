@@ -68,7 +68,7 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
 
     /**
      * Retrieves [AnnotationProcessor] to be used for parsing annotations.
-     * Normally it should obtain an annotation processor set in the stage of library initialization.
+     * Normally it should obtain an annotation processor set during the stage of library initialization.
      */
     protected abstract fun getAnnotationProcessor(): P
 

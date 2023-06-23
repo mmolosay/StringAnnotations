@@ -3,7 +3,7 @@ package io.github.mmolosays.stringannotations
 import android.text.Annotation
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.SpannedString
+import android.text.Spanned
 import io.github.mmolosays.stringannotations.tree.AnnotationNode
 import io.github.mmolosays.stringannotations.tree.AnnotationNodeProcessor
 import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
@@ -27,47 +27,50 @@ import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 /**
  * Formats annotated strings.
  */
-public object AnnotatedStringFormatter {
+internal object AnnotatedStringFormatter {
 
     /**
      * Formats specified [string] with [formatArgs], preserving `<annotation>` spans.
      */
-    public fun format(
-        string: SpannedString,
+    fun format(
+        string: Spanned,
         annotations: Array<out Annotation>,
         vararg formatArgs: Any,
     ): Spannable {
         // 0. prepare dependencies
-        val builder = SpannableStringBuilder(string)
+        val builder = SpannableStringBuilder(string) // copies spans
         val stringArgs = formatArgs.stringify()
 
         // 1. build annotation tree
-        val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
+        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
         // 2. replace wildcards, preserving annotation spans
-        trees.forEach { root -> format(builder, root, stringArgs) }
+        format(builder, tree, stringArgs)
 
         return builder
     }
 
     /**
      * Formats specified [builder] string with [formatArgs] (see [String.format]),
-     * preserving `<annotation>` spans. Specified [node] is a top-most root of [builder]'s
-     * annotation tree.
+     * preserving `<annotation>` spans of [node] and its children.
      *
      * Formatting happens recursively, according to following scenario:
      *
      * 1. Recursively traverse to most deep leaf (childless) nodes, and format their bodies
      *    (since they don't have children, there is nothing to split in them).
-     * 2. Return from leaf nodes to one level up to their parent and format their body parts,
+     * 2. Return from leaf nodes one level up to their parent and format their body parts,
      *    unoccupied by children (since they was already formatted in previous step).
-     * 3. Repeat step 2. until the tree root (without annotation) is reached, then take its next
+     * 3. Repeat step 2 until the recursive call stack is clear, then take next
      *    child and repeat from 1.
      *
      * ```
      * Example of possible scenario:
      *
-     * Node: ____-‾-____--‾‾_
+     *   Children #2:      _       __
+     *   Children #1:     ___    ____
+     *          Node: ________________
+     *
+     * Node combined: ____-‾-____--‾‾_
      *
      * Steps (first number is an index of root in tree node, second is an iteration step ordinal):
      * 0.1: format node's {5, 6} whole body.
