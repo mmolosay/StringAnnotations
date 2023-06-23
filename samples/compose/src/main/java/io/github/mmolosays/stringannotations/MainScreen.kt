@@ -169,6 +169,7 @@ private fun Demo4() {
 private fun Demo5() {
     val args = Arguments {
         decoration(TextDecoration.Striketrhough)
+        decoration(TextDecoration.Underline)
     }
     Text(
         text = annotatedStringResource(R.string.demo5, args)
@@ -194,7 +195,6 @@ private fun Demo6() {
  * Demo for [R.string.customDemo].
  * Demonstrates custom "letter-spacing" annotation type.
  */
-@OptIn(ExperimentalUnitApi::class)
 @Composable
 private fun CustomDemo() {
     val args = CustomArguments(
