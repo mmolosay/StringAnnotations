@@ -39,7 +39,7 @@ public object AnnotatedStringFormatter {
     ): Spannable {
         // 0. prepare dependencies
         val builder = SpannableStringBuilder(string)
-        val stringArgs = stringifyFormatArgs(formatArgs)
+        val stringArgs = formatArgs.stringify()
 
         // 1. build annotation tree
         val trees = AnnotationTreeBuilder.buildAnnotationTrees(string, annotations)
@@ -85,24 +85,23 @@ public object AnnotatedStringFormatter {
         node.children.forEach { child ->
             format(builder, child, formatArgs)
         }
-        val ranges = AnnotationNodeProcessor.findNodeNonAnnotationRanges(node, builder)
-        ranges.forEach { range ->
-            val substring = builder.substring(range.first, range.last)
-            val formatted = String.format(substring, *formatArgs)
-            if (substring != formatted) { // do nothing if no formatting happened
-                builder.replace(range.first, range.last, formatted)
+        AnnotationNodeProcessor
+            .findNodeNonAnnotationRanges(node, builder)
+            .forEach { range ->
+                val substring = builder.substring(range.first, range.last)
+                val formatted = String.format(substring, *formatArgs)
+                if (substring != formatted) { // do nothing if no formatting happened
+                    builder.replace(range.first, range.last, formatted)
+                }
             }
-        }
     }
 
     /**
-     * Maps [formatArgs] into array of [String]s by resolving their string values
+     * Maps receiver `formatArgs` into array of [String]s by resolving their string values
      * (see [java.lang.String.valueOf]).
      */
-    private fun stringifyFormatArgs(
-        formatArgs: Array<out Any>,
-    ): Array<out String> =
-        Array<String>(formatArgs.size) { i ->
-            java.lang.String.valueOf(formatArgs[i])
+    private fun Array<out Any>.stringify(): Array<out String> =
+        Array<String>(size) { i ->
+            java.lang.String.valueOf(get(i))
         }
 }
