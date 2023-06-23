@@ -28,7 +28,7 @@ import io.github.mmolosays.stringannotations.processor.parser.ValueParser
  */
 
 /**
- * Typealias for [Arguments], when generic types don't matter.
+ * Typealias for [Arguments], when generic types doesn't matter.
  */
 private typealias AnyArguments = Arguments<*>
 
