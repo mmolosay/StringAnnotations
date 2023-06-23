@@ -25,74 +25,40 @@ import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 internal object AnnotationNodeProcessor {
 
     /**
-     * Calculates inner ranges of [node] in specified [string], which are not ocupied by children
+     * Calculates inner ranges of [node] in specified [string], which are not ocupied by child
      * nodes.
      *
      * Sample:
      * ```
-     * Node: ____-‾-____--‾‾_
-     * Ranges: [{0, 4}, {7, 11}, {15, 16}]
+     * Node.children: _  ___——    ___
+     *          Node: ________________
+     * Result ranges: [{1, 3}, {8, 12}, {15, 16}]
      * ```
      */
-    fun findNodeNonAnnotationRanges(
+    fun findNodeUnoccupiedRanges(
         node: AnnotationNode,
         string: Spanned,
     ): List<IntRange> {
-        val ranges = findAllNodeRanges(node, string)
-        val nonAnnotationRanges = ranges.filterIndexed { index, _ ->
-            index % 2 == 0 // each second range is an annotation (due to findAllNodeRanges impl)
-        }
-        return reduceZeroLengthRanges(nonAnnotationRanges)
-    }
-
-    /**
-     * Calculates inner ranges of depth=1 of [node] in specified [string].
-     *
-     * Sample:
-     * ```
-     * Node: ____-‾-____--‾‾_
-     * Ranges: [{0, 4}, {4, 7}, {7, 11}, {11, 15}, {15, 16}]
-     * ```
-     */
-    private fun findAllNodeRanges(
-        node: AnnotationNode,
-        string: Spanned,
-    ): List<IntRange> {
-        val ranges = mutableListOf<IntRange>()
         val nodeRange = string rangeOf node.annotation
-        if (node.children.isEmpty()) return ranges.apply { add(nodeRange) } // leaf nodes contain one range
+        if (node.children.isEmpty()) return listOf(nodeRange) // leaf nodes contain one range – itself
+
+        val ranges = mutableListOf<IntRange>()
         val childrenRanges = node.children.map { child ->
             string rangeOf child.annotation
         }
-        val childrenCount = node.children.size
-        val spaceCount = childrenCount + 1 // __-___--_ 3 spaces for 2 children, 5 total ranges
-        val rangeCount = childrenCount + spaceCount
 
-        var lastEnd = nodeRange.first
-        var start: Int
-        var end: Int
-        for (i in 0 until rangeCount) {
-            start = lastEnd
-            val childrange =
-                childrenRanges.getOrNull(i / 2) ?: break // current or nearest right child
-            end = if (i % 2 == 0) { // each even index stands for space range
-                childrange.first
-            } else {
-                childrange.last
+        for (i in childrenRanges.indices) {
+            val childRange = childrenRanges[i]
+            val start = childrenRanges.getOrNull(i - 1)?.last ?: 0 // end of previous child range
+            val end = childRange.first
+            if (start - end != 0) { // ignore zero-length ranges
+                ranges += (start..end)
             }
-            lastEnd = end
-            ranges.add(start..end)
+        }
+        // if last child ended prior to the end of the node itself, add remaining range
+        if (childrenRanges.last().last != nodeRange.last) {
+            ranges += (childrenRanges.last().last..nodeRange.last)
         }
         return ranges
     }
-
-    /**
-     * Filters out ranges of zero length (`start == end`).
-     */
-    private fun reduceZeroLengthRanges(
-        ranges: List<IntRange>,
-    ): List<IntRange> =
-        ranges.filter { range ->
-            range.last - range.first != 0
-        }
 }

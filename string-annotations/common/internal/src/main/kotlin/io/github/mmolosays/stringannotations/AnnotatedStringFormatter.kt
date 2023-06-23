@@ -86,7 +86,7 @@ public object AnnotatedStringFormatter {
             format(builder, child, formatArgs)
         }
         AnnotationNodeProcessor
-            .findNodeNonAnnotationRanges(node, builder)
+            .findNodeUnoccupiedRanges(node, builder)
             .forEach { range ->
                 val substring = builder.substring(range.first, range.last)
                 val formatted = String.format(substring, *formatArgs)
