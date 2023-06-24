@@ -31,5 +31,6 @@ dependencies {
     api(project(":string-annotations:common:shared"))
     implementation(project(":string-annotations:common:internal"))
 
+    // Dependencies
     implementation("androidx.fragment:fragment-ktx:1.6.0") // for fragment extensions
 }
