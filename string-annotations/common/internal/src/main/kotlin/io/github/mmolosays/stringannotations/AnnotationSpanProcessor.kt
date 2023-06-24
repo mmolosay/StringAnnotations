@@ -33,16 +33,4 @@ internal object AnnotationSpanProcessor {
         require(start != -1 && end != -1) { "Specified annotation is not attached to this Spanned" }
         return (start..end)
     }
-
-    /**
-     * Parses [annotations] of [string] into the list of [PlacedAnnotation].
-     */
-    fun parseStringAnnotations(
-        string: Spanned,
-        annotations: Array<out Annotation>,
-    ): List<PlacedAnnotation> =
-        annotations.mapIndexed { index, annotation ->
-            val range = string rangeOf annotation
-            PlacedAnnotation(annotation, range.first, range.last, index)
-        }
 }

@@ -2,9 +2,7 @@ package io.github.mmolosays.stringannotations.tree
 
 import android.text.Annotation
 import android.text.Spanned
-import io.github.mmolosays.stringannotations.AnnotationSpanProcessor
-import io.github.mmolosays.stringannotations.PlacedAnnotation
-import io.github.mmolosays.stringannotations.has
+import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -31,7 +29,7 @@ internal object AnnotationTreeBuilder {
         string: Spanned,
         annotations: Array<out Annotation>,
     ): AnnotationTree {
-        val placed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
+        val placed = parsePlacedAnnotations(string, annotations)
         val groups = placed.groupInRoot()
         val topmosts = groups.map { group ->
             val root = group.first() // due to impl of groupInRoot()
@@ -123,5 +121,40 @@ internal object AnnotationTreeBuilder {
         // last are unadded yet
         groups += slice(lastRootIndex..lastIndex)
         return groups
+    }
+
+    /**
+     * Parses [annotations] of [string] into the list of [PlacedAnnotation].
+     */
+    private fun parsePlacedAnnotations(
+        string: Spanned,
+        annotations: Array<out Annotation>,
+    ): List<PlacedAnnotation> =
+        annotations.map { annotation ->
+            val range = string rangeOf annotation
+            PlacedAnnotation(annotation, range.first, range.last)
+        }
+
+    /**
+     * [Annotation] which has [start] and [end] positions in terms of some string.
+     * It allows to work with annotation placement data without context of specific string.
+     */
+    private data class PlacedAnnotation(
+        val annotation: Annotation,
+        val start: Int,
+        val end: Int,
+    )
+
+    /**
+     * Determines if [other] annotation is "inside" `this` one.
+     * "Inside" means that it may be direct or inderect (nested) child.
+     *
+     * @return `true`, if [other] is inside, or `false`, if it's not or ([other] === `this`).
+     */
+    private fun PlacedAnnotation.has(other: PlacedAnnotation): Boolean {
+        val a = (this !== other)            // is not the same exact object
+        val b = (other.start >= this.start) // other is not starting earlier
+        val c = (other.end <= this.end)     // other is not ending later
+        return (a && b && c)
     }
 }
