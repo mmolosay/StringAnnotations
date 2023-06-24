@@ -4,12 +4,16 @@ import android.content.res.Resources
 import android.text.SpannedString
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import io.github.mmolosays.stringannotations.compose.args.Clickable
 import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
+import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -32,11 +36,47 @@ import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
  */
 
 /**
+ * Default [ComposeAnnotationProcessor] to be used.
+ *
+ * As for any other [ProvidableCompositionLocal], if you want to provide your own implementation of
+ * annotation processor, you should do it in the root of the application's UI.
+ */
+public val LocalStringAnnotationProcessor: ProvidableCompositionLocal<ComposeAnnotationProcessor> =
+    staticCompositionLocalOf {
+        MasterAnnotationProcessor(
+            defaultValueParser = CommonValueParser,
+        )
+    }
+
+/**
  * Returns [AnnotatedString], associated with a specified string resource [id] with `<annotation>`s.
  *
  * @param id resource id of annotated string.
- * @param arguments annotation arguments to be used instead of value placeholders.
- * @param formatArgs formatting arguments to be substituted.
+ * @param arguments annotation arguments to be used instead of value placeholders
+ * (like "`$arg$color$0`" for [CommonValueParser]).
+ * @param processor an annotaion processor to be used.
+ * Use the other variant of this function, if you want to use default annotation processor.
+ * @param formatArgs formatting arguments to be substituted instead of positional argument (like "`%1$s`").
+ * See also: [Formatting strings](https://developer.android.com/guide/topics/resources/string-resource#formatting-strings).
+ */
+@Composable
+@ReadOnlyComposable
+public fun annotatedStringResource(
+    @StringRes id: Int,
+    arguments: ComposeArguments,
+    processor: ComposeAnnotationProcessor,
+    vararg formatArgs: Any,
+): AnnotatedString =
+    AnnotatedStrings.process(
+        string = spannedStringResource(id),
+        arguments = arguments,
+        processor = processor,
+        formatArgs = formatArgs,
+    )
+
+/**
+ * Variant of [annotatedStringResource] for cases, when you want to use an instance
+ * of an annotation processor set in [LocalStringAnnotationProcessor].
  */
 @Composable
 @ReadOnlyComposable
@@ -48,21 +88,7 @@ public fun annotatedStringResource(
     AnnotatedStrings.process(
         string = spannedStringResource(id),
         arguments = arguments,
-        formatArgs = formatArgs,
-    )
-
-/**
- * Simplified variant of [annotatedStringResource] for cases, when there is no annotation arguments.
- */
-@Composable
-@ReadOnlyComposable
-public fun annotatedStringResource(
-    @StringRes id: Int,
-    vararg formatArgs: Any,
-): AnnotatedString =
-    AnnotatedStrings.process(
-        string = spannedStringResource(id),
-        arguments = null,
+        processor = LocalStringAnnotationProcessor.current,
         formatArgs = formatArgs,
     )
 

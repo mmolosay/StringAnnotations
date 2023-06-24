@@ -29,7 +29,6 @@ import io.github.mmolosays.stringannotations.views.ViewsSpan
 
 /**
  * Builder for [AnnotationProcessor] implementations for single annotation type for Android Views UI.
- * Employs [AbstractAnnotationProcessor] inside.
  *
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */

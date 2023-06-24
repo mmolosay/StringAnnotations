@@ -28,9 +28,6 @@ import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 public object AnnotatedStrings :
     AbstractAnnotatedStrings<ComposeArguments, ComposeSpan, ComposeAnnotationProcessor, AnnotatedString>() {
 
-    override fun getAnnotationProcessor(): ComposeAnnotationProcessor =
-        StringAnnotations.dependencies.processor
-
     override fun applySpans(
         spannable: Spannable,
         spans: List<ComposeSpan?>,

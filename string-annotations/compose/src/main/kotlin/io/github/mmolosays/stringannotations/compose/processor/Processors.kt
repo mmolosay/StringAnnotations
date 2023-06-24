@@ -1,11 +1,8 @@
-@file:Suppress("FunctionName")
-
 package io.github.mmolosays.stringannotations.compose.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
-import io.github.mmolosays.stringannotations.processor.AbstractAnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
@@ -31,7 +28,6 @@ import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /**
  * Builder for [AnnotationProcessor] implementations for single annotation type for Compose UI.
- * Employs [AbstractAnnotationProcessor] inside.
  *
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */

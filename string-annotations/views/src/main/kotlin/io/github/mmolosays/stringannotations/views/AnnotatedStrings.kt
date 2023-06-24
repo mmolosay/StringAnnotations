@@ -27,9 +27,6 @@ import io.github.mmolosays.stringannotations.views.internal.SpanProcessor
 public object AnnotatedStrings :
     AbstractAnnotatedStrings<ViewsArguments, ViewsSpan, ViewsAnnotationProcessor, Spanned>() {
 
-    override fun getAnnotationProcessor(): ViewsAnnotationProcessor =
-        StringAnnotations.dependencies.processor
-
     override fun applySpans(
         spannable: Spannable,
         spans: List<ViewsSpan?>,

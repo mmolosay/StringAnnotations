@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import io.github.mmolosays.stringannotations.BaseClickableAnnotationProcessor
@@ -18,6 +17,7 @@ import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
 
@@ -43,9 +43,8 @@ import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
  * One should inherit this class in order to extend out-of-the-box annotaiton types with
  * custom ones.
  */
-@OptIn(ExperimentalUnitApi::class) // TextUnit
 public open class MasterAnnotationProcessor(
-    override val defaultValueParser: ValueParser,
+    override val defaultValueParser: ValueParser = CommonValueParser,
 ) :
     AbstractMasterAnnotationProcessor<ComposeArguments, ComposeSpan>() {
 

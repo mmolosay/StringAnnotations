@@ -44,7 +44,7 @@ public object CommonValueParser : ValueParser {
             require(placeholder.startsWith('$'))
             val tokens = placeholder.substring(1).split("$", limit = 4)
             val (prefix, qualifier, ordinal) = tokens
-            require(tokens.size == 3)
+            require(tokens.size == 3) // ["arg", qualifier, index]
             require(prefix == "arg")
             require(qualifier == values.qualifier)
             val index = requireNotNull(parsePlaceholderIndex(ordinal))

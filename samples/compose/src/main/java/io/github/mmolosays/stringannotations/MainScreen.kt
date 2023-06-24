@@ -12,15 +12,11 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
@@ -31,54 +27,39 @@ import io.github.mmolosays.stringannotations.compose.annotatedStringResource
 import io.github.mmolosays.stringannotations.compose.args.Arguments
 import io.github.mmolosays.stringannotations.compose.args.Clickable
 import io.github.mmolosays.stringannotations.compose.onClick
-import io.github.mmolosays.stringannotations.custom.CustomArguments
 import io.github.mmolosays.stringannotations.sample.R
-
-// region Previews
 
 /*
  * Unfortunately, Compose Preview can not be rendered, when there's some
  * annotated strings in layout:
- * class java.lang.String cannot be cast to class android.text.SpannedString,
- * but it all fine in runtime
+ * "class java.lang.String cannot be cast to class android.text.SpannedString",
+ * but it's all fine in runtime
  */
-@Preview
-@Composable
-private fun MainScreenPreview() {
-    SampleTheme {
-        MainScreen()
-    }
-}
-
-// endregion
-
-@OptIn(ExperimentalUnitApi::class)
-private val DemoTextStyle = TextStyle(fontSize = TextUnit(18f, TextUnitType.Sp))
 
 @Composable
 fun MainScreen() {
-    Screen {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .systemBarsPadding(),
+    ) {
         Main()
     }
 }
 
 @Composable
 fun Main() {
-    CompositionLocalProvider(
-        LocalTextStyle provides DemoTextStyle,
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            Demo1()
-            Demo2()
-            Demo3()
-            Demo4()
-            Demo5()
-            Demo6()
-            CustomDemo()
-        }
+        Demo1()
+        Demo2()
+        Demo3()
+        Demo4()
+        Demo5()
+        Demo6()
+        CustomDemo()
     }
 }
 
@@ -197,21 +178,10 @@ private fun Demo6() {
  */
 @Composable
 private fun CustomDemo() {
-    val args = CustomArguments(
+    val args = MyArguments(
         letterSpacings = listOf(TextUnit(10f, TextUnitType.Sp))
     )
     Text(text = annotatedStringResource(R.string.customDemo, args))
 }
 
 // endregion
-
-@Composable
-fun Screen(
-    content: @Composable () -> Unit,
-) =
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .systemBarsPadding(),
-        content = content,
-    )

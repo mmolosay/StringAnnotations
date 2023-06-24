@@ -38,16 +38,16 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
      *
      * 1. Formats specified [string] with [formatArgs] (see [String.format]),
      * preserving `<annotation>` spans.
-     * 2. Parses `<annotation>`s into spans.
+     * 2. Parses `<annotation>`s into spans using specified [processor].
      * 3. Applies spans to the [string].
      */
     public fun process(
         string: SpannedString,
         arguments: A? = null,
+        processor: P,
         vararg formatArgs: Any,
     ): R {
         // 0. prepare dependencies
-        val processor = getAnnotationProcessor()
         val annotations = SpannedProcessor.getAnnotationSpans(string)
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
@@ -67,12 +67,6 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
         // 4. apply spans and return result AnnotatedString
         return applySpans(spannable, spans, ranges)
     }
-
-    /**
-     * Retrieves [AnnotationProcessor] to be used for parsing annotations.
-     * Normally it should obtain an annotation processor set during the stage of library initialization.
-     */
-    protected abstract fun getAnnotationProcessor(): P
 
     /**
      * Applies [spans] at corresponsing [ranges] to [spannable].

@@ -13,15 +13,25 @@ import io.github.mmolosays.stringannotations.args.types.TextSize
 import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.sample.R
 import io.github.mmolosays.stringannotations.sample.databinding.MainScreenBinding
+import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.args.Arguments
 import io.github.mmolosays.stringannotations.views.args.Clickable
 import io.github.mmolosays.stringannotations.views.clickable.Clickable
 import io.github.mmolosays.stringannotations.views.clickable.from
 import io.github.mmolosays.stringannotations.views.getAnnotatedString
+import io.github.mmolosays.stringannotations.views.processor.MasterAnnotationProcessor
 
 class MainActivity : AppCompatActivity(R.layout.main_screen) {
 
     private val binding by viewBinding(MainScreenBinding::bind)
+
+    /**
+     * For the sake of simplicity, in this sample app we instantiate an annotation processor here.
+     *
+     * In your app, you should probably use some DI solution (like Dagger), create an annotation
+     * processor once and then inject it in your Activities and Fragments.
+     */
+    private val annotationProcessor: ViewsAnnotationProcessor = MasterAnnotationProcessor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +39,6 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
     }
 
     private fun setViews() {
-        setDemos()
-    }
-
-    // region Set demos
-
-    private fun setDemos() {
         setDemo1()
         setDemo2()
         setDemo3()
@@ -42,6 +46,8 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         setDemo5()
         setDemo6()
     }
+
+    // region Set demos
 
     /**
      * Demo for [R.string.demo1].
@@ -51,7 +57,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         val args = Arguments {
             color(Color.BLUE)
         }
-        binding.demo1.text = getAnnotatedString(R.string.demo1, args)
+        binding.demo1.text = getAnnotatedString(R.string.demo1, args, annotationProcessor)
     }
 
     /**
@@ -63,7 +69,8 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
             color(Color.LTGRAY)
         }
         val placeholder1 = getString(R.string.value1)
-        binding.demo2.text = getAnnotatedString(R.string.demo2, args, placeholder1)
+        binding.demo2.text =
+            getAnnotatedString(R.string.demo2, args, annotationProcessor, placeholder1)
     }
 
     /**
@@ -96,10 +103,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         }
         binding.demo3.run {
             movementMethod = LinkMovementMethod.getInstance()
-            text = getAnnotatedString(
-                id = R.string.demo3,
-                arguments = args
-            )
+            text = getAnnotatedString(R.string.demo3, args, annotationProcessor)
         }
     }
 
@@ -114,7 +118,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         val args = Arguments {
             styles(style1, style2, style3)
         }
-        binding.demo4.text = getAnnotatedString(R.string.demo4, args)
+        binding.demo4.text = getAnnotatedString(R.string.demo4, args, annotationProcessor)
     }
 
     /**
@@ -126,7 +130,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
             decoration(TextDecoration.Striketrhough)
             decoration(TextDecoration.Underline)
         }
-        binding.demo5.text = getAnnotatedString(R.string.demo5, args)
+        binding.demo5.text = getAnnotatedString(R.string.demo5, args, annotationProcessor)
     }
 
     /**
@@ -151,7 +155,7 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
         val args = Arguments {
             sizes(size1, size2, size3)
         }
-        binding.demo6.text = getAnnotatedString(R.string.demo6, args)
+        binding.demo6.text = getAnnotatedString(R.string.demo6, args, annotationProcessor)
     }
 
     // endregion

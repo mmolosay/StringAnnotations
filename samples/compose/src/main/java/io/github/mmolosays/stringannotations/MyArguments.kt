@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations.custom
+package io.github.mmolosays.stringannotations
 
 import androidx.compose.ui.unit.TextUnit
 import io.github.mmolosays.stringannotations.args.emptyArguments
@@ -11,7 +11,7 @@ import io.github.mmolosays.stringannotations.compose.ComposeArguments
  * We extend [ComposeArguments] in order to support all
  * out-of-the-box annotation types, while adding our custom ones.
  */
-class CustomArguments(
+class MyArguments(
     base: ComposeArguments = emptyArguments(),
     letterSpacings: List<TextUnit>,
 ) : ComposeArguments by base {

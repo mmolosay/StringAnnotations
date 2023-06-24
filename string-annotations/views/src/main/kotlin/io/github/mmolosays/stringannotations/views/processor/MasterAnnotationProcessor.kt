@@ -14,6 +14,7 @@ import io.github.mmolosays.stringannotations.BaseStyleAnnotationProcessor
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
@@ -44,7 +45,7 @@ import kotlin.math.roundToInt
  * custom ones.
  */
 public open class MasterAnnotationProcessor(
-    override val defaultValueParser: ValueParser,
+    override val defaultValueParser: ValueParser = CommonValueParser,
 ) :
     AbstractMasterAnnotationProcessor<ViewsArguments, ViewsSpan>() {
 
@@ -88,8 +89,9 @@ public open class MasterAnnotationProcessor(
                 SizeUnit.Px -> AbsoluteSizeSpan(it.value.roundToInt())
                 SizeUnit.Sp -> throw IllegalArgumentException(
                     "AbsoluteSizeSpan does not support SP sizes. " +
-                    "You can convert SP size in SizeUnit.Px on your own."
+                        "You can convert SP size in SizeUnit.Px on your own."
                 )
+
                 else -> null
             }
         }
