@@ -61,8 +61,9 @@ internal object AnnotationTreeBuilder {
         val index = annotations.indexOf(this)
         require(index != -1) { "this parent is not in annotations list" }
         if (index == annotations.lastIndex) return emptyList() // last annotation can't have children
+
         val children = mutableListOf<PlacedAnnotation>()
-        for (i in index + 1 until annotations.size) { // prior annotation can't be child
+        for (i in index + 1 until annotations.size) { // prior annotations can't be children
             val maybeChild = annotations[i]
             val parent = maybeChild findDirectParentIn annotations
             if (this === parent) {

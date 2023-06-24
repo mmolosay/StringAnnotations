@@ -25,7 +25,10 @@ import android.text.Spanned
 internal object SpannedProcessor {
 
     /**
-     * Retrieves spans of [Annotation] type from [string] in their appearance order (left to right).
+     * Retrieves spans of [Annotation] type from [string] __in their appearance order__ (left to right).
+     * This property is crucial and allows to traverse through list of annotaions efficiently.
+     * For instance, we can guarantee, that all annotation's children (other annotations, nested
+     * inside its range) will appear on its right in the list.
      *
      * All `<annotation>` tags with more then one attribute will be split into multiple,
      * so that each has only one attribute.
