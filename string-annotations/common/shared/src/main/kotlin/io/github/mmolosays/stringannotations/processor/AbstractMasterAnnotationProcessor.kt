@@ -31,7 +31,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Background color
  *
- * Annotation, that specifies background color of its body.
+ * _Annotation, that specifies background color of its body._
  *
  * Annotation attribute: `background`
  *
@@ -43,7 +43,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Foreground color
  *
- * Annotation, that specifies color of its body.
+ * _Annotation, that specifies color of its body._
  *
  * Annotation attribute: `color`
  *
@@ -55,7 +55,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Clickable
  *
- * Annotation, that specifies ability of its body to intercept click events.
+ * _Annotation, that specifies ability of its body to intercept click events._
  *
  * You should also explicitly specify, that your `TextView` contains clickable text
  * by calling [android.widget.TextView.setMovementMethod].
@@ -70,7 +70,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Decoration
  *
- * Annotation, that decorates its body.
+ * _Annotation, that decorates its body._
  *
  * Annotation attribute: `decoration`
  *
@@ -82,7 +82,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Absolute size
  *
- * Annotation, that specifies absolute size of its body (in pixels).
+ * _Annotation, that specifies absolute size of its body (in pixels)._
  *
  * Annotation attribute: `size`
  *
@@ -94,7 +94,7 @@ import io.github.mmolosays.stringannotations.parser.ValueParser
  *
  * ### Typeface style
  *
- * Annotation, that specifies typeface style of its body.
+ * _Annotation, that specifies typeface style of its body._
  *
  * Annotation attribute: `style`
  *
