@@ -3,16 +3,11 @@ package io.github.mmolosays.stringannotations
 import android.text.Annotation
 import android.text.SpannableString
 import io.github.mmolosays.stringannotations.tree.AnnotationNode
-import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockkObject
-import io.mockk.unmockkAll
-import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -30,18 +25,9 @@ import org.robolectric.RobolectricTestRunner
  * limitations under the License.
  */
 
+@Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner::class)
 internal class AnnoatedStringFormatterTests {
-
-    @Before
-    fun beforeTest() {
-        mockkObject(AnnotationTreeBuilder)
-    }
-
-    @After
-    fun afterTest() {
-        unmockkAll()
-    }
 
     /**
      *            ____________
@@ -66,9 +52,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         formatted shouldBe string // unchanged
     }
@@ -99,9 +83,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         val expected =
             SpannableString("here is a placeholder #1: ${formatArgs[0]}, #2: ${formatArgs[1]} and text").apply {
@@ -137,9 +119,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         val expected =
             SpannableString("here is a placeholder #1: ${formatArgs[0]}, #2: ${formatArgs[1]} and text").apply {
@@ -181,9 +161,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         val expected =
             SpannableString("here is a placeholder #1: ${formatArgs[0]}, #2: ${formatArgs[1]} and text").apply {
@@ -241,9 +219,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         val expected =
             SpannableString("here is a placeholder #1: ${formatArgs[0]}, #2: ${formatArgs[1]} and text").apply {
@@ -323,9 +299,7 @@ internal class AnnoatedStringFormatterTests {
             ),
         )
 
-        every { AnnotationTreeBuilder.buildAnnotationTree(string, annotations) } returns tree
-
-        val formatted = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val formatted = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         val expected =
             SpannableString("here is a placeholder #1: ${formatArgs[0]}, #2: ${formatArgs[1]} and text").apply {

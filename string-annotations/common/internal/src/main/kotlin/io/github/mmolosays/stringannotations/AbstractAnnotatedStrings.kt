@@ -5,6 +5,7 @@ import android.text.SpannedString
 import io.github.mmolosays.stringannotations.AnnotationSpanProcessor.rangeOf
 import io.github.mmolosays.stringannotations.args.Arguments
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
+import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -48,9 +49,10 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
         // 0. prepare dependencies
         val processor = getAnnotationProcessor()
         val annotations = SpannedProcessor.getAnnotationSpans(string)
+        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
         // 1. format, preserving annotation spans
-        val spannable = AnnotatedStringFormatter.format(string, annotations, *formatArgs)
+        val spannable = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
         // 2. parse annotation ranges
         val ranges = annotations.map { annotation ->

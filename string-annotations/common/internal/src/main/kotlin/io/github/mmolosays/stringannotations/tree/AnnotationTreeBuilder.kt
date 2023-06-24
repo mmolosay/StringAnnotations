@@ -64,7 +64,7 @@ internal object AnnotationTreeBuilder {
         val index = annotations.indexOf(this)
         if (index == annotations.lastIndex) return emptyList() // last annotation can't have children
         val children = mutableListOf<PlacedAnnotation>()
-        for (i in index + 1 until annotations.size) { // prior annotation can't be a child
+        for (i in index + 1 until annotations.size) { // prior annotation can't be child
             val maybeChild = annotations[i]
             val parent = maybeChild findDirectParentIn annotations
             if (this === parent) {

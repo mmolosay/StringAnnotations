@@ -1,12 +1,10 @@
 package io.github.mmolosays.stringannotations
 
-import android.text.Annotation
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import io.github.mmolosays.stringannotations.tree.AnnotationNode
 import io.github.mmolosays.stringannotations.tree.AnnotationNodeProcessor
-import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -30,23 +28,16 @@ import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 internal object AnnotatedStringFormatter {
 
     /**
-     * Formats specified [string] with [formatArgs], preserving `<annotation>` spans.
+     * Formats specified [string] in a range of [tree] with [formatArgs], preserving `<annotation>` spans.
      */
     fun format(
         string: Spanned,
-        annotations: Array<out Annotation>,
+        tree: AnnotationNode,
         vararg formatArgs: Any,
     ): Spannable {
-        // 0. prepare dependencies
         val builder = SpannableStringBuilder(string) // copies spans
         val stringArgs = formatArgs.stringify()
-
-        // 1. build annotation tree
-        val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
-
-        // 2. replace wildcards, preserving annotation spans
         format(builder, tree, stringArgs)
-
         return builder
     }
 
