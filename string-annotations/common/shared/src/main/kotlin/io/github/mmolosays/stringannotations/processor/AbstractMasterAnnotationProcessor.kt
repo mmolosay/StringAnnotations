@@ -1,7 +1,7 @@
 package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
+import io.github.mmolosays.stringannotations.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai

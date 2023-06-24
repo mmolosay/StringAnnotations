@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations.processor.parser
+package io.github.mmolosays.stringannotations.parser
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
 import io.github.mmolosays.stringannotations.utils.Logger

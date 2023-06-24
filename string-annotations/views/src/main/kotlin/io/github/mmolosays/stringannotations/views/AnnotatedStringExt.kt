@@ -5,7 +5,7 @@ import android.text.Spanned
 import android.text.SpannedString
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
+import io.github.mmolosays.stringannotations.parser.CommonValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai

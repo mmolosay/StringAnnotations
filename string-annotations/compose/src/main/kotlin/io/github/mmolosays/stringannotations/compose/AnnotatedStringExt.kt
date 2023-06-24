@@ -13,7 +13,7 @@ import androidx.compose.ui.text.AnnotatedString
 import io.github.mmolosays.stringannotations.compose.args.Clickable
 import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
 import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
+import io.github.mmolosays.stringannotations.parser.CommonValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai

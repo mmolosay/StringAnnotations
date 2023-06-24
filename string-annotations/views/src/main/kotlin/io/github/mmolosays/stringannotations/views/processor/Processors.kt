@@ -1,8 +1,8 @@
 package io.github.mmolosays.stringannotations.views.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
+import io.github.mmolosays.stringannotations.parser.ValueParser
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan

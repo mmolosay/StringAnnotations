@@ -4,8 +4,8 @@ import io.github.mmolosays.stringannotations.args.Arguments
 import io.github.mmolosays.stringannotations.args.types.ClickOwner
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
+import io.github.mmolosays.stringannotations.parser.ValueParser
 import io.github.mmolosays.stringannotations.processor.AnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai

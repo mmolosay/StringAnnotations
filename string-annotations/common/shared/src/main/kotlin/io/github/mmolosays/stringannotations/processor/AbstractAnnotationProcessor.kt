@@ -2,7 +2,7 @@ package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
+import io.github.mmolosays.stringannotations.parser.ValueParser
 import io.github.mmolosays.stringannotations.utils.Logger
 
 /*

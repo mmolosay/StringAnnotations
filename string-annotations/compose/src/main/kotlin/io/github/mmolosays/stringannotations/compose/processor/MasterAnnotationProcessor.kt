@@ -16,9 +16,9 @@ import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
+import io.github.mmolosays.stringannotations.parser.CommonValueParser
+import io.github.mmolosays.stringannotations.parser.ValueParser
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 import androidx.compose.ui.text.style.TextDecoration as ComposeTextDecoration
 
 /*

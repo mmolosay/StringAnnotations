@@ -3,8 +3,8 @@
 package io.github.mmolosays.stringannotations.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
-import io.github.mmolosays.stringannotations.processor.parser.ValueParser
+import io.github.mmolosays.stringannotations.parser.CommonValueParser
+import io.github.mmolosays.stringannotations.parser.ValueParser
 
 /*
  * Copyright 2023 Mikhail Malasai
