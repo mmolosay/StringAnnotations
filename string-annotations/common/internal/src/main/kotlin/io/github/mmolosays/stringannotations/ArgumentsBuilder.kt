@@ -45,7 +45,7 @@ public class ArgumentsBuilder<C : ClickOwner> :
     /**
      * Assembles [Arguments].
      * This method is not defined in [ArgumentsBuilderScope] in order to hide
-     * it from end user.
+     * it from the end-user.
      */
     public fun build(): Arguments<C> =
         DefaultArguments(clickables, colors, decorations, sizes, styles)
