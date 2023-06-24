@@ -54,7 +54,7 @@ public abstract class AbstractAnnotatedStrings<A : Arguments<*>, S, P : Annotati
         // 1. format, preserving annotation spans
         val spannable = AnnotatedStringFormatter.format(string, tree, *formatArgs)
 
-        // 2. parse annotation ranges
+        // 2. parse annotation ranges (may have changed after formatting)
         val ranges = annotations.map { annotation ->
             spannable rangeOf annotation
         }

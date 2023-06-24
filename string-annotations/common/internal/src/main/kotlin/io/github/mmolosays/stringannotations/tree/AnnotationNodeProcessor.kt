@@ -36,10 +36,13 @@ internal object AnnotationNodeProcessor {
      * ```
      */
     fun findNodeUnoccupiedRanges(
-        node: AnnotationNode,
+        node: TreeNode,
         string: Spanned,
     ): List<IntRange> {
-        val nodeRange = node.annotation?.let { string rangeOf it } ?: 0..string.length
+        val nodeRange = when (node) {
+            is AnnotationNode -> string rangeOf node.annotation
+            is AnnotationTree -> 0..string.length
+        }
         if (node.children.isEmpty()) return listOf(nodeRange) // leaf nodes contain one range – itself
 
         val ranges = mutableListOf<IntRange>()

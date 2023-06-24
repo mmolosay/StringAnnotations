@@ -19,18 +19,37 @@ import android.text.Annotation
  */
 
 /**
- * [Annotation] that may contain other ones indside its range.
- * Represents a node in a tree-like structure.
+ * Node of a tree-like structure.
+ */
+internal sealed interface TreeNode {
+
+    /**
+     * Direct children of this node.
+     */
+    val children: List<AnnotationNode>
+}
+
+/**
+ * A root of annotation tree.
+ * Its [children] are top-most annotations in the string.
+ */
+internal data class AnnotationTree(
+    override val children: List<AnnotationNode>,
+) : TreeNode
+
+/**
+ * A node of annotation tree.
+ * Defined by its [annotation]. May contain other ones indside its range.
  */
 internal data class AnnotationNode(
     /**
      * The [Annotation] object instance itself.
-     * If it's `null`, then this [AnnotationNode] is a top-most node holding the whole string.
      */
-    val annotation: Annotation?,
+    val annotation: Annotation,
 
     /**
      * Direct children of [annotation].
+     * Their [annotation]s are positioned in a range of this [annotation].
      */
-    val children: List<AnnotationNode>,
-)
+    override val children: List<AnnotationNode>,
+) : TreeNode

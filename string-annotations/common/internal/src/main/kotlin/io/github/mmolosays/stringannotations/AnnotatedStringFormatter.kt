@@ -3,8 +3,9 @@ package io.github.mmolosays.stringannotations
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import io.github.mmolosays.stringannotations.tree.AnnotationNode
 import io.github.mmolosays.stringannotations.tree.AnnotationNodeProcessor
+import io.github.mmolosays.stringannotations.tree.AnnotationTree
+import io.github.mmolosays.stringannotations.tree.TreeNode
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -32,12 +33,12 @@ internal object AnnotatedStringFormatter {
      */
     fun format(
         string: Spanned,
-        tree: AnnotationNode,
+        tree: AnnotationTree,
         vararg formatArgs: Any,
     ): Spannable {
         val builder = SpannableStringBuilder(string) // copies spans
         val stringArgs = formatArgs.stringify()
-        format(builder, tree, stringArgs)
+        format(builder, tree as TreeNode, stringArgs)
         return builder
     }
 
@@ -73,8 +74,8 @@ internal object AnnotatedStringFormatter {
      */
     private fun format(
         builder: SpannableStringBuilder,
-        node: AnnotationNode,
-        formatArgs: Array<out String>,
+        node: TreeNode,
+        formatArgs: Array<String>,
     ) {
         node.children.forEach { child ->
             format(builder, child, formatArgs)
@@ -91,11 +92,12 @@ internal object AnnotatedStringFormatter {
     }
 
     /**
-     * Maps receiver `formatArgs` into array of [String]s by resolving their string values
-     * (see [java.lang.String.valueOf]).
+     * Maps receiver `formatArgs` into array of [String]s by resolving their string values.
+     *
+     * @see java.lang.String.valueOf
      */
-    private fun Array<out Any>.stringify(): Array<out String> =
-        Array<String>(size) { i ->
+    private fun Array<out Any>.stringify(): Array<String> =
+        Array(size) { i ->
             java.lang.String.valueOf(get(i))
         }
 }

@@ -3,6 +3,7 @@ package io.github.mmolosays.stringannotations
 import android.text.Annotation
 import android.text.SpannableString
 import io.github.mmolosays.stringannotations.tree.AnnotationNode
+import io.github.mmolosays.stringannotations.tree.AnnotationTree
 import io.github.mmolosays.stringannotations.tree.AnnotationTreeBuilder
 import io.kotest.matchers.shouldBe
 import org.junit.Test
@@ -43,8 +44,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -72,8 +72,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -102,8 +101,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -139,8 +137,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -188,8 +185,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -252,8 +248,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -305,8 +300,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -343,8 +337,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -405,8 +398,7 @@ internal class AnnotationTreeBuilderTests {
 
         val tree = AnnotationTreeBuilder.buildAnnotationTree(string, annotations)
 
-        val expected = AnnotationNode(
-            annotation = null,
+        val expected = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],

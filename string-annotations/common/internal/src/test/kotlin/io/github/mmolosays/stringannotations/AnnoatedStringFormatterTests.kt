@@ -3,6 +3,7 @@ package io.github.mmolosays.stringannotations
 import android.text.Annotation
 import android.text.SpannableString
 import io.github.mmolosays.stringannotations.tree.AnnotationNode
+import io.github.mmolosays.stringannotations.tree.AnnotationTree
 import io.kotest.matchers.shouldBe
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -42,8 +43,7 @@ internal class AnnoatedStringFormatterTests {
         val string = SpannableString("here is a text without placeholders").apply {
             setSpan(annotations[0], 10, 22, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -73,8 +73,7 @@ internal class AnnoatedStringFormatterTests {
         val string = SpannableString("here is a placeholder #1: %1\$s, #2: %2\$s and text").apply {
             setSpan(annotations[0], 10, 24, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -109,8 +108,7 @@ internal class AnnoatedStringFormatterTests {
         val string = SpannableString("here is a placeholder #1: %1\$s, #2: %2\$s and text").apply {
             setSpan(annotations[0], 10, 30, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -147,8 +145,7 @@ internal class AnnoatedStringFormatterTests {
             setSpan(annotations[0], 10, 30, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
             setSpan(annotations[1], 32, 40, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -195,8 +192,7 @@ internal class AnnoatedStringFormatterTests {
             setSpan(annotations[2], 32, 40, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
             setSpan(annotations[3], 36, 40, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],
@@ -262,8 +258,7 @@ internal class AnnoatedStringFormatterTests {
             setSpan(annotations[5], 32, 40, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
             setSpan(annotations[6], 36, 40, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-        val tree = AnnotationNode(
-            annotation = null,
+        val tree = AnnotationTree(
             children = listOf(
                 AnnotationNode(
                     annotation = annotations[0],

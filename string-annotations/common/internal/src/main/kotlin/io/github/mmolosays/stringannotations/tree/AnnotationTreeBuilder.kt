@@ -30,14 +30,14 @@ internal object AnnotationTreeBuilder {
     fun buildAnnotationTree(
         string: Spanned,
         annotations: Array<out Annotation>,
-    ): AnnotationNode {
+    ): AnnotationTree {
         val placed = AnnotationSpanProcessor.parseStringAnnotations(string, annotations)
         val groups = placed.groupInRoot()
-        val topmost = groups.map { group ->
+        val topmosts = groups.map { group ->
             val root = group.first() // due to impl of groupInRoot()
             parseAnnotationNode(root, group)
         }
-        return AnnotationNode(annotation = null, children = topmost)
+        return AnnotationTree(children = topmosts)
     }
 
     /**
@@ -60,8 +60,8 @@ internal object AnnotationTreeBuilder {
     private infix fun PlacedAnnotation.findDirectChildrenIn(
         annotations: List<PlacedAnnotation>,
     ): List<PlacedAnnotation> {
-        require(annotations.contains(this)) { "this parent is not in annotations list" }
         val index = annotations.indexOf(this)
+        require(index != -1) { "this parent is not in annotations list" }
         if (index == annotations.lastIndex) return emptyList() // last annotation can't have children
         val children = mutableListOf<PlacedAnnotation>()
         for (i in index + 1 until annotations.size) { // prior annotation can't be child
@@ -120,7 +120,7 @@ internal object AnnotationTreeBuilder {
                 lastRootIndex = i
             }
         }
-        // last is unadded yet
+        // last are unadded yet
         groups += slice(lastRootIndex..lastIndex)
         return groups
     }
