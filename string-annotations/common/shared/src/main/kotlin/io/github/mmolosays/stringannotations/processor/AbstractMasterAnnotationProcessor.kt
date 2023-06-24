@@ -2,6 +2,7 @@ package io.github.mmolosays.stringannotations.processor
 
 import android.text.Annotation
 import io.github.mmolosays.stringannotations.parser.ValueParser
+import io.github.mmolosays.stringannotations.utils.Logger
 
 /*
  * Copyright 2023 Mikhail Malasai
@@ -119,7 +120,11 @@ public abstract class AbstractMasterAnnotationProcessor<A, S> : AnnotationProces
         arguments: A?,
     ): S? {
         val type = annotation.key
-        val processor = getOrCreateAnnotationProcessor(type) ?: return null
+        val processor = getOrCreateAnnotationProcessor(type)
+        if (processor == null) {
+            Logger.w("No AnnotationProcessor specified for Annotation(key=${annotation.key},value=${annotation.value}")
+            return null
+        }
         return processor.parseAnnotation(annotation, arguments)
     }
 
