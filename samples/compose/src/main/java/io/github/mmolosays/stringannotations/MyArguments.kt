@@ -12,8 +12,8 @@ import io.github.mmolosays.stringannotations.compose.ComposeArguments
  * out-of-the-box annotation types, while adding our custom ones.
  */
 class MyArguments(
-    base: ComposeArguments = emptyArguments(),
+    defaultArguments: ComposeArguments = emptyArguments(),
     letterSpacings: List<TextUnit>,
-) : ComposeArguments by base {
+) : ComposeArguments by defaultArguments {
     val letterSpacings: QualifiedList<TextUnit> = QualifiedList("letter-spacing", letterSpacings)
 }

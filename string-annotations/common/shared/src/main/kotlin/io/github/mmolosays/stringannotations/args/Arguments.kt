@@ -27,41 +27,32 @@ import io.github.mmolosays.stringannotations.args.types.TextSize
  */
 public interface Arguments<out C : ClickOwner> {
 
-    public val clickables: Clickables<C>
-    public val colors: Colors
-    public val decorations: Decorations
-    public val sizes: Sizes
-    public val styles: Styles
-
     /**
      * Clickable spans.
      */
-    public class Clickables<out C>(list: List<C>) :
-        QualifiedList<C>("clickable", list)
+    public val clickables: QualifiedList<C>
 
     /**
      * Color integers, like 0xFFFFFFFF.
      *
      * @see [android.graphics.Color]
      */
-    public class Colors(list: List<Int>) :
-        QualifiedList<Int>("color", list)
+    public val colors: QualifiedList<Int>
 
     /**
      * Text decorations.
      *
      * @see [TextDecoration]
      */
-    public class Decorations(list: List<TextDecoration>) :
-        QualifiedList<TextDecoration>("decoration", list)
+    public val decorations: QualifiedList<TextDecoration>
 
     /**
      * Absolute text sizes.
      *
      * @see [TextSize]
      */
-    public class Sizes(list: List<TextSize>) :
-        QualifiedList<TextSize>("size", list)
+    public val sizes: QualifiedList<TextSize>
+
 
     /**
      * Typeface style integers.
@@ -70,7 +61,5 @@ public interface Arguments<out C : ClickOwner> {
      * @see [android.graphics.Typeface.ITALIC]
      * @see [android.graphics.Typeface.BOLD_ITALIC]
      */
-    public class Styles(list: List<Int>) :
-        QualifiedList<Int>("style", list)
-
+    public val styles: QualifiedList<Int>
 }

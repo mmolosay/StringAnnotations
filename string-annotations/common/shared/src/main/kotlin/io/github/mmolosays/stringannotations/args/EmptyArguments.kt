@@ -6,13 +6,13 @@ import io.github.mmolosays.stringannotations.args.types.ClickOwner
  * Internal implementation of empty [Arguments].
  * Should not be used as explicit type.
  */
-private object EmptyArguments : Arguments<Nothing> {
-    override val clickables = Arguments.Clickables<Nothing>(emptyList())
-    override val colors = Arguments.Colors(emptyList())
-    override val decorations = Arguments.Decorations(emptyList())
-    override val sizes = Arguments.Sizes(emptyList())
-    override val styles = Arguments.Styles(emptyList())
-}
+private object EmptyArguments : DefaultArguments<Nothing>(
+    clickables = emptyList(),
+    colors = emptyList(),
+    decorations = emptyList(),
+    sizes = emptyList(),
+    styles = emptyList(),
+)
 
 /**
  * Returns instance of empty [Arguments].

@@ -1,6 +1,6 @@
 package io.github.mmolosays.stringannotations.views.args
 
-import io.github.mmolosays.stringannotations.args.ArgumentsBuilder
+import io.github.mmolosays.stringannotations.ArgumentsBuilder
 import io.github.mmolosays.stringannotations.args.ArgumentsBuilderScope
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 

@@ -1,5 +1,8 @@
-package io.github.mmolosays.stringannotations.args
+package io.github.mmolosays.stringannotations
 
+import io.github.mmolosays.stringannotations.args.Arguments
+import io.github.mmolosays.stringannotations.args.ArgumentsBuilderScope
+import io.github.mmolosays.stringannotations.args.DefaultArguments
 import io.github.mmolosays.stringannotations.args.types.ClickOwner
 import io.github.mmolosays.stringannotations.args.types.TextDecoration
 import io.github.mmolosays.stringannotations.args.types.TextSize
@@ -45,7 +48,7 @@ public class ArgumentsBuilder<C : ClickOwner> :
      * it from end user.
      */
     public fun build(): Arguments<C> =
-        Arguments(clickables, colors, decorations, sizes, styles)
+        DefaultArguments(clickables, colors, decorations, sizes, styles)
 
     // region Clickables
 

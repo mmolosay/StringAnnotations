@@ -1,6 +1,6 @@
 package io.github.mmolosays.stringannotations.compose.args
 
-import io.github.mmolosays.stringannotations.args.ArgumentsBuilder
+import io.github.mmolosays.stringannotations.ArgumentsBuilder
 import io.github.mmolosays.stringannotations.args.ArgumentsBuilderScope
 import io.github.mmolosays.stringannotations.compose.ComposeArguments
 
