@@ -27,7 +27,6 @@ import io.github.mmolosays.stringannotations.args.types.TextSize
  */
 public interface Arguments<out C : ClickOwner> {
 
-    // please, preserve alphabetical order
     public val clickables: Clickables<C>
     public val colors: Colors
     public val decorations: Decorations
@@ -41,9 +40,9 @@ public interface Arguments<out C : ClickOwner> {
         QualifiedList<C>("clickable", list)
 
     /**
-     * Color integers.
+     * Color integers, like 0xFFFFFFFF.
      *
-     * @see [androidx.annotation.ColorInt]
+     * @see [android.graphics.Color]
      */
     public class Colors(list: List<Int>) :
         QualifiedList<Int>("color", list)
