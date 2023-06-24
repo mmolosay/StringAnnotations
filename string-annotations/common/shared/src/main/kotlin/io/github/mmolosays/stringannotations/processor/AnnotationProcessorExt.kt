@@ -3,7 +3,7 @@
 package io.github.mmolosays.stringannotations.processor
 
 import io.github.mmolosays.stringannotations.args.qualified.QualifiedList
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.processor.parser.ValueParser
 
 /*
@@ -33,7 +33,7 @@ import io.github.mmolosays.stringannotations.processor.parser.ValueParser
  * One should use it, if they won't override [AnnotationProcessor.parseAnnotation] method.
  */
 public fun <V, A, S> AnnotationProcessor(
-    parser: ValueParser = DefaultValueParser,
+    parser: ValueParser = CommonValueParser,
     values: A.() -> QualifiedList<V>?,
     factory: (value: V) -> S?,
 ): AnnotationProcessor<A, S> =

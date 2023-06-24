@@ -1,7 +1,7 @@
 package io.github.mmolosays.stringannotations
 
 import android.app.Application
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.views.StringAnnotations
 import io.github.mmolosays.stringannotations.views.processor.MasterAnnotationProcessor
 
@@ -20,7 +20,7 @@ class Application : Application() {
      */
     private fun configureStringAnnotations() {
         val processor = MasterAnnotationProcessor(
-            defaultValueParser = DefaultValueParser,
+            defaultValueParser = CommonValueParser,
         )
         val dependencies = StringAnnotations.Dependencies(
             processor = processor,

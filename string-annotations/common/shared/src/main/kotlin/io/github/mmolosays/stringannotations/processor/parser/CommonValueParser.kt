@@ -23,7 +23,7 @@ import io.github.mmolosays.stringannotations.utils.Logger
  * Out-of-the-box implementation of [ValueParser].
  * Accepts placeholders of `"$arg${QUALIFIER}${INDEX}"` format.
  */
-public object DefaultValueParser : ValueParser {
+public object CommonValueParser : ValueParser {
 
     /**
      * Tries to parse [placeholder] into some value from [values] list.

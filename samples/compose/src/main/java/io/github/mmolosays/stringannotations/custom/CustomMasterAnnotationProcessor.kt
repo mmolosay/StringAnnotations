@@ -5,13 +5,13 @@ import io.github.mmolosays.stringannotations.compose.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.processor.ComposeAnnotationProcessor
 import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 
 /**
  * Overload of [MasterAnnotationProcessor] with custom "letter-spacing" annotation type.
  */
 class CustomMasterAnnotationProcessor : MasterAnnotationProcessor(
-    defaultValueParser = DefaultValueParser,
+    defaultValueParser = CommonValueParser,
 ) {
 
     override fun createAnnotationProcessor(type: String): ComposeAnnotationProcessor? =

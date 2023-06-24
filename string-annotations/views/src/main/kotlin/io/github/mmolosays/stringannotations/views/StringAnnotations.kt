@@ -1,7 +1,7 @@
 package io.github.mmolosays.stringannotations.views
 
 import io.github.mmolosays.stringannotations.core.BaseStringAnnotations
-import io.github.mmolosays.stringannotations.processor.parser.DefaultValueParser
+import io.github.mmolosays.stringannotations.processor.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.views.processor.MasterAnnotationProcessor
 
 /*
@@ -32,7 +32,7 @@ public object StringAnnotations : BaseStringAnnotations<StringAnnotations.Depend
 
     override fun makeDefaultDependencies(): Dependencies =
         Dependencies(
-            processor = MasterAnnotationProcessor(defaultValueParser = DefaultValueParser),
+            processor = MasterAnnotationProcessor(defaultValueParser = CommonValueParser),
         )
 
     public data class Dependencies(
