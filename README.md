@@ -1,5 +1,6 @@
-[![](https://jitpack.io/v/mmolosay/stringannotations.svg)](https://jitpack.io/#mmolosay/stringannotations)
-[![License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
+[![Maven metadata URL](https://img.shields.io/maven-metadata/v?color=blue&metadataUrl=https://s01.oss.sonatype.org/service/local/repo_groups/public/content/io/github/mmolosay/stringannotations/maven-metadata.xml&style=for-the-badge)](https://search.maven.org/artifact/io.github.mmolosay/stringannotations)
+[![License Apache 2.0](https://img.shields.io/github/license/mmolosay/StringAnnotations.svg?style=for-the-badge&color=orange)](https://opensource.org/licenses/Apache-2.0)
+[![kotlin](https://img.shields.io/github/languages/top/mmolosay/StringAnnotations.svg?style=for-the-badge&color=blueviolet)](https://kotlinlang.org/)
 
 # String Annotations
 Rich text in your *strings.xml*.
@@ -13,8 +14,6 @@ Table of contents
     * [Android Views](#android-views)
     * [Jetpack Compose](#jetpack-compose)
 * [Installation](#installation)
-* [General configuration](#general-configuration)
-    * [AnnotationProcessor](#annotationprocessor)
 * [Arguments](#arguments)
 * [Annotations](#annotations)
     * [Background color](#background-color)
@@ -56,13 +55,14 @@ Reasons to use
 - [X] Provides neat API to use inside `Activity`, `Fragment` and `@Composable` scopes.
 - [X] Extendable and customizable: add your own annotation types and arguments for them.
 - [X] 100% documented.
+- [X] Covered in unit tests. 
 
 Artifacts
 =======
 
 ### Android Views
 
-`com.github.mmolosay:stringannotations:views:VERSION`
+`io.github.mmolosay:stringannotations:views:VERSION`
 
 Artifact to be used with Android Views system.
 
@@ -70,7 +70,7 @@ See [string-annotations:views README.md](/string-annotations/views/README.md) fo
 
 ### Jetpack Compose
 
-`com.github.mmolosay:stringannotations:compose:VERSION`
+`io.github.mmolosay:stringannotations:compose:VERSION`
 
 Artifact to be used with [Jetpack Compose](https://developer.android.com/jetpack/compose) UI.
 
@@ -80,25 +80,6 @@ Installation
 =======
 
 The library has not been published yet.
-
-General configuration
-=======
-
-In order to alter default behaviour, you should call [StringAnnotations.configure(…)](/string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/core/StringAnnotations.kt#L42) method and provide custom dependencies. 
-
-> **Note**
-> There's **no need** to call the method, if you want to use library in its default configuration (which is enough in majority of cases).
-
-For examples of library customization check out [samples](#samples) section.
-
-AnnotationProcessor
------
-[AnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AnnotationProcessor.kt) is a centerpiece of the `StringAnnotations` library.
-It parses passed annotation of some annotated string, along with its arguments, into span.
-
-> **Note**
-> Although `AnnotationProcessor` may be implemented directly, author recommends to use either
-[AbstractAnnotationProcessor](string-annotations/common/shared/src/main/java/com/mmolosay/stringannotations/processor/AbstractAnnotationProcessor.kt) or one of the artifact-oriented builder functions (like [ComposeAnnotationProcessor](string-annotations/compose/src/main/java/com/mmolosay/stringannotations/compose/processor/Processors.kt#L56) for Compose UI), since they incapsulate a lot of annotation parsing logic and make implementing custom annnotation types easier.
 
 Arguments
 ======
