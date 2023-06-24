@@ -11,7 +11,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import io.github.mmolosays.stringannotations.compose.args.Clickable
-import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
 import io.github.mmolosays.stringannotations.compose.processor.MasterAnnotationProcessor
 import io.github.mmolosays.stringannotations.parser.CommonValueParser
 

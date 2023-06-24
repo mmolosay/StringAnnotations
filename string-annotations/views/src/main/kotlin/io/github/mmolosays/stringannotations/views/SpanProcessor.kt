@@ -1,7 +1,6 @@
-package io.github.mmolosays.stringannotations.views.internal
+package io.github.mmolosays.stringannotations.views
 
 import android.text.Spannable
-import io.github.mmolosays.stringannotations.views.ViewsSpan
 
 /*
  * Copyright 2023 Mikhail Malasai

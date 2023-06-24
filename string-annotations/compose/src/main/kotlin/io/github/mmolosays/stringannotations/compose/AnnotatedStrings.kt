@@ -3,7 +3,6 @@ package io.github.mmolosays.stringannotations.compose
 import android.text.Spannable
 import androidx.compose.ui.text.AnnotatedString
 import io.github.mmolosays.stringannotations.AbstractAnnotatedStrings
-import io.github.mmolosays.stringannotations.compose.internal.SpanProcessor
 import io.github.mmolosays.stringannotations.compose.processor.ComposeSpan
 
 /*

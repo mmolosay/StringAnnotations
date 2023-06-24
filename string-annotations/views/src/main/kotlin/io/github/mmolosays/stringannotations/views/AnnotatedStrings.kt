@@ -3,7 +3,6 @@ package io.github.mmolosays.stringannotations.views
 import android.text.Spannable
 import android.text.Spanned
 import io.github.mmolosays.stringannotations.AbstractAnnotatedStrings
-import io.github.mmolosays.stringannotations.views.internal.SpanProcessor
 
 /*
  * Copyright 2023 Mikhail Malasai

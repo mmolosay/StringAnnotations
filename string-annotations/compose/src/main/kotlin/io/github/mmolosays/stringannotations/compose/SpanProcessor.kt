@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations.compose.internal
+package io.github.mmolosays.stringannotations.compose
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.ParagraphStyle
