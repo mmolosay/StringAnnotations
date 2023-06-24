@@ -19,7 +19,7 @@ import android.text.Annotation
  */
 
 /**
- * Node of a tree-like structure.
+ * Node of a tree-like structure of [AnnotationNode]s.
  */
 internal sealed interface TreeNode {
 
@@ -49,7 +49,7 @@ internal data class AnnotationNode(
 
     /**
      * Direct children of [annotation].
-     * Their [annotation]s are positioned in a range of this [annotation].
+     * Their [annotation]s are positioned inside a range of this [annotation].
      */
     override val children: List<AnnotationNode>,
 ) : TreeNode
