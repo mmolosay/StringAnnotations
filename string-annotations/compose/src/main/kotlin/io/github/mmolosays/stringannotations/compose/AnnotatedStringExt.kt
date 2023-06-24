@@ -37,14 +37,12 @@ import io.github.mmolosays.stringannotations.parser.CommonValueParser
 /**
  * Default [ComposeAnnotationProcessor] to be used.
  *
- * As for any other [ProvidableCompositionLocal], if you want to provide your own implementation of
+ * As with any other [ProvidableCompositionLocal], if you want to provide your own implementation of
  * annotation processor, you should do it in the root of the application's UI.
  */
 public val LocalStringAnnotationProcessor: ProvidableCompositionLocal<ComposeAnnotationProcessor> =
     staticCompositionLocalOf {
-        MasterAnnotationProcessor(
-            defaultValueParser = CommonValueParser,
-        )
+        MasterAnnotationProcessor()
     }
 
 /**
@@ -55,7 +53,7 @@ public val LocalStringAnnotationProcessor: ProvidableCompositionLocal<ComposeAnn
  * (like "`$arg$color$0`" for [CommonValueParser]).
  * @param processor an annotaion processor to be used.
  * Use the other variant of this function, if you want to use default annotation processor.
- * @param formatArgs formatting arguments to be substituted instead of positional argument (like "`%1$s`").
+ * @param formatArgs formatting arguments to be substituted instead of positional arguments (like "`%1$s`").
  * See also: [Formatting strings](https://developer.android.com/guide/topics/resources/string-resource#formatting-strings).
  */
 @Composable

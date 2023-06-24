@@ -34,7 +34,7 @@ import io.github.mmolosays.stringannotations.parser.CommonValueParser
  * @param arguments annotation arguments to be used instead of value placeholders
  * (like "`$arg$color$0`" for [CommonValueParser]).
  * @param processor an annotaion processor to be used.
- * @param formatArgs formatting arguments to be substituted instead of positional argument (like "`%1$s`").
+ * @param formatArgs formatting arguments to be substituted instead of positional arguments (like "`%1$s`").
  * See also: [Formatting strings](https://developer.android.com/guide/topics/resources/string-resource#formatting-strings).
  */
 public fun Context.getAnnotatedString(
@@ -59,7 +59,7 @@ public fun Context.getAnnotatedString(
  * @param arguments annotation arguments to be used instead of value placeholders
  * (like "`$arg$color$0`" for [CommonValueParser]).
  * @param processor an annotaion processor to be used.
- * @param formatArgs formatting arguments to be substituted instead of positional argument (like "`%1$s`").
+ * @param formatArgs formatting arguments to be substituted instead of positional arguments (like "`%1$s`").
  * See also: [Formatting strings](https://developer.android.com/guide/topics/resources/string-resource#formatting-strings).
  *
  * @throws IllegalStateException if fragment is not attached to a context.
