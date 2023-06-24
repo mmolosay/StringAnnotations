@@ -50,7 +50,7 @@ public object CommonValueParser : ValueParser {
             val index = requireNotNull(parsePlaceholderIndex(ordinal))
             getArgument(index, values)
         } catch (e: Exception) {
-            Logger.w("Invalid annotation argument placeholder format: \"$placeholder\"")
+            Logger.w("Invalid annotation argument placeholder format: \"$placeholder\", expected: \"\$arg\${QUALIFIER}\${INDEX}\"")
             null
         }
 
@@ -61,6 +61,6 @@ public object CommonValueParser : ValueParser {
 
     private fun <V> getArgument(index: Int, args: QualifiedList<V>): V? =
         args.getOrNull(index).also {
-            it ?: Logger.w("There is no annotation argument at index=$index")
+            it ?: Logger.w("There is no annotation argument at index=$index for arguments of size=${args.size}")
         }
 }

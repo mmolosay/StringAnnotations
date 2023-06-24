@@ -31,4 +31,8 @@ dependencies {
 
     // Modules
     implementation(project(":string-annotations:common:utils"))
+
+    // Testing
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.5")
 }
