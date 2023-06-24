@@ -16,8 +16,6 @@ import io.github.mmolosays.stringannotations.sample.databinding.MainScreenBindin
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.args.Arguments
 import io.github.mmolosays.stringannotations.views.args.Clickable
-import io.github.mmolosays.stringannotations.views.clickable.Clickable
-import io.github.mmolosays.stringannotations.views.clickable.from
 import io.github.mmolosays.stringannotations.views.getAnnotatedString
 import io.github.mmolosays.stringannotations.views.processor.MasterAnnotationProcessor
 
@@ -32,6 +30,12 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * processor once and then inject it in your Activities and Fragments.
      */
     private val annotationProcessor: ViewsAnnotationProcessor = MasterAnnotationProcessor()
+
+    /**
+     * Same as for [annotationProcessor] above: in production you should inject an instance here.
+     */
+    private val defaultClickableAppearance =
+        Clickable.Appearance(underlineText = false, textColor = -0xb3740b)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,19 +84,12 @@ class MainActivity : AppCompatActivity(R.layout.main_screen) {
      * Note: target `TextView` should be set with `setMovementMethod` in order to make clicks work.
      */
     private fun setDemo3() {
-        val appearance = Clickable.Appearance.from(theme)
-        val span1 = Clickable(appearance) {
+        val appearance1 = defaultClickableAppearance
+        val appearance2 = Clickable.Appearance(underlineText = true, textColor = Color.MAGENTA)
+        val span1 = Clickable(appearance1) {
             Toast.makeText(this, "Clicked text with index=0", Toast.LENGTH_SHORT).show()
         }
-        val span2 = Clickable(
-            theme = theme,
-            builder = {
-                copy(
-                    underlineText = true,
-                    textColor = Color.MAGENTA
-                )
-            }
-        ) {
+        val span2 = Clickable(appearance2) {
             Toast.makeText(this, "Clicked text with index=1", Toast.LENGTH_SHORT).show()
         }
         val args = Arguments {

@@ -16,10 +16,10 @@ import io.github.mmolosays.stringannotations.args.types.TextSize.SizeUnit
 import io.github.mmolosays.stringannotations.parser.CommonValueParser
 import io.github.mmolosays.stringannotations.parser.ValueParser
 import io.github.mmolosays.stringannotations.processor.AbstractMasterAnnotationProcessor
+import io.github.mmolosays.stringannotations.views.CustomizableClickableSpan
 import io.github.mmolosays.stringannotations.views.ViewsAnnotationProcessor
 import io.github.mmolosays.stringannotations.views.ViewsArguments
 import io.github.mmolosays.stringannotations.views.ViewsSpan
-import io.github.mmolosays.stringannotations.views.clickable.CustomizableClickableSpan
 import kotlin.math.roundToInt
 
 /*

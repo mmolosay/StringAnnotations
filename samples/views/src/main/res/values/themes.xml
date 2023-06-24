@@ -9,19 +9,12 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
-        <!-- Declare your clickable text appearance in application theme -->
-        <item name="clickableTextAppearance">@style/TextAppearance.ClickableTextAppearance</item>
         <item name="android:textViewStyle">@style/Widget.TextView</item>
     </style>
 
     <style name="Widget.TextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/black</item>
-    </style>
-
-    <!-- Define your clickable text appearance. You can inherit default one -->
-    <style name="TextAppearance.ClickableTextAppearance" parent="Base.ClickableTextAppearance">
-        <item name="android:textColor">#21834B</item>
     </style>
 
 </resources>

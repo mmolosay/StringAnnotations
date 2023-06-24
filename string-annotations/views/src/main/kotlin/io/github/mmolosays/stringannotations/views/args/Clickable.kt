@@ -6,8 +6,6 @@ import io.github.mmolosays.stringannotations.args.types.ClickOwner
 
 /**
  * Implementation of [ClickOwner] for Android Views UI.
- *
- * Additionaly, provides [appearance] of clickable text.
  */
 public data class Clickable(
     public val appearance: Appearance = Appearance(),

@@ -1,4 +1,4 @@
-package io.github.mmolosays.stringannotations.views.clickable
+package io.github.mmolosays.stringannotations.views
 
 import android.text.TextPaint
 import android.text.style.ClickableSpan
