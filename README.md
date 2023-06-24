@@ -62,7 +62,7 @@ Artifacts
 
 ### Android Views
 
-`io.github.mmolosay:stringannotations:views:VERSION`
+`io.github.mmolosay:string-annotations:views:VERSION`
 
 Artifact to be used with Android Views system.
 
@@ -70,7 +70,7 @@ See [string-annotations:views README.md](/string-annotations/views/README.md) fo
 
 ### Jetpack Compose
 
-`io.github.mmolosay:stringannotations:compose:VERSION`
+`io.github.mmolosay:string-annotations:compose:VERSION`
 
 Artifact to be used with [Jetpack Compose](https://developer.android.com/jetpack/compose) UI.
 
